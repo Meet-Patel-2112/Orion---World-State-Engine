@@ -110,7 +110,7 @@ ROWS = [{"Character ID": "0", "Main Name": "Jane", "Aliases": "{'Jane', 'Miss Be
         {"Character ID": "3", "Main Name": "_group", "Aliases": "['_group']"}]
 CONFIG = {"work_id": "pride_and_prejudice", "title": "Pride and Prejudice", "author": "Jane Austen",
           "entities": {"Elizabeth": {"key": "elizabeth_bennet", "name": "Elizabeth Bennet"},
-                       "Charlotte Lucas": {"drop_aliases": ["Lady Lucas"]}},
+                       "Charlotte Lucas": {"drop_aliases": ["Lady Lucas"], "add_aliases": ["Mrs. Collins"]}},
           "extra_entities": [{"key": "lady_lucas", "name": "Lady Lucas"}],
           "name_map": {"Lady Lucas": "lady_lucas"}}
 
@@ -119,6 +119,7 @@ def test_names_resolve_through_fixes_main_names_and_unique_aliases():
     chars = Characters(ROWS, CONFIG)
     assert chars.resolve("Lizzy") == ("elizabeth_bennet", None)
     assert chars.resolve("Lady Lucas") == ("lady_lucas", None)          # not Charlotte, as PDNC has it
+    assert chars.resolve("Mrs. Collins") == ("charlotte_lucas", None)   # an added alias
     assert chars.resolve("_group") == (None, None)
     assert chars.resolve("Mr. Nobody")[1] and entity_key("Mr. Collins' Father") == "mr_collins_father"
 

@@ -86,8 +86,8 @@ def _names(cell: str) -> List[str]:
 
 
 class Characters:
-    """PDNC's character list with work.json's fixes: keys, names, merged duplicates, dropped aliases, extra
-    entities, and `name_map` for names PDNC resolves wrongly or not at all."""
+    """PDNC's character list with work.json's fixes: keys, names, merged duplicates, dropped and added aliases,
+    extra entities, and `name_map` for names PDNC resolves wrongly or not at all."""
 
     def __init__(self, rows: Sequence[Dict[str, str]], config: Dict[str, Any]):
         overrides = config.get("entities", {})
@@ -100,7 +100,7 @@ class Characters:
                 continue
             fix = overrides.get(main, {})
             key = fix.get("key") or entity_key(main)
-            aliases = set(_names(row["Aliases"])) - set(fix.get("drop_aliases", []))
+            aliases = (set(_names(row["Aliases"])) - set(fix.get("drop_aliases", []))) | set(fix.get("add_aliases", []))
             entity = self.entities.setdefault(key, {"entity_key": key, "name": fix.get("name", main),
                                                     "type": "character", "aliases": set(), "pdnc_ids": []})
             if "name" in fix:

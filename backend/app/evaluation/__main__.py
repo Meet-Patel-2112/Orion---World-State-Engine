@@ -9,7 +9,7 @@ Command line (run from backend/):
 
     python -m app.evaluation pdnc WORK.json --pdnc-dir PDNC_NOVEL_DIR --revision SHA [--reference-text FILE] [--force]
         gold v2 drafts from the Project Dialogism Novel Corpus: one chNN.json (+ chNN.issues.txt) per chapter listed
-        in WORK.json, written next to it; an existing chNN.json is kept unless --force
+        in WORK.json (or only --chapters 3,22), written next to it; an existing chNN.json is kept unless --force
 
     python -m app.evaluation validate-v2 PATH...
         check gold v2 chapter files (or every ch*.json under a directory) and the chapters of each work together
@@ -82,7 +82,7 @@ def cmd_pdnc(args: argparse.Namespace) -> int:
     characters = pdnc.Characters(read("character_info.csv"), config)
     quote_rows = read("quotation_info.csv")
     chapters = pdnc.split_chapters(text)
-    for number in config["chapters"]:
+    for number in args.chapters or config["chapters"]:
         doc, issues = pdnc.convert_chapter(text, quote_rows, characters, config, number, chapters[number - 1],
                                            args.revision, pdnc_text)
         issues += [f"validation: {e}" for e in doc_errors(doc)]
@@ -136,6 +136,8 @@ def main(argv: List[str] = None) -> int:
     p.add_argument("--revision", required=True)
     p.add_argument("--reference-text")
     p.add_argument("--force", action="store_true")
+    p.add_argument("--chapters", type=lambda s: [int(n) for n in s.split(",")],
+                   help="only these chapters, e.g. 3,22 (default: every chapter in WORK.json)")
     v = sub.add_parser("validate-v2")
     v.add_argument("paths", nargs="+")
     args = ap.parse_args(argv)

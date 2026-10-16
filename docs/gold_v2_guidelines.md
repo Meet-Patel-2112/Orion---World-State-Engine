@@ -88,7 +88,13 @@ A mention is a stretch of text that refers to an entity. Each one is linked to i
   phrase is not a mention: `her` in "the business of her life". PDNC's imported mentions follow this rule, so
   imported and drafted mentions agree.
 - A vocative or full form of address is one mention with the name nested inside it: `My dear Mr. Bennet` and
-  `Mr. Bennet`.
+  `Mr. Bennet`. The `my` of an endearment (`my dear`) is part of the fixed form and is not marked as the speaker.
+- A name used as a modifier is a mention of its own entity, nested: in `the Netherfield party`, mark `the
+  Netherfield party` (the group) and `Netherfield` (the place).
+- A partitive that picks out one particular person is a mention of that person, with the group nested: in "his
+  having slighted one of her daughters" (Elizabeth), mark `one of her daughters` (Elizabeth), `her daughters` (the
+  group) and `her`. A partitive that picks out no one in particular ("if he marries one of them") is not a mention;
+  mark only the group inside it.
 - No leading or trailing whitespace or punctuation inside a span.
 
 **Fields:**
