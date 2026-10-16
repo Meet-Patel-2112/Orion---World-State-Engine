@@ -6,14 +6,18 @@ Gold v2 lives in `v2/<work_id>/`: one `chNN.json` per chapter, valid against
 
 | Work | Chapters | Status |
 | --- | --- | --- |
-| Pride and Prejudice | 1, 3, 22, 46, 61 | ch01: reviewed (pilot, 2026-10-16). Others: PDNC import only |
-| Oliver Twist | 1, 8, 47, 50, 51 | PDNC import only |
-| The Invisible Man | 1, 7, 17, 20, 28 | PDNC import only |
-| The Mysterious Affair at Styles | 1, 3, 6, 12, 13 | PDNC import only |
+| Pride and Prejudice | 1, 3, 22, 46, 61 | ch01: reviewed (pilot, 2026-10-16). Others: Claude's draft, pending review |
+| Oliver Twist | 1, 8, 47, 50, 51 | Claude's draft, pending review |
+| The Invisible Man | 1, 7, 17, 20, 28 | Claude's draft, pending review |
+| The Mysterious Affair at Styles | 1, 3, 6, 12, 13 | Claude's draft, pending review |
 
-"PDNC import only" means the chapter has its text, characters, quotes with speakers, and the mentions PDNC marks
-inside quotes. Facts and relationships come from the drafting pass, which runs chapter by chapter after the pilot is
-reviewed. Only items whose `review.status` is `accepted` or `corrected` are gold.
+Every chapter has its text, characters, quotes with speakers, and the mentions PDNC marks inside quotes (imported,
+`review.origin` `pdnc`). A drafted chapter adds Claude's mentions (exhaustive over the region in
+`annotation.layers.mentions`, about the first 2,000 words), entities, facts and relationships (exhaustive over the
+whole chapter), all `review.status` `pending`. Where the draft disagrees with a PDNC mention, that PDNC item is
+re-opened as `pending` with the drafter's proposal in `review.note`; each chapter's `annotation.notes` lists those
+and the other readings that need a reviewer's eye. Only items whose `review.status` is `accepted` or `corrected` are
+gold.
 
 ## Files per work
 
@@ -36,6 +40,10 @@ PYTHONPATH=. python -m app.evaluation pdnc ../gold/v2/the_invisible_man/work.jso
     --pdnc-dir PATH/TO/TheInvisibleMan --revision e507a27b89a85c1e9710a897ad0b3f5a9ad73dc4 \
     --reference-text PATH/TO/pg5230.txt          # https://www.gutenberg.org/cache/epub/5230/pg5230.txt
 
+# Styles: PDNC replaced each non-ASCII character with one space per UTF-8 byte (work.json reference_text.mode
+# "bytes"); restoring moves every span to the restored text
+PYTHONPATH=. python -m app.evaluation pdnc ../gold/v2/the_mysterious_affair_at_styles/work.json     --pdnc-dir PATH/TO/TheMysteriousAffairAtStyles --revision e507a27b89a85c1e9710a897ad0b3f5a9ad73dc4     --reference-text PATH/TO/pg863.txt           # https://www.gutenberg.org/cache/epub/863/pg863.txt
+
 PYTHONPATH=. python -m app.evaluation validate-v2 ../gold/v2
 ```
 
@@ -52,6 +60,7 @@ Dialogism Novel Corpus, licensed CC-BY 4.0:
 > <https://github.com/Priya22/project-dialogism-novel-corpus>
 
 Changes made to PDNC's data are listed in each `work.json` and in the converter (`backend/app/evaluation/pdnc.py`):
-spans trimmed of edge whitespace, characters restored in The Invisible Man, character-list fixes.
+spans trimmed of edge whitespace, characters restored in The Invisible Man and The Mysterious Affair at Styles,
+character-list fixes.
 
 The v1 gold (`extractor/data/gold/`) remains in place until the extractor and scorer move to v2.

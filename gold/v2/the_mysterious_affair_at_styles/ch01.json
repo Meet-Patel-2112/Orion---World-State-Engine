@@ -21,7 +21,7 @@
   "status": "draft",
   "layers": {
    "mentions": {
-    "coverage": "partial",
+    "coverage": "exhaustive",
     "region": {
      "start": 0,
      "end": 11526
@@ -34,10 +34,10 @@
     "coverage": "none"
    },
    "facts": {
-    "coverage": "none"
+    "coverage": "exhaustive"
    },
    "relationships": {
-    "coverage": "none"
+    "coverage": "exhaustive"
    },
    "temporal_expressions": {
     "coverage": "none"
@@ -46,7 +46,13 @@
     "coverage": "none"
    }
   },
-  "notes": "Quotes, characters and the mentions inside quotes imported from PDNC at e507a27. Mentions are partial until the drafting pass covers the region."
+  "notes": "Quotes, characters and the mentions inside quotes are imported from PDNC at e507a27; every other item is Claude's draft and pending review. Hastings narrates in the first person (guidelines section 8): his narration is unattributed. First person inside quotes goes to PDNC's speaker of the quote, 'you' to its single addressee. 'Mrs. Cavendish' is Emily (John's step-mother, before her remarriage) in the opening, and Mary (John's wife) at tea: linked by context. The narrator calls Emily the brothers' step-mother, so the tie is RELATED_TO, though John says 'my mother' and 'the mater'. 'Rotten little bounder', 'this fellow' and 'the fellow' are Alfred; 'a lady in a stout tweed skirt' is Evelyn Howard; 'A figure rose' is Mary. Cynthia's parents ('an old schoolfellow', 'a rascally solicitor') are mentioned once each: null.",
+  "annotators": [
+   {
+    "name": "Claude",
+    "role": "drafter"
+   }
+  ]
  },
  "entities": [
   {
@@ -82,6 +88,24 @@
     "origin": "pdnc",
     "status": "accepted",
     "by": "pdnc"
+   }
+  },
+  {
+   "entity_key": "cavendish_brothers",
+   "name": "the Cavendish brothers",
+   "type": "character",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "cavendish_family",
+   "name": "the Cavendish family",
+   "type": "character",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
    }
   },
   {
@@ -136,6 +160,15 @@
    }
   },
   {
+   "entity_key": "essex",
+   "name": "Essex",
+   "type": "location",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
    "entity_key": "evelyn_howard",
    "name": "Evelyn Howard",
    "type": "character",
@@ -150,6 +183,24 @@
     "origin": "pdnc",
     "status": "accepted",
     "by": "pdnc"
+   }
+  },
+  {
+   "entity_key": "farmer_raikes",
+   "name": "Raikes",
+   "type": "character",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "hastings_cousin",
+   "name": "Hastings's cousin",
+   "type": "character",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
    }
   },
   {
@@ -187,6 +238,24 @@
    }
   },
   {
+   "entity_key": "lady_tadminster",
+   "name": "Lady Tadminster",
+   "type": "character",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "lady_tadminsters_husband",
+   "name": "Lady Tadminster's husband",
+   "type": "character",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
    "entity_key": "lawrence_cavendish",
    "name": "Lawrence Cavendish",
    "type": "character",
@@ -201,6 +270,24 @@
     "origin": "pdnc",
     "status": "accepted",
     "by": "pdnc"
+   }
+  },
+  {
+   "entity_key": "lloyds",
+   "name": "Lloyd's",
+   "type": "organization",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "lord_abbotsbury",
+   "name": "Lord Abbotsbury",
+   "type": "character",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
    }
   },
   {
@@ -219,11 +306,550 @@
     "status": "accepted",
     "by": "pdnc"
    }
+  },
+  {
+   "entity_key": "mr_cavendish",
+   "name": "Mr. Cavendish",
+   "type": "character",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "mrs_raikes",
+   "name": "Mrs. Raikes",
+   "type": "character",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "red_cross_hospital",
+   "name": "the Red Cross Hospital at Tadminster",
+   "type": "organization",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "styles_court",
+   "name": "Styles Court",
+   "type": "location",
+   "aliases": [
+    "Styles"
+   ],
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "styles_st_mary",
+   "name": "Styles St. Mary",
+   "type": "location",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "styles_station",
+   "name": "Styles St. Mary station",
+   "type": "location",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "tadminster",
+   "name": "Tadminster",
+   "type": "location",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "the_princess",
+   "name": "the Princess",
+   "type": "character",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "the_volunteers",
+   "name": "the volunteers",
+   "type": "organization",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
   }
  ],
  "mentions": [
   {
    "mention_id": "M1",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 11,
+   "end": 12,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M2",
+   "text": "STYLES",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "styles_court",
+   "start": 19,
+   "end": 25,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M3",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 218,
+   "end": 219,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M4",
+   "text": "my friend Poirot",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "hercule_poirot",
+   "start": 245,
+   "end": 261,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M5",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 245,
+   "end": 247,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M6",
+   "text": "Poirot",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "hercule_poirot",
+   "start": 255,
+   "end": 261,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M7",
+   "text": "the family",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "cavendish_family",
+   "start": 266,
+   "end": 276,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M8",
+   "text": "themselves",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "cavendish_family",
+   "start": 277,
+   "end": 287,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M9",
+   "text": "we",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 335,
+   "end": 337,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M10",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 416,
+   "end": 417,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M11",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 481,
+   "end": 483,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M12",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 518,
+   "end": 519,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M13",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 703,
+   "end": 704,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M14",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 727,
+   "end": 729,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M15",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 752,
+   "end": 753,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M16",
+   "text": "John Cavendish",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "john_cavendish",
+   "start": 765,
+   "end": 779,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M17",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 781,
+   "end": 782,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M18",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "john_cavendish",
+   "start": 807,
+   "end": 810,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M19",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 835,
+   "end": 836,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M20",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "john_cavendish",
+   "start": 853,
+   "end": 856,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M21",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "john_cavendish",
+   "start": 876,
+   "end": 878,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M22",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 904,
+   "end": 906,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M23",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "john_cavendish",
+   "start": 937,
+   "end": 939,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M24",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "john_cavendish",
+   "start": 954,
+   "end": 957,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M25",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 994,
+   "end": 995,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M26",
+   "text": "Styles",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "styles_court",
+   "start": 1016,
+   "end": 1022,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M27",
+   "text": "his mother's place",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "styles_court",
+   "start": 1024,
+   "end": 1042,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M28",
+   "text": "his mother",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "emily_inglethorp",
+   "start": 1024,
+   "end": 1034,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M29",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "john_cavendish",
+   "start": 1024,
+   "end": 1027,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M30",
+   "text": "Essex",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "essex",
+   "start": 1046,
+   "end": 1051,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M31",
+   "text": "We",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 1054,
+   "end": 1056,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M32",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "john_cavendish",
+   "start": 1106,
+   "end": 1109,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M33",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 1119,
+   "end": 1121,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M34",
+   "text": "Styles",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "styles_court",
+   "start": 1130,
+   "end": 1136,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M35",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 1146,
+   "end": 1148,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M36",
    "text": "The mater",
    "type": "character",
    "mention_kind": "proper",
@@ -238,7 +864,7 @@
    }
   },
   {
-   "mention_id": "M2",
+   "mention_id": "M37",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -253,7 +879,20 @@
    }
   },
   {
-   "mention_id": "M3",
+   "mention_id": "M38",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "john_cavendish",
+   "start": 1233,
+   "end": 1235,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M39",
    "text": "Your mother",
    "type": "character",
    "mention_kind": "proper",
@@ -268,7 +907,46 @@
    }
   },
   {
-   "mention_id": "M4",
+   "mention_id": "M40",
+   "text": "Your",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "john_cavendish",
+   "start": 1245,
+   "end": 1249,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M41",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 1270,
+   "end": 1271,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M42",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "john_cavendish",
+   "start": 1290,
+   "end": 1291,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M43",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -283,7 +961,7 @@
    }
   },
   {
-   "mention_id": "M5",
+   "mention_id": "M44",
    "text": "she",
    "type": "character",
    "mention_kind": "pronominal",
@@ -298,7 +976,800 @@
    }
   },
   {
-   "mention_id": "M6",
+   "mention_id": "M45",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 1339,
+   "end": 1340,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M46",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 1351,
+   "end": 1352,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M47",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 1360,
+   "end": 1362,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M48",
+   "text": "Mrs. Cavendish",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "emily_inglethorp",
+   "start": 1388,
+   "end": 1402,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M49",
+   "text": "John's father",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "mr_cavendish",
+   "start": 1420,
+   "end": 1433,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M50",
+   "text": "John",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "john_cavendish",
+   "start": 1420,
+   "end": 1424,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M51",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_cavendish",
+   "start": 1439,
+   "end": 1441,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M52",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 1514,
+   "end": 1515,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M53",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "emily_inglethorp",
+   "start": 1527,
+   "end": 1530,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M54",
+   "text": "She",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "emily_inglethorp",
+   "start": 1532,
+   "end": 1535,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M55",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 1588,
+   "end": 1589,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M56",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "emily_inglethorp",
+   "start": 1599,
+   "end": 1602,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M57",
+   "text": "She",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "emily_inglethorp",
+   "start": 1766,
+   "end": 1769,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M58",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "emily_inglethorp",
+   "start": 1837,
+   "end": 1840,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M59",
+   "text": "Their country-place",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "styles_court",
+   "start": 1847,
+   "end": 1866,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M60",
+   "text": "Their",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 1847,
+   "end": 1852,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M61",
+   "text": "Styles Court",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "styles_court",
+   "start": 1868,
+   "end": 1880,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M62",
+   "text": "Mr. Cavendish",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mr_cavendish",
+   "start": 1904,
+   "end": 1917,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M63",
+   "text": "their",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 1927,
+   "end": 1932,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M64",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_cavendish",
+   "start": 1947,
+   "end": 1949,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M65",
+   "text": "his wife",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "emily_inglethorp",
+   "start": 1976,
+   "end": 1984,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M66",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_cavendish",
+   "start": 1976,
+   "end": 1979,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M67",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_cavendish",
+   "start": 2026,
+   "end": 2028,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M68",
+   "text": "the place",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "styles_court",
+   "start": 2034,
+   "end": 2043,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M69",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "emily_inglethorp",
+   "start": 2047,
+   "end": 2050,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M70",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "emily_inglethorp",
+   "start": 2055,
+   "end": 2058,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M71",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_cavendish",
+   "start": 2099,
+   "end": 2102,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M72",
+   "text": "his two sons",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "cavendish_brothers",
+   "start": 2156,
+   "end": 2168,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M73",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_cavendish",
+   "start": 2156,
+   "end": 2159,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M74",
+   "text": "Their step-mother",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "emily_inglethorp",
+   "start": 2170,
+   "end": 2187,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M75",
+   "text": "Their",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "cavendish_brothers",
+   "start": 2170,
+   "end": 2175,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M76",
+   "text": "them",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "cavendish_brothers",
+   "start": 2231,
+   "end": 2235,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M77",
+   "text": "they",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "cavendish_brothers",
+   "start": 2245,
+   "end": 2249,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M78",
+   "text": "their father",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "mr_cavendish",
+   "start": 2279,
+   "end": 2291,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M79",
+   "text": "their",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "cavendish_brothers",
+   "start": 2279,
+   "end": 2284,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M80",
+   "text": "they",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "cavendish_brothers",
+   "start": 2310,
+   "end": 2314,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M81",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "emily_inglethorp",
+   "start": 2333,
+   "end": 2336,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M82",
+   "text": "their",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "cavendish_brothers",
+   "start": 2340,
+   "end": 2345,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M83",
+   "text": "Lawrence",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "lawrence_cavendish",
+   "start": 2359,
+   "end": 2367,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M84",
+   "text": "the younger",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "lawrence_cavendish",
+   "start": 2369,
+   "end": 2380,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M85",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "lawrence_cavendish",
+   "start": 2409,
+   "end": 2411,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M86",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "lawrence_cavendish",
+   "start": 2549,
+   "end": 2552,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M87",
+   "text": "John",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "john_cavendish",
+   "start": 2591,
+   "end": 2595,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M88",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "john_cavendish",
+   "start": 2713,
+   "end": 2715,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M89",
+   "text": "his wife",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "mary_cavendish",
+   "start": 2757,
+   "end": 2765,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M90",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "john_cavendish",
+   "start": 2757,
+   "end": 2760,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M91",
+   "text": "Styles",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "styles_court",
+   "start": 2777,
+   "end": 2783,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M92",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 2792,
+   "end": 2793,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M93",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "john_cavendish",
+   "start": 2830,
+   "end": 2832,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M94",
+   "text": "his mother",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "emily_inglethorp",
+   "start": 2854,
+   "end": 2864,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M95",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "john_cavendish",
+   "start": 2854,
+   "end": 2857,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M96",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "john_cavendish",
+   "start": 2877,
+   "end": 2880,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M97",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "john_cavendish",
+   "start": 2917,
+   "end": 2920,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M98",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "john_cavendish",
+   "start": 2939,
+   "end": 2942,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M99",
+   "text": "Mrs. Cavendish",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "emily_inglethorp",
+   "start": 2948,
+   "end": 2962,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M100",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "emily_inglethorp",
+   "start": 3002,
+   "end": 3005,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M101",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "emily_inglethorp",
+   "start": 3082,
+   "end": 3085,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M102",
+   "text": "John",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "john_cavendish",
+   "start": 3143,
+   "end": 3147,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M103",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 3156,
+   "end": 3158,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M104",
+   "text": "his mother",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "emily_inglethorp",
+   "start": 3183,
+   "end": 3193,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M105",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "john_cavendish",
+   "start": 3183,
+   "end": 3186,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M106",
    "text": "Rotten little bounder",
    "type": "character",
    "mention_kind": "proper",
@@ -313,7 +1784,33 @@
    }
   },
   {
-   "mention_id": "M7",
+   "mention_id": "M107",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "john_cavendish",
+   "start": 3265,
+   "end": 3267,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M108",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "john_cavendish",
+   "start": 3284,
+   "end": 3285,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M109",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -328,7 +1825,7 @@
    }
   },
   {
-   "mention_id": "M8",
+   "mention_id": "M110",
    "text": "Hastings",
    "type": "character",
    "mention_kind": "proper",
@@ -343,7 +1840,20 @@
    }
   },
   {
-   "mention_id": "M9",
+   "mention_id": "M111",
+   "text": "us",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "cavendish_family",
+   "start": 3347,
+   "end": 3349,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M112",
    "text": "Evie",
    "type": "character",
    "mention_kind": "proper",
@@ -358,7 +1868,7 @@
    }
   },
   {
-   "mention_id": "M10",
+   "mention_id": "M113",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -373,7 +1883,7 @@
    }
   },
   {
-   "mention_id": "M11",
+   "mention_id": "M114",
    "text": "Evie",
    "type": "character",
    "mention_kind": "proper",
@@ -388,7 +1898,20 @@
    }
   },
   {
-   "mention_id": "M12",
+   "mention_id": "M115",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "john_cavendish",
+   "start": 3396,
+   "end": 3397,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M116",
    "text": "she",
    "type": "character",
    "mention_kind": "pronominal",
@@ -403,7 +1926,7 @@
    }
   },
   {
-   "mention_id": "M13",
+   "mention_id": "M117",
    "text": "your",
    "type": "character",
    "mention_kind": "pronominal",
@@ -418,7 +1941,7 @@
    }
   },
   {
-   "mention_id": "M14",
+   "mention_id": "M118",
    "text": "She",
    "type": "character",
    "mention_kind": "pronominal",
@@ -433,7 +1956,7 @@
    }
   },
   {
-   "mention_id": "M15",
+   "mention_id": "M119",
    "text": "the mater's factotum,\ncompanion, Jack of all trades",
    "type": "character",
    "mention_kind": "nominal",
@@ -448,7 +1971,20 @@
    }
   },
   {
-   "mention_id": "M16",
+   "mention_id": "M120",
+   "text": "the mater",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "emily_inglethorp",
+   "start": 3437,
+   "end": 3446,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M121",
    "text": "A great sport",
    "type": "character",
    "mention_kind": "proper",
@@ -463,7 +1999,7 @@
    }
   },
   {
-   "mention_id": "M17",
+   "mention_id": "M122",
    "text": "old Evie",
    "type": "character",
    "mention_kind": "nominal",
@@ -478,7 +2014,20 @@
    }
   },
   {
-   "mention_id": "M18",
+   "mention_id": "M123",
+   "text": "Evie",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "evelyn_howard",
+   "start": 3508,
+   "end": 3512,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M124",
    "text": "You",
    "type": "character",
    "mention_kind": "pronominal",
@@ -493,7 +2042,7 @@
    }
   },
   {
-   "mention_id": "M19",
+   "mention_id": "M125",
    "text": "this fellow",
    "type": "character",
    "mention_kind": "nominal",
@@ -508,7 +2057,7 @@
    }
   },
   {
-   "mention_id": "M20",
+   "mention_id": "M126",
    "text": "He",
    "type": "character",
    "mention_kind": "pronominal",
@@ -523,7 +2072,7 @@
    }
   },
   {
-   "mention_id": "M21",
+   "mention_id": "M127",
    "text": "a\nsecond cousin or something of Evie's",
    "type": "character",
    "mention_kind": "nominal",
@@ -538,7 +2087,7 @@
    }
   },
   {
-   "mention_id": "M22",
+   "mention_id": "M128",
    "text": "Evie",
    "type": "character",
    "mention_kind": "proper",
@@ -553,7 +2102,7 @@
    }
   },
   {
-   "mention_id": "M23",
+   "mention_id": "M129",
    "text": "she",
    "type": "character",
    "mention_kind": "pronominal",
@@ -568,7 +2117,7 @@
    }
   },
   {
-   "mention_id": "M24",
+   "mention_id": "M130",
    "text": "The fellow",
    "type": "character",
    "mention_kind": "proper",
@@ -583,7 +2132,7 @@
    }
   },
   {
-   "mention_id": "M25",
+   "mention_id": "M131",
    "text": "He",
    "type": "character",
    "mention_kind": "pronominal",
@@ -598,7 +2147,7 @@
    }
   },
   {
-   "mention_id": "M26",
+   "mention_id": "M132",
    "text": "the mater",
    "type": "character",
    "mention_kind": "nominal",
@@ -613,7 +2162,7 @@
    }
   },
   {
-   "mention_id": "M27",
+   "mention_id": "M133",
    "text": "him",
    "type": "character",
    "mention_kind": "pronominal",
@@ -628,7 +2177,7 @@
    }
   },
   {
-   "mention_id": "M28",
+   "mention_id": "M134",
    "text": "him",
    "type": "character",
    "mention_kind": "pronominal",
@@ -643,7 +2192,7 @@
    }
   },
   {
-   "mention_id": "M29",
+   "mention_id": "M135",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -658,7 +2207,7 @@
    }
   },
   {
-   "mention_id": "M30",
+   "mention_id": "M136",
    "text": "she",
    "type": "character",
    "mention_kind": "pronominal",
@@ -673,7 +2222,20 @@
    }
   },
   {
-   "mention_id": "M31",
+   "mention_id": "M137",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 4049,
+   "end": 4050,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M138",
    "text": "the fellow",
    "type": "character",
    "mention_kind": "nominal",
@@ -688,7 +2250,7 @@
    }
   },
   {
-   "mention_id": "M32",
+   "mention_id": "M139",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -703,7 +2265,7 @@
    }
   },
   {
-   "mention_id": "M33",
+   "mention_id": "M140",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -718,7 +2280,20 @@
    }
   },
   {
-   "mention_id": "M34",
+   "mention_id": "M141",
+   "text": "us",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "cavendish_family",
+   "start": 4196,
+   "end": 4198,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M142",
    "text": "she",
    "type": "character",
    "mention_kind": "pronominal",
@@ -733,7 +2308,7 @@
    }
   },
   {
-   "mention_id": "M35",
+   "mention_id": "M143",
    "text": "she",
    "type": "character",
    "mention_kind": "pronominal",
@@ -748,7 +2323,7 @@
    }
   },
   {
-   "mention_id": "M36",
+   "mention_id": "M144",
    "text": "Alfred",
    "type": "character",
    "mention_kind": "proper",
@@ -763,7 +2338,7 @@
    }
   },
   {
-   "mention_id": "M37",
+   "mention_id": "M145",
    "text": "The fellow",
    "type": "character",
    "mention_kind": "proper",
@@ -778,7 +2353,7 @@
    }
   },
   {
-   "mention_id": "M38",
+   "mention_id": "M146",
    "text": "she",
    "type": "character",
    "mention_kind": "pronominal",
@@ -793,7 +2368,7 @@
    }
   },
   {
-   "mention_id": "M39",
+   "mention_id": "M147",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -808,7 +2383,7 @@
    }
   },
   {
-   "mention_id": "M40",
+   "mention_id": "M148",
    "text": "she",
    "type": "character",
    "mention_kind": "pronominal",
@@ -823,7 +2398,7 @@
    }
   },
   {
-   "mention_id": "M41",
+   "mention_id": "M149",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -838,7 +2413,7 @@
    }
   },
   {
-   "mention_id": "M42",
+   "mention_id": "M150",
    "text": "she",
    "type": "character",
    "mention_kind": "pronominal",
@@ -853,7 +2428,7 @@
    }
   },
   {
-   "mention_id": "M43",
+   "mention_id": "M151",
    "text": "him",
    "type": "character",
    "mention_kind": "pronominal",
@@ -868,7 +2443,72 @@
    }
   },
   {
-   "mention_id": "M44",
+   "mention_id": "M152",
+   "text": "you",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "cavendish_family",
+   "start": 4512,
+   "end": 4515,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M153",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 4595,
+   "end": 4596,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M154",
+   "text": "Styles St. Mary",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "styles_st_mary",
+   "start": 4625,
+   "end": 4640,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M155",
+   "text": "John Cavendish",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "john_cavendish",
+   "start": 4766,
+   "end": 4780,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M156",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 4822,
+   "end": 4824,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M157",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -883,7 +2523,20 @@
    }
   },
   {
-   "mention_id": "M45",
+   "mention_id": "M158",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "john_cavendish",
+   "start": 4888,
+   "end": 4890,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M159",
    "text": "the mater",
    "type": "character",
    "mention_kind": "nominal",
@@ -898,7 +2551,137 @@
    }
   },
   {
-   "mention_id": "M46",
+   "mention_id": "M160",
+   "text": "The village of Styles St. Mary",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "styles_st_mary",
+   "start": 4944,
+   "end": 4974,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M161",
+   "text": "Styles St. Mary",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "styles_st_mary",
+   "start": 4959,
+   "end": 4974,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M162",
+   "text": "the\nlittle station",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "styles_station",
+   "start": 5009,
+   "end": 5027,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M163",
+   "text": "Styles Court",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "styles_court",
+   "start": 5033,
+   "end": 5045,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M164",
+   "text": "Essex",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "essex",
+   "start": 5151,
+   "end": 5156,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M165",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 5332,
+   "end": 5333,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M166",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 5339,
+   "end": 5340,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M167",
+   "text": "we",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 5385,
+   "end": 5387,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M168",
+   "text": "John",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "john_cavendish",
+   "start": 5418,
+   "end": 5422,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M169",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "john_cavendish",
+   "start": 5431,
+   "end": 5432,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M170",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -913,7 +2696,7 @@
    }
   },
   {
-   "mention_id": "M47",
+   "mention_id": "M171",
    "text": "Hastings",
    "type": "character",
    "mention_kind": "proper",
@@ -928,7 +2711,7 @@
    }
   },
   {
-   "mention_id": "M48",
+   "mention_id": "M172",
    "text": "My dear fellow",
    "type": "character",
    "mention_kind": "proper",
@@ -943,7 +2726,33 @@
    }
   },
   {
-   "mention_id": "M49",
+   "mention_id": "M173",
+   "text": "My",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 5492,
+   "end": 5494,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M174",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 5525,
+   "end": 5526,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M175",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -958,7 +2767,33 @@
    }
   },
   {
-   "mention_id": "M50",
+   "mention_id": "M176",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "john_cavendish",
+   "start": 5596,
+   "end": 5597,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M177",
+   "text": "the volunteers",
+   "type": "organization",
+   "mention_kind": "nominal",
+   "entity_key": "the_volunteers",
+   "start": 5609,
+   "end": 5623,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M178",
    "text": "My wife",
    "type": "character",
    "mention_kind": "proper",
@@ -973,7 +2808,20 @@
    }
   },
   {
-   "mention_id": "M51",
+   "mention_id": "M179",
+   "text": "My",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "john_cavendish",
+   "start": 5668,
+   "end": 5670,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M180",
    "text": "She",
    "type": "character",
    "mention_kind": "pronominal",
@@ -988,7 +2836,7 @@
    }
   },
   {
-   "mention_id": "M52",
+   "mention_id": "M181",
    "text": "that fellow Alfred Inglethorp",
    "type": "character",
    "mention_kind": "nominal",
@@ -1003,7 +2851,72 @@
    }
   },
   {
-   "mention_id": "M53",
+   "mention_id": "M182",
+   "text": "Alfred Inglethorp",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "alfred_inglethorp",
+   "start": 5863,
+   "end": 5880,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M183",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "john_cavendish",
+   "start": 5883,
+   "end": 5885,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M184",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "john_cavendish",
+   "start": 5927,
+   "end": 5930,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M185",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "john_cavendish",
+   "start": 5939,
+   "end": 5940,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M186",
+   "text": "we",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 5951,
+   "end": 5953,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M187",
    "text": "Cynthia",
    "type": "character",
    "mention_kind": "proper",
@@ -1018,7 +2931,7 @@
    }
   },
   {
-   "mention_id": "M54",
+   "mention_id": "M188",
    "text": "she",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1033,7 +2946,20 @@
    }
   },
   {
-   "mention_id": "M55",
+   "mention_id": "M189",
+   "text": "the hospital",
+   "type": "organization",
+   "mention_kind": "nominal",
+   "entity_key": "red_cross_hospital",
+   "start": 6011,
+   "end": 6023,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M190",
    "text": "Cynthia",
    "type": "character",
    "mention_kind": "proper",
@@ -1048,7 +2974,33 @@
    }
   },
   {
-   "mention_id": "M56",
+   "mention_id": "M191",
+   "text": "your wife",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "mary_cavendish",
+   "start": 6055,
+   "end": 6064,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M192",
+   "text": "your",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "john_cavendish",
+   "start": 6055,
+   "end": 6059,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M193",
    "text": "Cynthia",
    "type": "character",
    "mention_kind": "proper",
@@ -1063,7 +3015,7 @@
    }
   },
   {
-   "mention_id": "M57",
+   "mention_id": "M194",
    "text": "a protégée of my mother's, the daughter of an old\nschoolfellow of hers",
    "type": "character",
    "mention_kind": "nominal",
@@ -1078,7 +3030,7 @@
    }
   },
   {
-   "mention_id": "M58",
+   "mention_id": "M195",
    "text": "my mother",
    "type": "character",
    "mention_kind": "nominal",
@@ -1093,7 +3045,33 @@
    }
   },
   {
-   "mention_id": "M59",
+   "mention_id": "M196",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "john_cavendish",
+   "start": 6098,
+   "end": 6100,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M197",
+   "text": "an old\nschoolfellow",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 6127,
+   "end": 6146,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M198",
    "text": "hers",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1108,7 +3086,33 @@
    }
   },
   {
-   "mention_id": "M60",
+   "mention_id": "M199",
+   "text": "a rascally solicitor",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 6168,
+   "end": 6188,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M200",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 6190,
+   "end": 6192,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M201",
    "text": "the girl",
    "type": "character",
    "mention_kind": "nominal",
@@ -1123,7 +3127,7 @@
    }
   },
   {
-   "mention_id": "M61",
+   "mention_id": "M202",
    "text": "My mother",
    "type": "character",
    "mention_kind": "proper",
@@ -1138,7 +3142,20 @@
    }
   },
   {
-   "mention_id": "M62",
+   "mention_id": "M203",
+   "text": "My",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "john_cavendish",
+   "start": 6256,
+   "end": 6258,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M204",
    "text": "Cynthia",
    "type": "character",
    "mention_kind": "proper",
@@ -1153,7 +3170,20 @@
    }
   },
   {
-   "mention_id": "M63",
+   "mention_id": "M205",
+   "text": "us",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "cavendish_family",
+   "start": 6312,
+   "end": 6314,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M206",
    "text": "She",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1168,7 +3198,111 @@
    }
   },
   {
-   "mention_id": "M64",
+   "mention_id": "M207",
+   "text": "the Red Cross Hospital",
+   "type": "organization",
+   "mention_kind": "proper",
+   "entity_key": "red_cross_hospital",
+   "start": 6350,
+   "end": 6372,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M208",
+   "text": "Tadminster",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "tadminster",
+   "start": 6376,
+   "end": 6386,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M209",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "john_cavendish",
+   "start": 6411,
+   "end": 6413,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M210",
+   "text": "we",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 6436,
+   "end": 6438,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M211",
+   "text": "the fine old house",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "styles_court",
+   "start": 6459,
+   "end": 6477,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M212",
+   "text": "A lady",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "evelyn_howard",
+   "start": 6479,
+   "end": 6485,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M213",
+   "text": "herself",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "evelyn_howard",
+   "start": 6558,
+   "end": 6565,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M214",
+   "text": "our",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 6569,
+   "end": 6572,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M215",
    "text": "Evie",
    "type": "character",
    "mention_kind": "proper",
@@ -1183,7 +3317,7 @@
    }
   },
   {
-   "mention_id": "M65",
+   "mention_id": "M216",
    "text": "our wounded hero",
    "type": "character",
    "mention_kind": "nominal",
@@ -1198,7 +3332,20 @@
    }
   },
   {
-   "mention_id": "M66",
+   "mention_id": "M217",
+   "text": "our",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 6605,
+   "end": 6608,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M218",
    "text": "Mr. Hastings",
    "type": "character",
    "mention_kind": "proper",
@@ -1213,7 +3360,7 @@
    }
   },
   {
-   "mention_id": "M67",
+   "mention_id": "M219",
    "text": "Miss Howard",
    "type": "character",
    "mention_kind": "proper",
@@ -1228,7 +3375,72 @@
    }
   },
   {
-   "mention_id": "M68",
+   "mention_id": "M220",
+   "text": "Miss Howard",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "evelyn_howard",
+   "start": 6651,
+   "end": 6662,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M221",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 6712,
+   "end": 6713,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M222",
+   "text": "She",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "evelyn_howard",
+   "start": 6770,
+   "end": 6773,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M223",
+   "text": "Her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "evelyn_howard",
+   "start": 6973,
+   "end": 6976,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M224",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 6991,
+   "end": 6992,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M225",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1243,7 +3455,59 @@
    }
   },
   {
-   "mention_id": "M69",
+   "mention_id": "M226",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 7142,
+   "end": 7143,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M227",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 7151,
+   "end": 7152,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M228",
+   "text": "myself",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 7189,
+   "end": 7195,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M229",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 7205,
+   "end": 7206,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M230",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1258,7 +3522,7 @@
    }
   },
   {
-   "mention_id": "M70",
+   "mention_id": "M231",
    "text": "You",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1273,7 +3537,7 @@
    }
   },
   {
-   "mention_id": "M71",
+   "mention_id": "M232",
    "text": "Evie",
    "type": "character",
    "mention_kind": "proper",
@@ -1288,7 +3552,33 @@
    }
   },
   {
-   "mention_id": "M72",
+   "mention_id": "M233",
+   "text": "John",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "john_cavendish",
+   "start": 7300,
+   "end": 7304,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M234",
+   "text": "the house",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "styles_court",
+   "start": 7393,
+   "end": 7402,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M235",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1303,7 +3593,7 @@
    }
   },
   {
-   "mention_id": "M73",
+   "mention_id": "M236",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1318,7 +3608,46 @@
    }
   },
   {
-   "mention_id": "M74",
+   "mention_id": "M237",
+   "text": "Miss Howard",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "evelyn_howard",
+   "start": 7548,
+   "end": 7559,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M238",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "evelyn_howard",
+   "start": 7573,
+   "end": 7576,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M239",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "evelyn_howard",
+   "start": 7596,
+   "end": 7597,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M240",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1333,7 +3662,59 @@
    }
   },
   {
-   "mention_id": "M75",
+   "mention_id": "M241",
+   "text": "She",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "evelyn_howard",
+   "start": 7630,
+   "end": 7633,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M242",
+   "text": "the house",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "styles_court",
+   "start": 7652,
+   "end": 7661,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M243",
+   "text": "A figure",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "mary_cavendish",
+   "start": 7724,
+   "end": 7732,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M244",
+   "text": "us",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 7798,
+   "end": 7800,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M245",
    "text": "My wife",
    "type": "character",
    "mention_kind": "proper",
@@ -1348,7 +3729,20 @@
    }
   },
   {
-   "mention_id": "M76",
+   "mention_id": "M246",
+   "text": "My",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "john_cavendish",
+   "start": 7804,
+   "end": 7806,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M247",
    "text": "Hastings",
    "type": "character",
    "mention_kind": "proper",
@@ -1363,7 +3757,371 @@
    }
   },
   {
-   "mention_id": "M77",
+   "mention_id": "M248",
+   "text": "John",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "john_cavendish",
+   "start": 7829,
+   "end": 7833,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M249",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 7836,
+   "end": 7837,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M250",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 7857,
+   "end": 7859,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M251",
+   "text": "Mary Cavendish",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mary_cavendish",
+   "start": 7875,
+   "end": 7889,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M252",
+   "text": "Her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mary_cavendish",
+   "start": 7891,
+   "end": 7894,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M253",
+   "text": "hers",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mary_cavendish",
+   "start": 8054,
+   "end": 8058,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M254",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 8115,
+   "end": 8116,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M255",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mary_cavendish",
+   "start": 8165,
+   "end": 8168,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M256",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 8313,
+   "end": 8315,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M257",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 8324,
+   "end": 8325,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M258",
+   "text": "She",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mary_cavendish",
+   "start": 8352,
+   "end": 8355,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M259",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 8364,
+   "end": 8366,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M260",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 8430,
+   "end": 8431,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M261",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 8486,
+   "end": 8487,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M262",
+   "text": "John",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "john_cavendish",
+   "start": 8501,
+   "end": 8505,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M263",
+   "text": "Mrs. Cavendish",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mary_cavendish",
+   "start": 8520,
+   "end": 8534,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M264",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 8540,
+   "end": 8542,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M265",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mary_cavendish",
+   "start": 8557,
+   "end": 8560,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M266",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 8590,
+   "end": 8592,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M267",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mary_cavendish",
+   "start": 8613,
+   "end": 8616,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M268",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 8704,
+   "end": 8705,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M269",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 8760,
+   "end": 8762,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M270",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 8798,
+   "end": 8799,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M271",
+   "text": "myself",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 8808,
+   "end": 8814,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M272",
+   "text": "my hostess",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "mary_cavendish",
+   "start": 8831,
+   "end": 8841,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M273",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 8831,
+   "end": 8833,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M274",
+   "text": "John",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "john_cavendish",
+   "start": 8843,
+   "end": 8847,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M275",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "john_cavendish",
+   "start": 8879,
+   "end": 8881,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M276",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1378,7 +4136,20 @@
    }
   },
   {
-   "mention_id": "M78",
+   "mention_id": "M277",
+   "text": "the Princess",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "the_princess",
+   "start": 9056,
+   "end": 9068,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M278",
    "text": "Alfred",
    "type": "character",
    "mention_kind": "proper",
@@ -1393,7 +4164,137 @@
    }
   },
   {
-   "mention_id": "M79",
+   "mention_id": "M279",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "emily_inglethorp",
+   "start": 9088,
+   "end": 9089,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M280",
+   "text": "Lady Tadminster",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "lady_tadminster",
+   "start": 9102,
+   "end": 9117,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M281",
+   "text": "myself",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "emily_inglethorp",
+   "start": 9138,
+   "end": 9144,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M282",
+   "text": "we",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 9155,
+   "end": 9157,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M283",
+   "text": "we",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 9169,
+   "end": 9171,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M284",
+   "text": "the Princess",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "the_princess",
+   "start": 9182,
+   "end": 9194,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M285",
+   "text": "Lady Tadminster",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "lady_tadminster",
+   "start": 9218,
+   "end": 9233,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M286",
+   "text": "Mrs. Crosbie",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": null,
+   "start": 9267,
+   "end": 9279,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M287",
+   "text": "the\nDuchess",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 9305,
+   "end": 9316,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M288",
+   "text": "Mrs. Inglethorp",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "emily_inglethorp",
+   "start": 9390,
+   "end": 9405,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M289",
    "text": "You",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1408,7 +4309,7 @@
    }
   },
   {
-   "mention_id": "M80",
+   "mention_id": "M290",
    "text": "Alfred dear",
    "type": "character",
    "mention_kind": "proper",
@@ -1423,7 +4324,85 @@
    }
   },
   {
-   "mention_id": "M81",
+   "mention_id": "M291",
+   "text": "a handsome\nwhite-haired old lady",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "emily_inglethorp",
+   "start": 9558,
+   "end": 9590,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M292",
+   "text": "A man",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "alfred_inglethorp",
+   "start": 9670,
+   "end": 9675,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M293",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "emily_inglethorp",
+   "start": 9685,
+   "end": 9688,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M294",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "alfred_inglethorp",
+   "start": 9719,
+   "end": 9722,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M295",
+   "text": "Mrs. Inglethorp",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "emily_inglethorp",
+   "start": 9732,
+   "end": 9747,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M296",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 9756,
+   "end": 9758,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M297",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1438,7 +4417,7 @@
    }
   },
   {
-   "mention_id": "M82",
+   "mention_id": "M298",
    "text": "Mr. Hastings",
    "type": "character",
    "mention_kind": "proper",
@@ -1453,7 +4432,7 @@
    }
   },
   {
-   "mention_id": "M83",
+   "mention_id": "M299",
    "text": "Alfred",
    "type": "character",
    "mention_kind": "proper",
@@ -1468,7 +4447,7 @@
    }
   },
   {
-   "mention_id": "M84",
+   "mention_id": "M300",
    "text": "darling",
    "type": "character",
    "mention_kind": "nominal",
@@ -1483,7 +4462,7 @@
    }
   },
   {
-   "mention_id": "M85",
+   "mention_id": "M301",
    "text": "Mr. Hastings",
    "type": "character",
    "mention_kind": "proper",
@@ -1498,7 +4477,7 @@
    }
   },
   {
-   "mention_id": "M86",
+   "mention_id": "M302",
    "text": "my husband",
    "type": "character",
    "mention_kind": "nominal",
@@ -1513,7 +4492,189 @@
    }
   },
   {
-   "mention_id": "M87",
+   "mention_id": "M303",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "emily_inglethorp",
+   "start": 9893,
+   "end": 9895,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M304",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 9907,
+   "end": 9908,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M305",
+   "text": "Alfred darling",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "alfred_inglethorp",
+   "start": 9940,
+   "end": 9954,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M306",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "alfred_inglethorp",
+   "start": 9957,
+   "end": 9959,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M307",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 9998,
+   "end": 9999,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M308",
+   "text": "John",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "john_cavendish",
+   "start": 10018,
+   "end": 10022,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M309",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "alfred_inglethorp",
+   "start": 10036,
+   "end": 10039,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M310",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 10086,
+   "end": 10087,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M311",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "alfred_inglethorp",
+   "start": 10104,
+   "end": 10106,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M312",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 10187,
+   "end": 10189,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M313",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "alfred_inglethorp",
+   "start": 10195,
+   "end": 10197,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M314",
+   "text": "His",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "alfred_inglethorp",
+   "start": 10274,
+   "end": 10277,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M315",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "alfred_inglethorp",
+   "start": 10314,
+   "end": 10316,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M316",
+   "text": "mine",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 10341,
+   "end": 10345,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M317",
    "text": "Mr. Hastings",
    "type": "character",
    "mention_kind": "proper",
@@ -1528,7 +4689,20 @@
    }
   },
   {
-   "mention_id": "M88",
+   "mention_id": "M318",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "alfred_inglethorp",
+   "start": 10410,
+   "end": 10413,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M319",
    "text": "Emily\ndearest",
    "type": "character",
    "mention_kind": "proper",
@@ -1543,7 +4717,384 @@
    }
   },
   {
-   "mention_id": "M89",
+   "mention_id": "M320",
+   "text": "Emily",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "emily_inglethorp",
+   "start": 10421,
+   "end": 10426,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M321",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "alfred_inglethorp",
+   "start": 10436,
+   "end": 10437,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M322",
+   "text": "She",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "emily_inglethorp",
+   "start": 10477,
+   "end": 10480,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M323",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "alfred_inglethorp",
+   "start": 10498,
+   "end": 10501,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M324",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "alfred_inglethorp",
+   "start": 10506,
+   "end": 10508,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M325",
+   "text": "an\notherwise sensible woman",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "emily_inglethorp",
+   "start": 10600,
+   "end": 10627,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M326",
+   "text": "Mr. Inglethorp",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "alfred_inglethorp",
+   "start": 10651,
+   "end": 10665,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M327",
+   "text": "Miss Howard",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "evelyn_howard",
+   "start": 10750,
+   "end": 10761,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M328",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "evelyn_howard",
+   "start": 10803,
+   "end": 10806,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M329",
+   "text": "Mrs. Inglethorp",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "emily_inglethorp",
+   "start": 10817,
+   "end": 10832,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M330",
+   "text": "Her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "emily_inglethorp",
+   "start": 10877,
+   "end": 10880,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M331",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 10899,
+   "end": 10900,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M332",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "emily_inglethorp",
+   "start": 10967,
+   "end": 10970,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M333",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "emily_inglethorp",
+   "start": 11068,
+   "end": 11071,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M334",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "emily_inglethorp",
+   "start": 11137,
+   "end": 11140,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M335",
+   "text": "her husband",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "alfred_inglethorp",
+   "start": 11153,
+   "end": 11164,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M336",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "emily_inglethorp",
+   "start": 11153,
+   "end": 11156,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M337",
+   "text": "His",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "alfred_inglethorp",
+   "start": 11199,
+   "end": 11202,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M338",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 11267,
+   "end": 11268,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M339",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "alfred_inglethorp",
+   "start": 11303,
+   "end": 11306,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M340",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 11312,
+   "end": 11313,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M341",
+   "text": "myself",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 11322,
+   "end": 11328,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M342",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 11334,
+   "end": 11336,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M343",
+   "text": "Mrs. Inglethorp",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "emily_inglethorp",
+   "start": 11391,
+   "end": 11406,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M344",
+   "text": "Evelyn Howard",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "evelyn_howard",
+   "start": 11457,
+   "end": 11470,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M345",
+   "text": "her husband",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "alfred_inglethorp",
+   "start": 11476,
+   "end": 11487,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M346",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "emily_inglethorp",
+   "start": 11476,
+   "end": 11479,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M347",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "arthur_hastings",
+   "start": 11498,
+   "end": 11500,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M348",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "alfred_inglethorp",
+   "start": 11504,
+   "end": 11507,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M349",
    "text": "your",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1558,7 +5109,7 @@
    }
   },
   {
-   "mention_id": "M90",
+   "mention_id": "M350",
    "text": "Mr. Hastings",
    "type": "character",
    "mention_kind": "proper",
@@ -1573,7 +5124,7 @@
    }
   },
   {
-   "mention_id": "M91",
+   "mention_id": "M351",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1588,7 +5139,7 @@
    }
   },
   {
-   "mention_id": "M92",
+   "mention_id": "M352",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1603,7 +5154,7 @@
    }
   },
   {
-   "mention_id": "M93",
+   "mention_id": "M353",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1618,7 +5169,7 @@
    }
   },
   {
-   "mention_id": "M94",
+   "mention_id": "M354",
    "text": "your",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1633,7 +5184,7 @@
    }
   },
   {
-   "mention_id": "M95",
+   "mention_id": "M355",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1648,7 +5199,7 @@
    }
   },
   {
-   "mention_id": "M96",
+   "mention_id": "M356",
    "text": "You",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1663,7 +5214,7 @@
    }
   },
   {
-   "mention_id": "M97",
+   "mention_id": "M357",
    "text": "a man",
    "type": "character",
    "mention_kind": "nominal",
@@ -1678,7 +5229,7 @@
    }
   },
   {
-   "mention_id": "M98",
+   "mention_id": "M358",
    "text": "a very famous\ndetective",
    "type": "character",
    "mention_kind": "nominal",
@@ -1693,7 +5244,7 @@
    }
   },
   {
-   "mention_id": "M99",
+   "mention_id": "M359",
    "text": "he",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1708,7 +5259,7 @@
    }
   },
   {
-   "mention_id": "M100",
+   "mention_id": "M360",
    "text": "He",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1723,7 +5274,7 @@
    }
   },
   {
-   "mention_id": "M101",
+   "mention_id": "M361",
    "text": "a marvellous little fellow",
    "type": "character",
    "mention_kind": "nominal",
@@ -1738,7 +5289,7 @@
    }
   },
   {
-   "mention_id": "M102",
+   "mention_id": "M362",
    "text": "He",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1753,7 +5304,7 @@
    }
   },
   {
-   "mention_id": "M103",
+   "mention_id": "M363",
    "text": "his",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1768,7 +5319,7 @@
    }
   },
   {
-   "mention_id": "M104",
+   "mention_id": "M364",
    "text": "He",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1783,7 +5334,7 @@
    }
   },
   {
-   "mention_id": "M105",
+   "mention_id": "M365",
    "text": "a funny little man, a great dandy",
    "type": "character",
    "mention_kind": "nominal",
@@ -1798,7 +5349,7 @@
    }
   },
   {
-   "mention_id": "M106",
+   "mention_id": "M366",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1813,7 +5364,7 @@
    }
   },
   {
-   "mention_id": "M107",
+   "mention_id": "M367",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1828,7 +5379,7 @@
    }
   },
   {
-   "mention_id": "M108",
+   "mention_id": "M368",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1843,7 +5394,7 @@
    }
   },
   {
-   "mention_id": "M109",
+   "mention_id": "M369",
    "text": "Dr. Bauerstein",
    "type": "character",
    "mention_kind": "proper",
@@ -1858,7 +5409,7 @@
    }
   },
   {
-   "mention_id": "M110",
+   "mention_id": "M370",
    "text": "Mary",
    "type": "character",
    "mention_kind": "proper",
@@ -1873,7 +5424,7 @@
    }
   },
   {
-   "mention_id": "M111",
+   "mention_id": "M371",
    "text": "Cynthia",
    "type": "character",
    "mention_kind": "proper",
@@ -1888,7 +5439,7 @@
    }
   },
   {
-   "mention_id": "M112",
+   "mention_id": "M372",
    "text": "Cynthia",
    "type": "character",
    "mention_kind": "proper",
@@ -1903,7 +5454,7 @@
    }
   },
   {
-   "mention_id": "M113",
+   "mention_id": "M373",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1918,7 +5469,7 @@
    }
   },
   {
-   "mention_id": "M114",
+   "mention_id": "M374",
    "text": "Mr. Hastings",
    "type": "character",
    "mention_kind": "proper",
@@ -1933,7 +5484,7 @@
    }
   },
   {
-   "mention_id": "M115",
+   "mention_id": "M375",
    "text": "Miss Murdoch",
    "type": "character",
    "mention_kind": "proper",
@@ -1948,7 +5499,7 @@
    }
   },
   {
-   "mention_id": "M116",
+   "mention_id": "M376",
    "text": "You",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1963,7 +5514,7 @@
    }
   },
   {
-   "mention_id": "M117",
+   "mention_id": "M377",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1978,7 +5529,7 @@
    }
   },
   {
-   "mention_id": "M118",
+   "mention_id": "M378",
    "text": "Miss Murdoch",
    "type": "character",
    "mention_kind": "proper",
@@ -1993,7 +5544,7 @@
    }
   },
   {
-   "mention_id": "M119",
+   "mention_id": "M379",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2008,7 +5559,7 @@
    }
   },
   {
-   "mention_id": "M120",
+   "mention_id": "M380",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2023,7 +5574,7 @@
    }
   },
   {
-   "mention_id": "M121",
+   "mention_id": "M381",
    "text": "Mr. Hastings",
    "type": "character",
    "mention_kind": "proper",
@@ -2038,7 +5589,7 @@
    }
   },
   {
-   "mention_id": "M122",
+   "mention_id": "M382",
    "text": "You",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2053,7 +5604,7 @@
    }
   },
   {
-   "mention_id": "M123",
+   "mention_id": "M383",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2068,7 +5619,7 @@
    }
   },
   {
-   "mention_id": "M124",
+   "mention_id": "M384",
    "text": "Cynthia",
    "type": "character",
    "mention_kind": "proper",
@@ -2083,7 +5634,7 @@
    }
   },
   {
-   "mention_id": "M125",
+   "mention_id": "M385",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2098,7 +5649,7 @@
    }
   },
   {
-   "mention_id": "M126",
+   "mention_id": "M386",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2113,7 +5664,7 @@
    }
   },
   {
-   "mention_id": "M127",
+   "mention_id": "M387",
    "text": "Aunt Emily",
    "type": "character",
    "mention_kind": "proper",
@@ -2128,7 +5679,7 @@
    }
   },
   {
-   "mention_id": "M128",
+   "mention_id": "M388",
    "text": "John",
    "type": "character",
    "mention_kind": "proper",
@@ -2143,7 +5694,7 @@
    }
   },
   {
-   "mention_id": "M129",
+   "mention_id": "M389",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2158,7 +5709,7 @@
    }
   },
   {
-   "mention_id": "M130",
+   "mention_id": "M390",
    "text": "your",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2173,7 +5724,7 @@
    }
   },
   {
-   "mention_id": "M131",
+   "mention_id": "M391",
    "text": "Cynthia",
    "type": "character",
    "mention_kind": "proper",
@@ -2188,7 +5739,7 @@
    }
   },
   {
-   "mention_id": "M132",
+   "mention_id": "M392",
    "text": "Mary",
    "type": "character",
    "mention_kind": "proper",
@@ -2203,7 +5754,7 @@
    }
   },
   {
-   "mention_id": "M133",
+   "mention_id": "M393",
    "text": "Evie",
    "type": "character",
    "mention_kind": "proper",
@@ -2218,7 +5769,7 @@
    }
   },
   {
-   "mention_id": "M134",
+   "mention_id": "M394",
    "text": "Alfred Inglethorp",
    "type": "character",
    "mention_kind": "proper",
@@ -2233,7 +5784,7 @@
    }
   },
   {
-   "mention_id": "M135",
+   "mention_id": "M395",
    "text": "she",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2248,7 +5799,7 @@
    }
   },
   {
-   "mention_id": "M136",
+   "mention_id": "M396",
    "text": "Evie",
    "type": "character",
    "mention_kind": "proper",
@@ -2263,7 +5814,7 @@
    }
   },
   {
-   "mention_id": "M137",
+   "mention_id": "M397",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2278,7 +5829,7 @@
    }
   },
   {
-   "mention_id": "M138",
+   "mention_id": "M398",
    "text": "she",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2293,7 +5844,7 @@
    }
   },
   {
-   "mention_id": "M139",
+   "mention_id": "M399",
    "text": "the mater",
    "type": "character",
    "mention_kind": "nominal",
@@ -2308,7 +5859,7 @@
    }
   },
   {
-   "mention_id": "M140",
+   "mention_id": "M400",
    "text": "Evie",
    "type": "character",
    "mention_kind": "proper",
@@ -2323,7 +5874,7 @@
    }
   },
   {
-   "mention_id": "M141",
+   "mention_id": "M401",
    "text": "My dear Evelyn",
    "type": "character",
    "mention_kind": "proper",
@@ -2338,7 +5889,7 @@
    }
   },
   {
-   "mention_id": "M142",
+   "mention_id": "M402",
    "text": "Emily",
    "type": "character",
    "mention_kind": "proper",
@@ -2353,7 +5904,7 @@
    }
   },
   {
-   "mention_id": "M143",
+   "mention_id": "M403",
    "text": "she",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2368,7 +5919,7 @@
    }
   },
   {
-   "mention_id": "M144",
+   "mention_id": "M404",
    "text": "She",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2383,7 +5934,7 @@
    }
   },
   {
-   "mention_id": "M145",
+   "mention_id": "M405",
    "text": "she",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2398,7 +5949,7 @@
    }
   },
   {
-   "mention_id": "M146",
+   "mention_id": "M406",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2413,7 +5964,7 @@
    }
   },
   {
-   "mention_id": "M147",
+   "mention_id": "M407",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2428,7 +5979,7 @@
    }
   },
   {
-   "mention_id": "M148",
+   "mention_id": "M408",
    "text": "Mr. Hastings",
    "type": "character",
    "mention_kind": "proper",
@@ -2443,7 +5994,7 @@
    }
   },
   {
-   "mention_id": "M149",
+   "mention_id": "M409",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2458,7 +6009,7 @@
    }
   },
   {
-   "mention_id": "M150",
+   "mention_id": "M410",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2473,7 +6024,7 @@
    }
   },
   {
-   "mention_id": "M151",
+   "mention_id": "M411",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2488,7 +6039,7 @@
    }
   },
   {
-   "mention_id": "M152",
+   "mention_id": "M412",
    "text": "Mr. Hastings",
    "type": "character",
    "mention_kind": "proper",
@@ -2503,7 +6054,7 @@
    }
   },
   {
-   "mention_id": "M153",
+   "mention_id": "M413",
    "text": "My poor Emily",
    "type": "character",
    "mention_kind": "proper",
@@ -2518,7 +6069,7 @@
    }
   },
   {
-   "mention_id": "M154",
+   "mention_id": "M414",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2533,7 +6084,7 @@
    }
   },
   {
-   "mention_id": "M155",
+   "mention_id": "M415",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2548,7 +6099,7 @@
    }
   },
   {
-   "mention_id": "M156",
+   "mention_id": "M416",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2563,7 +6114,7 @@
    }
   },
   {
-   "mention_id": "M157",
+   "mention_id": "M417",
    "text": "Miss Howard",
    "type": "character",
    "mention_kind": "proper",
@@ -2578,7 +6129,7 @@
    }
   },
   {
-   "mention_id": "M158",
+   "mention_id": "M418",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2593,7 +6144,7 @@
    }
   },
   {
-   "mention_id": "M159",
+   "mention_id": "M419",
    "text": "Young man",
    "type": "character",
    "mention_kind": "proper",
@@ -2608,7 +6159,7 @@
    }
   },
   {
-   "mention_id": "M160",
+   "mention_id": "M420",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2623,7 +6174,7 @@
    }
   },
   {
-   "mention_id": "M161",
+   "mention_id": "M421",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2638,7 +6189,7 @@
    }
   },
   {
-   "mention_id": "M162",
+   "mention_id": "M422",
    "text": "your",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2653,7 +6204,7 @@
    }
   },
   {
-   "mention_id": "M163",
+   "mention_id": "M423",
    "text": "You",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2668,7 +6219,7 @@
    }
   },
   {
-   "mention_id": "M164",
+   "mention_id": "M424",
    "text": "Mr. Hastings",
    "type": "character",
    "mention_kind": "proper",
@@ -2683,7 +6234,7 @@
    }
   },
   {
-   "mention_id": "M165",
+   "mention_id": "M425",
    "text": "that devil—her husband",
    "type": "character",
    "mention_kind": "nominal",
@@ -2698,7 +6249,7 @@
    }
   },
   {
-   "mention_id": "M166",
+   "mention_id": "M426",
    "text": "her husband",
    "type": "character",
    "mention_kind": "nominal",
@@ -2713,7 +6264,7 @@
    }
   },
   {
-   "mention_id": "M167",
+   "mention_id": "M427",
    "text": "Dr. Bauerstein",
    "type": "character",
    "mention_kind": "proper",
@@ -2728,7 +6279,7 @@
    }
   },
   {
-   "mention_id": "M168",
+   "mention_id": "M428",
    "text": "Dr. Bauerstein",
    "type": "character",
    "mention_kind": "proper",
@@ -2743,7 +6294,7 @@
    }
   },
   {
-   "mention_id": "M169",
+   "mention_id": "M429",
    "text": "He",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2758,7 +6309,7 @@
    }
   },
   {
-   "mention_id": "M170",
+   "mention_id": "M430",
    "text": "He",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2773,7 +6324,7 @@
    }
   },
   {
-   "mention_id": "M171",
+   "mention_id": "M431",
    "text": "a London specialist",
    "type": "character",
    "mention_kind": "nominal",
@@ -2788,7 +6339,7 @@
    }
   },
   {
-   "mention_id": "M172",
+   "mention_id": "M432",
    "text": "a very clever man",
    "type": "character",
    "mention_kind": "nominal",
@@ -2803,7 +6354,7 @@
    }
   },
   {
-   "mention_id": "M173",
+   "mention_id": "M433",
    "text": "one of the\ngreatest living experts on poisons",
    "type": "character",
    "mention_kind": "nominal",
@@ -2818,7 +6369,7 @@
    }
   },
   {
-   "mention_id": "M174",
+   "mention_id": "M434",
    "text": "he",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2833,7 +6384,7 @@
    }
   },
   {
-   "mention_id": "M175",
+   "mention_id": "M435",
    "text": "Hastings",
    "type": "character",
    "mention_kind": "proper",
@@ -2848,7 +6399,7 @@
    }
   },
   {
-   "mention_id": "M176",
+   "mention_id": "M436",
    "text": "She",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2863,7 +6414,7 @@
    }
   },
   {
-   "mention_id": "M177",
+   "mention_id": "M437",
    "text": "Evelyn Howard",
    "type": "character",
    "mention_kind": "proper",
@@ -2878,7 +6429,7 @@
    }
   },
   {
-   "mention_id": "M178",
+   "mention_id": "M438",
    "text": "Miss Howard",
    "type": "character",
    "mention_kind": "proper",
@@ -2893,7 +6444,7 @@
    }
   },
   {
-   "mention_id": "M179",
+   "mention_id": "M439",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2908,7 +6459,7 @@
    }
   },
   {
-   "mention_id": "M180",
+   "mention_id": "M440",
    "text": "My dear Hastings",
    "type": "character",
    "mention_kind": "proper",
@@ -2923,7 +6474,7 @@
    }
   },
   {
-   "mention_id": "M181",
+   "mention_id": "M441",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2938,7 +6489,7 @@
    }
   },
   {
-   "mention_id": "M182",
+   "mention_id": "M442",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2953,7 +6504,7 @@
    }
   },
   {
-   "mention_id": "M183",
+   "mention_id": "M443",
    "text": "Lawrence",
    "type": "character",
    "mention_kind": "proper",
@@ -2968,7 +6519,7 @@
    }
   },
   {
-   "mention_id": "M184",
+   "mention_id": "M444",
    "text": "He",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2983,7 +6534,7 @@
    }
   },
   {
-   "mention_id": "M185",
+   "mention_id": "M445",
    "text": "he",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2998,7 +6549,7 @@
    }
   },
   {
-   "mention_id": "M186",
+   "mention_id": "M446",
    "text": "we",
    "type": "character",
    "mention_kind": "pronominal",
@@ -3013,7 +6564,7 @@
    }
   },
   {
-   "mention_id": "M187",
+   "mention_id": "M447",
    "text": "My mother",
    "type": "character",
    "mention_kind": "proper",
@@ -3028,7 +6579,7 @@
    }
   },
   {
-   "mention_id": "M188",
+   "mention_id": "M448",
    "text": "us",
    "type": "character",
    "mention_kind": "pronominal",
@@ -3043,7 +6594,7 @@
    }
   },
   {
-   "mention_id": "M189",
+   "mention_id": "M449",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -5336,8 +8887,682 @@
   }
  ],
  "events": [],
- "facts": [],
- "relationships": [],
+ "facts": [
+  {
+   "fact_id": "F1",
+   "entity_key": "john_cavendish",
+   "property": "age",
+   "value": "forty-five",
+   "value_span": {
+    "start": 958,
+    "end": 968
+   },
+   "age_years": 45,
+   "evidence": {
+    "start": 930,
+    "end": 974
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F2",
+   "entity_key": "emily_inglethorp",
+   "property": "age",
+   "value": "seventy",
+   "value_span": {
+    "start": 1575,
+    "end": 1582
+   },
+   "age_years": 70,
+   "evidence": {
+    "start": 1532,
+    "end": 1586
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F3",
+   "entity_key": "lawrence_cavendish",
+   "property": "occupation",
+   "value": "doctor",
+   "value_span": {
+    "start": 2431,
+    "end": 2437
+   },
+   "evidence": {
+    "start": 2409,
+    "end": 2437
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F4",
+   "entity_key": "john_cavendish",
+   "property": "occupation",
+   "value": "barrister",
+   "value_span": {
+    "start": 2625,
+    "end": 2634
+   },
+   "evidence": {
+    "start": 2591,
+    "end": 2634
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F5",
+   "entity_key": "john_cavendish",
+   "property": "occupation",
+   "value": "country squire",
+   "value_span": {
+    "start": 2697,
+    "end": 2711
+   },
+   "evidence": {
+    "start": 2668,
+    "end": 2711
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F6",
+   "entity_key": "alfred_inglethorp",
+   "property": "occupation",
+   "value": "secretary",
+   "value_span": {
+    "start": 3982,
+    "end": 3991
+   },
+   "evidence": {
+    "start": 3967,
+    "end": 3991
+   },
+   "assertion": "asserted",
+   "claimed_by": "john_cavendish",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F7",
+   "entity_key": "evelyn_howard",
+   "property": "occupation",
+   "value": "factotum",
+   "value_span": {
+    "start": 3449,
+    "end": 3457
+   },
+   "evidence": {
+    "start": 3431,
+    "end": 3457
+   },
+   "assertion": "asserted",
+   "claimed_by": "john_cavendish",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F8",
+   "entity_key": "evelyn_howard",
+   "property": "age",
+   "value": "about forty",
+   "value_span": {
+    "start": 6806,
+    "end": 6817
+   },
+   "age_years": 40,
+   "evidence": {
+    "start": 6770,
+    "end": 6817
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F9",
+   "entity_key": "evelyn_howard",
+   "property": "eye_color",
+   "value": "blue",
+   "value_span": {
+    "start": 6740,
+    "end": 6744
+   },
+   "evidence": {
+    "start": 6718,
+    "end": 6749
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F10",
+   "entity_key": "arthur_hastings",
+   "property": "status",
+   "value": "invalided home",
+   "value_span": {
+    "start": 529,
+    "end": 543
+   },
+   "status_value": "INJURED",
+   "evidence": {
+    "start": 518,
+    "end": 558
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F11",
+   "entity_key": "cynthia_murdoch",
+   "property": "hair_color",
+   "value": "auburn",
+   "value_span": {
+    "start": 14056,
+    "end": 14062
+   },
+   "evidence": {
+    "start": 14027,
+    "end": 14067
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F12",
+   "entity_key": "dr_bauerstein",
+   "property": "occupation",
+   "value": "specialist",
+   "value_span": {
+    "start": 20779,
+    "end": 20789
+   },
+   "evidence": {
+    "start": 20765,
+    "end": 20789
+   },
+   "assertion": "asserted",
+   "claimed_by": "john_cavendish",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F13",
+   "entity_key": "dr_bauerstein",
+   "property": "location",
+   "value": "the village",
+   "value_span": {
+    "start": 20703,
+    "end": 20714
+   },
+   "evidence": {
+    "start": 20687,
+    "end": 20732
+   },
+   "assertion": "asserted",
+   "claimed_by": "john_cavendish",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F14",
+   "entity_key": "farmer_raikes",
+   "property": "occupation",
+   "value": "Farmer",
+   "value_span": {
+    "start": 18197,
+    "end": 18203
+   },
+   "evidence": {
+    "start": 18197,
+    "end": 18243
+   },
+   "assertion": "asserted",
+   "claimed_by": "evelyn_howard",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F15",
+   "entity_key": "lady_tadminster",
+   "property": "title",
+   "value": "Lady",
+   "value_span": {
+    "start": 15378,
+    "end": 15382
+   },
+   "evidence": {
+    "start": 15378,
+    "end": 15412
+   },
+   "assertion": "asserted",
+   "claimed_by": "emily_inglethorp",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F16",
+   "entity_key": "lord_abbotsbury",
+   "property": "status",
+   "value": "the late",
+   "value_span": {
+    "start": 15421,
+    "end": 15429
+   },
+   "status_value": "DEAD",
+   "evidence": {
+    "start": 15421,
+    "end": 15456
+   },
+   "assertion": "asserted",
+   "claimed_by": "emily_inglethorp",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  }
+ ],
+ "relationships": [
+  {
+   "relationship_id": "R1",
+   "subject_entity_key": "mr_cavendish",
+   "predicate": "MARRIED_TO",
+   "object_entity_key": "emily_inglethorp",
+   "evidence": {
+    "start": 1388,
+    "end": 1469
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R2",
+   "subject_entity_key": "mr_cavendish",
+   "predicate": "FATHER_OF",
+   "object_entity_key": "john_cavendish",
+   "evidence": {
+    "start": 1404,
+    "end": 1433
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R3",
+   "subject_entity_key": "mr_cavendish",
+   "predicate": "FATHER_OF",
+   "object_entity_key": "cavendish_brothers",
+   "evidence": {
+    "start": 2111,
+    "end": 2168
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R4",
+   "subject_entity_key": "emily_inglethorp",
+   "predicate": "RELATED_TO",
+   "object_entity_key": "cavendish_brothers",
+   "evidence": {
+    "start": 2170,
+    "end": 2235
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R5",
+   "subject_entity_key": "lawrence_cavendish",
+   "predicate": "SIBLING_OF",
+   "object_entity_key": "john_cavendish",
+   "evidence": {
+    "start": 16475,
+    "end": 16524
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R6",
+   "subject_entity_key": "mr_cavendish",
+   "predicate": "OWNS",
+   "object_entity_key": "styles_court",
+   "evidence": {
+    "start": 1868,
+    "end": 1917
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R7",
+   "subject_entity_key": "emily_inglethorp",
+   "predicate": "OWNS",
+   "object_entity_key": "styles_court",
+   "evidence": {
+    "start": 2026,
+    "end": 2067
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R8",
+   "subject_entity_key": "john_cavendish",
+   "predicate": "MARRIED_TO",
+   "object_entity_key": "mary_cavendish",
+   "evidence": {
+    "start": 2713,
+    "end": 2783
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R9",
+   "subject_entity_key": "alfred_inglethorp",
+   "predicate": "MARRIED_TO",
+   "object_entity_key": "emily_inglethorp",
+   "evidence": {
+    "start": 11124,
+    "end": 11164
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R10",
+   "subject_entity_key": "alfred_inglethorp",
+   "predicate": "RELATED_TO",
+   "object_entity_key": "evelyn_howard",
+   "evidence": {
+    "start": 3679,
+    "end": 3717
+   },
+   "assertion": "asserted",
+   "claimed_by": "john_cavendish",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R11",
+   "subject_entity_key": "alfred_inglethorp",
+   "predicate": "WORKS_FOR",
+   "object_entity_key": "emily_inglethorp",
+   "evidence": {
+    "start": 3967,
+    "end": 3991
+   },
+   "assertion": "asserted",
+   "claimed_by": "john_cavendish",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R12",
+   "subject_entity_key": "evelyn_howard",
+   "predicate": "WORKS_FOR",
+   "object_entity_key": "emily_inglethorp",
+   "evidence": {
+    "start": 3431,
+    "end": 3468
+   },
+   "assertion": "asserted",
+   "claimed_by": "john_cavendish",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R13",
+   "subject_entity_key": "cynthia_murdoch",
+   "predicate": "WORKS_FOR",
+   "object_entity_key": "red_cross_hospital",
+   "evidence": {
+    "start": 6337,
+    "end": 6386
+   },
+   "assertion": "asserted",
+   "claimed_by": "john_cavendish",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R14",
+   "subject_entity_key": "arthur_hastings",
+   "predicate": "FRIEND_OF",
+   "object_entity_key": "hercule_poirot",
+   "evidence": {
+    "start": 242,
+    "end": 261
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R15",
+   "subject_entity_key": "arthur_hastings",
+   "predicate": "KNOWS",
+   "object_entity_key": "john_cavendish",
+   "evidence": {
+    "start": 1054,
+    "end": 1088
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R16",
+   "subject_entity_key": "arthur_hastings",
+   "predicate": "KNOWS",
+   "object_entity_key": "lawrence_cavendish",
+   "evidence": {
+    "start": 16373,
+    "end": 16473
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R17",
+   "subject_entity_key": "arthur_hastings",
+   "predicate": "WORKS_FOR",
+   "object_entity_key": "lloyds",
+   "evidence": {
+    "start": 11589,
+    "end": 11620
+   },
+   "assertion": "asserted",
+   "claimed_by": "arthur_hastings",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R18",
+   "subject_entity_key": "arthur_hastings",
+   "predicate": "RELATED_TO",
+   "object_entity_key": "hastings_cousin",
+   "evidence": {
+    "start": 14592,
+    "end": 14626
+   },
+   "assertion": "asserted",
+   "claimed_by": "arthur_hastings",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R19",
+   "subject_entity_key": "john_cavendish",
+   "predicate": "MEMBER_OF",
+   "object_entity_key": "the_volunteers",
+   "evidence": {
+    "start": 5596,
+    "end": 5623
+   },
+   "assertion": "asserted",
+   "claimed_by": "john_cavendish",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R20",
+   "subject_entity_key": "mary_cavendish",
+   "predicate": "FRIEND_OF",
+   "object_entity_key": "dr_bauerstein",
+   "evidence": {
+    "start": 20874,
+    "end": 20903
+   },
+   "assertion": "asserted",
+   "claimed_by": "cynthia_murdoch",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R21",
+   "subject_entity_key": "farmer_raikes",
+   "predicate": "MARRIED_TO",
+   "object_entity_key": "mrs_raikes",
+   "evidence": {
+    "start": 18197,
+    "end": 18243
+   },
+   "assertion": "asserted",
+   "claimed_by": "evelyn_howard",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R22",
+   "subject_entity_key": "lady_tadminster",
+   "predicate": "MARRIED_TO",
+   "object_entity_key": "lady_tadminsters_husband",
+   "evidence": {
+    "start": 15378,
+    "end": 15412
+   },
+   "assertion": "asserted",
+   "claimed_by": "emily_inglethorp",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R23",
+   "subject_entity_key": "lord_abbotsbury",
+   "predicate": "FATHER_OF",
+   "object_entity_key": "lady_tadminster",
+   "evidence": {
+    "start": 15413,
+    "end": 15456
+   },
+   "assertion": "asserted",
+   "claimed_by": "emily_inglethorp",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  }
+ ],
  "temporal_expressions": [],
  "temporal_relations": []
 }
