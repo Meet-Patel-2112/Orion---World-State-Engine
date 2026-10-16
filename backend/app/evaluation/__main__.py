@@ -77,6 +77,8 @@ def cmd_pdnc(args: argparse.Namespace) -> int:
     offset_map = None
     if args.reference_text:
         reference = Path(args.reference_text).read_text(encoding="utf-8-sig")
+        # Lines where PDNC's edition words differ from the reference edition, written out in full by hand.
+        reference += "\n" + "\n".join(config.get("reference_text", {}).get("extra_lines", []))
         mode = config.get("reference_text", {}).get("mode", "char")
         text, restored, unmatched, offset_map = pdnc.restore_from_reference(text, reference, mode)
         print(f"restored {restored} characters from {args.reference_text} (mode {mode}); {len(unmatched)} lines "

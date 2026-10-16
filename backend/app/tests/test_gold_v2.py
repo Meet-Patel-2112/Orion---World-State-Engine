@@ -122,6 +122,19 @@ def test_byte_mode_restores_multibyte_characters_and_moves_spans():
     assert issues == [] and d["text"][span["start"]:span["end"]] == "you remember? A protégée"
 
 
+def test_restore_extra_line_for_edition_difference():
+    """A line worded differently in the reference edition stays damaged unless work.json supplies it as an extra
+    line in PDNC's own wording (reference_text.extra_lines, appended to the reference by the CLI)."""
+    pdnc = "believe   or her unconsciousness was indeed by artificial means.\n"
+    gutenberg = "believe—or her unconsciousness was induced by artificial means.\n"
+    text, restored, unmatched, _ = restore_from_reference(pdnc, gutenberg, mode="bytes")
+    assert restored == 0 and unmatched == [pdnc.strip()]
+    extra = "believe—or her unconsciousness was indeed by artificial means."
+    text, restored, unmatched, omap = restore_from_reference(pdnc, gutenberg + "\n" + extra, mode="bytes")
+    assert text == extra + "\n" and restored == 1 and unmatched == []
+    assert text[omap[pdnc.index("or")]:].startswith("or her")
+
+
 ROWS = [{"Character ID": "0", "Main Name": "Jane", "Aliases": "{'Jane', 'Miss Bennet'}"},
         {"Character ID": "1", "Main Name": "Elizabeth", "Aliases": "{'Elizabeth', 'Lizzy'}"},
         {"Character ID": "2", "Main Name": "Charlotte Lucas", "Aliases": "{'Charlotte', 'Lady Lucas'}"},

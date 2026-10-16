@@ -49,10 +49,13 @@
     "Narr": "arthur_hastings",
     "_narr": "arthur_hastings"
   },
-  "notes": "Hastings narrates; PDNC marks narrator speech with 'Narr' / '_narr', mapped to his key. PDNC's text replaced every non-ASCII character with one space per UTF-8 byte (an em dash became three spaces, an e-acute two) and wrote right single quotes as straight apostrophes: convert with --reference-text pointing at the Gutenberg edition; mode 'bytes' moves every span accordingly.",
+  "notes": "Hastings narrates; PDNC marks narrator speech with 'Narr' / '_narr', mapped to his key. PDNC's text replaced every non-ASCII character with one space per UTF-8 byte (an em dash became three spaces, an e-acute two) and wrote right single quotes as straight apostrophes: convert with --reference-text pointing at the Gutenberg edition; mode 'bytes' moves every span accordingly. reference_text.extra_lines restores a line whose wording differs between PDNC's edition and Gutenberg's (PDNC 'indeed', Gutenberg 'induced'), keeping PDNC's words.",
   "reference_text": {
     "source": "Project Gutenberg eBook #863",
     "url": "https://www.gutenberg.org/cache/epub/863/pg863.txt",
-    "mode": "bytes"
+    "mode": "bytes",
+    "extra_lines": [
+      "believe—or her unconsciousness was indeed by artificial means."
+    ]
   }
 }

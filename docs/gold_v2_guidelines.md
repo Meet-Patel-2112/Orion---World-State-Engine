@@ -249,6 +249,12 @@ Source notes:
 - PDNC's text of The Invisible Man has every apostrophe replaced by a space (`didn t`, `Kemp s`). The converter
   restores them from the Project Gutenberg edition; each restored apostrophe replaces one space, so offsets do not
   move.
+- PDNC's text of The Mysterious Affair at Styles replaced each non-ASCII character with one space per UTF-8 byte (an
+  em dash became three spaces, `é` two), wrote `’` as `'`, and wrote curly double quotes as `"`. The converter
+  (`reference_text.mode` `bytes` in `work.json`) restores the characters from the Gutenberg edition line by line and
+  moves every PDNC span to the restored text. A line whose words differ between the two editions cannot be matched;
+  `reference_text.extra_lines` in `work.json` gives the restored form of such a line in PDNC's own wording (one line
+  in Styles: PDNC "indeed", Gutenberg "induced").
 - The current gold story ("Accounts From a Lonely Broadcast Station") and "Left Right Game" are copyrighted Reddit
   posts. They should not be the basis of new gold.
 
