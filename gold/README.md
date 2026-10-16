@@ -58,6 +58,10 @@ Run from `backend/`, with predictions written as `PRED_DIR/<work_id>/chNN.json` 
 PYTHONPATH=. python -m app.evaluation score-v2 ../gold/v2 --pred-dir PRED_DIR [--json OUT.json]
 ```
 
+The first baseline set is chapter 1 of each work: Pride and Prejudice, Oliver Twist, The Invisible Man and The
+Mysterious Affair at Styles. Predictions come from the extractor (run from `extractor/` in its environment):
+`python -m extractor predict-v2 ../gold/v2/<work_id>/ch01.json ... --out-dir PRED_DIR`.
+
 By default only `reviewed` or `adjudicated` chapters are scored, on `accepted` or `corrected` items; pending items
 are ignored (a prediction matching one is neither right nor wrong). `--include-pending` counts pending items too, for
 building and debugging the scorer only: its output is marked PROVISIONAL and is never reported as an evaluation
