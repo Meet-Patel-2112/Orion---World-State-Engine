@@ -21,7 +21,7 @@
   "status": "draft",
   "layers": {
    "mentions": {
-    "coverage": "partial",
+    "coverage": "exhaustive",
     "region": {
      "start": 0,
      "end": 10979
@@ -34,10 +34,10 @@
     "coverage": "none"
    },
    "facts": {
-    "coverage": "none"
+    "coverage": "exhaustive"
    },
    "relationships": {
-    "coverage": "none"
+    "coverage": "exhaustive"
    },
    "temporal_expressions": {
     "coverage": "none"
@@ -46,9 +46,24 @@
     "coverage": "none"
    }
   },
-  "notes": "Quotes, characters and the mentions inside quotes imported from PDNC at e507a27. Mentions are partial until the drafting pass covers the region."
+  "notes": "Quotes, characters and the mentions inside quotes are imported from PDNC at e507a27; every other item is Claude's draft and pending review. New entities PDNC does not have: Edwin Leeford (Oliver's and Monks's father), Monks's mother and Agnes's father, both unnamed here. 'one other person whose name had not been mentioned' and 'a man whom Oliver almost shrieked ... to see' are Monks. Most ties are claims: Brownlow's declaration (claimed_by mr_brownlow), Monks's account (edward_leeford), Mrs. Maylie's 'my niece', Grimwig's 'the bride that is to be'. Oliver's 'I'll never call her aunt sister' states the aunt tie (RELATED_TO); 'sister' is affection, not SIBLING_OF. The two palsied women's testimony about Old Sally's death has no attributable speaker (PDNC leaves it null), so no claimed_by is possible and the fact is left out rather than presented as narration. Rose staying with Mrs. Maylie as a girl at Chester is recorded as Mrs. Maylie's location, Monks's claim.",
+  "annotators": [
+   {
+    "name": "Claude",
+    "role": "drafter"
+   }
+  ]
  },
  "entities": [
+  {
+   "entity_key": "agnes_father",
+   "name": "Agnes Fleming's father",
+   "type": "character",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
   {
    "entity_key": "agnes_fleming",
    "name": "Agnes Fleming",
@@ -75,6 +90,15 @@
     "origin": "pdnc",
     "status": "accepted",
     "by": "pdnc"
+   }
+  },
+  {
+   "entity_key": "chester",
+   "name": "Chester",
+   "type": "location",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
    }
   },
   {
@@ -110,6 +134,42 @@
    }
   },
   {
+   "entity_key": "edwin_leeford",
+   "name": "Edwin Leeford",
+   "type": "character",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "fagin",
+   "name": "Fagin",
+   "type": "character",
+   "aliases": [
+    "Faguey",
+    "Mr. Fagin",
+    "The Jew"
+   ],
+   "external_ids": {
+    "pdnc": "13"
+   },
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc"
+   }
+  },
+  {
+   "entity_key": "france",
+   "name": "France",
+   "type": "location",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
    "entity_key": "harry_maylie",
    "name": "Harry Maylie",
    "type": "character",
@@ -128,6 +188,18 @@
    }
   },
   {
+   "entity_key": "london",
+   "name": "London",
+   "type": "location",
+   "aliases": [
+    "town"
+   ],
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
    "entity_key": "martha",
    "name": "Martha",
    "type": "character",
@@ -139,6 +211,15 @@
     "origin": "pdnc",
     "status": "accepted",
     "by": "pdnc"
+   }
+  },
+  {
+   "entity_key": "monks_mother",
+   "name": "Monks's mother",
+   "type": "character",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
    }
   },
   {
@@ -175,6 +256,22 @@
    }
   },
   {
+   "entity_key": "mr_gamfield",
+   "name": "Mr. Gamfield",
+   "type": "character",
+   "aliases": [
+    "Gamfield"
+   ],
+   "external_ids": {
+    "pdnc": "14"
+   },
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc"
+   }
+  },
+  {
    "entity_key": "mr_grimwig",
    "name": "Mr. Grimwig",
    "type": "character",
@@ -199,6 +296,23 @@
    ],
    "external_ids": {
     "pdnc": "30"
+   },
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc"
+   }
+  },
+  {
+   "entity_key": "mr_sowerberry",
+   "name": "Mr. Sowerberry",
+   "type": "character",
+   "aliases": [
+    "Sowerberry",
+    "The Undertaker"
+   ],
+   "external_ids": {
+    "pdnc": "31"
    },
    "review": {
     "origin": "pdnc",
@@ -273,6 +387,16 @@
    }
   },
   {
+   "entity_key": "oliver_town",
+   "name": "the town",
+   "type": "location",
+   "provisional": true,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
    "entity_key": "oliver_twist",
    "name": "Oliver Twist",
    "type": "character",
@@ -288,6 +412,24 @@
     "origin": "pdnc",
     "status": "accepted",
     "by": "pdnc"
+   }
+  },
+  {
+   "entity_key": "paris",
+   "name": "Paris",
+   "type": "location",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "rome",
+   "name": "Rome",
+   "type": "location",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
    }
   },
   {
@@ -321,11 +463,688 @@
     "status": "accepted",
     "by": "pdnc"
    }
+  },
+  {
+   "entity_key": "the_parish",
+   "name": "the parish",
+   "type": "organization",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "the_workhouse",
+   "name": "the workhouse",
+   "type": "location",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "wales",
+   "name": "Wales",
+   "type": "location",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
   }
  ],
  "mentions": [
   {
    "mention_id": "M1",
+   "text": "Oliver",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "oliver_twist",
+   "start": 221,
+   "end": 227,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M2",
+   "text": "himself",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 234,
+   "end": 241,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M3",
+   "text": "his native town",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "oliver_town",
+   "start": 324,
+   "end": 339,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M4",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 324,
+   "end": 327,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M5",
+   "text": "Mrs. Maylie",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mrs_maylie",
+   "start": 341,
+   "end": 352,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M6",
+   "text": "Rose",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "rose_maylie",
+   "start": 358,
+   "end": 362,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M7",
+   "text": "Mrs. Bedwin",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mrs_bedwin",
+   "start": 368,
+   "end": 379,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M8",
+   "text": "the good doctor",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "mr_losberne",
+   "start": 385,
+   "end": 400,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M9",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 411,
+   "end": 414,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M10",
+   "text": "Mr.\nBrownlow",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mr_brownlow",
+   "start": 420,
+   "end": 432,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M11",
+   "text": "one other person",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "edward_leeford",
+   "start": 475,
+   "end": 491,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M12",
+   "text": "They",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 528,
+   "end": 532,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M13",
+   "text": "Oliver",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "oliver_twist",
+   "start": 571,
+   "end": 577,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M14",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 639,
+   "end": 642,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M15",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 670,
+   "end": 673,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M16",
+   "text": "his companions",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 751,
+   "end": 765,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M17",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 751,
+   "end": 754,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M18",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 811,
+   "end": 813,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M19",
+   "text": "the two ladies",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 818,
+   "end": 832,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M20",
+   "text": "Mr.\nBrownlow",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mr_brownlow",
+   "start": 876,
+   "end": 888,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M21",
+   "text": "Monks",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "edward_leeford",
+   "start": 950,
+   "end": 955,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M22",
+   "text": "they",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 970,
+   "end": 974,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M23",
+   "text": "their",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 999,
+   "end": 1004,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M24",
+   "text": "them",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 1153,
+   "end": 1157,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M25",
+   "text": "The same kind friend",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "mr_brownlow",
+   "start": 1202,
+   "end": 1222,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M26",
+   "text": "Mr. Losberne",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mr_losberne",
+   "start": 1233,
+   "end": 1245,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M27",
+   "text": "they",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 1323,
+   "end": 1327,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M28",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_brownlow",
+   "start": 1434,
+   "end": 1436,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M29",
+   "text": "they",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 1449,
+   "end": 1453,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M30",
+   "text": "they",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 1570,
+   "end": 1574,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M31",
+   "text": "them",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 1661,
+   "end": 1665,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M32",
+   "text": "Oliver",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "oliver_twist",
+   "start": 1762,
+   "end": 1768,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M33",
+   "text": "they",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 1820,
+   "end": 1824,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M34",
+   "text": "his birth-place",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "oliver_town",
+   "start": 1843,
+   "end": 1858,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M35",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 1843,
+   "end": 1846,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M36",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 1869,
+   "end": 1871,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M37",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 1913,
+   "end": 1916,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M38",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 2002,
+   "end": 2005,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M39",
+   "text": "they",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 2019,
+   "end": 2023,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M40",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 2047,
+   "end": 2049,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M41",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 2131,
+   "end": 2134,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M42",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 2157,
+   "end": 2160,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M43",
+   "text": "Oliver",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "oliver_twist",
+   "start": 2194,
+   "end": 2200,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M44",
+   "text": "Rose",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "rose_maylie",
+   "start": 2231,
+   "end": 2235,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M45",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 2296,
+   "end": 2297,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M46",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 2330,
+   "end": 2331,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M47",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 2379,
+   "end": 2381,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M48",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 2392,
+   "end": 2394,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M49",
+   "text": "the old house",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 2450,
+   "end": 2463,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M50",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 2470,
+   "end": 2471,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M51",
    "text": "Dick",
    "type": "character",
    "mention_kind": "proper",
@@ -340,7 +1159,7 @@
    }
   },
   {
-   "mention_id": "M2",
+   "mention_id": "M52",
    "text": "Dick",
    "type": "character",
    "mention_kind": "proper",
@@ -355,7 +1174,33 @@
    }
   },
   {
-   "mention_id": "M3",
+   "mention_id": "M53",
+   "text": "my dear old\nfriend",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "dick",
+   "start": 2507,
+   "end": 2525,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M54",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 2530,
+   "end": 2531,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M55",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -370,7 +1215,7 @@
    }
   },
   {
-   "mention_id": "M4",
+   "mention_id": "M56",
    "text": "You",
    "type": "character",
    "mention_kind": "pronominal",
@@ -385,7 +1230,7 @@
    }
   },
   {
-   "mention_id": "M5",
+   "mention_id": "M57",
    "text": "him",
    "type": "character",
    "mention_kind": "pronominal",
@@ -400,7 +1245,46 @@
    }
   },
   {
-   "mention_id": "M6",
+   "mention_id": "M58",
+   "text": "Rose",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "rose_maylie",
+   "start": 2591,
+   "end": 2595,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M59",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 2611,
+   "end": 2614,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M60",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "rose_maylie",
+   "start": 2636,
+   "end": 2639,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M61",
    "text": "You",
    "type": "character",
    "mention_kind": "pronominal",
@@ -415,7 +1299,7 @@
    }
   },
   {
-   "mention_id": "M7",
+   "mention_id": "M62",
    "text": "him",
    "type": "character",
    "mention_kind": "pronominal",
@@ -430,7 +1314,7 @@
    }
   },
   {
-   "mention_id": "M8",
+   "mention_id": "M63",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -445,7 +1329,7 @@
    }
   },
   {
-   "mention_id": "M9",
+   "mention_id": "M64",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -460,7 +1344,7 @@
    }
   },
   {
-   "mention_id": "M10",
+   "mention_id": "M65",
    "text": "your",
    "type": "character",
    "mention_kind": "pronominal",
@@ -475,7 +1359,7 @@
    }
   },
   {
-   "mention_id": "M11",
+   "mention_id": "M66",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -490,7 +1374,7 @@
    }
   },
   {
-   "mention_id": "M12",
+   "mention_id": "M67",
    "text": "him",
    "type": "character",
    "mention_kind": "pronominal",
@@ -505,7 +1389,46 @@
    }
   },
   {
-   "mention_id": "M13",
+   "mention_id": "M68",
+   "text": "Oliver",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "oliver_twist",
+   "start": 2828,
+   "end": 2834,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M69",
+   "text": "we",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 2841,
+   "end": 2843,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M70",
+   "text": "we",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 2847,
+   "end": 2849,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M71",
    "text": "him",
    "type": "character",
    "mention_kind": "pronominal",
@@ -520,7 +1443,7 @@
    }
   },
   {
-   "mention_id": "M14",
+   "mention_id": "M72",
    "text": "him",
    "type": "character",
    "mention_kind": "pronominal",
@@ -535,7 +1458,7 @@
    }
   },
   {
-   "mention_id": "M15",
+   "mention_id": "M73",
    "text": "him",
    "type": "character",
    "mention_kind": "pronominal",
@@ -550,7 +1473,7 @@
    }
   },
   {
-   "mention_id": "M16",
+   "mention_id": "M74",
    "text": "he",
    "type": "character",
    "mention_kind": "pronominal",
@@ -565,7 +1488,59 @@
    }
   },
   {
-   "mention_id": "M17",
+   "mention_id": "M75",
+   "text": "we",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 2993,
+   "end": 2995,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M76",
+   "text": "Rose",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "rose_maylie",
+   "start": 2999,
+   "end": 3003,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M77",
+   "text": "the boy",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "oliver_twist",
+   "start": 3022,
+   "end": 3029,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M78",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "rose_maylie",
+   "start": 3072,
+   "end": 3075,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M79",
    "text": "You",
    "type": "character",
    "mention_kind": "pronominal",
@@ -580,7 +1555,7 @@
    }
   },
   {
-   "mention_id": "M18",
+   "mention_id": "M80",
    "text": "him",
    "type": "character",
    "mention_kind": "pronominal",
@@ -595,7 +1570,7 @@
    }
   },
   {
-   "mention_id": "M19",
+   "mention_id": "M81",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -610,7 +1585,20 @@
    }
   },
   {
-   "mention_id": "M20",
+   "mention_id": "M82",
+   "text": "Oliver",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "oliver_twist",
+   "start": 3161,
+   "end": 3167,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M83",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -625,7 +1613,20 @@
    }
   },
   {
-   "mention_id": "M21",
+   "mention_id": "M84",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 3192,
+   "end": 3193,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M85",
    "text": "he",
    "type": "character",
    "mention_kind": "pronominal",
@@ -640,7 +1641,7 @@
    }
   },
   {
-   "mention_id": "M22",
+   "mention_id": "M86",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -655,7 +1656,20 @@
    }
   },
   {
-   "mention_id": "M23",
+   "mention_id": "M87",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 3300,
+   "end": 3301,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M88",
    "text": "he",
    "type": "character",
    "mention_kind": "pronominal",
@@ -670,7 +1684,7 @@
    }
   },
   {
-   "mention_id": "M24",
+   "mention_id": "M89",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -685,7 +1699,20 @@
    }
   },
   {
-   "mention_id": "M25",
+   "mention_id": "M90",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 3366,
+   "end": 3368,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M91",
    "text": "He",
    "type": "character",
    "mention_kind": "pronominal",
@@ -700,7 +1727,7 @@
    }
   },
   {
-   "mention_id": "M26",
+   "mention_id": "M92",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -715,7 +1742,72 @@
    }
   },
   {
-   "mention_id": "M27",
+   "mention_id": "M93",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 3397,
+   "end": 3399,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M94",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 3405,
+   "end": 3406,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M95",
+   "text": "the boy",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "oliver_twist",
+   "start": 3424,
+   "end": 3431,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M96",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 3475,
+   "end": 3476,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M97",
+   "text": "you",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "dick",
+   "start": 3497,
+   "end": 3500,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M98",
    "text": "him",
    "type": "character",
    "mention_kind": "pronominal",
@@ -730,7 +1822,20 @@
    }
   },
   {
-   "mention_id": "M28",
+   "mention_id": "M99",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 3524,
+   "end": 3525,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M100",
    "text": "him",
    "type": "character",
    "mention_kind": "pronominal",
@@ -745,7 +1850,904 @@
    }
   },
   {
-   "mention_id": "M29",
+   "mention_id": "M101",
+   "text": "they",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 3548,
+   "end": 3552,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M102",
+   "text": "the town",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "oliver_town",
+   "start": 3564,
+   "end": 3572,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M103",
+   "text": "the boy",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "oliver_twist",
+   "start": 3674,
+   "end": 3681,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M104",
+   "text": "Sowerberry",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mr_sowerberry",
+   "start": 3718,
+   "end": 3728,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M105",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 3821,
+   "end": 3823,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M106",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 3917,
+   "end": 3919,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M107",
+   "text": "Gamfield",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mr_gamfield",
+   "start": 3965,
+   "end": 3973,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M108",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_gamfield",
+   "start": 3996,
+   "end": 3998,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M109",
+   "text": "the workhouse",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "the_workhouse",
+   "start": 4061,
+   "end": 4074,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M110",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 4097,
+   "end": 4100,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M111",
+   "text": "the same lean porter",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 4173,
+   "end": 4193,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M112",
+   "text": "Oliver",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "oliver_twist",
+   "start": 4233,
+   "end": 4239,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M113",
+   "text": "himself",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 4287,
+   "end": 4294,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M114",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 4405,
+   "end": 4407,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M115",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 4458,
+   "end": 4460,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M116",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 4496,
+   "end": 4499,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M117",
+   "text": "They",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 4583,
+   "end": 4587,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M118",
+   "text": "the chief hotel",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 4618,
+   "end": 4633,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M119",
+   "text": "Oliver",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "oliver_twist",
+   "start": 4641,
+   "end": 4647,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M120",
+   "text": "Mr. Grimwig",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mr_grimwig",
+   "start": 4775,
+   "end": 4786,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M121",
+   "text": "them",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 4808,
+   "end": 4812,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M122",
+   "text": "the young lady",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "rose_maylie",
+   "start": 4822,
+   "end": 4836,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M123",
+   "text": "the old one",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "mrs_maylie",
+   "start": 4842,
+   "end": 4853,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M124",
+   "text": "they",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 4864,
+   "end": 4868,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M125",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_grimwig",
+   "start": 4897,
+   "end": 4899,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M126",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_grimwig",
+   "start": 4990,
+   "end": 4993,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M127",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_grimwig",
+   "start": 5027,
+   "end": 5029,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M128",
+   "text": "a very old postboy",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 5043,
+   "end": 5061,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M129",
+   "text": "London",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "london",
+   "start": 5088,
+   "end": 5094,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M130",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_grimwig",
+   "start": 5111,
+   "end": 5113,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M131",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_grimwig",
+   "start": 5135,
+   "end": 5137,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M132",
+   "text": "their",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 5429,
+   "end": 5434,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M133",
+   "text": "Mr. Brownlow",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mr_brownlow",
+   "start": 5449,
+   "end": 5461,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M134",
+   "text": "them",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 5475,
+   "end": 5479,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M135",
+   "text": "The two other gentlemen",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 5524,
+   "end": 5547,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M136",
+   "text": "they",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 5624,
+   "end": 5628,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M137",
+   "text": "Mrs. Maylie",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mrs_maylie",
+   "start": 5666,
+   "end": 5677,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M138",
+   "text": "Rose",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "rose_maylie",
+   "start": 5801,
+   "end": 5805,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M139",
+   "text": "Oliver",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "oliver_twist",
+   "start": 5810,
+   "end": 5816,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M140",
+   "text": "They",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 5878,
+   "end": 5882,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M141",
+   "text": "they",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 5917,
+   "end": 5921,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M142",
+   "text": "they",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 5970,
+   "end": 5974,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M143",
+   "text": "their",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 6008,
+   "end": 6013,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M144",
+   "text": "they",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 6070,
+   "end": 6074,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M145",
+   "text": "they",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 6090,
+   "end": 6094,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M146",
+   "text": "Mr. Losberne",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mr_losberne",
+   "start": 6128,
+   "end": 6140,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M147",
+   "text": "Mr. Grimwig",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mr_grimwig",
+   "start": 6145,
+   "end": 6156,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M148",
+   "text": "the room",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 6165,
+   "end": 6173,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M149",
+   "text": "Mr. Brownlow",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mr_brownlow",
+   "start": 6187,
+   "end": 6199,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M150",
+   "text": "a man",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "edward_leeford",
+   "start": 6204,
+   "end": 6209,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M151",
+   "text": "Oliver",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "oliver_twist",
+   "start": 6215,
+   "end": 6221,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M152",
+   "text": "they",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 6264,
+   "end": 6268,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M153",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 6274,
+   "end": 6277,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M154",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 6285,
+   "end": 6288,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M155",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 6322,
+   "end": 6324,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M156",
+   "text": "the market-town",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 6336,
+   "end": 6351,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M157",
+   "text": "Fagin",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "fagin",
+   "start": 6378,
+   "end": 6383,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M158",
+   "text": "his little room",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 6401,
+   "end": 6416,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M159",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 6401,
+   "end": 6404,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M160",
+   "text": "Monks",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "edward_leeford",
+   "start": 6418,
+   "end": 6423,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M161",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edward_leeford",
+   "start": 6463,
+   "end": 6465,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M162",
+   "text": "the astonished boy",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "oliver_twist",
+   "start": 6490,
+   "end": 6508,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M163",
+   "text": "Mr. Brownlow",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mr_brownlow",
+   "start": 6538,
+   "end": 6550,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M164",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_brownlow",
+   "start": 6570,
+   "end": 6573,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M165",
+   "text": "Rose",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "rose_maylie",
+   "start": 6609,
+   "end": 6613,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M166",
+   "text": "Oliver",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "oliver_twist",
+   "start": 6618,
+   "end": 6624,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M167",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_brownlow",
+   "start": 6670,
+   "end": 6672,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M168",
+   "text": "London",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "london",
+   "start": 6725,
+   "end": 6731,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M169",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_brownlow",
+   "start": 6791,
+   "end": 6792,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M170",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -760,7 +2762,20 @@
    }
   },
   {
-   "mention_id": "M30",
+   "mention_id": "M171",
+   "text": "we",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 6836,
+   "end": 6838,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M172",
    "text": "your",
    "type": "character",
    "mention_kind": "pronominal",
@@ -775,7 +2790,20 @@
    }
   },
   {
-   "mention_id": "M31",
+   "mention_id": "M173",
+   "text": "we",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 6880,
+   "end": 6882,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M174",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -790,7 +2818,72 @@
    }
   },
   {
-   "mention_id": "M32",
+   "mention_id": "M175",
+   "text": "the person addressed",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "edward_leeford",
+   "start": 6923,
+   "end": 6943,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M176",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edward_leeford",
+   "start": 6958,
+   "end": 6961,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M177",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edward_leeford",
+   "start": 6976,
+   "end": 6977,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M178",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edward_leeford",
+   "start": 7003,
+   "end": 7004,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M179",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edward_leeford",
+   "start": 7023,
+   "end": 7025,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M180",
    "text": "This child",
    "type": "character",
    "mention_kind": "proper",
@@ -805,7 +2898,72 @@
    }
   },
   {
-   "mention_id": "M33",
+   "mention_id": "M181",
+   "text": "Mr. Brownlow",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mr_brownlow",
+   "start": 7053,
+   "end": 7065,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M182",
+   "text": "Oliver",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "oliver_twist",
+   "start": 7075,
+   "end": 7081,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M183",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_brownlow",
+   "start": 7085,
+   "end": 7088,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M184",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_brownlow",
+   "start": 7101,
+   "end": 7104,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M185",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 7115,
+   "end": 7118,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M186",
    "text": "your",
    "type": "character",
    "mention_kind": "pronominal",
@@ -820,7 +2978,85 @@
    }
   },
   {
-   "mention_id": "M34",
+   "mention_id": "M187",
+   "text": "your\nfather",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "edwin_leeford",
+   "start": 7172,
+   "end": 7183,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M188",
+   "text": "your",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edward_leeford",
+   "start": 7172,
+   "end": 7176,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M189",
+   "text": "my dear friend Edwin Leeford",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "edwin_leeford",
+   "start": 7185,
+   "end": 7213,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M190",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_brownlow",
+   "start": 7185,
+   "end": 7187,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M191",
+   "text": "Edwin Leeford",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "edwin_leeford",
+   "start": 7200,
+   "end": 7213,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M192",
+   "text": "poor young Agnes Fleming",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "agnes_fleming",
+   "start": 7218,
+   "end": 7242,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M193",
    "text": "Agnes Fleming",
    "type": "character",
    "mention_kind": "proper",
@@ -835,7 +3071,7 @@
    }
   },
   {
-   "mention_id": "M35",
+   "mention_id": "M194",
    "text": "him",
    "type": "character",
    "mention_kind": "pronominal",
@@ -850,7 +3086,46 @@
    }
   },
   {
-   "mention_id": "M36",
+   "mention_id": "M195",
+   "text": "Monks",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "edward_leeford",
+   "start": 7288,
+   "end": 7293,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M196",
+   "text": "the trembling boy",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "oliver_twist",
+   "start": 7307,
+   "end": 7324,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M197",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edward_leeford",
+   "start": 7353,
+   "end": 7355,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M198",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -865,7 +3140,20 @@
    }
   },
   {
-   "mention_id": "M37",
+   "mention_id": "M199",
+   "text": "Mr. Brownlow",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mr_brownlow",
+   "start": 7429,
+   "end": 7441,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M200",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -880,7 +3168,7 @@
    }
   },
   {
-   "mention_id": "M38",
+   "mention_id": "M201",
    "text": "He",
    "type": "character",
    "mention_kind": "pronominal",
@@ -895,7 +3183,46 @@
    }
   },
   {
-   "mention_id": "M39",
+   "mention_id": "M202",
+   "text": "this town",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "oliver_town",
+   "start": 7626,
+   "end": 7635,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M203",
+   "text": "the workhouse",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "the_workhouse",
+   "start": 7643,
+   "end": 7656,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M204",
+   "text": "this town",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "oliver_town",
+   "start": 7660,
+   "end": 7669,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M205",
    "text": "You",
    "type": "character",
    "mention_kind": "pronominal",
@@ -910,7 +3237,72 @@
    }
   },
   {
-   "mention_id": "M40",
+   "mention_id": "M206",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edward_leeford",
+   "start": 7722,
+   "end": 7724,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M207",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edward_leeford",
+   "start": 7762,
+   "end": 7764,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M208",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_brownlow",
+   "start": 7774,
+   "end": 7775,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M209",
+   "text": "Mr. Brownlow",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mr_brownlow",
+   "start": 7806,
+   "end": 7818,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M210",
+   "text": "the\nlisteners",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 7839,
+   "end": 7852,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M211",
    "text": "You",
    "type": "character",
    "mention_kind": "pronominal",
@@ -925,7 +3317,33 @@
    }
   },
   {
-   "mention_id": "M41",
+   "mention_id": "M212",
+   "text": "Monks",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "edward_leeford",
+   "start": 7884,
+   "end": 7889,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M213",
+   "text": "His father",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "edwin_leeford",
+   "start": 7892,
+   "end": 7902,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M214",
    "text": "His",
    "type": "character",
    "mention_kind": "pronominal",
@@ -940,22 +3358,346 @@
    }
   },
   {
-   "mention_id": "M42",
-   "text": "us",
+   "mention_id": "M215",
+   "text": "Rome",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "rome",
+   "start": 7922,
+   "end": 7926,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M216",
+   "text": "his wife",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "monks_mother",
+   "start": 7942,
+   "end": 7950,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M217",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edwin_leeford",
+   "start": 7942,
+   "end": 7945,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M218",
+   "text": "my mother",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "monks_mother",
+   "start": 7952,
+   "end": 7961,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M219",
+   "text": "my",
    "type": "character",
    "mention_kind": "pronominal",
    "entity_key": "edward_leeford",
+   "start": 7952,
+   "end": 7954,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M220",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edwin_leeford",
+   "start": 7973,
+   "end": 7975,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M221",
+   "text": "Paris",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "paris",
+   "start": 8015,
+   "end": 8020,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M222",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edward_leeford",
+   "start": 8030,
+   "end": 8032,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M223",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "monks_mother",
+   "start": 8038,
+   "end": 8041,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M224",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edwin_leeford",
+   "start": 8056,
+   "end": 8059,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M225",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edward_leeford",
+   "start": 8079,
+   "end": 8080,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M226",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "monks_mother",
+   "start": 8091,
+   "end": 8094,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M227",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edwin_leeford",
+   "start": 8122,
+   "end": 8125,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M228",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edwin_leeford",
+   "start": 8131,
+   "end": 8133,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M229",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "monks_mother",
+   "start": 8138,
+   "end": 8141,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M230",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edwin_leeford",
+   "start": 8143,
+   "end": 8145,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M231",
+   "text": "us",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
    "start": 8162,
    "end": 8164,
    "review": {
     "origin": "pdnc",
-    "status": "accepted",
-    "by": "pdnc",
-    "note": "mention_kind set by the converter"
+    "status": "pending",
+    "note": "PDNC links this to edward_leeford alone; 'us' is Monks and his mother, a set with no entity, so guidelines section 4 gives null. Drafter proposes null."
    }
   },
   {
-   "mention_id": "M43",
+   "mention_id": "M232",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edwin_leeford",
+   "start": 8170,
+   "end": 8173,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M233",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edwin_leeford",
+   "start": 8196,
+   "end": 8198,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M234",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edwin_leeford",
+   "start": 8232,
+   "end": 8234,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M235",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edwin_leeford",
+   "start": 8261,
+   "end": 8264,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M236",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edwin_leeford",
+   "start": 8300,
+   "end": 8303,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M237",
+   "text": "yourself",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_brownlow",
+   "start": 8339,
+   "end": 8347,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M238",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edward_leeford",
+   "start": 8350,
+   "end": 8352,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M239",
+   "text": "himself",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edward_leeford",
+   "start": 8363,
+   "end": 8370,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M240",
+   "text": "Mr. Brownlow",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mr_brownlow",
+   "start": 8374,
+   "end": 8386,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M241",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -970,7 +3712,20 @@
    }
   },
   {
-   "mention_id": "M44",
+   "mention_id": "M242",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edwin_leeford",
+   "start": 8521,
+   "end": 8523,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M243",
    "text": "this girl Agnes",
    "type": "character",
    "mention_kind": "nominal",
@@ -985,7 +3740,33 @@
    }
   },
   {
-   "mention_id": "M45",
+   "mention_id": "M244",
+   "text": "Agnes",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "agnes_fleming",
+   "start": 8580,
+   "end": 8585,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M245",
+   "text": "Mr. Brownlow",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mr_brownlow",
+   "start": 8635,
+   "end": 8647,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M246",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1000,7 +3781,20 @@
    }
   },
   {
-   "mention_id": "M46",
+   "mention_id": "M247",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edwin_leeford",
+   "start": 8767,
+   "end": 8769,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M248",
    "text": "the girl",
    "type": "character",
    "mention_kind": "nominal",
@@ -1015,7 +3809,20 @@
    }
   },
   {
-   "mention_id": "M47",
+   "mention_id": "M249",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edwin_leeford",
+   "start": 8859,
+   "end": 8862,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M250",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1030,7 +3837,7 @@
    }
   },
   {
-   "mention_id": "M48",
+   "mention_id": "M251",
    "text": "she",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1045,7 +3852,20 @@
    }
   },
   {
-   "mention_id": "M49",
+   "mention_id": "M252",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edwin_leeford",
+   "start": 8933,
+   "end": 8936,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M253",
    "text": "she",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1060,7 +3880,7 @@
    }
   },
   {
-   "mention_id": "M50",
+   "mention_id": "M254",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1075,7 +3895,7 @@
    }
   },
   {
-   "mention_id": "M51",
+   "mention_id": "M255",
    "text": "She",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1090,7 +3910,7 @@
    }
   },
   {
-   "mention_id": "M52",
+   "mention_id": "M256",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1105,7 +3925,20 @@
    }
   },
   {
-   "mention_id": "M53",
+   "mention_id": "M257",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edwin_leeford",
+   "start": 9073,
+   "end": 9075,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M258",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1120,7 +3953,20 @@
    }
   },
   {
-   "mention_id": "M54",
+   "mention_id": "M259",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edwin_leeford",
+   "start": 9089,
+   "end": 9091,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M260",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1135,7 +3981,20 @@
    }
   },
   {
-   "mention_id": "M55",
+   "mention_id": "M261",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edwin_leeford",
+   "start": 9131,
+   "end": 9133,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M262",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1150,7 +4009,33 @@
    }
   },
   {
-   "mention_id": "M56",
+   "mention_id": "M263",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edwin_leeford",
+   "start": 9164,
+   "end": 9166,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M264",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edwin_leeford",
+   "start": 9186,
+   "end": 9189,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M265",
    "text": "their",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1165,7 +4050,7 @@
    }
   },
   {
-   "mention_id": "M57",
+   "mention_id": "M266",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1180,7 +4065,7 @@
    }
   },
   {
-   "mention_id": "M58",
+   "mention_id": "M267",
    "text": "their young child",
    "type": "character",
    "mention_kind": "nominal",
@@ -1195,7 +4080,46 @@
    }
   },
   {
-   "mention_id": "M59",
+   "mention_id": "M268",
+   "text": "their",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 9264,
+   "end": 9269,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M269",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edwin_leeford",
+   "start": 9305,
+   "end": 9308,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M270",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edwin_leeford",
+   "start": 9310,
+   "end": 9312,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M271",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1210,7 +4134,20 @@
    }
   },
   {
-   "mention_id": "M60",
+   "mention_id": "M272",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edwin_leeford",
+   "start": 9337,
+   "end": 9339,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M273",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1225,7 +4162,7 @@
    }
   },
   {
-   "mention_id": "M61",
+   "mention_id": "M274",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1240,7 +4177,20 @@
    }
   },
   {
-   "mention_id": "M62",
+   "mention_id": "M275",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edwin_leeford",
+   "start": 9459,
+   "end": 9461,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M276",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1255,7 +4205,7 @@
    }
   },
   {
-   "mention_id": "M63",
+   "mention_id": "M277",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1270,7 +4220,7 @@
    }
   },
   {
-   "mention_id": "M64",
+   "mention_id": "M278",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1285,7 +4235,7 @@
    }
   },
   {
-   "mention_id": "M65",
+   "mention_id": "M279",
    "text": "she",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1300,7 +4250,163 @@
    }
   },
   {
-   "mention_id": "M66",
+   "mention_id": "M280",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edwin_leeford",
+   "start": 9651,
+   "end": 9653,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M281",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edward_leeford",
+   "start": 9675,
+   "end": 9676,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M282",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edwin_leeford",
+   "start": 9685,
+   "end": 9687,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M283",
+   "text": "Mr. Brownlow",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mr_brownlow",
+   "start": 9712,
+   "end": 9724,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M284",
+   "text": "Oliver",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "oliver_twist",
+   "start": 9729,
+   "end": 9735,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M285",
+   "text": "Monks",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "edward_leeford",
+   "start": 9756,
+   "end": 9761,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M286",
+   "text": "Mr. Brownlow",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mr_brownlow",
+   "start": 9792,
+   "end": 9804,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M287",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edward_leeford",
+   "start": 9819,
+   "end": 9822,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M288",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edwin_leeford",
+   "start": 9863,
+   "end": 9865,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M289",
+   "text": "his wife",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "monks_mother",
+   "start": 9891,
+   "end": 9899,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M290",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edwin_leeford",
+   "start": 9891,
+   "end": 9894,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M291",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edwin_leeford",
+   "start": 9917,
+   "end": 9920,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M292",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1315,7 +4421,7 @@
    }
   },
   {
-   "mention_id": "M67",
+   "mention_id": "M293",
    "text": "his only son",
    "type": "character",
    "mention_kind": "nominal",
@@ -1330,7 +4436,33 @@
    }
   },
   {
-   "mention_id": "M68",
+   "mention_id": "M294",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edwin_leeford",
+   "start": 10001,
+   "end": 10004,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M295",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edwin_leeford",
+   "start": 10044,
+   "end": 10047,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M296",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1345,7 +4477,20 @@
    }
   },
   {
-   "mention_id": "M69",
+   "mention_id": "M297",
+   "text": "your mother",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "monks_mother",
+   "start": 10067,
+   "end": 10078,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M298",
    "text": "your",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1360,7 +4505,33 @@
    }
   },
   {
-   "mention_id": "M70",
+   "mention_id": "M299",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edwin_leeford",
+   "start": 10133,
+   "end": 10136,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M300",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edwin_leeford",
+   "start": 10146,
+   "end": 10148,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M301",
    "text": "Agnes\nFleming",
    "type": "character",
    "mention_kind": "proper",
@@ -1375,7 +4546,7 @@
    }
   },
   {
-   "mention_id": "M71",
+   "mention_id": "M302",
    "text": "their child",
    "type": "character",
    "mention_kind": "nominal",
@@ -1390,7 +4561,20 @@
    }
   },
   {
-   "mention_id": "M72",
+   "mention_id": "M303",
+   "text": "their",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 10222,
+   "end": 10227,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M304",
    "text": "his",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1405,7 +4589,7 @@
    }
   },
   {
-   "mention_id": "M73",
+   "mention_id": "M305",
    "text": "he",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1420,7 +4604,7 @@
    }
   },
   {
-   "mention_id": "M74",
+   "mention_id": "M306",
    "text": "his",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1435,7 +4619,46 @@
    }
   },
   {
-   "mention_id": "M75",
+   "mention_id": "M307",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edwin_leeford",
+   "start": 10511,
+   "end": 10513,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M308",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edwin_leeford",
+   "start": 10524,
+   "end": 10526,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M309",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edwin_leeford",
+   "start": 10541,
+   "end": 10544,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M310",
    "text": "the mother",
    "type": "character",
    "mention_kind": "nominal",
@@ -1450,7 +4673,20 @@
    }
   },
   {
-   "mention_id": "M76",
+   "mention_id": "M311",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edwin_leeford",
+   "start": 10575,
+   "end": 10578,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M312",
    "text": "the child",
    "type": "character",
    "mention_kind": "nominal",
@@ -1465,7 +4701,7 @@
    }
   },
   {
-   "mention_id": "M77",
+   "mention_id": "M313",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1480,7 +4716,20 @@
    }
   },
   {
-   "mention_id": "M78",
+   "mention_id": "M314",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edwin_leeford",
+   "start": 10695,
+   "end": 10697,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M315",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1495,7 +4744,33 @@
    }
   },
   {
-   "mention_id": "M79",
+   "mention_id": "M316",
+   "text": "both\nchildren",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 10806,
+   "end": 10819,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M317",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edwin_leeford",
+   "start": 10838,
+   "end": 10840,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M318",
    "text": "your",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1510,7 +4785,46 @@
    }
   },
   {
-   "mention_id": "M80",
+   "mention_id": "M319",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edwin_leeford",
+   "start": 10873,
+   "end": 10876,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M320",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edwin_leeford",
+   "start": 10902,
+   "end": 10905,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M321",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "edwin_leeford",
+   "start": 10947,
+   "end": 10950,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M322",
    "text": "The girl",
    "type": "character",
    "mention_kind": "proper",
@@ -1525,7 +4839,7 @@
    }
   },
   {
-   "mention_id": "M81",
+   "mention_id": "M323",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1540,7 +4854,7 @@
    }
   },
   {
-   "mention_id": "M82",
+   "mention_id": "M324",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1555,7 +4869,7 @@
    }
   },
   {
-   "mention_id": "M83",
+   "mention_id": "M325",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1570,7 +4884,7 @@
    }
   },
   {
-   "mention_id": "M84",
+   "mention_id": "M326",
    "text": "The girl",
    "type": "character",
    "mention_kind": "proper",
@@ -1585,7 +4899,7 @@
    }
   },
   {
-   "mention_id": "M85",
+   "mention_id": "M327",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1600,7 +4914,7 @@
    }
   },
   {
-   "mention_id": "M86",
+   "mention_id": "M328",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1615,7 +4929,7 @@
    }
   },
   {
-   "mention_id": "M87",
+   "mention_id": "M329",
    "text": "she",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1630,7 +4944,7 @@
    }
   },
   {
-   "mention_id": "M88",
+   "mention_id": "M330",
    "text": "herself",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1645,7 +4959,7 @@
    }
   },
   {
-   "mention_id": "M89",
+   "mention_id": "M331",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1660,7 +4974,7 @@
    }
   },
   {
-   "mention_id": "M90",
+   "mention_id": "M332",
    "text": "this man",
    "type": "character",
    "mention_kind": "nominal",
@@ -1675,7 +4989,7 @@
    }
   },
   {
-   "mention_id": "M91",
+   "mention_id": "M333",
    "text": "Edward Leeford",
    "type": "character",
    "mention_kind": "proper",
@@ -1690,7 +5004,7 @@
    }
   },
   {
-   "mention_id": "M92",
+   "mention_id": "M334",
    "text": "He",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1705,7 +5019,7 @@
    }
   },
   {
-   "mention_id": "M93",
+   "mention_id": "M335",
    "text": "he",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1720,7 +5034,7 @@
    }
   },
   {
-   "mention_id": "M94",
+   "mention_id": "M336",
    "text": "him",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1735,7 +5049,7 @@
    }
   },
   {
-   "mention_id": "M95",
+   "mention_id": "M337",
    "text": "he",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1750,7 +5064,7 @@
    }
   },
   {
-   "mention_id": "M96",
+   "mention_id": "M338",
    "text": "the girl",
    "type": "character",
    "mention_kind": "nominal",
@@ -1765,7 +5079,7 @@
    }
   },
   {
-   "mention_id": "M97",
+   "mention_id": "M339",
    "text": "herself",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1780,7 +5094,7 @@
    }
   },
   {
-   "mention_id": "M98",
+   "mention_id": "M340",
    "text": "the child",
    "type": "character",
    "mention_kind": "nominal",
@@ -1795,7 +5109,7 @@
    }
   },
   {
-   "mention_id": "M99",
+   "mention_id": "M341",
    "text": "a male child",
    "type": "character",
    "mention_kind": "nominal",
@@ -1810,7 +5124,7 @@
    }
   },
   {
-   "mention_id": "M100",
+   "mention_id": "M342",
    "text": "it",
    "type": "character",
    "mention_kind": "nominal",
@@ -1825,7 +5139,7 @@
    }
   },
   {
-   "mention_id": "M101",
+   "mention_id": "M343",
    "text": "it",
    "type": "character",
    "mention_kind": "nominal",
@@ -1840,7 +5154,7 @@
    }
   },
   {
-   "mention_id": "M102",
+   "mention_id": "M344",
    "text": "it",
    "type": "character",
    "mention_kind": "nominal",
@@ -1855,7 +5169,7 @@
    }
   },
   {
-   "mention_id": "M103",
+   "mention_id": "M345",
    "text": "it",
    "type": "character",
    "mention_kind": "nominal",
@@ -1870,7 +5184,7 @@
    }
   },
   {
-   "mention_id": "M104",
+   "mention_id": "M346",
    "text": "He",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1885,7 +5199,7 @@
    }
   },
   {
-   "mention_id": "M105",
+   "mention_id": "M347",
    "text": "the man",
    "type": "character",
    "mention_kind": "nominal",
@@ -1900,7 +5214,7 @@
    }
   },
   {
-   "mention_id": "M106",
+   "mention_id": "M348",
    "text": "woman",
    "type": "character",
    "mention_kind": "nominal",
@@ -1915,7 +5229,7 @@
    }
   },
   {
-   "mention_id": "M107",
+   "mention_id": "M349",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1930,7 +5244,7 @@
    }
   },
   {
-   "mention_id": "M108",
+   "mention_id": "M350",
    "text": "the nurse",
    "type": "character",
    "mention_kind": "nominal",
@@ -1945,7 +5259,7 @@
    }
   },
   {
-   "mention_id": "M109",
+   "mention_id": "M351",
    "text": "the corpse",
    "type": "character",
    "mention_kind": "nominal",
@@ -1960,7 +5274,7 @@
    }
   },
   {
-   "mention_id": "M110",
+   "mention_id": "M352",
    "text": "You",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1975,7 +5289,7 @@
    }
   },
   {
-   "mention_id": "M111",
+   "mention_id": "M353",
    "text": "Oliver",
    "type": "character",
    "mention_kind": "proper",
@@ -1990,7 +5304,7 @@
    }
   },
   {
-   "mention_id": "M112",
+   "mention_id": "M354",
    "text": "O-li-ver",
    "type": "character",
    "mention_kind": "proper",
@@ -2005,7 +5319,7 @@
    }
   },
   {
-   "mention_id": "M113",
+   "mention_id": "M355",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2020,7 +5334,7 @@
    }
   },
   {
-   "mention_id": "M114",
+   "mention_id": "M356",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2035,7 +5349,7 @@
    }
   },
   {
-   "mention_id": "M115",
+   "mention_id": "M357",
    "text": "your",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2050,7 +5364,7 @@
    }
   },
   {
-   "mention_id": "M116",
+   "mention_id": "M358",
    "text": "fool",
    "type": "character",
    "mention_kind": "nominal",
@@ -2065,7 +5379,7 @@
    }
   },
   {
-   "mention_id": "M117",
+   "mention_id": "M359",
    "text": "Mrs. Bumble",
    "type": "character",
    "mention_kind": "proper",
@@ -2080,7 +5394,7 @@
    }
   },
   {
-   "mention_id": "M118",
+   "mention_id": "M360",
    "text": "him",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2095,7 +5409,7 @@
    }
   },
   {
-   "mention_id": "M119",
+   "mention_id": "M361",
    "text": "him",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2110,7 +5424,7 @@
    }
   },
   {
-   "mention_id": "M120",
+   "mention_id": "M362",
    "text": "that boy",
    "type": "character",
    "mention_kind": "nominal",
@@ -2125,7 +5439,7 @@
    }
   },
   {
-   "mention_id": "M121",
+   "mention_id": "M363",
    "text": "he",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2140,7 +5454,7 @@
    }
   },
   {
-   "mention_id": "M122",
+   "mention_id": "M364",
    "text": "Master Oliver",
    "type": "character",
    "mention_kind": "proper",
@@ -2155,7 +5469,7 @@
    }
   },
   {
-   "mention_id": "M123",
+   "mention_id": "M365",
    "text": "my dear",
    "type": "character",
    "mention_kind": "nominal",
@@ -2170,7 +5484,7 @@
    }
   },
   {
-   "mention_id": "M124",
+   "mention_id": "M366",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2185,7 +5499,7 @@
    }
   },
   {
-   "mention_id": "M125",
+   "mention_id": "M367",
    "text": "the blessed gentleman in the\nwhite waistcoat",
    "type": "character",
    "mention_kind": "nominal",
@@ -2200,7 +5514,7 @@
    }
   },
   {
-   "mention_id": "M126",
+   "mention_id": "M368",
    "text": "he",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2215,7 +5529,7 @@
    }
   },
   {
-   "mention_id": "M127",
+   "mention_id": "M369",
    "text": "Oliver",
    "type": "character",
    "mention_kind": "proper",
@@ -2230,7 +5544,7 @@
    }
   },
   {
-   "mention_id": "M128",
+   "mention_id": "M370",
    "text": "sir",
    "type": "character",
    "mention_kind": "nominal",
@@ -2245,7 +5559,7 @@
    }
   },
   {
-   "mention_id": "M129",
+   "mention_id": "M371",
    "text": "your",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2260,7 +5574,7 @@
    }
   },
   {
-   "mention_id": "M130",
+   "mention_id": "M372",
    "text": "sir",
    "type": "character",
    "mention_kind": "nominal",
@@ -2275,7 +5589,7 @@
    }
   },
   {
-   "mention_id": "M131",
+   "mention_id": "M373",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2290,7 +5604,7 @@
    }
   },
   {
-   "mention_id": "M132",
+   "mention_id": "M374",
    "text": "sir",
    "type": "character",
    "mention_kind": "nominal",
@@ -2305,7 +5619,7 @@
    }
   },
   {
-   "mention_id": "M133",
+   "mention_id": "M375",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2320,7 +5634,7 @@
    }
   },
   {
-   "mention_id": "M134",
+   "mention_id": "M376",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2335,7 +5649,7 @@
    }
   },
   {
-   "mention_id": "M135",
+   "mention_id": "M377",
    "text": "that person",
    "type": "character",
    "mention_kind": "nominal",
@@ -2350,7 +5664,7 @@
    }
   },
   {
-   "mention_id": "M136",
+   "mention_id": "M378",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2365,7 +5679,7 @@
    }
   },
   {
-   "mention_id": "M137",
+   "mention_id": "M379",
    "text": "him",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2380,7 +5694,7 @@
    }
   },
   {
-   "mention_id": "M138",
+   "mention_id": "M380",
    "text": "him",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2395,7 +5709,7 @@
    }
   },
   {
-   "mention_id": "M139",
+   "mention_id": "M381",
    "text": "You",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2410,7 +5724,7 @@
    }
   },
   {
-   "mention_id": "M140",
+   "mention_id": "M382",
    "text": "old Sally",
    "type": "character",
    "mention_kind": "nominal",
@@ -2425,7 +5739,7 @@
    }
   },
   {
-   "mention_id": "M141",
+   "mention_id": "M383",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2440,7 +5754,7 @@
    }
   },
   {
-   "mention_id": "M142",
+   "mention_id": "M384",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2455,7 +5769,7 @@
    }
   },
   {
-   "mention_id": "M143",
+   "mention_id": "M385",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2470,7 +5784,7 @@
    }
   },
   {
-   "mention_id": "M144",
+   "mention_id": "M386",
    "text": "she",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2485,7 +5799,7 @@
    }
   },
   {
-   "mention_id": "M145",
+   "mention_id": "M387",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2500,7 +5814,7 @@
    }
   },
   {
-   "mention_id": "M146",
+   "mention_id": "M388",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2515,7 +5829,7 @@
    }
   },
   {
-   "mention_id": "M147",
+   "mention_id": "M389",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2530,7 +5844,7 @@
    }
   },
   {
-   "mention_id": "M148",
+   "mention_id": "M390",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2545,7 +5859,7 @@
    }
   },
   {
-   "mention_id": "M149",
+   "mention_id": "M391",
    "text": "she",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2560,7 +5874,7 @@
    }
   },
   {
-   "mention_id": "M150",
+   "mention_id": "M392",
    "text": "the young mother",
    "type": "character",
    "mention_kind": "nominal",
@@ -2575,7 +5889,7 @@
    }
   },
   {
-   "mention_id": "M151",
+   "mention_id": "M393",
    "text": "she",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2590,7 +5904,7 @@
    }
   },
   {
-   "mention_id": "M152",
+   "mention_id": "M394",
    "text": "she",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2605,7 +5919,7 @@
    }
   },
   {
-   "mention_id": "M153",
+   "mention_id": "M395",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2620,7 +5934,7 @@
    }
   },
   {
-   "mention_id": "M154",
+   "mention_id": "M396",
    "text": "she",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2635,7 +5949,7 @@
    }
   },
   {
-   "mention_id": "M155",
+   "mention_id": "M397",
    "text": "the child",
    "type": "character",
    "mention_kind": "nominal",
@@ -2650,7 +5964,7 @@
    }
   },
   {
-   "mention_id": "M156",
+   "mention_id": "M398",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2665,7 +5979,7 @@
    }
   },
   {
-   "mention_id": "M157",
+   "mention_id": "M399",
    "text": "he",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2680,7 +5994,7 @@
    }
   },
   {
-   "mention_id": "M158",
+   "mention_id": "M400",
    "text": "he",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2695,7 +6009,7 @@
    }
   },
   {
-   "mention_id": "M159",
+   "mention_id": "M401",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2710,7 +6024,7 @@
    }
   },
   {
-   "mention_id": "M160",
+   "mention_id": "M402",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2725,7 +6039,7 @@
    }
   },
   {
-   "mention_id": "M161",
+   "mention_id": "M403",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2740,7 +6054,7 @@
    }
   },
   {
-   "mention_id": "M162",
+   "mention_id": "M404",
    "text": "us",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2755,7 +6069,7 @@
    }
   },
   {
-   "mention_id": "M163",
+   "mention_id": "M405",
    "text": "You",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2770,7 +6084,7 @@
    }
   },
   {
-   "mention_id": "M164",
+   "mention_id": "M406",
    "text": "your",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2785,7 +6099,7 @@
    }
   },
   {
-   "mention_id": "M165",
+   "mention_id": "M407",
    "text": "yourself",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2800,7 +6114,7 @@
    }
   },
   {
-   "mention_id": "M166",
+   "mention_id": "M408",
    "text": "Mrs. Bumble",
    "type": "character",
    "mention_kind": "proper",
@@ -2815,7 +6129,7 @@
    }
   },
   {
-   "mention_id": "M167",
+   "mention_id": "M409",
    "text": "She",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2830,7 +6144,7 @@
    }
   },
   {
-   "mention_id": "M168",
+   "mention_id": "M410",
    "text": "You",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2845,7 +6159,7 @@
    }
   },
   {
-   "mention_id": "M169",
+   "mention_id": "M411",
    "text": "your",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2860,7 +6174,7 @@
    }
   },
   {
-   "mention_id": "M170",
+   "mention_id": "M412",
    "text": "Young lady",
    "type": "character",
    "mention_kind": "proper",
@@ -2875,7 +6189,7 @@
    }
   },
   {
-   "mention_id": "M171",
+   "mention_id": "M413",
    "text": "your",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2890,7 +6204,7 @@
    }
   },
   {
-   "mention_id": "M172",
+   "mention_id": "M414",
    "text": "You",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2905,7 +6219,7 @@
    }
   },
   {
-   "mention_id": "M173",
+   "mention_id": "M415",
    "text": "we",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2920,7 +6234,7 @@
    }
   },
   {
-   "mention_id": "M174",
+   "mention_id": "M416",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2935,7 +6249,7 @@
    }
   },
   {
-   "mention_id": "M175",
+   "mention_id": "M417",
    "text": "this young lady",
    "type": "character",
    "mention_kind": "nominal",
@@ -2950,7 +6264,7 @@
    }
   },
   {
-   "mention_id": "M176",
+   "mention_id": "M418",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2965,7 +6279,7 @@
    }
   },
   {
-   "mention_id": "M177",
+   "mention_id": "M419",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2980,7 +6294,7 @@
    }
   },
   {
-   "mention_id": "M178",
+   "mention_id": "M420",
    "text": "the unhappy Agnes",
    "type": "character",
    "mention_kind": "nominal",
@@ -2995,7 +6309,7 @@
    }
   },
   {
-   "mention_id": "M179",
+   "mention_id": "M421",
    "text": "the child",
    "type": "character",
    "mention_kind": "nominal",
@@ -3010,7 +6324,7 @@
    }
   },
   {
-   "mention_id": "M180",
+   "mention_id": "M422",
    "text": "The child",
    "type": "character",
    "mention_kind": "proper",
@@ -3025,7 +6339,7 @@
    }
   },
   {
-   "mention_id": "M181",
+   "mention_id": "M423",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -3040,7 +6354,7 @@
    }
   },
   {
-   "mention_id": "M182",
+   "mention_id": "M424",
    "text": "the child",
    "type": "character",
    "mention_kind": "nominal",
@@ -3055,7 +6369,7 @@
    }
   },
   {
-   "mention_id": "M183",
+   "mention_id": "M425",
    "text": "the\nchild",
    "type": "character",
    "mention_kind": "nominal",
@@ -3070,7 +6384,7 @@
    }
   },
   {
-   "mention_id": "M184",
+   "mention_id": "M426",
    "text": "the child",
    "type": "character",
    "mention_kind": "nominal",
@@ -3085,7 +6399,7 @@
    }
   },
   {
-   "mention_id": "M185",
+   "mention_id": "M427",
    "text": "the child",
    "type": "character",
    "mention_kind": "nominal",
@@ -3100,7 +6414,7 @@
    }
   },
   {
-   "mention_id": "M186",
+   "mention_id": "M428",
    "text": "she",
    "type": "character",
    "mention_kind": "pronominal",
@@ -3115,7 +6429,7 @@
    }
   },
   {
-   "mention_id": "M187",
+   "mention_id": "M429",
    "text": "she",
    "type": "character",
    "mention_kind": "pronominal",
@@ -3130,7 +6444,7 @@
    }
   },
   {
-   "mention_id": "M188",
+   "mention_id": "M430",
    "text": "the child",
    "type": "character",
    "mention_kind": "nominal",
@@ -3145,7 +6459,7 @@
    }
   },
   {
-   "mention_id": "M189",
+   "mention_id": "M431",
    "text": "us",
    "type": "character",
    "mention_kind": "pronominal",
@@ -3160,7 +6474,7 @@
    }
   },
   {
-   "mention_id": "M190",
+   "mention_id": "M432",
    "text": "a widow lady",
    "type": "character",
    "mention_kind": "nominal",
@@ -3175,7 +6489,7 @@
    }
   },
   {
-   "mention_id": "M191",
+   "mention_id": "M433",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -3190,7 +6504,7 @@
    }
   },
   {
-   "mention_id": "M192",
+   "mention_id": "M434",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -3205,7 +6519,7 @@
    }
   },
   {
-   "mention_id": "M193",
+   "mention_id": "M435",
    "text": "us",
    "type": "character",
    "mention_kind": "pronominal",
@@ -3220,7 +6534,7 @@
    }
   },
   {
-   "mention_id": "M194",
+   "mention_id": "M436",
    "text": "she",
    "type": "character",
    "mention_kind": "pronominal",
@@ -3235,7 +6549,7 @@
    }
   },
   {
-   "mention_id": "M195",
+   "mention_id": "M437",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -3250,7 +6564,7 @@
    }
   },
   {
-   "mention_id": "M196",
+   "mention_id": "M438",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -3265,7 +6579,7 @@
    }
   },
   {
-   "mention_id": "M197",
+   "mention_id": "M439",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -3280,7 +6594,7 @@
    }
   },
   {
-   "mention_id": "M198",
+   "mention_id": "M440",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -3295,7 +6609,7 @@
    }
   },
   {
-   "mention_id": "M199",
+   "mention_id": "M441",
    "text": "your",
    "type": "character",
    "mention_kind": "pronominal",
@@ -3310,7 +6624,7 @@
    }
   },
   {
-   "mention_id": "M200",
+   "mention_id": "M442",
    "text": "my niece",
    "type": "character",
    "mention_kind": "nominal",
@@ -3325,7 +6639,7 @@
    }
   },
   {
-   "mention_id": "M201",
+   "mention_id": "M443",
    "text": "my dearest child",
    "type": "character",
    "mention_kind": "nominal",
@@ -3340,7 +6654,7 @@
    }
   },
   {
-   "mention_id": "M202",
+   "mention_id": "M444",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -3355,7 +6669,7 @@
    }
   },
   {
-   "mention_id": "M203",
+   "mention_id": "M445",
    "text": "My sweet companion",
    "type": "character",
    "mention_kind": "proper",
@@ -3370,7 +6684,7 @@
    }
   },
   {
-   "mention_id": "M204",
+   "mention_id": "M446",
    "text": "my own\ndear girl",
    "type": "character",
    "mention_kind": "nominal",
@@ -3385,7 +6699,7 @@
    }
   },
   {
-   "mention_id": "M205",
+   "mention_id": "M447",
    "text": "You",
    "type": "character",
    "mention_kind": "pronominal",
@@ -3400,7 +6714,7 @@
    }
   },
   {
-   "mention_id": "M206",
+   "mention_id": "M448",
    "text": "she",
    "type": "character",
    "mention_kind": "pronominal",
@@ -3415,7 +6729,7 @@
    }
   },
   {
-   "mention_id": "M207",
+   "mention_id": "M449",
    "text": "my love",
    "type": "character",
    "mention_kind": "nominal",
@@ -3430,7 +6744,7 @@
    }
   },
   {
-   "mention_id": "M208",
+   "mention_id": "M450",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -3445,7 +6759,7 @@
    }
   },
   {
-   "mention_id": "M209",
+   "mention_id": "M451",
    "text": "his",
    "type": "character",
    "mention_kind": "pronominal",
@@ -3460,7 +6774,7 @@
    }
   },
   {
-   "mention_id": "M210",
+   "mention_id": "M452",
    "text": "poor child",
    "type": "character",
    "mention_kind": "nominal",
@@ -3475,7 +6789,7 @@
    }
   },
   {
-   "mention_id": "M211",
+   "mention_id": "M453",
    "text": "my dear",
    "type": "character",
    "mention_kind": "nominal",
@@ -3490,7 +6804,7 @@
    }
   },
   {
-   "mention_id": "M212",
+   "mention_id": "M454",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -3505,7 +6819,7 @@
    }
   },
   {
-   "mention_id": "M213",
+   "mention_id": "M455",
    "text": "my own dear sister",
    "type": "character",
    "mention_kind": "nominal",
@@ -3520,7 +6834,7 @@
    }
   },
   {
-   "mention_id": "M214",
+   "mention_id": "M456",
    "text": "Rose",
    "type": "character",
    "mention_kind": "proper",
@@ -3535,7 +6849,7 @@
    }
   },
   {
-   "mention_id": "M215",
+   "mention_id": "M457",
    "text": "dear, darling Rose",
    "type": "character",
    "mention_kind": "nominal",
@@ -3550,7 +6864,7 @@
    }
   },
   {
-   "mention_id": "M216",
+   "mention_id": "M458",
    "text": "Rose",
    "type": "character",
    "mention_kind": "proper",
@@ -3565,7 +6879,7 @@
    }
   },
   {
-   "mention_id": "M217",
+   "mention_id": "M459",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -3580,7 +6894,7 @@
    }
   },
   {
-   "mention_id": "M218",
+   "mention_id": "M460",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -3595,7 +6909,7 @@
    }
   },
   {
-   "mention_id": "M219",
+   "mention_id": "M461",
    "text": "You",
    "type": "character",
    "mention_kind": "pronominal",
@@ -3610,7 +6924,7 @@
    }
   },
   {
-   "mention_id": "M220",
+   "mention_id": "M462",
    "text": "You",
    "type": "character",
    "mention_kind": "pronominal",
@@ -3625,7 +6939,7 @@
    }
   },
   {
-   "mention_id": "M221",
+   "mention_id": "M463",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -3640,7 +6954,7 @@
    }
   },
   {
-   "mention_id": "M222",
+   "mention_id": "M464",
    "text": "your",
    "type": "character",
    "mention_kind": "pronominal",
@@ -3655,7 +6969,7 @@
    }
   },
   {
-   "mention_id": "M223",
+   "mention_id": "M465",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -3670,7 +6984,7 @@
    }
   },
   {
-   "mention_id": "M224",
+   "mention_id": "M466",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -3685,7 +6999,7 @@
    }
   },
   {
-   "mention_id": "M225",
+   "mention_id": "M467",
    "text": "your",
    "type": "character",
    "mention_kind": "pronominal",
@@ -3700,7 +7014,7 @@
    }
   },
   {
-   "mention_id": "M226",
+   "mention_id": "M468",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -3715,7 +7029,7 @@
    }
   },
   {
-   "mention_id": "M227",
+   "mention_id": "M469",
    "text": "your",
    "type": "character",
    "mention_kind": "pronominal",
@@ -3730,7 +7044,7 @@
    }
   },
   {
-   "mention_id": "M228",
+   "mention_id": "M470",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -3745,7 +7059,7 @@
    }
   },
   {
-   "mention_id": "M229",
+   "mention_id": "M471",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -3760,7 +7074,7 @@
    }
   },
   {
-   "mention_id": "M230",
+   "mention_id": "M472",
    "text": "You",
    "type": "character",
    "mention_kind": "pronominal",
@@ -3775,7 +7089,7 @@
    }
   },
   {
-   "mention_id": "M231",
+   "mention_id": "M473",
    "text": "your",
    "type": "character",
    "mention_kind": "pronominal",
@@ -3790,7 +7104,7 @@
    }
   },
   {
-   "mention_id": "M232",
+   "mention_id": "M474",
    "text": "Rose",
    "type": "character",
    "mention_kind": "proper",
@@ -3805,7 +7119,7 @@
    }
   },
   {
-   "mention_id": "M233",
+   "mention_id": "M475",
    "text": "Harry",
    "type": "character",
    "mention_kind": "proper",
@@ -3820,7 +7134,7 @@
    }
   },
   {
-   "mention_id": "M234",
+   "mention_id": "M476",
    "text": "Harry",
    "type": "character",
    "mention_kind": "proper",
@@ -3835,7 +7149,7 @@
    }
   },
   {
-   "mention_id": "M235",
+   "mention_id": "M477",
    "text": "yourself",
    "type": "character",
    "mention_kind": "pronominal",
@@ -3850,7 +7164,7 @@
    }
   },
   {
-   "mention_id": "M236",
+   "mention_id": "M478",
    "text": "Rose",
    "type": "character",
    "mention_kind": "proper",
@@ -3865,7 +7179,7 @@
    }
   },
   {
-   "mention_id": "M237",
+   "mention_id": "M479",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -3880,7 +7194,7 @@
    }
   },
   {
-   "mention_id": "M238",
+   "mention_id": "M480",
    "text": "we",
    "type": "character",
    "mention_kind": "pronominal",
@@ -3895,7 +7209,7 @@
    }
   },
   {
-   "mention_id": "M239",
+   "mention_id": "M481",
    "text": "Harry",
    "type": "character",
    "mention_kind": "proper",
@@ -3910,7 +7224,7 @@
    }
   },
   {
-   "mention_id": "M240",
+   "mention_id": "M482",
    "text": "we",
    "type": "character",
    "mention_kind": "pronominal",
@@ -3925,7 +7239,7 @@
    }
   },
   {
-   "mention_id": "M241",
+   "mention_id": "M483",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -3940,7 +7254,7 @@
    }
   },
   {
-   "mention_id": "M242",
+   "mention_id": "M484",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -3955,7 +7269,7 @@
    }
   },
   {
-   "mention_id": "M243",
+   "mention_id": "M485",
    "text": "Rose",
    "type": "character",
    "mention_kind": "proper",
@@ -3970,7 +7284,7 @@
    }
   },
   {
-   "mention_id": "M244",
+   "mention_id": "M486",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -3985,7 +7299,7 @@
    }
   },
   {
-   "mention_id": "M245",
+   "mention_id": "M487",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -4000,7 +7314,7 @@
    }
   },
   {
-   "mention_id": "M246",
+   "mention_id": "M488",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -4015,7 +7329,7 @@
    }
   },
   {
-   "mention_id": "M247",
+   "mention_id": "M489",
    "text": "yourself",
    "type": "character",
    "mention_kind": "pronominal",
@@ -4030,7 +7344,7 @@
    }
   },
   {
-   "mention_id": "M248",
+   "mention_id": "M490",
    "text": "yours",
    "type": "character",
    "mention_kind": "pronominal",
@@ -4045,7 +7359,7 @@
    }
   },
   {
-   "mention_id": "M249",
+   "mention_id": "M491",
    "text": "yours",
    "type": "character",
    "mention_kind": "pronominal",
@@ -4060,7 +7374,7 @@
    }
   },
   {
-   "mention_id": "M250",
+   "mention_id": "M492",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -4075,7 +7389,7 @@
    }
   },
   {
-   "mention_id": "M251",
+   "mention_id": "M493",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -4090,7 +7404,7 @@
    }
   },
   {
-   "mention_id": "M252",
+   "mention_id": "M494",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -4105,7 +7419,7 @@
    }
   },
   {
-   "mention_id": "M253",
+   "mention_id": "M495",
    "text": "Rose",
    "type": "character",
    "mention_kind": "proper",
@@ -4120,7 +7434,7 @@
    }
   },
   {
-   "mention_id": "M254",
+   "mention_id": "M496",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -4135,7 +7449,7 @@
    }
   },
   {
-   "mention_id": "M255",
+   "mention_id": "M497",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -4150,7 +7464,7 @@
    }
   },
   {
-   "mention_id": "M256",
+   "mention_id": "M498",
    "text": "the bride that is to be",
    "type": "character",
    "mention_kind": "nominal",
@@ -4165,7 +7479,7 @@
    }
   },
   {
-   "mention_id": "M257",
+   "mention_id": "M499",
    "text": "Oliver",
    "type": "character",
    "mention_kind": "proper",
@@ -4180,7 +7494,7 @@
    }
   },
   {
-   "mention_id": "M258",
+   "mention_id": "M500",
    "text": "my child",
    "type": "character",
    "mention_kind": "nominal",
@@ -4195,7 +7509,7 @@
    }
   },
   {
-   "mention_id": "M259",
+   "mention_id": "M501",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -4210,7 +7524,7 @@
    }
   },
   {
-   "mention_id": "M260",
+   "mention_id": "M502",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -4225,7 +7539,7 @@
    }
   },
   {
-   "mention_id": "M261",
+   "mention_id": "M503",
    "text": "your",
    "type": "character",
    "mention_kind": "pronominal",
@@ -6588,8 +9902,604 @@
   }
  ],
  "events": [],
- "facts": [],
- "relationships": [],
+ "facts": [
+  {
+   "fact_id": "F1",
+   "entity_key": "agnes_fleming",
+   "property": "status",
+   "value": "died",
+   "value_span": {
+    "start": 7248,
+    "end": 7252
+   },
+   "status_value": "DEAD",
+   "evidence": {
+    "start": 7218,
+    "end": 7272
+   },
+   "assertion": "asserted",
+   "claimed_by": "mr_brownlow",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F2",
+   "entity_key": "oliver_twist",
+   "property": "birth_place",
+   "value": "this town",
+   "value_span": {
+    "start": 7626,
+    "end": 7635
+   },
+   "evidence": {
+    "start": 7611,
+    "end": 7635
+   },
+   "assertion": "asserted",
+   "claimed_by": "mr_brownlow",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F3",
+   "entity_key": "oliver_twist",
+   "property": "birth_place",
+   "value": "the workhouse of this town",
+   "value_span": {
+    "start": 7643,
+    "end": 7669
+   },
+   "evidence": {
+    "start": 7640,
+    "end": 7669
+   },
+   "assertion": "asserted",
+   "claimed_by": "edward_leeford",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F4",
+   "entity_key": "edwin_leeford",
+   "property": "location",
+   "value": "Rome",
+   "value_span": {
+    "start": 7922,
+    "end": 7926
+   },
+   "evidence": {
+    "start": 7892,
+    "end": 7926
+   },
+   "assertion": "asserted",
+   "claimed_by": "edward_leeford",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F5",
+   "entity_key": "edwin_leeford",
+   "property": "status",
+   "value": "died",
+   "value_span": {
+    "start": 8235,
+    "end": 8239
+   },
+   "status_value": "DEAD",
+   "evidence": {
+    "start": 8196,
+    "end": 8239
+   },
+   "assertion": "asserted",
+   "claimed_by": "edward_leeford",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F6",
+   "entity_key": "agnes_father",
+   "property": "status",
+   "value": "found dead",
+   "value_span": {
+    "start": 11530,
+    "end": 11540
+   },
+   "status_value": "DEAD",
+   "evidence": {
+    "start": 11523,
+    "end": 11551
+   },
+   "assertion": "asserted",
+   "claimed_by": "edward_leeford",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F7",
+   "entity_key": "edward_leeford",
+   "property": "age",
+   "value": "eighteen",
+   "value_span": {
+    "start": 12008,
+    "end": 12016
+   },
+   "age_years": 18,
+   "evidence": {
+    "start": 11981,
+    "end": 12016
+   },
+   "assertion": "asserted",
+   "claimed_by": "mr_brownlow",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F8",
+   "entity_key": "edward_leeford",
+   "property": "location",
+   "value": "London",
+   "value_span": {
+    "start": 12091,
+    "end": 12097
+   },
+   "evidence": {
+    "start": 12050,
+    "end": 12097
+   },
+   "assertion": "asserted",
+   "claimed_by": "mr_brownlow",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F9",
+   "entity_key": "monks_mother",
+   "property": "location",
+   "value": "France",
+   "value_span": {
+    "start": 12409,
+    "end": 12415
+   },
+   "evidence": {
+    "start": 12384,
+    "end": 12415
+   },
+   "assertion": "asserted",
+   "claimed_by": "mr_brownlow",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F10",
+   "entity_key": "monks_mother",
+   "property": "status",
+   "value": "died",
+   "value_span": {
+    "start": 12430,
+    "end": 12434
+   },
+   "status_value": "DEAD",
+   "evidence": {
+    "start": 12420,
+    "end": 12434
+   },
+   "assertion": "asserted",
+   "claimed_by": "edward_leeford",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F11",
+   "entity_key": "mr_bumble",
+   "property": "occupation",
+   "value": "workhouse master",
+   "value_span": {
+    "start": 14436,
+    "end": 14452
+   },
+   "evidence": {
+    "start": 14419,
+    "end": 14452
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F12",
+   "entity_key": "mrs_corney",
+   "property": "occupation",
+   "value": "matron",
+   "value_span": {
+    "start": 15572,
+    "end": 15578
+   },
+   "evidence": {
+    "start": 15560,
+    "end": 15578
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F13",
+   "entity_key": "the_gentleman_in_the_white_waistcoat",
+   "property": "status",
+   "value": "went to heaven",
+   "value_span": {
+    "start": 14823,
+    "end": 14837
+   },
+   "status_value": "DEAD",
+   "evidence": {
+    "start": 14820,
+    "end": 14847
+   },
+   "assertion": "asserted",
+   "claimed_by": "mr_bumble",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F14",
+   "entity_key": "mrs_maylie",
+   "property": "location",
+   "value": "Chester",
+   "value_span": {
+    "start": 20437,
+    "end": 20444
+   },
+   "evidence": {
+    "start": 20404,
+    "end": 20444
+   },
+   "assertion": "asserted",
+   "claimed_by": "edward_leeford",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F15",
+   "entity_key": "harry_maylie",
+   "property": "occupation",
+   "value": "clergyman",
+   "value_span": {
+    "start": 26179,
+    "end": 26188
+   },
+   "evidence": {
+    "start": 26158,
+    "end": 26188
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F16",
+   "entity_key": "dick",
+   "property": "status",
+   "value": "dead",
+   "value_span": {
+    "start": 26491,
+    "end": 26495
+   },
+   "status_value": "DEAD",
+   "evidence": {
+    "start": 26477,
+    "end": 26496
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  }
+ ],
+ "relationships": [
+  {
+   "relationship_id": "R1",
+   "subject_entity_key": "edwin_leeford",
+   "predicate": "FATHER_OF",
+   "object_entity_key": "oliver_twist",
+   "evidence": {
+    "start": 7126,
+    "end": 7242
+   },
+   "assertion": "asserted",
+   "claimed_by": "mr_brownlow",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R2",
+   "subject_entity_key": "agnes_fleming",
+   "predicate": "MOTHER_OF",
+   "object_entity_key": "oliver_twist",
+   "evidence": {
+    "start": 7126,
+    "end": 7242
+   },
+   "assertion": "asserted",
+   "claimed_by": "mr_brownlow",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R3",
+   "subject_entity_key": "edwin_leeford",
+   "predicate": "FATHER_OF",
+   "object_entity_key": "edward_leeford",
+   "evidence": {
+    "start": 7126,
+    "end": 7242
+   },
+   "assertion": "asserted",
+   "claimed_by": "mr_brownlow",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R4",
+   "subject_entity_key": "edward_leeford",
+   "predicate": "SIBLING_OF",
+   "object_entity_key": "oliver_twist",
+   "evidence": {
+    "start": 7126,
+    "end": 7242
+   },
+   "assertion": "asserted",
+   "claimed_by": "mr_brownlow",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R5",
+   "subject_entity_key": "edwin_leeford",
+   "predicate": "FRIEND_OF",
+   "object_entity_key": "mr_brownlow",
+   "evidence": {
+    "start": 7185,
+    "end": 7213
+   },
+   "assertion": "asserted",
+   "claimed_by": "mr_brownlow",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R6",
+   "subject_entity_key": "edwin_leeford",
+   "predicate": "MARRIED_TO",
+   "object_entity_key": "monks_mother",
+   "evidence": {
+    "start": 7928,
+    "end": 7961
+   },
+   "assertion": "asserted",
+   "claimed_by": "edward_leeford",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R7",
+   "subject_entity_key": "monks_mother",
+   "predicate": "MOTHER_OF",
+   "object_entity_key": "edward_leeford",
+   "evidence": {
+    "start": 7928,
+    "end": 7961
+   },
+   "assertion": "asserted",
+   "claimed_by": "edward_leeford",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R8",
+   "subject_entity_key": "agnes_father",
+   "predicate": "FATHER_OF",
+   "object_entity_key": "agnes_fleming",
+   "evidence": {
+    "start": 18979,
+    "end": 19030
+   },
+   "assertion": "asserted",
+   "claimed_by": "mr_brownlow",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R9",
+   "subject_entity_key": "agnes_father",
+   "predicate": "FATHER_OF",
+   "object_entity_key": "rose_maylie",
+   "evidence": {
+    "start": 19098,
+    "end": 19165
+   },
+   "assertion": "asserted",
+   "claimed_by": "edward_leeford",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R10",
+   "subject_entity_key": "agnes_fleming",
+   "predicate": "SIBLING_OF",
+   "object_entity_key": "rose_maylie",
+   "evidence": {
+    "start": 20029,
+    "end": 20067
+   },
+   "assertion": "asserted",
+   "claimed_by": "edward_leeford",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R11",
+   "subject_entity_key": "rose_maylie",
+   "predicate": "RELATED_TO",
+   "object_entity_key": "oliver_twist",
+   "evidence": {
+    "start": 21475,
+    "end": 21499
+   },
+   "assertion": "asserted",
+   "claimed_by": "oliver_twist",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R12",
+   "subject_entity_key": "mrs_maylie",
+   "predicate": "RELATED_TO",
+   "object_entity_key": "rose_maylie",
+   "evidence": {
+    "start": 20762,
+    "end": 20787
+   },
+   "assertion": "asserted",
+   "claimed_by": "mrs_maylie",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R13",
+   "subject_entity_key": "harry_maylie",
+   "predicate": "ENGAGED_TO",
+   "object_entity_key": "rose_maylie",
+   "evidence": {
+    "start": 25787,
+    "end": 25822
+   },
+   "assertion": "asserted",
+   "claimed_by": "mr_grimwig",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R14",
+   "subject_entity_key": "mr_bumble",
+   "predicate": "MARRIED_TO",
+   "object_entity_key": "mrs_corney",
+   "evidence": {
+    "start": 15307,
+    "end": 15347
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R15",
+   "subject_entity_key": "mr_bumble",
+   "predicate": "WORKS_FOR",
+   "object_entity_key": "the_parish",
+   "evidence": {
+    "start": 17430,
+    "end": 17463
+   },
+   "assertion": "asserted",
+   "claimed_by": "mr_bumble",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R16",
+   "subject_entity_key": "fagin",
+   "predicate": "ALLY_OF",
+   "object_entity_key": "edward_leeford",
+   "evidence": {
+    "start": 13460,
+    "end": 13514
+   },
+   "assertion": "asserted",
+   "claimed_by": "mr_brownlow",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R17",
+   "subject_entity_key": "dick",
+   "predicate": "FRIEND_OF",
+   "object_entity_key": "oliver_twist",
+   "evidence": {
+    "start": 2492,
+    "end": 2525
+   },
+   "assertion": "asserted",
+   "claimed_by": "oliver_twist",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  }
+ ],
  "temporal_expressions": [],
  "temporal_relations": []
 }

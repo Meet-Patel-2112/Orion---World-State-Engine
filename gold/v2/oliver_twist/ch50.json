@@ -21,7 +21,7 @@
   "status": "draft",
   "layers": {
    "mentions": {
-    "coverage": "partial",
+    "coverage": "exhaustive",
     "region": {
      "start": 0,
      "end": 11249
@@ -34,10 +34,10 @@
     "coverage": "none"
    },
    "facts": {
-    "coverage": "none"
+    "coverage": "exhaustive"
    },
    "relationships": {
-    "coverage": "none"
+    "coverage": "exhaustive"
    },
    "temporal_expressions": {
     "coverage": "none"
@@ -46,7 +46,13 @@
     "coverage": "none"
    }
   },
-  "notes": "Quotes, characters and the mentions inside quotes imported from PDNC at e507a27. Mentions are partial until the drafting pass covers the region."
+  "notes": "Quotes, characters and the mentions inside quotes are imported from PDNC at e507a27; every other item is Claude's draft and pending review. Sikes's dog is a character (animals that act) and gets the key bulls_eye, his name later in the novel (one key from the start, guidelines section 2); Sikes OWNS him. 'the Body' Bet went to see and 'the murdered woman' are Nancy; the narrator's 'murdered' confirms the DEAD status drafted in chapter 47. Kags's 'the exclusive young man' is Toby, and 'a friend ... from foreign parts' is Kags himself, the returned transport. 'the other man' who asks 'Isn't there any help for it?' could be Kags or Chitling: null. 'a robber of fifty years' is a predicate (not a mention) but states Kags's age and occupation. In Kags's 'He must have given him the slip somehow, or he wouldn't be so easy', PDNC links all three pronouns to Sikes because the dog is not in its character list. 'He' is Sikes; 'him' and 'he' are the dog, so those two PDNC items are re-opened (review pending) with the proposal bulls_eye.",
+  "annotators": [
+   {
+    "name": "Claude",
+    "role": "drafter"
+   }
+  ]
  },
  "entities": [
   {
@@ -88,6 +94,15 @@
    }
   },
   {
+   "entity_key": "bulls_eye",
+   "name": "Bull's-eye",
+   "type": "character",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
    "entity_key": "charley_bates",
    "name": "Charley Bates",
    "type": "character",
@@ -104,6 +119,24 @@
     "origin": "pdnc",
     "status": "accepted",
     "by": "pdnc"
+   }
+  },
+  {
+   "entity_key": "crackits_house",
+   "name": "Toby Crackit's house",
+   "type": "location",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "dockhead",
+   "name": "Dockhead",
+   "type": "location",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
    }
   },
   {
@@ -125,6 +158,18 @@
    }
   },
   {
+   "entity_key": "folly_ditch",
+   "name": "Folly Ditch",
+   "type": "location",
+   "aliases": [
+    "Mill Pond"
+   ],
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
    "entity_key": "harry_maylie",
    "name": "Harry Maylie",
    "type": "character",
@@ -143,6 +188,15 @@
    }
   },
   {
+   "entity_key": "jacobs_island",
+   "name": "Jacob's Island",
+   "type": "location",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
    "entity_key": "kags",
    "name": "Kags",
    "type": "character",
@@ -156,6 +210,36 @@
     "origin": "pdnc",
     "status": "accepted",
     "by": "pdnc"
+   }
+  },
+  {
+   "entity_key": "lead_mills",
+   "name": "the Lead Mills",
+   "type": "location",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "london",
+   "name": "London",
+   "type": "location",
+   "aliases": [
+    "town"
+   ],
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "mill_lane",
+   "name": "Mill Lane",
+   "type": "location",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
    }
   },
   {
@@ -195,6 +279,23 @@
    }
   },
   {
+   "entity_key": "nancy",
+   "name": "Nancy",
+   "type": "character",
+   "aliases": [
+    "Miss Nancy",
+    "Nance"
+   ],
+   "external_ids": {
+    "pdnc": "37"
+   },
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc"
+   }
+  },
+  {
    "entity_key": "noah_claypole",
    "name": "Noah Claypole",
    "type": "character",
@@ -215,6 +316,45 @@
     "origin": "pdnc",
     "status": "accepted",
     "by": "pdnc"
+   }
+  },
+  {
+   "entity_key": "rotherhithe",
+   "name": "Rotherhithe",
+   "type": "location",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "southwark",
+   "name": "the Borough of Southwark",
+   "type": "location",
+   "aliases": [
+    "Southwark"
+   ],
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "thames",
+   "name": "the Thames",
+   "type": "location",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "the_cripples",
+   "name": "the Cripples",
+   "type": "location",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
    }
   },
   {
@@ -239,6 +379,370 @@
  "mentions": [
   {
    "mention_id": "M1",
+   "text": "the Thames",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "thames",
+   "start": 58,
+   "end": 68,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M2",
+   "text": "Rotherhithe",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "rotherhithe",
+   "start": 92,
+   "end": 103,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M3",
+   "text": "London",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "london",
+   "start": 377,
+   "end": 383,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M4",
+   "text": "this place",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "jacobs_island",
+   "start": 463,
+   "end": 473,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M5",
+   "text": "Dockhead",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "dockhead",
+   "start": 1746,
+   "end": 1754,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M6",
+   "text": "the Borough of Southwark",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "southwark",
+   "start": 1758,
+   "end": 1782,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M7",
+   "text": "Southwark",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "southwark",
+   "start": 1773,
+   "end": 1782,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M8",
+   "text": "Jacob's Island",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "jacobs_island",
+   "start": 1791,
+   "end": 1805,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M9",
+   "text": "a muddy ditch",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "folly_ditch",
+   "start": 1821,
+   "end": 1834,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M10",
+   "text": "Mill\nPond",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "folly_ditch",
+   "start": 1919,
+   "end": 1928,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M11",
+   "text": "Folly Ditch",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "folly_ditch",
+   "start": 1969,
+   "end": 1980,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M12",
+   "text": "the Thames",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "thames",
+   "start": 2010,
+   "end": 2020,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M13",
+   "text": "Lead Mills",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "lead_mills",
+   "start": 2091,
+   "end": 2101,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M14",
+   "text": "Mill Lane",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "mill_lane",
+   "start": 2221,
+   "end": 2230,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M15",
+   "text": "Folly Ditch",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "folly_ditch",
+   "start": 3174,
+   "end": 3185,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M16",
+   "text": "Jacob's Island",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "jacobs_island",
+   "start": 3191,
+   "end": 3205,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M17",
+   "text": "it",
+   "type": "location",
+   "mention_kind": "pronominal",
+   "entity_key": "jacobs_island",
+   "start": 3472,
+   "end": 3474,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M18",
+   "text": "Jacob's Island",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "jacobs_island",
+   "start": 3803,
+   "end": 3817,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M19",
+   "text": "a detached house",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "crackits_house",
+   "start": 3860,
+   "end": 3876,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M20",
+   "text": "three men",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 4053,
+   "end": 4062,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M21",
+   "text": "Toby\nCrackit",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "toby_crackit",
+   "start": 4229,
+   "end": 4241,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M22",
+   "text": "Mr. Chitling",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mr_chitling",
+   "start": 4251,
+   "end": 4263,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M23",
+   "text": "This man",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "kags",
+   "start": 4453,
+   "end": 4461,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M24",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kags",
+   "start": 4492,
+   "end": 4495,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M25",
+   "text": "Kags",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kags",
+   "start": 4505,
+   "end": 4509,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M26",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "toby_crackit",
+   "start": 4513,
+   "end": 4514,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M27",
+   "text": "Toby",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "toby_crackit",
+   "start": 4527,
+   "end": 4531,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M28",
+   "text": "Mr. Chitling",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mr_chitling",
+   "start": 4543,
+   "end": 4555,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M29",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -253,7 +757,7 @@
    }
   },
   {
-   "mention_id": "M2",
+   "mention_id": "M30",
    "text": "my fine feller",
    "type": "character",
    "mention_kind": "nominal",
@@ -268,7 +772,7 @@
    }
   },
   {
-   "mention_id": "M3",
+   "mention_id": "M31",
    "text": "blunder-head",
    "type": "character",
    "mention_kind": "nominal",
@@ -283,7 +787,33 @@
    }
   },
   {
-   "mention_id": "M4",
+   "mention_id": "M32",
+   "text": "Kags",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kags",
+   "start": 4712,
+   "end": 4716,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M33",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_chitling",
+   "start": 4726,
+   "end": 4727,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M34",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -298,7 +828,33 @@
    }
   },
   {
-   "mention_id": "M5",
+   "mention_id": "M35",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_chitling",
+   "start": 4778,
+   "end": 4780,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M36",
+   "text": "Mr. Chitling",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mr_chitling",
+   "start": 4801,
+   "end": 4813,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M37",
    "text": "young gentleman",
    "type": "character",
    "mention_kind": "nominal",
@@ -313,7 +869,33 @@
    }
   },
   {
-   "mention_id": "M6",
+   "mention_id": "M38",
+   "text": "Toby",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "toby_crackit",
+   "start": 4876,
+   "end": 4880,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M39",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "toby_crackit",
+   "start": 4930,
+   "end": 4931,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M40",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -328,7 +910,124 @@
    }
   },
   {
-   "mention_id": "M7",
+   "mention_id": "M41",
+   "text": "the exclusive young man",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "toby_crackit",
+   "start": 5253,
+   "end": 5276,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M42",
+   "text": "a friend",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "kags",
+   "start": 5285,
+   "end": 5293,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M43",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "toby_crackit",
+   "start": 5308,
+   "end": 5311,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M44",
+   "text": "the Judges",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 5418,
+   "end": 5428,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M45",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kags",
+   "start": 5432,
+   "end": 5435,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M46",
+   "text": "Mr. Kags",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kags",
+   "start": 5451,
+   "end": 5459,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M47",
+   "text": "Toby Crackit",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "toby_crackit",
+   "start": 5501,
+   "end": 5513,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M48",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "toby_crackit",
+   "start": 5577,
+   "end": 5580,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M49",
+   "text": "Chitling",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mr_chitling",
+   "start": 5621,
+   "end": 5629,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M50",
    "text": "Fagin",
    "type": "character",
    "mention_kind": "proper",
@@ -343,7 +1042,7 @@
    }
   },
   {
-   "mention_id": "M8",
+   "mention_id": "M51",
    "text": "Charley",
    "type": "character",
    "mention_kind": "proper",
@@ -358,7 +1057,33 @@
    }
   },
   {
-   "mention_id": "M9",
+   "mention_id": "M52",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_chitling",
+   "start": 5731,
+   "end": 5732,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M53",
+   "text": "our",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 5738,
+   "end": 5741,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M54",
    "text": "Bolter",
    "type": "character",
    "mention_kind": "proper",
@@ -373,7 +1098,7 @@
    }
   },
   {
-   "mention_id": "M10",
+   "mention_id": "M55",
    "text": "his",
    "type": "character",
    "mention_kind": "pronominal",
@@ -388,7 +1113,33 @@
    }
   },
   {
-   "mention_id": "M11",
+   "mention_id": "M56",
+   "text": "they",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 5870,
+   "end": 5874,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M57",
+   "text": "they",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 5904,
+   "end": 5908,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M58",
    "text": "him",
    "type": "character",
    "mention_kind": "pronominal",
@@ -403,7 +1154,7 @@
    }
   },
   {
-   "mention_id": "M12",
+   "mention_id": "M59",
    "text": "Bet",
    "type": "character",
    "mention_kind": "proper",
@@ -418,7 +1169,20 @@
    }
   },
   {
-   "mention_id": "M13",
+   "mention_id": "M60",
+   "text": "Poor Bet",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "betsy",
+   "start": 5938,
+   "end": 5946,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M61",
    "text": "Bet",
    "type": "character",
    "mention_kind": "proper",
@@ -433,7 +1197,7 @@
    }
   },
   {
-   "mention_id": "M14",
+   "mention_id": "M62",
    "text": "She",
    "type": "character",
    "mention_kind": "pronominal",
@@ -448,7 +1212,46 @@
    }
   },
   {
-   "mention_id": "M15",
+   "mention_id": "M63",
+   "text": "the Body",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "nancy",
+   "start": 5964,
+   "end": 5972,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M64",
+   "text": "Chitling",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mr_chitling",
+   "start": 6007,
+   "end": 6015,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M65",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_chitling",
+   "start": 6017,
+   "end": 6020,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M66",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -463,7 +1266,20 @@
    }
   },
   {
-   "mention_id": "M16",
+   "mention_id": "M67",
+   "text": "they",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 6141,
+   "end": 6145,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M68",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -478,7 +1294,7 @@
    }
   },
   {
-   "mention_id": "M17",
+   "mention_id": "M69",
    "text": "her",
    "type": "character",
    "mention_kind": "pronominal",
@@ -493,7 +1309,20 @@
    }
   },
   {
-   "mention_id": "M18",
+   "mention_id": "M70",
+   "text": "the hospital",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 6189,
+   "end": 6201,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M71",
    "text": "she",
    "type": "character",
    "mention_kind": "pronominal",
@@ -508,7 +1337,7 @@
    }
   },
   {
-   "mention_id": "M19",
+   "mention_id": "M72",
    "text": "Bates",
    "type": "character",
    "mention_kind": "proper",
@@ -523,7 +1352,20 @@
    }
   },
   {
-   "mention_id": "M20",
+   "mention_id": "M73",
+   "text": "Kags",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kags",
+   "start": 6260,
+   "end": 6264,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M74",
    "text": "He",
    "type": "character",
    "mention_kind": "pronominal",
@@ -538,7 +1380,7 @@
    }
   },
   {
-   "mention_id": "M21",
+   "mention_id": "M75",
    "text": "he",
    "type": "character",
    "mention_kind": "pronominal",
@@ -553,7 +1395,137 @@
    }
   },
   {
-   "mention_id": "M22",
+   "mention_id": "M76",
+   "text": "Chitling",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mr_chitling",
+   "start": 6350,
+   "end": 6358,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M77",
+   "text": "the\npeople",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 6400,
+   "end": 6410,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M78",
+   "text": "the Cripples",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "the_cripples",
+   "start": 6414,
+   "end": 6426,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M79",
+   "text": "the ken",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "the_cripples",
+   "start": 6462,
+   "end": 6469,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M80",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_chitling",
+   "start": 6470,
+   "end": 6471,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M81",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_chitling",
+   "start": 6502,
+   "end": 6504,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M82",
+   "text": "Toby",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "toby_crackit",
+   "start": 6566,
+   "end": 6570,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M83",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "toby_crackit",
+   "start": 6579,
+   "end": 6582,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M84",
+   "text": "Kags",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kags",
+   "start": 6661,
+   "end": 6665,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M85",
+   "text": "they",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 6671,
+   "end": 6675,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M86",
    "text": "Bolter",
    "type": "character",
    "mention_kind": "proper",
@@ -568,7 +1540,7 @@
    }
   },
   {
-   "mention_id": "M23",
+   "mention_id": "M87",
    "text": "he",
    "type": "character",
    "mention_kind": "pronominal",
@@ -583,7 +1555,7 @@
    }
   },
   {
-   "mention_id": "M24",
+   "mention_id": "M88",
    "text": "he",
    "type": "character",
    "mention_kind": "pronominal",
@@ -598,7 +1570,20 @@
    }
   },
   {
-   "mention_id": "M25",
+   "mention_id": "M89",
+   "text": "they",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 6783,
+   "end": 6787,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M90",
    "text": "Fagin",
    "type": "character",
    "mention_kind": "proper",
@@ -613,7 +1598,7 @@
    }
   },
   {
-   "mention_id": "M26",
+   "mention_id": "M91",
    "text": "he",
    "type": "character",
    "mention_kind": "pronominal",
@@ -628,7 +1613,7 @@
    }
   },
   {
-   "mention_id": "M27",
+   "mention_id": "M92",
    "text": "You",
    "type": "character",
    "mention_kind": "pronominal",
@@ -643,7 +1628,59 @@
    }
   },
   {
-   "mention_id": "M28",
+   "mention_id": "M93",
+   "text": "the people",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 6937,
+   "end": 6947,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M94",
+   "text": "Chitling",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mr_chitling",
+   "start": 6961,
+   "end": 6969,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M95",
+   "text": "the officers",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 6972,
+   "end": 6984,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M96",
+   "text": "they",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 7008,
+   "end": 7012,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M97",
    "text": "him",
    "type": "character",
    "mention_kind": "pronominal",
@@ -658,7 +1695,7 @@
    }
   },
   {
-   "mention_id": "M29",
+   "mention_id": "M98",
    "text": "He",
    "type": "character",
    "mention_kind": "pronominal",
@@ -673,7 +1710,20 @@
    }
   },
   {
-   "mention_id": "M30",
+   "mention_id": "M99",
+   "text": "they",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 7057,
+   "end": 7061,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M100",
    "text": "him",
    "type": "character",
    "mention_kind": "pronominal",
@@ -688,7 +1738,20 @@
    }
   },
   {
-   "mention_id": "M31",
+   "mention_id": "M101",
+   "text": "their",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 7096,
+   "end": 7101,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M102",
    "text": "You",
    "type": "character",
    "mention_kind": "pronominal",
@@ -703,7 +1766,7 @@
    }
   },
   {
-   "mention_id": "M32",
+   "mention_id": "M103",
    "text": "he",
    "type": "character",
    "mention_kind": "pronominal",
@@ -718,7 +1781,7 @@
    }
   },
   {
-   "mention_id": "M33",
+   "mention_id": "M104",
    "text": "him",
    "type": "character",
    "mention_kind": "pronominal",
@@ -733,7 +1796,33 @@
    }
   },
   {
-   "mention_id": "M34",
+   "mention_id": "M105",
+   "text": "them",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 7196,
+   "end": 7200,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M106",
+   "text": "they",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 7207,
+   "end": 7211,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M107",
    "text": "his",
    "type": "character",
    "mention_kind": "pronominal",
@@ -748,7 +1837,46 @@
    }
   },
   {
-   "mention_id": "M35",
+   "mention_id": "M108",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_chitling",
+   "start": 7238,
+   "end": 7239,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M109",
+   "text": "'em",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 7248,
+   "end": 7251,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M110",
+   "text": "the mob",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 7304,
+   "end": 7311,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M111",
    "text": "him",
    "type": "character",
    "mention_kind": "pronominal",
@@ -763,7 +1891,59 @@
    }
   },
   {
-   "mention_id": "M36",
+   "mention_id": "M112",
+   "text": "'em",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 7343,
+   "end": 7346,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M113",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_chitling",
+   "start": 7348,
+   "end": 7349,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M114",
+   "text": "the people",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 7358,
+   "end": 7368,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M115",
+   "text": "their",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 7419,
+   "end": 7424,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M116",
    "text": "him",
    "type": "character",
    "mention_kind": "pronominal",
@@ -778,7 +1958,20 @@
    }
   },
   {
-   "mention_id": "M37",
+   "mention_id": "M117",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_chitling",
+   "start": 7450,
+   "end": 7451,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M118",
    "text": "his",
    "type": "character",
    "mention_kind": "pronominal",
@@ -793,7 +1986,72 @@
    }
   },
   {
-   "mention_id": "M38",
+   "mention_id": "M119",
+   "text": "the women",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 7525,
+   "end": 7534,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M120",
+   "text": "themselves",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 7542,
+   "end": 7552,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M121",
+   "text": "the crowd",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 7572,
+   "end": 7581,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M122",
+   "text": "the street corner",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 7585,
+   "end": 7602,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M123",
+   "text": "they",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 7614,
+   "end": 7618,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M124",
    "text": "his",
    "type": "character",
    "mention_kind": "pronominal",
@@ -808,7 +2066,241 @@
    }
   },
   {
-   "mention_id": "M39",
+   "mention_id": "M125",
+   "text": "The horror-stricken witness",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "mr_chitling",
+   "start": 7643,
+   "end": 7670,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M126",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_chitling",
+   "start": 7693,
+   "end": 7696,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M127",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_chitling",
+   "start": 7708,
+   "end": 7711,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M128",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_chitling",
+   "start": 7727,
+   "end": 7730,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M129",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_chitling",
+   "start": 7810,
+   "end": 7812,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M130",
+   "text": "the two men",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 7835,
+   "end": 7846,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M131",
+   "text": "their",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 7870,
+   "end": 7875,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M132",
+   "text": "Sikes's dog",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "bulls_eye",
+   "start": 7952,
+   "end": 7963,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M133",
+   "text": "Sikes",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "bill_sikes",
+   "start": 7952,
+   "end": 7957,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M134",
+   "text": "the room",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 7977,
+   "end": 7985,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M135",
+   "text": "They",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 7987,
+   "end": 7991,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M136",
+   "text": "The dog",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "bulls_eye",
+   "start": 8044,
+   "end": 8051,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M137",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "bulls_eye",
+   "start": 8085,
+   "end": 8087,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M138",
+   "text": "them",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 8114,
+   "end": 8118,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M139",
+   "text": "his master",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "bill_sikes",
+   "start": 8128,
+   "end": 8138,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M140",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "bulls_eye",
+   "start": 8128,
+   "end": 8131,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M141",
+   "text": "Toby",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "toby_crackit",
+   "start": 8187,
+   "end": 8191,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M142",
+   "text": "they",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 8197,
+   "end": 8201,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M143",
    "text": "He",
    "type": "character",
    "mention_kind": "pronominal",
@@ -823,7 +2315,33 @@
    }
   },
   {
-   "mention_id": "M40",
+   "mention_id": "M144",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "toby_crackit",
+   "start": 8242,
+   "end": 8243,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M145",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "toby_crackit",
+   "start": 8244,
+   "end": 8245,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M146",
    "text": "he",
    "type": "character",
    "mention_kind": "pronominal",
@@ -838,7 +2356,7 @@
    }
   },
   {
-   "mention_id": "M41",
+   "mention_id": "M147",
    "text": "he",
    "type": "character",
    "mention_kind": "pronominal",
@@ -853,7 +2371,293 @@
    }
   },
   {
-   "mention_id": "M42",
+   "mention_id": "M148",
+   "text": "the dog",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "bulls_eye",
+   "start": 8302,
+   "end": 8309,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M149",
+   "text": "Kags",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kags",
+   "start": 8317,
+   "end": 8321,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M150",
+   "text": "the animal",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "bulls_eye",
+   "start": 8348,
+   "end": 8358,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M151",
+   "text": "us",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 8402,
+   "end": 8404,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M152",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "bulls_eye",
+   "start": 8420,
+   "end": 8423,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M153",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "bulls_eye",
+   "start": 8425,
+   "end": 8427,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M154",
+   "text": "himself",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "bulls_eye",
+   "start": 8436,
+   "end": 8443,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M155",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "bulls_eye",
+   "start": 8454,
+   "end": 8456,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M156",
+   "text": "Chitling",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mr_chitling",
+   "start": 8494,
+   "end": 8502,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M157",
+   "text": "the\ndog",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "bulls_eye",
+   "start": 8518,
+   "end": 8525,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M158",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "bulls_eye",
+   "start": 8582,
+   "end": 8584,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M159",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "bulls_eye",
+   "start": 8625,
+   "end": 8627,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M160",
+   "text": "Toby",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "toby_crackit",
+   "start": 8655,
+   "end": 8659,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M161",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "bulls_eye",
+   "start": 8662,
+   "end": 8664,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M162",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "bulls_eye",
+   "start": 8760,
+   "end": 8762,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M163",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "bulls_eye",
+   "start": 8807,
+   "end": 8809,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M164",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "bulls_eye",
+   "start": 8846,
+   "end": 8848,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M165",
+   "text": "the other",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "bill_sikes",
+   "start": 8868,
+   "end": 8877,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M166",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "bill_sikes",
+   "start": 8882,
+   "end": 8884,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M167",
+   "text": "them",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 8895,
+   "end": 8899,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M168",
+   "text": "the murderer",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "bill_sikes",
+   "start": 8907,
+   "end": 8919,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M169",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "bill_sikes",
+   "start": 8923,
+   "end": 8926,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M170",
    "text": "He",
    "type": "character",
    "mention_kind": "pronominal",
@@ -868,7 +2672,7 @@
    }
   },
   {
-   "mention_id": "M43",
+   "mention_id": "M171",
    "text": "himself",
    "type": "character",
    "mention_kind": "pronominal",
@@ -883,7 +2687,7 @@
    }
   },
   {
-   "mention_id": "M44",
+   "mention_id": "M172",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -898,7 +2702,46 @@
    }
   },
   {
-   "mention_id": "M45",
+   "mention_id": "M173",
+   "text": "Chitling",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mr_chitling",
+   "start": 9001,
+   "end": 9009,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M174",
+   "text": "Toby",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "toby_crackit",
+   "start": 9012,
+   "end": 9016,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M175",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "toby_crackit",
+   "start": 9023,
+   "end": 9026,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M176",
    "text": "he",
    "type": "character",
    "mention_kind": "pronominal",
@@ -913,7 +2756,59 @@
    }
   },
   {
-   "mention_id": "M46",
+   "mention_id": "M177",
+   "text": "Kags",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kags",
+   "start": 9052,
+   "end": 9056,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M178",
+   "text": "the dog",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "bulls_eye",
+   "start": 9059,
+   "end": 9066,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M179",
+   "text": "us",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 9084,
+   "end": 9086,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M180",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "bill_sikes",
+   "start": 9096,
+   "end": 9098,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M181",
    "text": "he",
    "type": "character",
    "mention_kind": "pronominal",
@@ -928,7 +2823,20 @@
    }
   },
   {
-   "mention_id": "M47",
+   "mention_id": "M182",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kags",
+   "start": 9116,
+   "end": 9117,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M183",
    "text": "he",
    "type": "character",
    "mention_kind": "pronominal",
@@ -943,7 +2851,20 @@
    }
   },
   {
-   "mention_id": "M48",
+   "mention_id": "M184",
+   "text": "the dog",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "bulls_eye",
+   "start": 9162,
+   "end": 9169,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M185",
    "text": "He",
    "type": "character",
    "mention_kind": "pronominal",
@@ -958,37 +2879,152 @@
    }
   },
   {
-   "mention_id": "M49",
+   "mention_id": "M186",
    "text": "him",
    "type": "character",
    "mention_kind": "pronominal",
-   "entity_key": "bill_sikes",
+   "entity_key": "bulls_eye",
    "start": 9197,
    "end": 9200,
    "review": {
     "origin": "pdnc",
-    "status": "accepted",
-    "by": "pdnc",
-    "note": "mention_kind set by the converter"
+    "status": "pending",
+    "note": "PDNC links this to bill_sikes, but the dog (bulls_eye) is not in PDNC's character list, so PDNC could not link it to him. Drafter proposes bulls_eye: Sikes gave the dog the slip, and the dog is the one 'so easy'."
    }
   },
   {
-   "mention_id": "M50",
+   "mention_id": "M187",
    "text": "he",
    "type": "character",
    "mention_kind": "pronominal",
-   "entity_key": "bill_sikes",
+   "entity_key": "bulls_eye",
    "start": 9222,
    "end": 9224,
    "review": {
     "origin": "pdnc",
-    "status": "accepted",
-    "by": "pdnc",
-    "note": "mention_kind set by the converter"
+    "status": "pending",
+    "note": "PDNC links this to bill_sikes, but the dog (bulls_eye) is not in PDNC's character list, so PDNC could not link it to him. Drafter proposes bulls_eye: Sikes gave the dog the slip, and the dog is the one 'so easy'."
    }
   },
   {
-   "mention_id": "M51",
+   "mention_id": "M188",
+   "text": "the dog",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "bulls_eye",
+   "start": 9322,
+   "end": 9329,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M189",
+   "text": "himself",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "bulls_eye",
+   "start": 9362,
+   "end": 9369,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M190",
+   "text": "all three",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 9580,
+   "end": 9589,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M191",
+   "text": "their",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 9634,
+   "end": 9639,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M192",
+   "text": "They",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 9654,
+   "end": 9658,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M193",
+   "text": "their",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 9664,
+   "end": 9669,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M194",
+   "text": "They",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 9719,
+   "end": 9723,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M195",
+   "text": "the\nmurdered woman",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "nancy",
+   "start": 9817,
+   "end": 9835,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M196",
+   "text": "They",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 9859,
+   "end": 9863,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M197",
    "text": "Young Bates",
    "type": "character",
    "mention_kind": "proper",
@@ -1003,7 +3039,150 @@
    }
   },
   {
-   "mention_id": "M52",
+   "mention_id": "M198",
+   "text": "Kags",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kags",
+   "start": 9972,
+   "end": 9976,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M199",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kags",
+   "start": 10019,
+   "end": 10021,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M200",
+   "text": "himself",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kags",
+   "start": 10027,
+   "end": 10034,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M201",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "charley_bates",
+   "start": 10076,
+   "end": 10078,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M202",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "charley_bates",
+   "start": 10080,
+   "end": 10082,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M203",
+   "text": "Crackit",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "toby_crackit",
+   "start": 10109,
+   "end": 10116,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M204",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "toby_crackit",
+   "start": 10167,
+   "end": 10170,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M205",
+   "text": "them",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 10203,
+   "end": 10207,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M206",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "toby_crackit",
+   "start": 10220,
+   "end": 10223,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M207",
+   "text": "The dog",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "bulls_eye",
+   "start": 10246,
+   "end": 10253,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M208",
+   "text": "We",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 10321,
+   "end": 10323,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M209",
    "text": "him",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1018,7 +3197,33 @@
    }
   },
   {
-   "mention_id": "M53",
+   "mention_id": "M210",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "toby_crackit",
+   "start": 10342,
+   "end": 10344,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M211",
+   "text": "the other man",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 10411,
+   "end": 10424,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M212",
    "text": "He",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1033,7 +3238,202 @@
    }
   },
   {
-   "mention_id": "M54",
+   "mention_id": "M213",
+   "text": "us",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 10486,
+   "end": 10488,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M214",
+   "text": "Kags",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kags",
+   "start": 10508,
+   "end": 10512,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M215",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kags",
+   "start": 10647,
+   "end": 10649,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M216",
+   "text": "Crackit",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "toby_crackit",
+   "start": 10665,
+   "end": 10672,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M217",
+   "text": "a man",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "bill_sikes",
+   "start": 10721,
+   "end": 10726,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M218",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "bill_sikes",
+   "start": 10750,
+   "end": 10753,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M219",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "bill_sikes",
+   "start": 10807,
+   "end": 10810,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M220",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "bill_sikes",
+   "start": 10822,
+   "end": 10825,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M221",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "bill_sikes",
+   "start": 10831,
+   "end": 10833,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M222",
+   "text": "Sikes",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "bill_sikes",
+   "start": 10987,
+   "end": 10992,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M223",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "bill_sikes",
+   "start": 10995,
+   "end": 10997,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M224",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "bill_sikes",
+   "start": 11003,
+   "end": 11006,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M225",
+   "text": "the room",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 11054,
+   "end": 11062,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M226",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "bill_sikes",
+   "start": 11082,
+   "end": 11084,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M227",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "bill_sikes",
+   "start": 11139,
+   "end": 11142,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M228",
    "text": "Fagin",
    "type": "character",
    "mention_kind": "proper",
@@ -1048,7 +3448,7 @@
    }
   },
   {
-   "mention_id": "M55",
+   "mention_id": "M229",
    "text": "You",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1063,7 +3463,7 @@
    }
   },
   {
-   "mention_id": "M56",
+   "mention_id": "M230",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1078,7 +3478,7 @@
    }
   },
   {
-   "mention_id": "M57",
+   "mention_id": "M231",
    "text": "You",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1093,7 +3493,7 @@
    }
   },
   {
-   "mention_id": "M58",
+   "mention_id": "M232",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1108,7 +3508,7 @@
    }
   },
   {
-   "mention_id": "M59",
+   "mention_id": "M233",
    "text": "Toby",
    "type": "character",
    "mention_kind": "proper",
@@ -1123,7 +3523,7 @@
    }
   },
   {
-   "mention_id": "M60",
+   "mention_id": "M234",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1138,7 +3538,7 @@
    }
   },
   {
-   "mention_id": "M61",
+   "mention_id": "M235",
    "text": "Charley",
    "type": "character",
    "mention_kind": "proper",
@@ -1153,7 +3553,7 @@
    }
   },
   {
-   "mention_id": "M62",
+   "mention_id": "M236",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1168,7 +3568,7 @@
    }
   },
   {
-   "mention_id": "M63",
+   "mention_id": "M237",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1183,7 +3583,7 @@
    }
   },
   {
-   "mention_id": "M64",
+   "mention_id": "M238",
    "text": "You",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1198,7 +3598,7 @@
    }
   },
   {
-   "mention_id": "M65",
+   "mention_id": "M239",
    "text": "him",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1213,7 +3613,7 @@
    }
   },
   {
-   "mention_id": "M66",
+   "mention_id": "M240",
    "text": "him",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1228,7 +3628,7 @@
    }
   },
   {
-   "mention_id": "M67",
+   "mention_id": "M241",
    "text": "him",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1243,7 +3643,7 @@
    }
   },
   {
-   "mention_id": "M68",
+   "mention_id": "M242",
    "text": "He",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1258,7 +3658,7 @@
    }
   },
   {
-   "mention_id": "M69",
+   "mention_id": "M243",
    "text": "he",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1273,7 +3673,7 @@
    }
   },
   {
-   "mention_id": "M70",
+   "mention_id": "M244",
    "text": "he",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1288,7 +3688,7 @@
    }
   },
   {
-   "mention_id": "M71",
+   "mention_id": "M245",
    "text": "him",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1303,7 +3703,7 @@
    }
   },
   {
-   "mention_id": "M72",
+   "mention_id": "M246",
    "text": "him",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1318,7 +3718,7 @@
    }
   },
   {
-   "mention_id": "M73",
+   "mention_id": "M247",
    "text": "he",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1333,7 +3733,7 @@
    }
   },
   {
-   "mention_id": "M74",
+   "mention_id": "M248",
    "text": "him",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1348,7 +3748,7 @@
    }
   },
   {
-   "mention_id": "M75",
+   "mention_id": "M249",
    "text": "He",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1363,7 +3763,7 @@
    }
   },
   {
-   "mention_id": "M76",
+   "mention_id": "M250",
    "text": "this screeching\nHell-babe",
    "type": "character",
    "mention_kind": "nominal",
@@ -1378,7 +3778,7 @@
    }
   },
   {
-   "mention_id": "M77",
+   "mention_id": "M251",
    "text": "him",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1393,7 +3793,7 @@
    }
   },
   {
-   "mention_id": "M78",
+   "mention_id": "M252",
    "text": "him",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2629,8 +5029,176 @@
   }
  ],
  "events": [],
- "facts": [],
- "relationships": [],
+ "facts": [
+  {
+   "fact_id": "F1",
+   "entity_key": "kags",
+   "property": "age",
+   "value": "fifty years",
+   "value_span": {
+    "start": 4291,
+    "end": 4302
+   },
+   "age_years": 50,
+   "evidence": {
+    "start": 4269,
+    "end": 4302
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F2",
+   "entity_key": "kags",
+   "property": "occupation",
+   "value": "robber",
+   "value_span": {
+    "start": 4281,
+    "end": 4287
+   },
+   "evidence": {
+    "start": 4269,
+    "end": 4302
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F3",
+   "entity_key": "betsy",
+   "property": "location",
+   "value": "the hospital",
+   "value_span": {
+    "start": 6189,
+    "end": 6201
+   },
+   "evidence": {
+    "start": 6177,
+    "end": 6218
+   },
+   "assertion": "asserted",
+   "claimed_by": "mr_chitling",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F4",
+   "entity_key": "nancy",
+   "property": "status",
+   "value": "murdered",
+   "value_span": {
+    "start": 9821,
+    "end": 9829
+   },
+   "status_value": "DEAD",
+   "evidence": {
+    "start": 9796,
+    "end": 9856
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F5",
+   "entity_key": "bill_sikes",
+   "property": "status",
+   "value": "lifeless",
+   "value_span": {
+    "start": 23013,
+    "end": 23021
+   },
+   "status_value": "DEAD",
+   "evidence": {
+    "start": 22994,
+    "end": 23038
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F6",
+   "entity_key": "bulls_eye",
+   "property": "status",
+   "value": "dashed out his brains",
+   "value_span": {
+    "start": 23470,
+    "end": 23491
+   },
+   "status_value": "DEAD",
+   "evidence": {
+    "start": 23435,
+    "end": 23491
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  }
+ ],
+ "relationships": [
+  {
+   "relationship_id": "R1",
+   "subject_entity_key": "bill_sikes",
+   "predicate": "OWNS",
+   "object_entity_key": "bulls_eye",
+   "evidence": {
+    "start": 7952,
+    "end": 7985
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R2",
+   "subject_entity_key": "toby_crackit",
+   "predicate": "OWNS",
+   "object_entity_key": "crackits_house",
+   "evidence": {
+    "start": 11832,
+    "end": 11856
+   },
+   "assertion": "asserted",
+   "claimed_by": "bill_sikes",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R3",
+   "subject_entity_key": "kags",
+   "predicate": "FRIEND_OF",
+   "object_entity_key": "toby_crackit",
+   "evidence": {
+    "start": 5248,
+    "end": 5311
+   },
+   "assertion": "asserted",
+   "claimed_by": "kags",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  }
+ ],
  "temporal_expressions": [],
  "temporal_relations": []
 }
