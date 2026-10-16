@@ -11,11 +11,12 @@ and repairs only what it can verify, reporting the rest as issues:
     - a name resolves through work.json's `name_map`, then PDNC main names, then an alias that names one character
     - `_group` and `_unknowable` speakers become a null speaker; a mention of several characters ("you" said to two
       people) is skipped, since a gold mention has one entity
-    - with a reference edition, characters PDNC replaced by spaces (every non-ASCII character in The Invisible Man,
-      apostrophes included) are restored, line by line, only on lines that match that edition exactly; offsets
-      don't move, since each restored character replaces one space. Spans are still trimmed and checked on PDNC's
-      own text (a stray edge space that was really an em dash stays outside the span); an elision apostrophe that
-      starts a quote ("'Ed or no 'ed") is put back inside it
+    - with a reference edition, characters PDNC replaced by spaces are restored, line by line, only on lines that
+      match that edition exactly. PDNC did this two ways: one space per character (The Invisible Man, mode "char")
+      and one space per UTF-8 byte (The Mysterious Affair at Styles, mode "bytes": an em dash became three spaces).
+      Every PDNC span is moved through the resulting offset map. Spans are still trimmed and checked on PDNC's own
+      text (a stray edge space that was really an em dash stays outside the span); an elision apostrophe that starts
+      a quote ("'Ed or no 'ed") is put back inside it
 """
 from __future__ import annotations
 
@@ -49,28 +50,52 @@ def split_chapters(text: str) -> List[Tuple[int, int]]:
     return bounds
 
 
-def _as_pdnc(line: str) -> str:
-    return "".join('"' if c in "“”" else c if ord(c) < 128 else " " for c in line)
+def _pdnc_form(c: str, mode: str) -> str:
+    """What PDNC's text has in place of the edition's character `c`."""
+    if c in "\u201c\u201d":
+        return '"'
+    if mode == "bytes" and c == "\u2019":
+        return "'"
+    if ord(c) < 128:
+        return c
+    return " " * (len(c.encode("utf-8")) if mode == "bytes" else 1)
 
 
-def restore_from_reference(text: str, reference: str) -> Tuple[str, int, List[str]]:
-    """Restore characters PDNC replaced by spaces. Returns (text, characters restored, lines left as they were)."""
+def restore_from_reference(text: str, reference: str, mode: str = "char") -> Tuple[str, int, List[str], List[int]]:
+    """Restore characters PDNC replaced by spaces. Returns (text, characters restored, lines left as they were,
+    offset map). offset_map[p] is the restored-text index of the character at PDNC offset p (len(text) + 1 entries);
+    a span (s, e) moves to (offset_map[s], offset_map[e - 1] + 1)."""
     by_pdnc_form: Dict[str, set] = {}
     for line in reference.replace("\r\n", "\n").split("\n"):
-        by_pdnc_form.setdefault(_as_pdnc(line), set()).add(line)
-    out, restored, unmatched = [], 0, []
+        by_pdnc_form.setdefault("".join(_pdnc_form(c, mode) for c in line), set()).add(line)
+    out: List[str] = []
+    offset_map: List[int] = []
+    restored, unmatched, q = 0, [], 0
     for line in text.split("\n"):
+        if out:
+            offset_map.append(q)        # the newline
+            q += 1
         candidates = by_pdnc_form.get(line, set())
         if len(candidates) == 1:
-            original = next(iter(candidates))
-            fixed = "".join(("'" if o in SPACE_STANDINS else o) if p == " " and ord(o) >= 128 else p
-                            for p, o in zip(line, original))
-            restored += sum(a != b for a, b in zip(line, fixed))
-            line = fixed
-        elif line.strip():
-            unmatched.append(line)
-        out.append(line)
-    return "\n".join(out), restored, unmatched
+            pieces = []
+            for c in next(iter(candidates)):
+                form = _pdnc_form(c, mode)
+                if ord(c) >= 128 and not form.strip():
+                    pieces.append("'" if c in SPACE_STANDINS else c)
+                    restored += 1
+                else:
+                    pieces.append(form)
+                offset_map.extend([q] * len(form))
+                q += 1
+            out.append("".join(pieces))
+        else:
+            if line.strip():
+                unmatched.append(line)
+            offset_map.extend(range(q, q + len(line)))
+            q += len(line)
+            out.append(line)
+    offset_map.append(q)
+    return "\n".join(out), restored, unmatched, offset_map
 
 
 def _trim(text: str, start: int, end: int) -> Tuple[int, int]:
@@ -168,10 +193,17 @@ def _kind(surface: str) -> str:
 
 def convert_chapter(text: str, quote_rows: Sequence[Dict[str, str]], characters: Characters,
                     config: Dict[str, Any], number: int, bounds: Tuple[int, int], revision: str,
-                    pdnc_text: Optional[str] = None) -> Tuple[Dict[str, Any], List[str]]:
-    """One gold v2 draft for chapter `number` (by position) at `bounds` in the novel text. `pdnc_text` is PDNC's
-    text before `restore_from_reference`, when that was applied; spans are checked on it."""
+                    pdnc_text: Optional[str] = None,
+                    offset_map: Optional[Sequence[int]] = None) -> Tuple[Dict[str, Any], List[str]]:
+    """One gold v2 draft for chapter `number` (by position) at `bounds` in the novel text. `pdnc_text` and
+    `offset_map` come from `restore_from_reference`, when it was applied: spans are checked on PDNC's text, then
+    moved into `text`."""
     pdnc_text = pdnc_text if pdnc_text is not None else text
+    omap = offset_map if offset_map is not None else range(len(pdnc_text) + 1)
+
+    def to_text(s: int, e: int) -> Tuple[int, int]:
+        return omap[s], (omap[e - 1] + 1 if e > s else omap[s])
+
     start, end = bounds
     chapter = text[start:end]
     issues: List[str] = []
@@ -183,14 +215,16 @@ def convert_chapter(text: str, quote_rows: Sequence[Dict[str, str]], characters:
             issues.append(f"{where}: text at ({s}, {e}) is {pdnc_text[s:e]!r}, PDNC has {expected.strip()!r}; "
                           "dropped")
             return None
-        if s > start and text[s - 1] == "'" and pdnc_text[s - 1] == " " and text[s].isalnum():
+        before = pdnc_text[s - 1] if s > 0 else ""
+        s, e = to_text(s, e)
+        if s > start and text[s - 1] == "'" and before == " " and text[s].isalnum():
             s -= 1     # a restored elision apostrophe: 'Ed
         return s - start, e - start
 
     quotes, mentions = [], {}
     for row in quote_rows:
         spans = ast.literal_eval(row["quoteByteSpans"])
-        inside = [start <= s and e <= end for s, e in spans]
+        inside = [start <= to_text(s, e)[0] and to_text(s, e)[1] <= end for s, e in spans]
         if not any(inside):
             continue
         qid = row["quoteID"]

@@ -74,17 +74,20 @@ def cmd_pdnc(args: argparse.Namespace) -> int:
     config = json.loads(work_path.read_text(encoding="utf-8"))
     novel_dir = Path(args.pdnc_dir)
     text = pdnc_text = (novel_dir / "novel_text.txt").read_text(encoding="utf-8")
+    offset_map = None
     if args.reference_text:
         reference = Path(args.reference_text).read_text(encoding="utf-8-sig")
-        text, restored, unmatched = pdnc.restore_from_reference(text, reference)
-        print(f"restored {restored} characters from {args.reference_text}; {len(unmatched)} lines left as they were")
+        mode = config.get("reference_text", {}).get("mode", "char")
+        text, restored, unmatched, offset_map = pdnc.restore_from_reference(text, reference, mode)
+        print(f"restored {restored} characters from {args.reference_text} (mode {mode}); {len(unmatched)} lines "
+              "left as they were")
     read = lambda name: list(csv.DictReader((novel_dir / name).open(encoding="utf-8")))
     characters = pdnc.Characters(read("character_info.csv"), config)
     quote_rows = read("quotation_info.csv")
     chapters = pdnc.split_chapters(text)
     for number in args.chapters or config["chapters"]:
         doc, issues = pdnc.convert_chapter(text, quote_rows, characters, config, number, chapters[number - 1],
-                                           args.revision, pdnc_text)
+                                           args.revision, pdnc_text, offset_map)
         issues += [f"validation: {e}" for e in doc_errors(doc)]
         out = work_path.parent / f"ch{number:02d}.json"
         (work_path.parent / f"ch{number:02d}.issues.txt").write_text("".join(f"{i}\n" for i in issues),

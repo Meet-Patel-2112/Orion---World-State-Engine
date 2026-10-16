@@ -99,9 +99,27 @@ def test_chapters_are_numbered_by_position_even_when_the_numerals_restart():
 def test_restore_puts_back_only_what_a_matching_line_proves():
     pdnc = "It s Kemp s house.\nA line PDNC changed  oddly."
     reference = "It’s Kemp’s house.\r\nA line PDNC changed — differently."
-    text, restored, unmatched = restore_from_reference(pdnc, reference)
+    text, restored, unmatched, omap = restore_from_reference(pdnc, reference)
     assert text == "It's Kemp's house.\nA line PDNC changed  oddly." and restored == 2
-    assert unmatched == ["A line PDNC changed  oddly."] and len(text) == len(pdnc)
+    assert unmatched == ["A line PDNC changed  oddly."] and len(text) == len(pdnc) and omap == list(range(len(pdnc) + 1))
+
+
+def test_byte_mode_restores_multibyte_characters_and_moves_spans():
+    # Styles: PDNC wrote one space per UTF-8 byte, so an em dash is three spaces and an e-acute two
+    pdnc = 'CHAPTER I.\n\n"As for Evie   you remember? A prot  g  e."\n'
+    reference = "CHAPTER I.\n\n“As for Evie—you remember? A protégée.”\n"
+    text, restored, unmatched, omap = restore_from_reference(pdnc, reference, mode="bytes")
+    assert text == 'CHAPTER I.\n\n"As for Evie—you remember? A protégée."\n'
+    assert restored == 3 and unmatched == [] and len(omap) == len(pdnc) + 1
+    s, e = pdnc.index("you"), pdnc.index("e.\"") + 1      # PDNC's span of: you remember? A prot  g  e
+    assert text[omap[s]:omap[e - 1] + 1] == "you remember? A protégée"
+    row = {"quoteID": "Q0", "quoteText": pdnc[s:e], "subQuotationList": repr([pdnc[s:e]]),
+           "quoteByteSpans": repr([[s, e]]), "speaker": "Jane", "addressees": "[]", "quoteType": "Explicit",
+           "mentionTextsList": "[[]]", "mentionSpansList": "[[]]", "mentionEntitiesList": "[[]]"}
+    d, issues = convert_chapter(text, [row], Characters(ROWS, CONFIG), CONFIG, 1, split_chapters(text)[0], "abc",
+                                pdnc, omap)
+    span = d["quotes"][0]["spans"][0]
+    assert issues == [] and d["text"][span["start"]:span["end"]] == "you remember? A protégée"
 
 
 ROWS = [{"Character ID": "0", "Main Name": "Jane", "Aliases": "{'Jane', 'Miss Bennet'}"},
