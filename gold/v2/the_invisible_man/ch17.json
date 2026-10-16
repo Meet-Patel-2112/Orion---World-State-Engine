@@ -21,7 +21,7 @@
   "status": "draft",
   "layers": {
    "mentions": {
-    "coverage": "partial",
+    "coverage": "exhaustive",
     "region": {
      "start": 0,
      "end": 11387
@@ -34,10 +34,10 @@
     "coverage": "none"
    },
    "facts": {
-    "coverage": "none"
+    "coverage": "exhaustive"
    },
    "relationships": {
-    "coverage": "none"
+    "coverage": "exhaustive"
    },
    "temporal_expressions": {
     "coverage": "none"
@@ -46,9 +46,24 @@
     "coverage": "none"
    }
   },
-  "notes": "Quotes, characters and the mentions inside quotes imported from PDNC at e507a27. Mentions are partial until the drafting pass covers the region."
+  "notes": "Quotes, characters and the mentions inside quotes are imported from PDNC at e507a27; every other item is Claude's draft and pending review. Narration pronouns follow Kemp (the chapter's viewpoint) except where the Invisible Man acts ('He reached over and secured the whiskey bottle'); first person is assigned line by line. 'the Voice', 'the Invisible Man', 'the Unseen', 'his guest' and 'his visitor' are Griffin. 'I am Griffin' and 'I'm an Invisible Man' are predicates, not mentions, but they and the description that follows ('red eyes', 'a man you have known') are Griffin's own claims. 'a real fool of a man ... a sort of confederate of mine' is Marvel, who PDNC lists in this chapter. The housemaid is 'the servant'; no tie to Kemp is stated.",
+  "annotators": [
+   {
+    "name": "Claude",
+    "role": "drafter"
+   }
+  ]
  },
  "entities": [
+  {
+   "entity_key": "burdock",
+   "name": "Burdock",
+   "type": "location",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
   {
    "entity_key": "griffin",
    "name": "Griffin",
@@ -85,6 +100,42 @@
     "origin": "pdnc",
     "status": "accepted",
     "by": "pdnc"
+   }
+  },
+  {
+   "entity_key": "kemps_house",
+   "name": "Kemp's house",
+   "type": "location",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "kemps_room",
+   "name": "Kemp's room",
+   "type": "location",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "kemps_study",
+   "name": "Kemp's study",
+   "type": "location",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "the_cricketers",
+   "name": "the Cricketers",
+   "type": "location",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
    }
   },
   {
@@ -135,11 +186,449 @@
     "status": "accepted",
     "by": "pdnc"
    }
+  },
+  {
+   "entity_key": "university_college",
+   "name": "University College",
+   "type": "organization",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
   }
  ],
  "mentions": [
   {
    "mention_id": "M1",
+   "text": "Dr. Kemp",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kemp",
+   "start": 35,
+   "end": 43,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M2",
+   "text": "his study",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "kemps_study",
+   "start": 69,
+   "end": 78,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M3",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 69,
+   "end": 72,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M4",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 103,
+   "end": 106,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M5",
+   "text": "Dr. Kemp",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kemp",
+   "start": 175,
+   "end": 183,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M6",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 193,
+   "end": 196,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M7",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 206,
+   "end": 209,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M8",
+   "text": "Burdock",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "burdock",
+   "start": 269,
+   "end": 276,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M9",
+   "text": "the asses",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 287,
+   "end": 296,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M10",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 307,
+   "end": 309,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M11",
+   "text": "the town",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "burdock",
+   "start": 489,
+   "end": 497,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M12",
+   "text": "a crowd",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 520,
+   "end": 527,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M13",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 544,
+   "end": 546,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M14",
+   "text": "The Cricketers",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "the_cricketers",
+   "start": 558,
+   "end": 572,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M15",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 606,
+   "end": 609,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M16",
+   "text": "the town",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "burdock",
+   "start": 629,
+   "end": 637,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M17",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 917,
+   "end": 920,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M18",
+   "text": "Dr. Kemp",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kemp",
+   "start": 1051,
+   "end": 1059,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M19",
+   "text": "himself",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 1067,
+   "end": 1074,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M20",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 1134,
+   "end": 1137,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M21",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 1227,
+   "end": 1229,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M22",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 1308,
+   "end": 1310,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M23",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 1326,
+   "end": 1328,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M24",
+   "text": "the servant",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "the_housemaid",
+   "start": 1335,
+   "end": 1346,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M25",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_housemaid",
+   "start": 1379,
+   "end": 1382,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M26",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_housemaid",
+   "start": 1410,
+   "end": 1413,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M27",
+   "text": "Dr. Kemp",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kemp",
+   "start": 1457,
+   "end": 1465,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M28",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 1468,
+   "end": 1470,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M29",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 1487,
+   "end": 1490,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M30",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 1534,
+   "end": 1537,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M31",
+   "text": "the\nhousemaid",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "the_housemaid",
+   "start": 1600,
+   "end": 1613,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M32",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_housemaid",
+   "start": 1617,
+   "end": 1620,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M33",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 1670,
+   "end": 1672,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M34",
    "text": "sir",
    "type": "character",
    "mention_kind": "nominal",
@@ -154,7 +643,709 @@
    }
   },
   {
-   "mention_id": "M2",
+   "mention_id": "M35",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_housemaid",
+   "start": 1709,
+   "end": 1712,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M36",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 1725,
+   "end": 1726,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M37",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 1749,
+   "end": 1751,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M38",
+   "text": "himself",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 1760,
+   "end": 1767,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M39",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 1769,
+   "end": 1771,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M40",
+   "text": "his study",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "kemps_study",
+   "start": 1785,
+   "end": 1794,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M41",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 1785,
+   "end": 1788,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M42",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 1819,
+   "end": 1822,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M43",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 1858,
+   "end": 1860,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M44",
+   "text": "the room",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "kemps_study",
+   "start": 1908,
+   "end": 1916,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M45",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 1977,
+   "end": 1980,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M46",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 2039,
+   "end": 2042,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M47",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 2062,
+   "end": 2065,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M48",
+   "text": "Dr. Kemp",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kemp",
+   "start": 2100,
+   "end": 2108,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M49",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 2122,
+   "end": 2125,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M50",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 2146,
+   "end": 2148,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M51",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 2191,
+   "end": 2193,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M52",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 2214,
+   "end": 2217,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M53",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 2238,
+   "end": 2240,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M54",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 2254,
+   "end": 2256,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M55",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 2270,
+   "end": 2272,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M56",
+   "text": "Dr. Kemp",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kemp",
+   "start": 2356,
+   "end": 2364,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M57",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 2397,
+   "end": 2400,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M58",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 2430,
+   "end": 2432,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M59",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 2453,
+   "end": 2455,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M60",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 2532,
+   "end": 2534,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M61",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 2586,
+   "end": 2589,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M62",
+   "text": "himself",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 2597,
+   "end": 2604,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M63",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 2708,
+   "end": 2710,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M64",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 2723,
+   "end": 2726,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M65",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 2854,
+   "end": 2856,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M66",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 2914,
+   "end": 2916,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M67",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 2925,
+   "end": 2928,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M68",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 2980,
+   "end": 2983,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M69",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 3041,
+   "end": 3043,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M70",
+   "text": "his own room",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "kemps_room",
+   "start": 3101,
+   "end": 3113,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M71",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 3101,
+   "end": 3104,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M72",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 3134,
+   "end": 3136,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M73",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 3147,
+   "end": 3150,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M74",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 3190,
+   "end": 3192,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M75",
+   "text": "his room",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "kemps_room",
+   "start": 3221,
+   "end": 3229,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M76",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 3221,
+   "end": 3224,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M77",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 3249,
+   "end": 3251,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M78",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 3267,
+   "end": 3270,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M79",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 3300,
+   "end": 3302,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M80",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 3338,
+   "end": 3340,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M81",
+   "text": "his room",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "kemps_room",
+   "start": 3360,
+   "end": 3368,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M82",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 3360,
+   "end": 3363,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M83",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 3370,
+   "end": 3373,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M84",
+   "text": "His",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 3433,
+   "end": 3436,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M85",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 3556,
+   "end": 3558,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M86",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 3595,
+   "end": 3597,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M87",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 3744,
+   "end": 3746,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M88",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 3774,
+   "end": 3776,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M89",
    "text": "Kemp",
    "type": "character",
    "mention_kind": "proper",
@@ -169,7 +1360,202 @@
    }
   },
   {
-   "mention_id": "M3",
+   "mention_id": "M90",
+   "text": "Dr. Kemp",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kemp",
+   "start": 3830,
+   "end": 3838,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M91",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 3867,
+   "end": 3869,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M92",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 3932,
+   "end": 3934,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M93",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 4031,
+   "end": 4033,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M94",
+   "text": "the room",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "kemps_room",
+   "start": 4069,
+   "end": 4077,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M95",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 4220,
+   "end": 4223,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M96",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 4225,
+   "end": 4227,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M97",
+   "text": "the room",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "kemps_room",
+   "start": 4247,
+   "end": 4255,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M98",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 4306,
+   "end": 4309,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M99",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 4343,
+   "end": 4345,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M100",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 4432,
+   "end": 4435,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M101",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 4462,
+   "end": 4464,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M102",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 4560,
+   "end": 4562,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M103",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 4617,
+   "end": 4620,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M104",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 4658,
+   "end": 4661,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M105",
    "text": "Kemp",
    "type": "character",
    "mention_kind": "proper",
@@ -184,7 +1570,46 @@
    }
   },
   {
-   "mention_id": "M4",
+   "mention_id": "M106",
+   "text": "the Voice",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "griffin",
+   "start": 4677,
+   "end": 4686,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M107",
+   "text": "Kemp",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kemp",
+   "start": 4700,
+   "end": 4704,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M108",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 4711,
+   "end": 4714,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M109",
    "text": "your",
    "type": "character",
    "mention_kind": "pronominal",
@@ -199,7 +1624,163 @@
    }
   },
   {
-   "mention_id": "M5",
+   "mention_id": "M110",
+   "text": "the Voice",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "griffin",
+   "start": 4752,
+   "end": 4761,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M111",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 4764,
+   "end": 4765,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M112",
+   "text": "Kemp",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kemp",
+   "start": 4788,
+   "end": 4792,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M113",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 4868,
+   "end": 4870,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M114",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 4879,
+   "end": 4880,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M115",
+   "text": "the Voice",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "griffin",
+   "start": 4912,
+   "end": 4921,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M116",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 4934,
+   "end": 4936,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M117",
+   "text": "Kemp",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kemp",
+   "start": 4998,
+   "end": 5002,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M118",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 5012,
+   "end": 5014,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M119",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 5139,
+   "end": 5140,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M120",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 5168,
+   "end": 5170,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M121",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 5202,
+   "end": 5205,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M122",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -214,7 +1795,137 @@
    }
   },
   {
-   "mention_id": "M6",
+   "mention_id": "M123",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 5281,
+   "end": 5283,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M124",
+   "text": "the Invisible Man",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "griffin",
+   "start": 5304,
+   "end": 5321,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M125",
+   "text": "Kemp",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kemp",
+   "start": 5335,
+   "end": 5339,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M126",
+   "text": "himself",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 5357,
+   "end": 5364,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M127",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 5367,
+   "end": 5368,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M128",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 5375,
+   "end": 5377,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M129",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 5425,
+   "end": 5427,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M130",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 5458,
+   "end": 5461,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M131",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 5522,
+   "end": 5524,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M132",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 5551,
+   "end": 5554,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M133",
    "text": "Kemp",
    "type": "character",
    "mention_kind": "proper",
@@ -229,7 +1940,46 @@
    }
   },
   {
-   "mention_id": "M7",
+   "mention_id": "M134",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 5608,
+   "end": 5609,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M135",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 5652,
+   "end": 5655,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M136",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 5661,
+   "end": 5663,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M137",
    "text": "Kemp",
    "type": "character",
    "mention_kind": "proper",
@@ -244,7 +1994,20 @@
    }
   },
   {
-   "mention_id": "M8",
+   "mention_id": "M138",
+   "text": "the Voice",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "griffin",
+   "start": 5693,
+   "end": 5702,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M139",
    "text": "Kemp",
    "type": "character",
    "mention_kind": "proper",
@@ -259,7 +2022,150 @@
    }
   },
   {
-   "mention_id": "M9",
+   "mention_id": "M140",
+   "text": "himself",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 5775,
+   "end": 5782,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M141",
+   "text": "Kemp",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kemp",
+   "start": 5802,
+   "end": 5806,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M142",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 5845,
+   "end": 5848,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M143",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 5863,
+   "end": 5865,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M144",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 5921,
+   "end": 5923,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M145",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 5931,
+   "end": 5934,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M146",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 5998,
+   "end": 6001,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M147",
+   "text": "The Invisible Man",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "griffin",
+   "start": 6009,
+   "end": 6026,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M148",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 6031,
+   "end": 6034,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M149",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 6052,
+   "end": 6055,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M150",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 6075,
+   "end": 6077,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M151",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -274,7 +2180,33 @@
    }
   },
   {
-   "mention_id": "M10",
+   "mention_id": "M152",
+   "text": "the Invisible Man",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "griffin",
+   "start": 6149,
+   "end": 6166,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M153",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 6180,
+   "end": 6183,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M154",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -289,7 +2221,20 @@
    }
   },
   {
-   "mention_id": "M11",
+   "mention_id": "M155",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 6246,
+   "end": 6248,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M156",
    "text": "you fool",
    "type": "character",
    "mention_kind": "nominal",
@@ -304,7 +2249,46 @@
    }
   },
   {
-   "mention_id": "M12",
+   "mention_id": "M157",
+   "text": "the Invisible Man",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "griffin",
+   "start": 6293,
+   "end": 6310,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M158",
+   "text": "Kemp",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kemp",
+   "start": 6314,
+   "end": 6318,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M159",
+   "text": "Kemp",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kemp",
+   "start": 6327,
+   "end": 6331,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M160",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -319,7 +2303,20 @@
    }
   },
   {
-   "mention_id": "M13",
+   "mention_id": "M161",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 6397,
+   "end": 6398,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M162",
    "text": "your",
    "type": "character",
    "mention_kind": "pronominal",
@@ -334,7 +2331,72 @@
    }
   },
   {
-   "mention_id": "M14",
+   "mention_id": "M163",
+   "text": "the Invisible Man",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "griffin",
+   "start": 6425,
+   "end": 6442,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M164",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 6454,
+   "end": 6457,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M165",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 6467,
+   "end": 6468,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M166",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 6524,
+   "end": 6525,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M167",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 6558,
+   "end": 6559,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M168",
    "text": "your",
    "type": "character",
    "mention_kind": "pronominal",
@@ -349,7 +2411,33 @@
    }
   },
   {
-   "mention_id": "M15",
+   "mention_id": "M169",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 6576,
+   "end": 6577,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M170",
+   "text": "you",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 6597,
+   "end": 6600,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M171",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -364,7 +2452,20 @@
    }
   },
   {
-   "mention_id": "M16",
+   "mention_id": "M172",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 6643,
+   "end": 6644,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M173",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -379,7 +2480,20 @@
    }
   },
   {
-   "mention_id": "M17",
+   "mention_id": "M174",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 6670,
+   "end": 6672,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M175",
    "text": "Kemp",
    "type": "character",
    "mention_kind": "proper",
@@ -394,7 +2508,7 @@
    }
   },
   {
-   "mention_id": "M18",
+   "mention_id": "M176",
    "text": "Griffin, of University College",
    "type": "character",
    "mention_kind": "proper",
@@ -409,7 +2523,137 @@
    }
   },
   {
-   "mention_id": "M19",
+   "mention_id": "M177",
+   "text": "Griffin",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "griffin",
+   "start": 6680,
+   "end": 6687,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M178",
+   "text": "University College",
+   "type": "organization",
+   "mention_kind": "proper",
+   "entity_key": "university_college",
+   "start": 6692,
+   "end": 6710,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M179",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 6719,
+   "end": 6721,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M180",
+   "text": "Kemp",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kemp",
+   "start": 6736,
+   "end": 6740,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M181",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 6743,
+   "end": 6744,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M182",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 6759,
+   "end": 6760,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M183",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 6773,
+   "end": 6775,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M184",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 6802,
+   "end": 6804,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M185",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 6821,
+   "end": 6824,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M186",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 6833,
+   "end": 6834,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M187",
    "text": "Griffin, of University College",
    "type": "character",
    "mention_kind": "proper",
@@ -424,7 +2668,59 @@
    }
   },
   {
-   "mention_id": "M20",
+   "mention_id": "M188",
+   "text": "University College",
+   "type": "organization",
+   "mention_kind": "proper",
+   "entity_key": "university_college",
+   "start": 6850,
+   "end": 6868,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M189",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 6874,
+   "end": 6875,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M190",
+   "text": "myself",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 6886,
+   "end": 6892,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M191",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 6904,
+   "end": 6905,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M192",
    "text": "a man you have known",
    "type": "character",
    "mention_kind": "nominal",
@@ -439,7 +2735,7 @@
    }
   },
   {
-   "mention_id": "M21",
+   "mention_id": "M193",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -454,7 +2750,7 @@
    }
   },
   {
-   "mention_id": "M22",
+   "mention_id": "M194",
    "text": "Griffin",
    "type": "character",
    "mention_kind": "proper",
@@ -469,7 +2765,20 @@
    }
   },
   {
-   "mention_id": "M23",
+   "mention_id": "M195",
+   "text": "Kemp",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kemp",
+   "start": 6985,
+   "end": 6989,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M196",
    "text": "Griffin",
    "type": "character",
    "mention_kind": "proper",
@@ -484,7 +2793,20 @@
    }
   },
   {
-   "mention_id": "M24",
+   "mention_id": "M197",
+   "text": "the Voice",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "griffin",
+   "start": 7012,
+   "end": 7021,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M198",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -499,7 +2821,46 @@
    }
   },
   {
-   "mention_id": "M25",
+   "mention_id": "M199",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 7177,
+   "end": 7178,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M200",
+   "text": "Kemp",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kemp",
+   "start": 7198,
+   "end": 7202,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M201",
+   "text": "My",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 7205,
+   "end": 7207,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M202",
    "text": "Griffin",
    "type": "character",
    "mention_kind": "proper",
@@ -514,7 +2875,20 @@
    }
   },
   {
-   "mention_id": "M26",
+   "mention_id": "M203",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 7263,
+   "end": 7264,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M204",
    "text": "Griffin",
    "type": "character",
    "mention_kind": "proper",
@@ -529,7 +2903,59 @@
    }
   },
   {
-   "mention_id": "M27",
+   "mention_id": "M205",
+   "text": "Kemp",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kemp",
+   "start": 7281,
+   "end": 7285,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M206",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 7312,
+   "end": 7314,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M207",
+   "text": "Kemp",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kemp",
+   "start": 7466,
+   "end": 7470,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M208",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 7517,
+   "end": 7518,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M209",
    "text": "Kemp",
    "type": "character",
    "mention_kind": "proper",
@@ -544,7 +2970,7 @@
    }
   },
   {
-   "mention_id": "M28",
+   "mention_id": "M210",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -559,7 +2985,111 @@
    }
   },
   {
-   "mention_id": "M29",
+   "mention_id": "M211",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 7609,
+   "end": 7611,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M212",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 7641,
+   "end": 7643,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M213",
+   "text": "Kemp",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kemp",
+   "start": 7661,
+   "end": 7665,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M214",
+   "text": "the room",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "kemps_room",
+   "start": 7707,
+   "end": 7715,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M215",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 7866,
+   "end": 7868,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M216",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 7876,
+   "end": 7879,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M217",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 7894,
+   "end": 7897,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M218",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 7931,
+   "end": 7933,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M219",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -574,7 +3104,59 @@
    }
   },
   {
-   "mention_id": "M30",
+   "mention_id": "M220",
+   "text": "Kemp",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kemp",
+   "start": 8037,
+   "end": 8041,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M221",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 8056,
+   "end": 8059,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M222",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 8073,
+   "end": 8075,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M223",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 8090,
+   "end": 8091,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M224",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -589,7 +3171,33 @@
    }
   },
   {
-   "mention_id": "M31",
+   "mention_id": "M225",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 8145,
+   "end": 8146,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M226",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 8160,
+   "end": 8161,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M227",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -604,7 +3212,20 @@
    }
   },
   {
-   "mention_id": "M32",
+   "mention_id": "M228",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 8223,
+   "end": 8224,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M229",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -619,7 +3240,72 @@
    }
   },
   {
-   "mention_id": "M33",
+   "mention_id": "M230",
+   "text": "Kemp",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kemp",
+   "start": 8265,
+   "end": 8269,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M231",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 8301,
+   "end": 8304,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M232",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 8306,
+   "end": 8308,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M233",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 8330,
+   "end": 8333,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M234",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 8447,
+   "end": 8449,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M235",
    "text": "You",
    "type": "character",
    "mention_kind": "pronominal",
@@ -634,7 +3320,7 @@
    }
   },
   {
-   "mention_id": "M34",
+   "mention_id": "M236",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -649,7 +3335,59 @@
    }
   },
   {
-   "mention_id": "M35",
+   "mention_id": "M237",
+   "text": "the Voice",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "griffin",
+   "start": 8577,
+   "end": 8586,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M238",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 8617,
+   "end": 8619,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M239",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 8624,
+   "end": 8625,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M240",
+   "text": "Kemp",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kemp",
+   "start": 8673,
+   "end": 8677,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M241",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -664,7 +3402,59 @@
    }
   },
   {
-   "mention_id": "M36",
+   "mention_id": "M242",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 8739,
+   "end": 8740,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M243",
+   "text": "the Voice",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "griffin",
+   "start": 8759,
+   "end": 8768,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M244",
+   "text": "Kemp",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kemp",
+   "start": 8836,
+   "end": 8840,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M245",
+   "text": "the Invisible Man",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "griffin",
+   "start": 8893,
+   "end": 8910,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M246",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -679,7 +3469,332 @@
    }
   },
   {
-   "mention_id": "M37",
+   "mention_id": "M247",
+   "text": "Kemp",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kemp",
+   "start": 8957,
+   "end": 8961,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M248",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 9001,
+   "end": 9003,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M249",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 9074,
+   "end": 9076,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M250",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 9102,
+   "end": 9105,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M251",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 9222,
+   "end": 9225,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M252",
+   "text": "the Unseen",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "griffin",
+   "start": 9285,
+   "end": 9295,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M253",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 9360,
+   "end": 9361,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M254",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 9378,
+   "end": 9380,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M255",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 9389,
+   "end": 9391,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M256",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 9403,
+   "end": 9406,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M257",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 9469,
+   "end": 9472,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M258",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 9481,
+   "end": 9483,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M259",
+   "text": "his guest",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "griffin",
+   "start": 9576,
+   "end": 9585,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M260",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 9576,
+   "end": 9579,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M261",
+   "text": "his visitor",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "griffin",
+   "start": 9613,
+   "end": 9624,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M262",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 9613,
+   "end": 9616,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M263",
+   "text": "Kemp",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kemp",
+   "start": 9700,
+   "end": 9704,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M264",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 9741,
+   "end": 9742,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M265",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 9778,
+   "end": 9780,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M266",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 9788,
+   "end": 9789,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M267",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 9873,
+   "end": 9874,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M268",
+   "text": "Kemp",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kemp",
+   "start": 9914,
+   "end": 9918,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M269",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 9928,
+   "end": 9930,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M270",
+   "text": "the Invisible Man",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "griffin",
+   "start": 9938,
+   "end": 9955,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M271",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 10018,
+   "end": 10019,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M272",
    "text": "your",
    "type": "character",
    "mention_kind": "pronominal",
@@ -694,7 +3809,59 @@
    }
   },
   {
-   "mention_id": "M38",
+   "mention_id": "M273",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 10060,
+   "end": 10062,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M274",
+   "text": "My",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 10074,
+   "end": 10076,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M275",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 10106,
+   "end": 10107,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M276",
+   "text": "this\nhouse",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "kemps_house",
+   "start": 10126,
+   "end": 10136,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M277",
    "text": "You",
    "type": "character",
    "mention_kind": "pronominal",
@@ -709,7 +3876,150 @@
    }
   },
   {
-   "mention_id": "M39",
+   "mention_id": "M278",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 10192,
+   "end": 10194,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M279",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 10276,
+   "end": 10277,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M280",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 10311,
+   "end": 10312,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M281",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 10349,
+   "end": 10350,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M282",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 10363,
+   "end": 10364,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M283",
+   "text": "the house",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "kemps_house",
+   "start": 10376,
+   "end": 10385,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M284",
+   "text": "Kemp",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kemp",
+   "start": 10428,
+   "end": 10432,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M285",
+   "text": "the Invisible Man",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "griffin",
+   "start": 10562,
+   "end": 10579,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M286",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 10606,
+   "end": 10608,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M287",
+   "text": "Kemp",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kemp",
+   "start": 10654,
+   "end": 10658,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M288",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 10837,
+   "end": 10839,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M289",
    "text": "a real fool of a man—a sort of confederate of mine",
    "type": "character",
    "mention_kind": "nominal",
@@ -724,7 +4034,46 @@
    }
   },
   {
-   "mention_id": "M40",
+   "mention_id": "M290",
+   "text": "a real fool of a man",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "thomas_marvel",
+   "start": 10889,
+   "end": 10909,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M291",
+   "text": "a sort of confederate of mine",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "thomas_marvel",
+   "start": 10910,
+   "end": 10939,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M292",
+   "text": "mine",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 10935,
+   "end": 10939,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M293",
    "text": "him",
    "type": "character",
    "mention_kind": "pronominal",
@@ -739,7 +4088,20 @@
    }
   },
   {
-   "mention_id": "M41",
+   "mention_id": "M294",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 10970,
+   "end": 10972,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M295",
    "text": "he",
    "type": "character",
    "mention_kind": "pronominal",
@@ -754,7 +4116,33 @@
    }
   },
   {
-   "mention_id": "M42",
+   "mention_id": "M296",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 11046,
+   "end": 11047,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M297",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 11077,
+   "end": 11078,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M298",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -769,7 +4157,20 @@
    }
   },
   {
-   "mention_id": "M43",
+   "mention_id": "M299",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 11098,
+   "end": 11099,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M300",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -784,7 +4185,33 @@
    }
   },
   {
-   "mention_id": "M44",
+   "mention_id": "M301",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 11131,
+   "end": 11133,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M302",
+   "text": "Kemp",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kemp",
+   "start": 11153,
+   "end": 11157,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M303",
    "text": "You",
    "type": "character",
    "mention_kind": "pronominal",
@@ -799,7 +4226,59 @@
    }
   },
   {
-   "mention_id": "M45",
+   "mention_id": "M304",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 11198,
+   "end": 11200,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M305",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 11214,
+   "end": 11216,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M306",
+   "text": "his visitor",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "griffin",
+   "start": 11224,
+   "end": 11235,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M307",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 11224,
+   "end": 11227,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M308",
    "text": "Some fool I'd never seen",
    "type": "character",
    "mention_kind": "proper",
@@ -814,7 +4293,98 @@
    }
   },
   {
-   "mention_id": "M46",
+   "mention_id": "M309",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 11248,
+   "end": 11249,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M310",
+   "text": "A lot of them",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 11280,
+   "end": 11293,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M311",
+   "text": "They",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 11306,
+   "end": 11310,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M312",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 11329,
+   "end": 11331,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M313",
+   "text": "them",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 11339,
+   "end": 11343,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M314",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 11345,
+   "end": 11346,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M315",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 11351,
+   "end": 11352,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M316",
    "text": "Kemp",
    "type": "character",
    "mention_kind": "proper",
@@ -829,7 +4399,7 @@
    }
   },
   {
-   "mention_id": "M47",
+   "mention_id": "M317",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -844,7 +4414,7 @@
    }
   },
   {
-   "mention_id": "M48",
+   "mention_id": "M318",
    "text": "Kemp",
    "type": "character",
    "mention_kind": "proper",
@@ -859,7 +4429,7 @@
    }
   },
   {
-   "mention_id": "M49",
+   "mention_id": "M319",
    "text": "You",
    "type": "character",
    "mention_kind": "pronominal",
@@ -874,7 +4444,7 @@
    }
   },
   {
-   "mention_id": "M50",
+   "mention_id": "M320",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -889,7 +4459,7 @@
    }
   },
   {
-   "mention_id": "M51",
+   "mention_id": "M321",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -904,7 +4474,7 @@
    }
   },
   {
-   "mention_id": "M52",
+   "mention_id": "M322",
    "text": "You",
    "type": "character",
    "mention_kind": "pronominal",
@@ -919,7 +4489,7 @@
    }
   },
   {
-   "mention_id": "M53",
+   "mention_id": "M323",
    "text": "Kemp",
    "type": "character",
    "mention_kind": "proper",
@@ -934,7 +4504,7 @@
    }
   },
   {
-   "mention_id": "M54",
+   "mention_id": "M324",
    "text": "You fair men",
    "type": "character",
    "mention_kind": "proper",
@@ -949,7 +4519,7 @@
    }
   },
   {
-   "mention_id": "M55",
+   "mention_id": "M325",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -964,7 +4534,7 @@
    }
   },
   {
-   "mention_id": "M56",
+   "mention_id": "M326",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -979,7 +4549,7 @@
    }
   },
   {
-   "mention_id": "M57",
+   "mention_id": "M327",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -994,7 +4564,7 @@
    }
   },
   {
-   "mention_id": "M58",
+   "mention_id": "M328",
    "text": "He",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1009,7 +4579,7 @@
    }
   },
   {
-   "mention_id": "M59",
+   "mention_id": "M329",
    "text": "he",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1024,7 +4594,7 @@
    }
   },
   {
-   "mention_id": "M60",
+   "mention_id": "M330",
    "text": "He",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1039,7 +4609,7 @@
    }
   },
   {
-   "mention_id": "M61",
+   "mention_id": "M331",
    "text": "he",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1054,7 +4624,7 @@
    }
   },
   {
-   "mention_id": "M62",
+   "mention_id": "M332",
    "text": "The cur",
    "type": "character",
    "mention_kind": "proper",
@@ -1069,7 +4639,7 @@
    }
   },
   {
-   "mention_id": "M63",
+   "mention_id": "M333",
    "text": "him",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1084,7 +4654,7 @@
    }
   },
   {
-   "mention_id": "M64",
+   "mention_id": "M334",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1099,7 +4669,7 @@
    }
   },
   {
-   "mention_id": "M65",
+   "mention_id": "M335",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1114,7 +4684,7 @@
    }
   },
   {
-   "mention_id": "M66",
+   "mention_id": "M336",
    "text": "Kemp",
    "type": "character",
    "mention_kind": "proper",
@@ -1129,7 +4699,7 @@
    }
   },
   {
-   "mention_id": "M67",
+   "mention_id": "M337",
    "text": "he",
    "type": "character",
    "mention_kind": "pronominal",
@@ -2903,8 +6473,176 @@
   }
  ],
  "events": [],
- "facts": [],
- "relationships": [],
+ "facts": [
+  {
+   "fact_id": "F1",
+   "entity_key": "kemp",
+   "property": "title",
+   "value": "Dr.",
+   "value_span": {
+    "start": 35,
+    "end": 38
+   },
+   "evidence": {
+    "start": 35,
+    "end": 78
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F2",
+   "entity_key": "kemp",
+   "property": "location",
+   "value": "his study",
+   "value_span": {
+    "start": 69,
+    "end": 78
+   },
+   "evidence": {
+    "start": 35,
+    "end": 78
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F3",
+   "entity_key": "the_housemaid",
+   "property": "occupation",
+   "value": "housemaid",
+   "value_span": {
+    "start": 1604,
+    "end": 1613
+   },
+   "evidence": {
+    "start": 1570,
+    "end": 1613
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F4",
+   "entity_key": "griffin",
+   "property": "eye_color",
+   "value": "red",
+   "value_span": {
+    "start": 7131,
+    "end": 7134
+   },
+   "evidence": {
+    "start": 7100,
+    "end": 7139
+   },
+   "assertion": "asserted",
+   "claimed_by": "griffin",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F5",
+   "entity_key": "griffin",
+   "property": "status",
+   "value": "wounded",
+   "value_span": {
+    "start": 7521,
+    "end": 7528
+   },
+   "status_value": "INJURED",
+   "evidence": {
+    "start": 7513,
+    "end": 7540
+   },
+   "assertion": "asserted",
+   "claimed_by": "griffin",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F6",
+   "entity_key": "griffin",
+   "property": "location",
+   "value": "the house",
+   "value_span": {
+    "start": 10376,
+    "end": 10385
+   },
+   "evidence": {
+    "start": 10363,
+    "end": 10397
+   },
+   "assertion": "asserted",
+   "claimed_by": "griffin",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  }
+ ],
+ "relationships": [
+  {
+   "relationship_id": "R1",
+   "subject_entity_key": "griffin",
+   "predicate": "KNOWS",
+   "object_entity_key": "kemp",
+   "evidence": {
+    "start": 6930,
+    "end": 6950
+   },
+   "assertion": "asserted",
+   "claimed_by": "griffin",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R2",
+   "subject_entity_key": "griffin",
+   "predicate": "MEMBER_OF",
+   "object_entity_key": "university_college",
+   "evidence": {
+    "start": 6680,
+    "end": 6710
+   },
+   "assertion": "asserted",
+   "claimed_by": "griffin",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R3",
+   "subject_entity_key": "griffin",
+   "predicate": "ALLY_OF",
+   "object_entity_key": "thomas_marvel",
+   "evidence": {
+    "start": 10910,
+    "end": 10939
+   },
+   "assertion": "asserted",
+   "claimed_by": "griffin",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  }
+ ],
  "temporal_expressions": [],
  "temporal_relations": []
 }

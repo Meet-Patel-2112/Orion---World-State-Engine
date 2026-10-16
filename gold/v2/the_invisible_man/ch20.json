@@ -21,7 +21,7 @@
   "status": "draft",
   "layers": {
    "mentions": {
-    "coverage": "partial",
+    "coverage": "exhaustive",
     "region": {
      "start": 0,
      "end": 10868
@@ -34,10 +34,10 @@
     "coverage": "none"
    },
    "facts": {
-    "coverage": "none"
+    "coverage": "exhaustive"
    },
    "relationships": {
-    "coverage": "none"
+    "coverage": "exhaustive"
    },
    "temporal_expressions": {
     "coverage": "none"
@@ -46,9 +46,60 @@
     "coverage": "none"
    }
   },
-  "notes": "Quotes, characters and the mentions inside quotes imported from PDNC at e507a27. Mentions are partial until the drafting pass covers the region."
+  "notes": "Quotes, characters and the mentions inside quotes are imported from PDNC at e507a27; every other item is Claude's draft and pending review. Almost all of the chapter is Griffin's own account to Kemp, so its facts and ties are claimed_by griffin. Referents PDNC does not list get their own keys: Griffin's father, the girl he had known, the white cat (a character: an animal that acts; 'she' while he feeds and processes her, 'it' in the night scene), the old woman downstairs, the landlord, Griffin's room and the lodging-house. 'that tramp' who has the books is Marvel. The old woman's 'Did I hear a cat? ... My cat?' is hers, as is the cat; Griffin's 'said I' is his.",
+  "annotators": [
+   {
+    "name": "Claude",
+    "role": "drafter"
+   }
+  ]
  },
  "entities": [
+  {
+   "entity_key": "albany_street",
+   "name": "Albany Street",
+   "type": "location",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "chesilstowe",
+   "name": "Chesilstowe",
+   "type": "location",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "chesilstowe_cottage",
+   "name": "the Chesilstowe cottage",
+   "type": "location",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "great_portland_street",
+   "name": "Great Portland Street",
+   "type": "location",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "great_titchfield_street",
+   "name": "Great Titchfield Street",
+   "type": "location",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
   {
    "entity_key": "griffin",
    "name": "Griffin",
@@ -71,6 +122,42 @@
    }
   },
   {
+   "entity_key": "griffins_father",
+   "name": "Griffin's father",
+   "type": "character",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "griffins_landlord",
+   "name": "Griffin's landlord",
+   "type": "character",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "griffins_old_acquaintance",
+   "name": "the girl Griffin had known",
+   "type": "character",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "griffins_room",
+   "name": "Griffin's room",
+   "type": "location",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
    "entity_key": "kemp",
    "name": "Dr. Kemp",
    "type": "character",
@@ -85,6 +172,45 @@
     "origin": "pdnc",
     "status": "accepted",
     "by": "pdnc"
+   }
+  },
+  {
+   "entity_key": "lodging_house",
+   "name": "the lodging-house",
+   "type": "location",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "london",
+   "name": "London",
+   "type": "location",
+   "aliases": [
+    "town"
+   ],
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "old_woman_downstairs",
+   "name": "the old woman from downstairs",
+   "type": "character",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "primrose_hill",
+   "name": "Primrose Hill",
+   "type": "location",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
    }
   },
   {
@@ -105,6 +231,15 @@
     "origin": "pdnc",
     "status": "accepted",
     "by": "pdnc"
+   }
+  },
+  {
+   "entity_key": "the_cat",
+   "name": "the white cat",
+   "type": "character",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
    }
   },
   {
@@ -130,6 +265,71 @@
  "mentions": [
   {
    "mention_id": "M1",
+   "text": "Kemp",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kemp",
+   "start": 65,
+   "end": 69,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M2",
+   "text": "the headless\nfigure",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "griffin",
+   "start": 109,
+   "end": 128,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M3",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 149,
+   "end": 151,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M4",
+   "text": "the Invisible Man",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "griffin",
+   "start": 193,
+   "end": 210,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M5",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 229,
+   "end": 232,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M6",
    "text": "You",
    "type": "character",
    "mention_kind": "pronominal",
@@ -144,7 +344,33 @@
    }
   },
   {
-   "mention_id": "M2",
+   "mention_id": "M7",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 274,
+   "end": 276,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M8",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 294,
+   "end": 295,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M9",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -159,7 +385,800 @@
    }
   },
   {
-   "mention_id": "M3",
+   "mention_id": "M10",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 322,
+   "end": 324,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M11",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 334,
+   "end": 336,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M12",
+   "text": "himself",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 344,
+   "end": 351,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M13",
+   "text": "Griffin",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "griffin",
+   "start": 360,
+   "end": 367,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M14",
+   "text": "Griffin",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "griffin",
+   "start": 405,
+   "end": 412,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M15",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 434,
+   "end": 436,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M16",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 457,
+   "end": 458,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M17",
+   "text": "the Chesilstowe cottage",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "chesilstowe_cottage",
+   "start": 468,
+   "end": 491,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M18",
+   "text": "Chesilstowe",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "chesilstowe",
+   "start": 472,
+   "end": 483,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M19",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 502,
+   "end": 504,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M20",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 554,
+   "end": 555,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M21",
+   "text": "a room",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "griffins_room",
+   "start": 566,
+   "end": 572,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M22",
+   "text": "London",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "london",
+   "start": 576,
+   "end": 582,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M23",
+   "text": "a large\nunfurnished room",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "griffins_room",
+   "start": 584,
+   "end": 608,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M24",
+   "text": "a big ill-managed lodging-house",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "lodging_house",
+   "start": 612,
+   "end": 643,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M25",
+   "text": "Great Portland Street",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "great_portland_street",
+   "start": 659,
+   "end": 680,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M26",
+   "text": "The room",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "griffins_room",
+   "start": 682,
+   "end": 690,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M27",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 723,
+   "end": 724,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M28",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffins_father",
+   "start": 741,
+   "end": 744,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M29",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 819,
+   "end": 820,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M30",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 908,
+   "end": 909,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M31",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffins_father",
+   "start": 923,
+   "end": 926,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M32",
+   "text": "My",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 928,
+   "end": 930,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M33",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 968,
+   "end": 969,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M34",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffins_father",
+   "start": 1000,
+   "end": 1003,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M35",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 1015,
+   "end": 1016,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M36",
+   "text": "the old college friend",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 1114,
+   "end": 1136,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M37",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffins_father",
+   "start": 1140,
+   "end": 1143,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M38",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffins_father",
+   "start": 1170,
+   "end": 1173,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M39",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 1230,
+   "end": 1231,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M40",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 1519,
+   "end": 1520,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M41",
+   "text": "myself",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 1530,
+   "end": 1536,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M42",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 1640,
+   "end": 1641,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M43",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 1721,
+   "end": 1722,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M44",
+   "text": "my father",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "griffins_father",
+   "start": 1752,
+   "end": 1761,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M45",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 1752,
+   "end": 1754,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M46",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffins_father",
+   "start": 1763,
+   "end": 1765,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M47",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 1776,
+   "end": 1778,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M48",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffins_father",
+   "start": 1799,
+   "end": 1802,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M49",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 1857,
+   "end": 1859,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M50",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffins_father",
+   "start": 1874,
+   "end": 1877,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M51",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 1909,
+   "end": 1911,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M52",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 1955,
+   "end": 1957,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M53",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 1980,
+   "end": 1982,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M54",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 2000,
+   "end": 2001,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M55",
+   "text": "the girl",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "griffins_old_acquaintance",
+   "start": 2006,
+   "end": 2014,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M56",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 2015,
+   "end": 2016,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M57",
+   "text": "Our",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 2044,
+   "end": 2047,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M58",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 2076,
+   "end": 2078,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M59",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffins_old_acquaintance",
+   "start": 2104,
+   "end": 2107,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M60",
+   "text": "She",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffins_old_acquaintance",
+   "start": 2109,
+   "end": 2112,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M61",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 2198,
+   "end": 2199,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M62",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 2223,
+   "end": 2224,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M63",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 2242,
+   "end": 2243,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M64",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 2295,
+   "end": 2296,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M65",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 2309,
+   "end": 2311,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M66",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 2334,
+   "end": 2335,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M67",
+   "text": "my room",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "griffins_room",
+   "start": 2394,
+   "end": 2401,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M68",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 2394,
+   "end": 2396,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M69",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 2461,
+   "end": 2462,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M70",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 2624,
+   "end": 2625,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M71",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -174,7 +1193,7 @@
    }
   },
   {
-   "mention_id": "M4",
+   "mention_id": "M72",
    "text": "Kemp",
    "type": "character",
    "mention_kind": "proper",
@@ -189,7 +1208,59 @@
    }
   },
   {
-   "mention_id": "M5",
+   "mention_id": "M73",
+   "text": "We",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 2695,
+   "end": 2697,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M74",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 2764,
+   "end": 2765,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M75",
+   "text": "that tramp",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "thomas_marvel",
+   "start": 2827,
+   "end": 2837,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M76",
+   "text": "We",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 2850,
+   "end": 2852,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M77",
    "text": "him",
    "type": "character",
    "mention_kind": "pronominal",
@@ -204,7 +1275,33 @@
    }
   },
   {
-   "mention_id": "M6",
+   "mention_id": "M78",
+   "text": "We",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 2873,
+   "end": 2875,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M79",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 3077,
+   "end": 3078,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M80",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -219,7 +1316,358 @@
    }
   },
   {
-   "mention_id": "M7",
+   "mention_id": "M81",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 3144,
+   "end": 3145,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M82",
+   "text": "mine",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 3178,
+   "end": 3182,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M83",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 3233,
+   "end": 3234,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M84",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 3272,
+   "end": 3273,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M85",
+   "text": "My",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 3306,
+   "end": 3308,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M86",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 3523,
+   "end": 3524,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M87",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 3548,
+   "end": 3549,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M88",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 3563,
+   "end": 3564,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M89",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 3569,
+   "end": 3571,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M90",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 3639,
+   "end": 3640,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M91",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 3687,
+   "end": 3688,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M92",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 3767,
+   "end": 3768,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M93",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 3790,
+   "end": 3792,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M94",
+   "text": "a lean white cat",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "the_cat",
+   "start": 3811,
+   "end": 3827,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M95",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 3902,
+   "end": 3904,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M96",
+   "text": "you",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_cat",
+   "start": 3933,
+   "end": 3936,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M97",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 3939,
+   "end": 3940,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M98",
+   "text": "She",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_cat",
+   "start": 4001,
+   "end": 4004,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M99",
+   "text": "the poor beast",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "the_cat",
+   "start": 4022,
+   "end": 4036,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M100",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 4054,
+   "end": 4055,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M101",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_cat",
+   "start": 4061,
+   "end": 4064,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M102",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 4080,
+   "end": 4082,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M103",
+   "text": "the room",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "griffins_room",
+   "start": 4123,
+   "end": 4131,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M104",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_cat",
+   "start": 4144,
+   "end": 4147,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M105",
+   "text": "the room",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "griffins_room",
+   "start": 4168,
+   "end": 4176,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M106",
+   "text": "herself",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_cat",
+   "start": 4212,
+   "end": 4219,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M107",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_cat",
+   "start": 4253,
+   "end": 4256,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M108",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -234,7 +1682,98 @@
    }
   },
   {
-   "mention_id": "M8",
+   "mention_id": "M109",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_cat",
+   "start": 4285,
+   "end": 4288,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M110",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 4305,
+   "end": 4306,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M111",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_cat",
+   "start": 4312,
+   "end": 4315,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M112",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 4345,
+   "end": 4347,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M113",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 4365,
+   "end": 4366,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M114",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_cat",
+   "start": 4372,
+   "end": 4375,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M115",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_cat",
+   "start": 4390,
+   "end": 4393,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M116",
    "text": "you",
    "type": "character",
    "mention_kind": "pronominal",
@@ -249,7 +1788,46 @@
    }
   },
   {
-   "mention_id": "M9",
+   "mention_id": "M117",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_cat",
+   "start": 4424,
+   "end": 4427,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M118",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 4432,
+   "end": 4433,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M119",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_cat",
+   "start": 4444,
+   "end": 4447,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M120",
    "text": "Kemp",
    "type": "character",
    "mention_kind": "proper",
@@ -264,7 +1842,7 @@
    }
   },
   {
-   "mention_id": "M10",
+   "mention_id": "M121",
    "text": "You",
    "type": "character",
    "mention_kind": "pronominal",
@@ -279,7 +1857,891 @@
    }
   },
   {
-   "mention_id": "M11",
+   "mention_id": "M122",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 4707,
+   "end": 4708,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M123",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_cat",
+   "start": 4780,
+   "end": 4783,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M124",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 4785,
+   "end": 4786,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M125",
+   "text": "the beast",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "the_cat",
+   "start": 4792,
+   "end": 4801,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M126",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_cat",
+   "start": 4817,
+   "end": 4820,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M127",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_cat",
+   "start": 4836,
+   "end": 4839,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M128",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_cat",
+   "start": 4958,
+   "end": 4961,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M129",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 4979,
+   "end": 4980,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M130",
+   "text": "She",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_cat",
+   "start": 4999,
+   "end": 5002,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M131",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 5042,
+   "end": 5043,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M132",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_cat",
+   "start": 5048,
+   "end": 5051,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M133",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_cat",
+   "start": 5062,
+   "end": 5065,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M134",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_cat",
+   "start": 5077,
+   "end": 5080,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M135",
+   "text": "an old woman",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "old_woman_downstairs",
+   "start": 5154,
+   "end": 5166,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M136",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 5198,
+   "end": 5200,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M137",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 5297,
+   "end": 5298,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M138",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "old_woman_downstairs",
+   "start": 5368,
+   "end": 5369,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M139",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "old_woman_downstairs",
+   "start": 5383,
+   "end": 5386,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M140",
+   "text": "My",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "old_woman_downstairs",
+   "start": 5395,
+   "end": 5397,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M141",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 5421,
+   "end": 5422,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M142",
+   "text": "She",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "old_woman_downstairs",
+   "start": 5439,
+   "end": 5442,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M143",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 5488,
+   "end": 5490,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M144",
+   "text": "the room",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "griffins_room",
+   "start": 5496,
+   "end": 5504,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M145",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "old_woman_downstairs",
+   "start": 5524,
+   "end": 5527,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M146",
+   "text": "She",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "old_woman_downstairs",
+   "start": 5710,
+   "end": 5713,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M147",
+   "text": "Kemp",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kemp",
+   "start": 5795,
+   "end": 5799,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M148",
+   "text": "the cat",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "the_cat",
+   "start": 5823,
+   "end": 5830,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M149",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 5930,
+   "end": 5931,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M150",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 6132,
+   "end": 6133,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M151",
+   "text": "the beast",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "the_cat",
+   "start": 6179,
+   "end": 6188,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M152",
+   "text": "it",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_cat",
+   "start": 6246,
+   "end": 6248,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M153",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 6299,
+   "end": 6300,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M154",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 6325,
+   "end": 6326,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M155",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 6480,
+   "end": 6482,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M156",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 6513,
+   "end": 6514,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M157",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 6542,
+   "end": 6543,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M158",
+   "text": "the cat",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "the_cat",
+   "start": 6603,
+   "end": 6610,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M159",
+   "text": "the room",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "griffins_room",
+   "start": 6632,
+   "end": 6640,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M160",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 6642,
+   "end": 6643,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M161",
+   "text": "it",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_cat",
+   "start": 6658,
+   "end": 6660,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M162",
+   "text": "it",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_cat",
+   "start": 6675,
+   "end": 6677,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M163",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 6688,
+   "end": 6689,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M164",
+   "text": "it",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_cat",
+   "start": 6706,
+   "end": 6708,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M165",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 6714,
+   "end": 6715,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M166",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 6735,
+   "end": 6736,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M167",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 6832,
+   "end": 6833,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M168",
+   "text": "it",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_cat",
+   "start": 6851,
+   "end": 6853,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M169",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 6864,
+   "end": 6865,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M170",
+   "text": "It",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_cat",
+   "start": 6878,
+   "end": 6880,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M171",
+   "text": "it",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_cat",
+   "start": 6900,
+   "end": 6902,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M172",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 6942,
+   "end": 6943,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M173",
+   "text": "it",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_cat",
+   "start": 6959,
+   "end": 6961,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M174",
+   "text": "it",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_cat",
+   "start": 6987,
+   "end": 6989,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M175",
+   "text": "it",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_cat",
+   "start": 7013,
+   "end": 7015,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M176",
+   "text": "it",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_cat",
+   "start": 7036,
+   "end": 7038,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M177",
+   "text": "it",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_cat",
+   "start": 7054,
+   "end": 7056,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M178",
+   "text": "the room",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "griffins_room",
+   "start": 7094,
+   "end": 7102,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M179",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 7112,
+   "end": 7113,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M180",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 7151,
+   "end": 7152,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M181",
+   "text": "it",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_cat",
+   "start": 7161,
+   "end": 7163,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M182",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 7182,
+   "end": 7183,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M183",
+   "text": "it",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_cat",
+   "start": 7206,
+   "end": 7208,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M184",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 7235,
+   "end": 7236,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M185",
+   "text": "my father",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "griffins_father",
+   "start": 7254,
+   "end": 7263,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M186",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 7254,
+   "end": 7256,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M187",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 7336,
+   "end": 7337,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M188",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 7380,
+   "end": 7382,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M189",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 7394,
+   "end": 7396,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M190",
    "text": "You",
    "type": "character",
    "mention_kind": "pronominal",
@@ -294,7 +2756,566 @@
    }
   },
   {
-   "mention_id": "M12",
+   "mention_id": "M191",
+   "text": "an invisible cat",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "the_cat",
+   "start": 7470,
+   "end": 7486,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M192",
+   "text": "Kemp",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kemp",
+   "start": 7503,
+   "end": 7507,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M193",
+   "text": "it",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_cat",
+   "start": 7514,
+   "end": 7516,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M194",
+   "text": "the Invisible Man",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "griffin",
+   "start": 7543,
+   "end": 7560,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M195",
+   "text": "Kemp",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kemp",
+   "start": 7590,
+   "end": 7594,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M196",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 7597,
+   "end": 7598,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M197",
+   "text": "It",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "the_cat",
+   "start": 7628,
+   "end": 7630,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M198",
+   "text": "the Invisible Man",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "griffin",
+   "start": 7666,
+   "end": 7683,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M199",
+   "text": "It",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_cat",
+   "start": 7686,
+   "end": 7688,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M200",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 7716,
+   "end": 7717,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M201",
+   "text": "Great Titchfield Street",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "great_titchfield_street",
+   "start": 7746,
+   "end": 7769,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M202",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 7779,
+   "end": 7780,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M203",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 7852,
+   "end": 7854,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M204",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 7902,
+   "end": 7904,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M205",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 7925,
+   "end": 7926,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M206",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 7981,
+   "end": 7982,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M207",
+   "text": "Great Portland Street",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "great_portland_street",
+   "start": 8001,
+   "end": 8022,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M208",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 8024,
+   "end": 8025,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M209",
+   "text": "Albany\nStreet",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "albany_street",
+   "start": 8051,
+   "end": 8064,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M210",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 8113,
+   "end": 8114,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M211",
+   "text": "Primrose Hill",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "primrose_hill",
+   "start": 8135,
+   "end": 8148,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M212",
+   "text": "My",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 8249,
+   "end": 8251,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M213",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 8330,
+   "end": 8331,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M214",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 8364,
+   "end": 8366,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M215",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 8384,
+   "end": 8386,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M216",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 8454,
+   "end": 8455,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M217",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 8534,
+   "end": 8536,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M218",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 8575,
+   "end": 8576,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M219",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 8596,
+   "end": 8597,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M220",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 8641,
+   "end": 8643,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M221",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 8703,
+   "end": 8705,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M222",
+   "text": "my\nfather",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "griffins_father",
+   "start": 8738,
+   "end": 8747,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M223",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 8738,
+   "end": 8740,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M224",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 8788,
+   "end": 8789,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M225",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 8936,
+   "end": 8938,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M226",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 8956,
+   "end": 8957,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M227",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 9051,
+   "end": 9053,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M228",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 9079,
+   "end": 9080,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M229",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 9107,
+   "end": 9108,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M230",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 9122,
+   "end": 9124,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M231",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 9295,
+   "end": 9296,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M232",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 9380,
+   "end": 9382,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M233",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 9394,
+   "end": 9396,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M234",
    "text": "Kemp",
    "type": "character",
    "mention_kind": "proper",
@@ -309,7 +3330,33 @@
    }
   },
   {
-   "mention_id": "M13",
+   "mention_id": "M235",
+   "text": "Kemp",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kemp",
+   "start": 9506,
+   "end": 9510,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M236",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 9551,
+   "end": 9552,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M237",
    "text": "You",
    "type": "character",
    "mention_kind": "pronominal",
@@ -324,7 +3371,475 @@
    }
   },
   {
-   "mention_id": "M14",
+   "mention_id": "M238",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kemp",
+   "start": 9613,
+   "end": 9614,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M239",
+   "text": "my landlord",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "griffins_landlord",
+   "start": 9684,
+   "end": 9695,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M240",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 9684,
+   "end": 9686,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M241",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 9783,
+   "end": 9784,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M242",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffins_landlord",
+   "start": 9825,
+   "end": 9827,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M243",
+   "text": "the old\nwoman",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "old_woman_downstairs",
+   "start": 9837,
+   "end": 9850,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M244",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffins_landlord",
+   "start": 9875,
+   "end": 9877,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M245",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffins_landlord",
+   "start": 9974,
+   "end": 9976,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M246",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 9994,
+   "end": 9995,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M247",
+   "text": "the house",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "lodging_house",
+   "start": 10079,
+   "end": 10088,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M248",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffins_landlord",
+   "start": 10090,
+   "end": 10092,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M249",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffins_landlord",
+   "start": 10125,
+   "end": 10127,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M250",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 10140,
+   "end": 10142,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M251",
+   "text": "the room",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "griffins_room",
+   "start": 10148,
+   "end": 10156,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M252",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffins_landlord",
+   "start": 10177,
+   "end": 10180,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M253",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 10236,
+   "end": 10238,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M254",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffins_landlord",
+   "start": 10249,
+   "end": 10251,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M255",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 10282,
+   "end": 10284,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M256",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 10293,
+   "end": 10294,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M257",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffins_landlord",
+   "start": 10317,
+   "end": 10320,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M258",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 10353,
+   "end": 10354,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M259",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffins_landlord",
+   "start": 10388,
+   "end": 10391,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M260",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 10415,
+   "end": 10416,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M261",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 10432,
+   "end": 10433,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M262",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 10494,
+   "end": 10495,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M263",
+   "text": "His",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffins_landlord",
+   "start": 10529,
+   "end": 10532,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M264",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 10616,
+   "end": 10618,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M265",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 10636,
+   "end": 10637,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M266",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffins_landlord",
+   "start": 10643,
+   "end": 10646,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M267",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffins_landlord",
+   "start": 10659,
+   "end": 10661,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M268",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffins_landlord",
+   "start": 10693,
+   "end": 10696,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M269",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 10725,
+   "end": 10726,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M270",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffins_landlord",
+   "start": 10731,
+   "end": 10734,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M271",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffins_landlord",
+   "start": 10772,
+   "end": 10774,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M272",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffins_landlord",
+   "start": 10798,
+   "end": 10801,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M273",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "griffin",
+   "start": 10815,
+   "end": 10816,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M274",
    "text": "the tramp",
    "type": "character",
    "mention_kind": "nominal",
@@ -339,7 +3854,7 @@
    }
   },
   {
-   "mention_id": "M15",
+   "mention_id": "M275",
    "text": "You",
    "type": "character",
    "mention_kind": "pronominal",
@@ -354,7 +3869,7 @@
    }
   },
   {
-   "mention_id": "M16",
+   "mention_id": "M276",
    "text": "You",
    "type": "character",
    "mention_kind": "pronominal",
@@ -1496,8 +5011,196 @@
   }
  ],
  "events": [],
- "facts": [],
- "relationships": [],
+ "facts": [
+  {
+   "fact_id": "F1",
+   "entity_key": "griffin",
+   "property": "location",
+   "value": "London",
+   "value_span": {
+    "start": 576,
+    "end": 582
+   },
+   "evidence": {
+    "start": 554,
+    "end": 582
+   },
+   "assertion": "asserted",
+   "claimed_by": "griffin",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F2",
+   "entity_key": "griffins_father",
+   "property": "status",
+   "value": "funeral",
+   "value_span": {
+    "start": 1878,
+    "end": 1885
+   },
+   "status_value": "DEAD",
+   "evidence": {
+    "start": 1831,
+    "end": 1885
+   },
+   "assertion": "asserted",
+   "claimed_by": "griffin",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F3",
+   "entity_key": "griffins_landlord",
+   "property": "occupation",
+   "value": "landlord",
+   "value_span": {
+    "start": 9687,
+    "end": 9695
+   },
+   "evidence": {
+    "start": 9677,
+    "end": 9722
+   },
+   "assertion": "asserted",
+   "claimed_by": "griffin",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F4",
+   "entity_key": "griffins_landlord",
+   "property": "origin",
+   "value": "Polish",
+   "value_span": {
+    "start": 9731,
+    "end": 9737
+   },
+   "evidence": {
+    "start": 9724,
+    "end": 9761
+   },
+   "assertion": "asserted",
+   "claimed_by": "griffin",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F5",
+   "entity_key": "the_cat",
+   "property": "status",
+   "value": "alive",
+   "value_span": {
+    "start": 7693,
+    "end": 7698
+   },
+   "status_value": "ALIVE",
+   "evidence": {
+    "start": 7686,
+    "end": 7714
+   },
+   "assertion": "asserted",
+   "claimed_by": "griffin",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F6",
+   "entity_key": "griffin",
+   "property": "location",
+   "value": "Primrose Hill",
+   "value_span": {
+    "start": 8135,
+    "end": 8148
+   },
+   "evidence": {
+    "start": 8105,
+    "end": 8148
+   },
+   "assertion": "asserted",
+   "claimed_by": "griffin",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  }
+ ],
+ "relationships": [
+  {
+   "relationship_id": "R1",
+   "subject_entity_key": "griffins_father",
+   "predicate": "FATHER_OF",
+   "object_entity_key": "griffin",
+   "evidence": {
+    "start": 1721,
+    "end": 1761
+   },
+   "assertion": "asserted",
+   "claimed_by": "griffin",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R2",
+   "subject_entity_key": "griffin",
+   "predicate": "KNOWS",
+   "object_entity_key": "griffins_old_acquaintance",
+   "evidence": {
+    "start": 1996,
+    "end": 2042
+   },
+   "assertion": "asserted",
+   "claimed_by": "griffin",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R3",
+   "subject_entity_key": "old_woman_downstairs",
+   "predicate": "OWNS",
+   "object_entity_key": "the_cat",
+   "evidence": {
+    "start": 5216,
+    "end": 5295
+   },
+   "assertion": "asserted",
+   "claimed_by": "griffin",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R4",
+   "subject_entity_key": "griffins_landlord",
+   "predicate": "OWNS",
+   "object_entity_key": "lodging_house",
+   "evidence": {
+    "start": 10529,
+    "end": 10573
+   },
+   "assertion": "asserted",
+   "claimed_by": "griffin",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  }
+ ],
  "temporal_expressions": [],
  "temporal_relations": []
 }
