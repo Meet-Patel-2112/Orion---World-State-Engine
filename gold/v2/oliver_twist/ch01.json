@@ -1,0 +1,627 @@
+{
+ "schema_version": "2.0",
+ "doc_id": "oliver_twist/ch01",
+ "work": {
+  "work_id": "oliver_twist",
+  "title": "Oliver Twist",
+  "author": "Charles Dickens",
+  "chapter_number": 1,
+  "chapter_title": "TREATS OF THE PLACE WHERE OLIVER TWIST WAS BORN AND OF THE",
+  "source": {
+   "corpus": "pdnc",
+   "url": "https://github.com/Priya22/project-dialogism-novel-corpus",
+   "revision": "e507a27b89a85c1e9710a897ad0b3f5a9ad73dc4",
+   "license": "Annotations: CC-BY 4.0 (PDNC, Vishnubhotla, Hammond and Hirst 2022); text: public domain",
+   "text_offset": 64
+  }
+ },
+ "text": " CHAPTER I.\nTREATS OF THE PLACE WHERE OLIVER TWIST WAS BORN AND OF THE\nCIRCUMSTANCES ATTENDING HIS BIRTH\n\n\nAmong other public buildings in a certain town, which for many reasons\nit will be prudent to refrain from mentioning, and to which I will\nassign no fictitious name, there is one anciently common to most towns,\ngreat or small: to wit, a workhouse; and in this workhouse was born; on\na day and date which I need not trouble myself to repeat, inasmuch as\nit can be of no possible consequence to the reader, in this stage of\nthe business at all events; the item of mortality whose name is\nprefixed to the head of this chapter.\n\nFor a long time after it was ushered into this world of sorrow and\ntrouble, by the parish surgeon, it remained a matter of considerable\ndoubt whether the child would survive to bear any name at all; in which\ncase it is somewhat more than probable that these memoirs would never\nhave appeared; or, if they had, that being comprised within a couple of\npages, they would have possessed the inestimable merit of being the\nmost concise and faithful specimen of biography, extant in the\nliterature of any age or country.\n\nAlthough I am not disposed to maintain that the being born in a\nworkhouse, is in itself the most fortunate and enviable circumstance\nthat can possibly befall a human being, I do mean to say that in this\nparticular instance, it was the best thing for Oliver Twist that could\nby possibility have occurred. The fact is, that there was considerable\ndifficulty in inducing Oliver to take upon himself the office of\nrespiration, a troublesome practice, but one which custom has rendered\nnecessary to our easy existence; and for some time he lay gasping on a\nlittle flock mattress, rather unequally poised between this world and\nthe next: the balance being decidedly in favour of the latter. Now, if,\nduring this brief period, Oliver had been surrounded by careful\ngrandmothers, anxious aunts, experienced nurses, and doctors of\nprofound wisdom, he would most inevitably and indubitably have been\nkilled in no time. There being nobody by, however, but a pauper old\nwoman, who was rendered rather misty by an unwonted allowance of beer;\nand a parish surgeon who did such matters by contract; Oliver and\nNature fought out the point between them. The result was, that, after a\nfew struggles, Oliver breathed, sneezed, and proceeded to advertise to\nthe inmates of the workhouse the fact of a new burden having been\nimposed upon the parish, by setting up as loud a cry as could\nreasonably have been expected from a male infant who had not been\npossessed of that very useful appendage, a voice, for a much longer\nspace of time than three minutes and a quarter.\n\nAs Oliver gave this first proof of the free and proper action of his\nlungs, the patchwork coverlet which was carelessly flung over the iron\nbedstead, rustled; the pale face of a young woman was raised feebly\nfrom the pillow; and a faint voice imperfectly articulated the words,\n\"Let me see the child, and die.\"\n\nThe surgeon had been sitting with his face turned towards the fire:\ngiving the palms of his hands a warm and a rub alternately. As the\nyoung woman spoke, he rose, and advancing to the bed's head, said, with\nmore kindness than might have been expected of him:\n\n\"Oh, you must not talk about dying yet.\"\n\n\"Lor bless her dear heart, no!\" interposed the nurse, hastily\ndepositing in her pocket a green glass bottle, the contents of which\nshe had been tasting in a corner with evident satisfaction.\n\n\"Lor bless her dear heart, when she has lived as long as I have, sir,\nand had thirteen children of her own, and all on 'em dead except two,\nand them in the wurkus with me, she'll know better than to take on in\nthat way, bless her dear heart! Think what it is to be a mother,\nthere's a dear young lamb do.\"\n\nApparently this consolatory perspective of a mother's prospects failed\nin producing its due effect. The patient shook her head, and stretched\nout her hand towards the child.\n\nThe surgeon deposited it in her arms. She imprinted her cold white lips\npassionately on its forehead; passed her hands over her face; gazed\nwildly round; shuddered; fell back and died. They chafed her breast,\nhands, and temples; but the blood had stopped forever. They talked of\nhope and comfort. They had been strangers too long.\n\n\"It's all over, Mrs. Thingummy!\" said the surgeon at last.\n\n\"Ah, poor dear, so it is!\" said the nurse, picking up the cork of the\ngreen bottle, which had fallen out on the pillow, as she stooped to\ntake up the child. \"Poor dear!\"\n\n\"You needn't mind sending up to me, if the child cries, nurse,\" said\nthe surgeon, putting on his gloves with great deliberation. \"It's very\nlikely it _will_ be troublesome. Give it a little gruel if it is.\" He\nput on his hat, and, pausing by the bed-side on his way to the door,\nadded, \"She was a good-looking girl, too; where did she come from?\"\n\n\"She was brought here last night,\" replied the old woman, \"by the\noverseer's order. She was found lying in the street. She had walked\nsome distance, for her shoes were worn to pieces; but where she came\nfrom, or where she was going to, nobody knows.\"\n\nThe surgeon leaned over the body, and raised the left hand. \"The old\nstory,\" he said, shaking his head: \"no wedding-ring, I see. Ah!\nGood-night!\"\n\nThe medical gentleman walked away to dinner; and the nurse, having once\nmore applied herself to the green bottle, sat down on a low chair\nbefore the fire, and proceeded to dress the infant.\n\nWhat an excellent example of the power of dress, young Oliver Twist\nwas! Wrapped in the blanket which had hitherto formed his only\ncovering, he might have been the child of a nobleman or a beggar; it\nwould have been hard for the haughtiest stranger to have assigned him\nhis proper station in society. But now that he was enveloped in the old\ncalico robes which had grown yellow in the same service, he was badged\nand ticketed, and fell into his place at once a parish child the orphan\nof a workhouse the humble, half-starved drudge to be cuffed and\nbuffeted through the world despised by all, and pitied by none.\n\nOliver cried lustily. If he could have known that he was an orphan,\nleft to the tender mercies of church-wardens and overseers, perhaps he\nwould have cried the louder.",
+ "annotation": {
+  "guidelines_version": "2.0",
+  "status": "draft",
+  "layers": {
+   "mentions": {
+    "coverage": "partial"
+   },
+   "quotes": {
+    "coverage": "exhaustive"
+   },
+   "events": {
+    "coverage": "none"
+   },
+   "facts": {
+    "coverage": "none"
+   },
+   "relationships": {
+    "coverage": "none"
+   },
+   "temporal_expressions": {
+    "coverage": "none"
+   },
+   "temporal_relations": {
+    "coverage": "none"
+   }
+  },
+  "notes": "Quotes, characters and the mentions inside quotes imported from PDNC at e507a27. Mentions are partial until the drafting pass covers the region."
+ },
+ "entities": [
+  {
+   "entity_key": "agnes_fleming",
+   "name": "Agnes Fleming",
+   "type": "character",
+   "aliases": [],
+   "external_ids": {
+    "pdnc": "0"
+   },
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc"
+   }
+  },
+  {
+   "entity_key": "old_sally",
+   "name": "Old Sally",
+   "type": "character",
+   "aliases": [
+    "Mrs. Thingummy",
+    "Sally",
+    "The Nurse"
+   ],
+   "external_ids": {
+    "pdnc": "39"
+   },
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc"
+   }
+  },
+  {
+   "entity_key": "oliver_twist",
+   "name": "Oliver Twist",
+   "type": "character",
+   "aliases": [
+    "Nolly",
+    "Oliver",
+    "Twist"
+   ],
+   "external_ids": {
+    "pdnc": "40"
+   },
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc"
+   }
+  },
+  {
+   "entity_key": "the_surgeon",
+   "name": "The Surgeon",
+   "type": "character",
+   "aliases": [],
+   "external_ids": {
+    "pdnc": "84"
+   },
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc"
+   }
+  }
+ ],
+ "mentions": [
+  {
+   "mention_id": "M1",
+   "text": "you",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "agnes_fleming",
+   "start": 3273,
+   "end": 3276,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M2",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "agnes_fleming",
+   "start": 3321,
+   "end": 3324,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M3",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "agnes_fleming",
+   "start": 3513,
+   "end": 3516,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M4",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "agnes_fleming",
+   "start": 3534,
+   "end": 3537,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M5",
+   "text": "sir",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "the_surgeon",
+   "start": 3567,
+   "end": 3570,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M6",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "agnes_fleming",
+   "start": 3601,
+   "end": 3604,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M7",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "agnes_fleming",
+   "start": 3674,
+   "end": 3677,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M8",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "agnes_fleming",
+   "start": 3728,
+   "end": 3731,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M9",
+   "text": "You",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "old_sally",
+   "start": 4548,
+   "end": 4551,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M10",
+   "text": "the child",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "oliver_twist",
+   "start": 4586,
+   "end": 4595,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M11",
+   "text": "nurse",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "old_sally",
+   "start": 4603,
+   "end": 4608,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M12",
+   "text": "She",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "agnes_fleming",
+   "start": 4834,
+   "end": 4837,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M13",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "agnes_fleming",
+   "start": 4878,
+   "end": 4881,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M14",
+   "text": "She",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "agnes_fleming",
+   "start": 4896,
+   "end": 4899,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M15",
+   "text": "She",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "agnes_fleming",
+   "start": 4979,
+   "end": 4982,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M16",
+   "text": "She",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "agnes_fleming",
+   "start": 5014,
+   "end": 5017,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M17",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "agnes_fleming",
+   "start": 5048,
+   "end": 5051,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M18",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "agnes_fleming",
+   "start": 5089,
+   "end": 5092,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M19",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "agnes_fleming",
+   "start": 5113,
+   "end": 5116,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  }
+ ],
+ "quotes": [
+  {
+   "quote_id": "Q1",
+   "spans": [
+    {
+     "start": 2975,
+     "end": 3005
+    }
+   ],
+   "speaker_entity_key": "agnes_fleming",
+   "addressee_entity_keys": [
+    "old_sally",
+    "the_surgeon"
+   ],
+   "quote_type": "anaphoric",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "PDNC Q0"
+   }
+  },
+  {
+   "quote_id": "Q2",
+   "spans": [
+    {
+     "start": 3269,
+     "end": 3307
+    }
+   ],
+   "speaker_entity_key": "the_surgeon",
+   "addressee_entity_keys": [
+    "old_sally",
+    "agnes_fleming"
+   ],
+   "quote_type": "anaphoric",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "PDNC Q1"
+   }
+  },
+  {
+   "quote_id": "Q3",
+   "spans": [
+    {
+     "start": 3311,
+     "end": 3340
+    }
+   ],
+   "speaker_entity_key": "old_sally",
+   "addressee_entity_keys": [
+    "agnes_fleming",
+    "the_surgeon"
+   ],
+   "quote_type": "anaphoric",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "PDNC Q2"
+   }
+  },
+  {
+   "quote_id": "Q4",
+   "spans": [
+    {
+     "start": 3503,
+     "end": 3806
+    }
+   ],
+   "speaker_entity_key": "old_sally",
+   "addressee_entity_keys": [
+    "agnes_fleming",
+    "the_surgeon"
+   ],
+   "quote_type": "implicit",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "PDNC Q3"
+   }
+  },
+  {
+   "quote_id": "Q5",
+   "spans": [
+    {
+     "start": 4317,
+     "end": 4347
+    }
+   ],
+   "speaker_entity_key": "the_surgeon",
+   "addressee_entity_keys": [
+    "old_sally"
+   ],
+   "quote_type": "explicit",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "PDNC Q4"
+   }
+  },
+  {
+   "quote_id": "Q6",
+   "spans": [
+    {
+     "start": 4377,
+     "end": 4401
+    },
+    {
+     "start": 4534,
+     "end": 4544
+    }
+   ],
+   "speaker_entity_key": "old_sally",
+   "addressee_entity_keys": [
+    "the_surgeon"
+   ],
+   "quote_type": "anaphoric",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "PDNC Q5"
+   }
+  },
+  {
+   "quote_id": "Q7",
+   "spans": [
+    {
+     "start": 4548,
+     "end": 4609
+    },
+    {
+     "start": 4677,
+     "end": 4752
+    }
+   ],
+   "speaker_entity_key": "the_surgeon",
+   "addressee_entity_keys": [
+    "old_sally"
+   ],
+   "quote_type": "explicit",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "PDNC Q6"
+   }
+  },
+  {
+   "quote_id": "Q8",
+   "spans": [
+    {
+     "start": 4834,
+     "end": 4892
+    }
+   ],
+   "speaker_entity_key": "the_surgeon",
+   "addressee_entity_keys": [
+    "old_sally"
+   ],
+   "quote_type": "anaphoric",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "PDNC Q7"
+   }
+  },
+  {
+   "quote_id": "Q9",
+   "spans": [
+    {
+     "start": 4896,
+     "end": 4928
+    },
+    {
+     "start": 4954,
+     "end": 5144
+    }
+   ],
+   "speaker_entity_key": "old_sally",
+   "addressee_entity_keys": [
+    "the_surgeon"
+   ],
+   "quote_type": "anaphoric",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "PDNC Q8"
+   }
+  },
+  {
+   "quote_id": "Q10",
+   "spans": [
+    {
+     "start": 5208,
+     "end": 5222
+    },
+    {
+     "start": 5252,
+     "end": 5291
+    }
+   ],
+   "speaker_entity_key": "the_surgeon",
+   "addressee_entity_keys": [
+    "old_sally"
+   ],
+   "quote_type": "anaphoric",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "PDNC Q9"
+   }
+  }
+ ],
+ "events": [],
+ "facts": [],
+ "relationships": [],
+ "temporal_expressions": [],
+ "temporal_relations": []
+}

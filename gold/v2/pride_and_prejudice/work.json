@@ -1,0 +1,38 @@
+{
+  "work_id": "pride_and_prejudice",
+  "title": "Pride and Prejudice",
+  "author": "Jane Austen",
+  "pdnc_folder": "PrideAndPrejudice",
+  "chapters": [1, 3, 22, 46, 61],
+  "entities": {
+    "Elizabeth": {"key": "elizabeth_bennet", "name": "Elizabeth Bennet"},
+    "Jane": {"key": "jane_bennet", "name": "Jane Bennet"},
+    "Kitty": {"key": "kitty_bennet", "name": "Kitty Bennet"},
+    "Lydia": {"key": "lydia_bennet", "name": "Lydia Bennet"},
+    "Mary": {"key": "mary_bennet", "name": "Mary Bennet"},
+    "Mrs. Bennet": {"drop_aliases": ["Bennet"]},
+    "Mr. Bingley": {"key": "charles_bingley", "name": "Charles Bingley"},
+    "Miss Bingley": {"key": "caroline_bingley", "name": "Caroline Bingley"},
+    "Mr. Darcy": {"key": "fitzwilliam_darcy", "name": "Fitzwilliam Darcy"},
+    "Mr. Collins": {"key": "william_collins", "name": "William Collins"},
+    "Charlotte Lucas": {"drop_aliases": ["Lady Lucas"]},
+    "Lady Catherine De Bourgh": {"key": "lady_catherine_de_bourgh", "name": "Lady Catherine de Bourgh",
+                                 "drop_aliases": ["Catherine"]},
+    "Anne De Bourgh": {"key": "anne_de_bourgh", "name": "Anne de Bourgh"},
+    "Denny": {"key": "mr_denny", "name": "Mr. Denny"},
+    "Mr. Denney": {"key": "mr_denny", "name": "Mr. Denny"},
+    "Mrs. Forester": {"key": "mrs_forster", "name": "Mrs. Forster"},
+    "Ms. Reynolds": {"key": "mrs_reynolds", "name": "Mrs. Reynolds"},
+    "Aunt Philips": {"key": "mrs_philips", "name": "Mrs. Philips"},
+    "Mr. Phillips": {"key": "mr_philips", "name": "Mr. Philips"},
+    "Lady Darcy": {"key": "lady_anne_darcy", "name": "Lady Anne Darcy"}
+  },
+  "extra_entities": [
+    {"key": "lady_lucas", "name": "Lady Lucas", "aliases": []}
+  ],
+  "name_map": {
+    "Lady Lucas": "lady_lucas",
+    "Miss De Bourgh": "anne_de_bourgh"
+  },
+  "notes": "PDNC lists 'Lady Lucas' (Charlotte's mother) as an alias of Charlotte Lucas, and 'Catherine' under Lady Catherine although Kitty Bennet's name is Catherine; both aliases are dropped. Duplicate PDNC entries (Denny / Mr. Denney, Mrs. Forster / Mrs. Forester, Mrs. Reynolds / Ms. Reynolds, Mrs. Philips / Aunt Philips, Mr. Philips / Mr. Phillips, Lady Darcy / Lady Anne Darcy) share one key."
+}
