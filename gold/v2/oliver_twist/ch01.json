@@ -42,7 +42,7 @@
     "coverage": "none"
    }
   },
-  "notes": "Quotes, characters and the mentions inside quotes are imported from PDNC at e507a27; every other item is Claude's draft and pending review. The young woman is Agnes Fleming and the nurse Old Sally (Mrs. Thingummy), as PDNC attributes their lines; one key from the start (guidelines section 2). The infant is 'it' / 'the child' / 'the infant' and links to Oliver. The narrator's 'I' has no entity (null). 'a certain town' is a provisional key: Dickens never names it here. Agnes's motherhood is stated only by the nurse ('Think what it is to be a mother'), so MOTHER_OF is claimed_by old_sally; reviewers may prefer to drop it. Predicate descriptions ('a parish child the orphan of a workhouse') are not mentions. 'her' in 'thirteen children of her own' (Q-line of the nurse) keeps PDNC's reading, Agnes, the grammatical subject; the drafter read it as the nurse's own children. Ambiguous; reviewers decide.",
+  "notes": "Quotes, characters and the mentions inside quotes are imported from PDNC at e507a27; every other item is Claude's draft and pending review. The young woman is Agnes Fleming and the nurse Old Sally (Mrs. Thingummy), as PDNC attributes their lines; one key from the start (guidelines section 2). The infant is 'it' / 'the child' / 'the infant' and links to Oliver. The narrator's 'I' has no entity (null). 'a certain town' is a provisional key: Dickens never names it here. Agnes MOTHER_OF Oliver was drafted on the nurse's 'Think what it is to be a mother' and deleted on review (team decision, 2026-10-16): the line makes Agnes a mother in general but never names the child, and the chapter only shows the tie (she asks to see the child, kisses it and dies), which section 7 does not allow as evidence. Predicate descriptions ('a parish child the orphan of a workhouse') are not mentions. 'her' in 'thirteen children of her own' (Q-line of the nurse) keeps PDNC's reading, Agnes, the grammatical subject; the drafter read it as the nurse's own children. Ambiguous; reviewers decide.",
   "annotators": [
    {
     "name": "Claude",
@@ -2041,22 +2041,6 @@
   }
  ],
  "relationships": [
-  {
-   "relationship_id": "R1",
-   "subject_entity_key": "agnes_fleming",
-   "predicate": "MOTHER_OF",
-   "object_entity_key": "oliver_twist",
-   "evidence": {
-    "start": 3744,
-    "end": 3775
-   },
-   "assertion": "asserted",
-   "claimed_by": "old_sally",
-   "review": {
-    "origin": "claude_draft",
-    "status": "pending"
-   }
-  },
   {
    "relationship_id": "R2",
    "subject_entity_key": "the_surgeon",

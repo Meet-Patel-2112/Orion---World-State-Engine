@@ -12,7 +12,9 @@ and say so in the review note.
 ## 1. What makes an item gold
 
 - Every item carries a `review` record. An item is **gold** only when `review.status` is `accepted` or `corrected`.
-  `pending` items are drafts and are never scored.
+  `pending` items are drafts and are never scored. The scorer has a development mode that counts them so the scorer
+  itself can be built and debugged; its numbers are labelled provisional and are never reported as evaluation
+  results.
 - A reviewer either accepts an item, corrects it in place (and sets `corrected`), or deletes it. Rejected items are
   deleted, not kept.
 - A document's `annotation.status` moves `draft` → `in_review` → `reviewed` (every item checked by one person) →
@@ -56,6 +58,10 @@ and say so in the review note.
 
 Batch 1 (§10) uses: quotes, facts and relationships **exhaustive** over the whole chapter; mentions **exhaustive in
 a region** of about the first 2,000 words; events and temporal layers **none** for now.
+
+`exhaustive` describes the intended coverage of a reviewed layer. A draft may declare its intended scope as
+`exhaustive`, but the guarantee is not considered verified until a reviewer has checked the entire region for
+missing instances. Pending items remain unscored regardless of the declared coverage.
 
 ## 4. Mentions and coreference
 
