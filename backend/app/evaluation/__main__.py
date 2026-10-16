@@ -14,6 +14,12 @@ Command line (run from backend/):
     python -m app.evaluation validate-v2 PATH...
         check gold v2 chapter files (or every ch*.json under a directory) and the chapters of each work together
 
+    python -m app.evaluation score-v2 GOLD_PATH... --pred-dir PRED_DIR [--include-pending] [--json OUT.json]
+        scores predictions PRED_DIR/<work_id>/chNN.json against gold v2 chapters (files, or every ch*.json under a
+        directory). By default only reviewed or adjudicated chapters are scored, on accepted or corrected items;
+        --include-pending scores every chapter with pending items as gold, for developing the scorer only: those
+        numbers are provisional and are never reported as evaluation results (guidelines section 1)
+
 Predictions come from ../extractor (`python -m extractor predict` there).
 """
 from __future__ import annotations
@@ -28,6 +34,7 @@ from app.evaluation import pdnc
 from app.evaluation.convert import convert_annotation
 from app.evaluation.gold_v2 import doc_errors, work_errors
 from app.evaluation.score import format_table, micro_average, score_document
+from app.evaluation.score_v2 import REVIEWED, format_table_v2, micro_average_v2, score_document_v2
 
 LISTS = ("mentions", "coreference_clusters", "events", "relationships", "facts", "temporal_expressions",
          "temporal_relations")
@@ -123,6 +130,33 @@ def cmd_validate_v2(args: argparse.Namespace) -> int:
     return 1 if failed or across else 0
 
 
+def cmd_score_v2(args: argparse.Namespace) -> int:
+    paths = []
+    for p in map(Path, args.gold):
+        paths += sorted(p.rglob("ch*.json")) if p.is_dir() else [p]
+    per_doc, skipped = [], []
+    for path in paths:
+        gold = json.loads(path.read_text(encoding="utf-8"))
+        if not args.include_pending and gold["annotation"]["status"] not in REVIEWED:
+            skipped.append(gold["doc_id"])
+            continue
+        pred_path = Path(args.pred_dir) / f"{gold['doc_id']}.json"
+        pred = json.loads(pred_path.read_text(encoding="utf-8")) if pred_path.exists() else {"text": gold["text"]}
+        s = score_document_v2(pred, gold, include_pending=args.include_pending)
+        per_doc.append(s)
+        print(f"\n== {gold['doc_id']}{'' if pred_path.exists() else '  (no prediction)'}\n{format_table_v2(s)}")
+    if skipped:
+        print(f"\nnot reviewed, not scored ({len(skipped)}): {', '.join(skipped)}")
+    if not per_doc:
+        print("no chapter scored")
+        return 1
+    total = micro_average_v2(per_doc)
+    print(f"\n== MICRO AVERAGE over {len(per_doc)} chapters\n{format_table_v2(total)}")
+    if args.json:
+        Path(args.json).write_text(json.dumps({"chapters": per_doc, "micro": total}, indent=1), encoding="utf-8")
+    return 0
+
+
 def main(argv: List[str] = None) -> int:
     ap = argparse.ArgumentParser(prog="python -m app.evaluation", description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -145,9 +179,15 @@ def main(argv: List[str] = None) -> int:
                    help="only these chapters, e.g. 3,22 (default: every chapter in WORK.json)")
     v = sub.add_parser("validate-v2")
     v.add_argument("paths", nargs="+")
+    s2 = sub.add_parser("score-v2")
+    s2.add_argument("gold", nargs="+")
+    s2.add_argument("--pred-dir", required=True)
+    s2.add_argument("--include-pending", action="store_true",
+                    help="development only: count pending items as gold; results are provisional, never reported")
+    s2.add_argument("--json")
     args = ap.parse_args(argv)
     return {"convert": cmd_convert, "score": cmd_score, "pdnc": cmd_pdnc,
-            "validate-v2": cmd_validate_v2}[args.cmd](args)
+            "validate-v2": cmd_validate_v2, "score-v2": cmd_score_v2}[args.cmd](args)
 
 
 if __name__ == "__main__":

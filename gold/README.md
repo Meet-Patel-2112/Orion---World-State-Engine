@@ -50,6 +50,19 @@ PYTHONPATH=. python -m app.evaluation validate-v2 ../gold/v2
 The converter never overwrites an existing `chNN.json` unless given `--force`, which would discard its drafts and
 reviews.
 
+## Scoring
+
+Run from `backend/`, with predictions written as `PRED_DIR/<work_id>/chNN.json` (the extractor's document shape):
+
+```bash
+PYTHONPATH=. python -m app.evaluation score-v2 ../gold/v2 --pred-dir PRED_DIR [--json OUT.json]
+```
+
+By default only `reviewed` or `adjudicated` chapters are scored, on `accepted` or `corrected` items; pending items
+are ignored (a prediction matching one is neither right nor wrong). `--include-pending` counts pending items too, for
+building and debugging the scorer only: its output is marked PROVISIONAL and is never reported as an evaluation
+result (guidelines §1). Metrics are per layer; `backend/app/evaluation/score_v2.py` defines each one.
+
 ## Sources and attribution
 
 Texts are public domain. Quotes, speakers, addressees, character lists and in-quote mentions come from the Project
