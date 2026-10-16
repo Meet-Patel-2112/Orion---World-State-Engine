@@ -7,7 +7,7 @@
   "entities": {
     "Elizabeth": {"key": "elizabeth_bennet", "name": "Elizabeth Bennet"},
     "Jane": {"key": "jane_bennet", "name": "Jane Bennet"},
-    "Kitty": {"key": "kitty_bennet", "name": "Kitty Bennet"},
+    "Kitty": {"key": "kitty_bennet", "name": "Kitty Bennet", "add_aliases": ["Catherine"]},
     "Lydia": {"key": "lydia_bennet", "name": "Lydia Bennet"},
     "Mary": {"key": "mary_bennet", "name": "Mary Bennet"},
     "Mrs. Bennet": {"drop_aliases": ["Bennet"]},
@@ -19,6 +19,8 @@
     "Lady Catherine De Bourgh": {"key": "lady_catherine_de_bourgh", "name": "Lady Catherine de Bourgh",
                                  "drop_aliases": ["Catherine"]},
     "Anne De Bourgh": {"key": "anne_de_bourgh", "name": "Anne de Bourgh"},
+    "Maria": {"key": "maria_lucas", "name": "Maria Lucas"},
+    "Miss Darcy": {"key": "georgiana_darcy", "name": "Georgiana Darcy"},
     "Denny": {"key": "mr_denny", "name": "Mr. Denny"},
     "Mr. Denney": {"key": "mr_denny", "name": "Mr. Denny"},
     "Mrs. Forester": {"key": "mrs_forster", "name": "Mrs. Forster"},
@@ -34,5 +36,5 @@
     "Lady Lucas": "lady_lucas",
     "Miss De Bourgh": "anne_de_bourgh"
   },
-  "notes": "PDNC lists 'Lady Lucas' (Charlotte's mother) as an alias of Charlotte Lucas, and 'Catherine' under Lady Catherine although Kitty Bennet's name is Catherine; both aliases are dropped. Duplicate PDNC entries (Denny / Mr. Denney, Mrs. Forster / Mrs. Forester, Mrs. Reynolds / Ms. Reynolds, Mrs. Philips / Aunt Philips, Mr. Philips / Mr. Phillips, Lady Darcy / Lady Anne Darcy) share one key."
+  "notes": "PDNC lists 'Lady Lucas' (Charlotte's mother) as an alias of Charlotte Lucas, and 'Catherine' under Lady Catherine although Kitty Bennet's name is Catherine; both aliases are dropped, and 'Catherine' is added to Kitty. Maria (Lucas) and Miss (Georgiana) Darcy get their full names. Duplicate PDNC entries (Denny / Mr. Denney, Mrs. Forster / Mrs. Forester, Mrs. Reynolds / Ms. Reynolds, Mrs. Philips / Aunt Philips, Mr. Philips / Mr. Phillips, Lady Darcy / Lady Anne Darcy) share one key."
 }

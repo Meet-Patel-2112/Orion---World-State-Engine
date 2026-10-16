@@ -20,7 +20,7 @@
   "status": "draft",
   "layers": {
    "mentions": {
-    "coverage": "partial"
+    "coverage": "exhaustive"
    },
    "quotes": {
     "coverage": "exhaustive"
@@ -29,10 +29,10 @@
     "coverage": "none"
    },
    "facts": {
-    "coverage": "none"
+    "coverage": "exhaustive"
    },
    "relationships": {
-    "coverage": "none"
+    "coverage": "exhaustive"
    },
    "temporal_expressions": {
     "coverage": "none"
@@ -41,14 +41,3711 @@
     "coverage": "none"
    }
   },
-  "notes": "Quotes, characters and the mentions inside quotes imported from PDNC at e507a27. Mentions are partial until the drafting pass covers the region."
+  "notes": "Quotes, characters and the mentions inside quotes are imported from PDNC at e507a27; every other item is Claude's draft and pending review. The narrator's 'I wish I could say' has no entity (null). Married names link to the same keys: Mrs. Bingley is Jane, Mrs. Darcy is Elizabeth, Mrs. Wickham is Lydia (guidelines section 2). Jane MARRIED_TO Bingley rests on the married name in the opening paragraph and Elizabeth MARRIED_TO Darcy on 'his wife' in Lady Catherine's paragraph; reviewers should confirm both are explicit enough. 'her two elder sisters' (Kitty's) and 'her sisters' (Mary's, Lydia's) name subsets with no group entity: null, and no SIBLING_OF per member (section 7). Lydia's letter is written text, not a quote; it states no fact or tie beyond those in the narration.",
+  "annotators": [
+   {
+    "name": "Claude",
+    "role": "drafter"
+   }
+  ]
  },
- "entities": [],
- "mentions": [],
+ "entities": [
+  {
+   "entity_key": "bath",
+   "name": "Bath",
+   "type": "location",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "bennet_daughters",
+   "name": "the Bennet daughters",
+   "type": "character",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "bennet_family",
+   "name": "the Bennets",
+   "type": "character",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "bingley_sisters",
+   "name": "Bingley's sisters",
+   "type": "character",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "bingleys_estate",
+   "name": "Bingley's estate",
+   "type": "location",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "caroline_bingley",
+   "name": "Caroline Bingley",
+   "type": "character",
+   "aliases": [
+    "Caroline",
+    "Miss Bingley",
+    "Ms. Bingley"
+   ],
+   "external_ids": {
+    "pdnc": "14"
+   },
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc"
+   }
+  },
+  {
+   "entity_key": "charles_bingley",
+   "name": "Charles Bingley",
+   "type": "character",
+   "aliases": [
+    "Bingley",
+    "Charles",
+    "Mr. Bingley"
+   ],
+   "external_ids": {
+    "pdnc": "17"
+   },
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc"
+   }
+  },
+  {
+   "entity_key": "derbyshire",
+   "name": "Derbyshire",
+   "type": "location",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "elizabeth_bennet",
+   "name": "Elizabeth Bennet",
+   "type": "character",
+   "aliases": [
+    "Eliza",
+    "Elizabeth",
+    "Lizzy",
+    "Miss Eliza",
+    "Miss Elizabeth",
+    "Miss Lizzy",
+    "My Dear Miss Eliza",
+    "My Dear Miss Elizabeth",
+    "My Dearest Lizzy"
+   ],
+   "external_ids": {
+    "pdnc": "5"
+   },
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc"
+   }
+  },
+  {
+   "entity_key": "fitzwilliam_darcy",
+   "name": "Fitzwilliam Darcy",
+   "type": "character",
+   "aliases": [
+    "Darcy",
+    "Mr. Darcy"
+   ],
+   "external_ids": {
+    "pdnc": "19"
+   },
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc"
+   }
+  },
+  {
+   "entity_key": "gardiners",
+   "name": "the Gardiners",
+   "type": "character",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "george_wickham",
+   "name": "George Wickham",
+   "type": "character",
+   "aliases": [
+    "Mr. Wickham",
+    "Wickham"
+   ],
+   "external_ids": {
+    "pdnc": "6"
+   },
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc"
+   }
+  },
+  {
+   "entity_key": "georgiana_darcy",
+   "name": "Georgiana Darcy",
+   "type": "character",
+   "aliases": [
+    "Miss Darcy"
+   ],
+   "external_ids": {
+    "pdnc": "15"
+   },
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc"
+   }
+  },
+  {
+   "entity_key": "jane_bennet",
+   "name": "Jane Bennet",
+   "type": "character",
+   "aliases": [
+    "Jane",
+    "Miss Bennet",
+    "My Dear Jane"
+   ],
+   "external_ids": {
+    "pdnc": "7"
+   },
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc"
+   }
+  },
+  {
+   "entity_key": "kitty_bennet",
+   "name": "Kitty Bennet",
+   "type": "character",
+   "aliases": [
+    "Catherine",
+    "Kitty"
+   ],
+   "external_ids": {
+    "pdnc": "9"
+   },
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc"
+   }
+  },
+  {
+   "entity_key": "lady_catherine_de_bourgh",
+   "name": "Lady Catherine de Bourgh",
+   "type": "character",
+   "aliases": [
+    "Lady Catherine",
+    "Lady Catherine De Bourgh"
+   ],
+   "external_ids": {
+    "pdnc": "10"
+   },
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc"
+   }
+  },
+  {
+   "entity_key": "london",
+   "name": "London",
+   "type": "location",
+   "aliases": [
+    "town"
+   ],
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "lydia_bennet",
+   "name": "Lydia Bennet",
+   "type": "character",
+   "aliases": [
+    "Lydia",
+    "Mrs. Wickham"
+   ],
+   "external_ids": {
+    "pdnc": "11"
+   },
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc"
+   }
+  },
+  {
+   "entity_key": "mary_bennet",
+   "name": "Mary Bennet",
+   "type": "character",
+   "aliases": [
+    "Mary"
+   ],
+   "external_ids": {
+    "pdnc": "13"
+   },
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc"
+   }
+  },
+  {
+   "entity_key": "meryton",
+   "name": "Meryton",
+   "type": "location",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "mr_bennet",
+   "name": "Mr. Bennet",
+   "type": "character",
+   "aliases": [],
+   "external_ids": {
+    "pdnc": "16"
+   },
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc"
+   }
+  },
+  {
+   "entity_key": "mrs_bennet",
+   "name": "Mrs. Bennet",
+   "type": "character",
+   "aliases": [],
+   "external_ids": {
+    "pdnc": "25"
+   },
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc"
+   }
+  },
+  {
+   "entity_key": "netherfield_park",
+   "name": "Netherfield Park",
+   "type": "location",
+   "aliases": [
+    "Netherfield"
+   ],
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "entity_key": "pemberley",
+   "name": "Pemberley",
+   "type": "location",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  }
+ ],
+ "mentions": [
+  {
+   "mention_id": "M1",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mrs_bennet",
+   "start": 29,
+   "end": 32,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M2",
+   "text": "Mrs. Bennet",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mrs_bennet",
+   "start": 72,
+   "end": 83,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M3",
+   "text": "her two most deserving daughters",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 95,
+   "end": 127,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M4",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mrs_bennet",
+   "start": 95,
+   "end": 98,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M5",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mrs_bennet",
+   "start": 155,
+   "end": 158,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M6",
+   "text": "Mrs. Bingley",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "jane_bennet",
+   "start": 178,
+   "end": 190,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M7",
+   "text": "Mrs. Darcy",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "elizabeth_bennet",
+   "start": 205,
+   "end": 215,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M8",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 232,
+   "end": 233,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M9",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 239,
+   "end": 240,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M10",
+   "text": "her family",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "bennet_family",
+   "start": 268,
+   "end": 278,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M11",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mrs_bennet",
+   "start": 268,
+   "end": 271,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M12",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mrs_bennet",
+   "start": 307,
+   "end": 310,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M13",
+   "text": "her children",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "bennet_daughters",
+   "start": 361,
+   "end": 373,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M14",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mrs_bennet",
+   "start": 361,
+   "end": 364,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M15",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mrs_bennet",
+   "start": 414,
+   "end": 417,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M16",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mrs_bennet",
+   "start": 475,
+   "end": 478,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M17",
+   "text": "her husband",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "mr_bennet",
+   "start": 517,
+   "end": 528,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M18",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mrs_bennet",
+   "start": 517,
+   "end": 520,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M19",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mrs_bennet",
+   "start": 603,
+   "end": 606,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M20",
+   "text": "Mr. Bennet",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mr_bennet",
+   "start": 661,
+   "end": 671,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M21",
+   "text": "his second daughter",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "elizabeth_bennet",
+   "start": 679,
+   "end": 698,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M22",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 679,
+   "end": 682,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M23",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 712,
+   "end": 715,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M24",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "elizabeth_bennet",
+   "start": 730,
+   "end": 733,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M25",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 739,
+   "end": 742,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M26",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 791,
+   "end": 793,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M27",
+   "text": "Pemberley",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "pemberley",
+   "start": 816,
+   "end": 825,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M28",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 843,
+   "end": 845,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M29",
+   "text": "Mr. Bingley",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "charles_bingley",
+   "start": 867,
+   "end": 878,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M30",
+   "text": "Jane",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "jane_bennet",
+   "start": 883,
+   "end": 887,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M31",
+   "text": "Netherfield",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "netherfield_park",
+   "start": 900,
+   "end": 911,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M32",
+   "text": "her mother",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "mrs_bennet",
+   "start": 954,
+   "end": 964,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M33",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "jane_bennet",
+   "start": 954,
+   "end": 957,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M34",
+   "text": "Meryton relations",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 969,
+   "end": 986,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M35",
+   "text": "Meryton",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "meryton",
+   "start": 969,
+   "end": 976,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M36",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "charles_bingley",
+   "start": 1014,
+   "end": 1017,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M37",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "jane_bennet",
+   "start": 1036,
+   "end": 1039,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M38",
+   "text": "his\nsisters",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "bingley_sisters",
+   "start": 1081,
+   "end": 1092,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M39",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "charles_bingley",
+   "start": 1081,
+   "end": 1084,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M40",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "charles_bingley",
+   "start": 1113,
+   "end": 1115,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M41",
+   "text": "an estate",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "bingleys_estate",
+   "start": 1123,
+   "end": 1132,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M42",
+   "text": "Derbyshire",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "derbyshire",
+   "start": 1161,
+   "end": 1171,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M43",
+   "text": "Jane",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "jane_bennet",
+   "start": 1177,
+   "end": 1181,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M44",
+   "text": "Elizabeth",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "elizabeth_bennet",
+   "start": 1186,
+   "end": 1195,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M45",
+   "text": "Kitty",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "kitty_bennet",
+   "start": 1286,
+   "end": 1291,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M46",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kitty_bennet",
+   "start": 1296,
+   "end": 1299,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M47",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kitty_bennet",
+   "start": 1344,
+   "end": 1347,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M48",
+   "text": "her two elder sisters",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 1358,
+   "end": 1379,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M49",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kitty_bennet",
+   "start": 1358,
+   "end": 1361,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M50",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kitty_bennet",
+   "start": 1412,
+   "end": 1415,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M51",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kitty_bennet",
+   "start": 1437,
+   "end": 1440,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M52",
+   "text": "She",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kitty_bennet",
+   "start": 1464,
+   "end": 1467,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M53",
+   "text": "Lydia",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "lydia_bennet",
+   "start": 1507,
+   "end": 1512,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M54",
+   "text": "Lydia",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "lydia_bennet",
+   "start": 1549,
+   "end": 1554,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M55",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kitty_bennet",
+   "start": 1566,
+   "end": 1569,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M56",
+   "text": "Lydia",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "lydia_bennet",
+   "start": 1696,
+   "end": 1701,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M57",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kitty_bennet",
+   "start": 1712,
+   "end": 1715,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M58",
+   "text": "Mrs. Wickham",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "lydia_bennet",
+   "start": 1757,
+   "end": 1769,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M59",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kitty_bennet",
+   "start": 1789,
+   "end": 1792,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M60",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "lydia_bennet",
+   "start": 1815,
+   "end": 1818,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M61",
+   "text": "her father",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "mr_bennet",
+   "start": 1861,
+   "end": 1871,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M62",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kitty_bennet",
+   "start": 1861,
+   "end": 1864,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M63",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "kitty_bennet",
+   "start": 1895,
+   "end": 1898,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M64",
+   "text": "Mary",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mary_bennet",
+   "start": 1907,
+   "end": 1911,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M65",
+   "text": "the only daughter",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "mary_bennet",
+   "start": 1916,
+   "end": 1933,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M66",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mary_bennet",
+   "start": 1960,
+   "end": 1963,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M67",
+   "text": "Mrs. Bennet",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mrs_bennet",
+   "start": 2025,
+   "end": 2036,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M68",
+   "text": "Mary",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mary_bennet",
+   "start": 2072,
+   "end": 2076,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M69",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mary_bennet",
+   "start": 2121,
+   "end": 2124,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M70",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mary_bennet",
+   "start": 2179,
+   "end": 2182,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M71",
+   "text": "her sisters",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 2230,
+   "end": 2241,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M72",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mary_bennet",
+   "start": 2230,
+   "end": 2233,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M73",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mary_bennet",
+   "start": 2254,
+   "end": 2257,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M74",
+   "text": "her father",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "mr_bennet",
+   "start": 2283,
+   "end": 2293,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M75",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mary_bennet",
+   "start": 2283,
+   "end": 2286,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M76",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mary_bennet",
+   "start": 2299,
+   "end": 2302,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M77",
+   "text": "Wickham",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "george_wickham",
+   "start": 2360,
+   "end": 2367,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M78",
+   "text": "Lydia",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "lydia_bennet",
+   "start": 2372,
+   "end": 2377,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M79",
+   "text": "their",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 2379,
+   "end": 2384,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M80",
+   "text": "her sisters",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 2440,
+   "end": 2451,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M81",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "lydia_bennet",
+   "start": 2440,
+   "end": 2443,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M82",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "george_wickham",
+   "start": 2453,
+   "end": 2455,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M83",
+   "text": "Elizabeth",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "elizabeth_bennet",
+   "start": 2497,
+   "end": 2506,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M84",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "george_wickham",
+   "start": 2551,
+   "end": 2554,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M85",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "elizabeth_bennet",
+   "start": 2608,
+   "end": 2611,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M86",
+   "text": "Darcy",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "fitzwilliam_darcy",
+   "start": 2675,
+   "end": 2680,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M87",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "george_wickham",
+   "start": 2715,
+   "end": 2718,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M88",
+   "text": "Elizabeth",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "elizabeth_bennet",
+   "start": 2760,
+   "end": 2769,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M89",
+   "text": "Lydia",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "lydia_bennet",
+   "start": 2784,
+   "end": 2789,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M90",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "lydia_bennet",
+   "start": 2793,
+   "end": 2796,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M91",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "elizabeth_bennet",
+   "start": 2820,
+   "end": 2823,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M92",
+   "text": "his wife",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "lydia_bennet",
+   "start": 2833,
+   "end": 2841,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M93",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "george_wickham",
+   "start": 2833,
+   "end": 2836,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M94",
+   "text": "himself",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "george_wickham",
+   "start": 2862,
+   "end": 2869,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M95",
+   "text": "MY DEAR LIZZY",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "elizabeth_bennet",
+   "start": 2936,
+   "end": 2949,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M96",
+   "text": "LIZZY",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "elizabeth_bennet",
+   "start": 2944,
+   "end": 2949,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M97",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "lydia_bennet",
+   "start": 2959,
+   "end": 2960,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M98",
+   "text": "you",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "elizabeth_bennet",
+   "start": 2966,
+   "end": 2969,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M99",
+   "text": "you",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "elizabeth_bennet",
+   "start": 2978,
+   "end": 2981,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M100",
+   "text": "Mr. Darcy",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "fitzwilliam_darcy",
+   "start": 2987,
+   "end": 2996,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M101",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "lydia_bennet",
+   "start": 3013,
+   "end": 3014,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M102",
+   "text": "my dear\n     Wickham",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "george_wickham",
+   "start": 3018,
+   "end": 3038,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M103",
+   "text": "Wickham",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "george_wickham",
+   "start": 3031,
+   "end": 3038,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M104",
+   "text": "you",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "elizabeth_bennet",
+   "start": 3040,
+   "end": 3043,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M105",
+   "text": "you",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "elizabeth_bennet",
+   "start": 3094,
+   "end": 3097,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M106",
+   "text": "you",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "elizabeth_bennet",
+   "start": 3121,
+   "end": 3124,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M107",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "lydia_bennet",
+   "start": 3150,
+   "end": 3151,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M108",
+   "text": "you",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "elizabeth_bennet",
+   "start": 3157,
+   "end": 3160,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M109",
+   "text": "us",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 3180,
+   "end": 3182,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M110",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "lydia_bennet",
+   "start": 3184,
+   "end": 3185,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M111",
+   "text": "Wickham",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "george_wickham",
+   "start": 3194,
+   "end": 3201,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M112",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "lydia_bennet",
+   "start": 3250,
+   "end": 3251,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M113",
+   "text": "we",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 3265,
+   "end": 3267,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M114",
+   "text": "Mr. Darcy",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "fitzwilliam_darcy",
+   "start": 3429,
+   "end": 3438,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M115",
+   "text": "you",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "elizabeth_bennet",
+   "start": 3457,
+   "end": 3460,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M116",
+   "text": "Elizabeth",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "elizabeth_bennet",
+   "start": 3518,
+   "end": 3527,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M117",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "elizabeth_bennet",
+   "start": 3551,
+   "end": 3554,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M118",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "elizabeth_bennet",
+   "start": 3570,
+   "end": 3573,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M119",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "elizabeth_bennet",
+   "start": 3677,
+   "end": 3680,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M120",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "elizabeth_bennet",
+   "start": 3749,
+   "end": 3752,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M121",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "elizabeth_bennet",
+   "start": 3775,
+   "end": 3778,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M122",
+   "text": "them",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 3795,
+   "end": 3799,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M123",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "elizabeth_bennet",
+   "start": 3831,
+   "end": 3834,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M124",
+   "text": "theirs",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 3858,
+   "end": 3864,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M125",
+   "text": "two persons",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 3889,
+   "end": 3900,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M126",
+   "text": "their",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 3919,
+   "end": 3924,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M127",
+   "text": "their",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 3989,
+   "end": 3994,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M128",
+   "text": "they",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 4017,
+   "end": 4021,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M129",
+   "text": "their",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 4030,
+   "end": 4035,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M130",
+   "text": "Jane",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "jane_bennet",
+   "start": 4053,
+   "end": 4057,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M131",
+   "text": "herself",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "elizabeth_bennet",
+   "start": 4061,
+   "end": 4068,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M132",
+   "text": "their",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 4147,
+   "end": 4152,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M133",
+   "text": "Their",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 4160,
+   "end": 4165,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M134",
+   "text": "them",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 4229,
+   "end": 4233,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M135",
+   "text": "They",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 4275,
+   "end": 4279,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M136",
+   "text": "they",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 4380,
+   "end": 4384,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M137",
+   "text": "His",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "george_wickham",
+   "start": 4392,
+   "end": 4395,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M138",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "lydia_bennet",
+   "start": 4410,
+   "end": 4413,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M139",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "lydia_bennet",
+   "start": 4443,
+   "end": 4446,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M140",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "lydia_bennet",
+   "start": 4489,
+   "end": 4492,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M141",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "lydia_bennet",
+   "start": 4503,
+   "end": 4506,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M142",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "lydia_bennet",
+   "start": 4516,
+   "end": 4519,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M143",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "lydia_bennet",
+   "start": 4564,
+   "end": 4567,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M144",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "lydia_bennet",
+   "start": 4587,
+   "end": 4590,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M145",
+   "text": "Darcy",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "fitzwilliam_darcy",
+   "start": 4600,
+   "end": 4605,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M146",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "george_wickham",
+   "start": 4627,
+   "end": 4630,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M147",
+   "text": "Pemberley",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "pemberley",
+   "start": 4635,
+   "end": 4644,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M148",
+   "text": "Elizabeth",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "elizabeth_bennet",
+   "start": 4655,
+   "end": 4664,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M149",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "fitzwilliam_darcy",
+   "start": 4673,
+   "end": 4675,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M150",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "george_wickham",
+   "start": 4685,
+   "end": 4688,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M151",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "george_wickham",
+   "start": 4700,
+   "end": 4703,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M152",
+   "text": "Lydia",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "lydia_bennet",
+   "start": 4716,
+   "end": 4721,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M153",
+   "text": "there",
+   "type": "location",
+   "mention_kind": "pronominal",
+   "entity_key": "pemberley",
+   "start": 4749,
+   "end": 4754,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M154",
+   "text": "her husband",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "george_wickham",
+   "start": 4761,
+   "end": 4772,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M155",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "lydia_bennet",
+   "start": 4761,
+   "end": 4764,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M156",
+   "text": "himself",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "george_wickham",
+   "start": 4791,
+   "end": 4798,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M157",
+   "text": "London",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "london",
+   "start": 4802,
+   "end": 4808,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M158",
+   "text": "Bath",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "bath",
+   "start": 4812,
+   "end": 4816,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M159",
+   "text": "the Bingleys",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": null,
+   "start": 4827,
+   "end": 4839,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M160",
+   "text": "they",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 4840,
+   "end": 4844,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M161",
+   "text": "them",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 4853,
+   "end": 4857,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M162",
+   "text": "Bingley",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "charles_bingley",
+   "start": 4894,
+   "end": 4901,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M163",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "charles_bingley",
+   "start": 4934,
+   "end": 4936,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M164",
+   "text": "them",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 4977,
+   "end": 4981,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M165",
+   "text": "Miss Bingley",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "caroline_bingley",
+   "start": 5002,
+   "end": 5014,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M166",
+   "text": "Darcy",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "fitzwilliam_darcy",
+   "start": 5044,
+   "end": 5049,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M167",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "caroline_bingley",
+   "start": 5069,
+   "end": 5072,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M168",
+   "text": "Pemberley",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "pemberley",
+   "start": 5129,
+   "end": 5138,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M169",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "caroline_bingley",
+   "start": 5140,
+   "end": 5143,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M170",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "caroline_bingley",
+   "start": 5154,
+   "end": 5157,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M171",
+   "text": "Georgiana",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "georgiana_darcy",
+   "start": 5194,
+   "end": 5203,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M172",
+   "text": "Darcy",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "fitzwilliam_darcy",
+   "start": 5228,
+   "end": 5233,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M173",
+   "text": "Elizabeth",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "elizabeth_bennet",
+   "start": 5290,
+   "end": 5299,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M174",
+   "text": "Pemberley",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "pemberley",
+   "start": 5302,
+   "end": 5311,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M175",
+   "text": "Georgiana",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "georgiana_darcy",
+   "start": 5320,
+   "end": 5329,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M176",
+   "text": "the sisters",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 5360,
+   "end": 5371,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M177",
+   "text": "Darcy",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "fitzwilliam_darcy",
+   "start": 5389,
+   "end": 5394,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M178",
+   "text": "They",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 5413,
+   "end": 5417,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M179",
+   "text": "they",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 5464,
+   "end": 5468,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M180",
+   "text": "Georgiana",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "georgiana_darcy",
+   "start": 5479,
+   "end": 5488,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M181",
+   "text": "Elizabeth",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "elizabeth_bennet",
+   "start": 5529,
+   "end": 5538,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M182",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "georgiana_darcy",
+   "start": 5556,
+   "end": 5559,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M183",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "elizabeth_bennet",
+   "start": 5619,
+   "end": 5622,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M184",
+   "text": "her brother",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "fitzwilliam_darcy",
+   "start": 5662,
+   "end": 5673,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M185",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "georgiana_darcy",
+   "start": 5662,
+   "end": 5665,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M186",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "fitzwilliam_darcy",
+   "start": 5675,
+   "end": 5677,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M187",
+   "text": "herself",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "georgiana_darcy",
+   "start": 5706,
+   "end": 5713,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M188",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "georgiana_darcy",
+   "start": 5746,
+   "end": 5749,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M189",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "georgiana_darcy",
+   "start": 5761,
+   "end": 5764,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M190",
+   "text": "Her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "georgiana_darcy",
+   "start": 5804,
+   "end": 5807,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M191",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "georgiana_darcy",
+   "start": 5865,
+   "end": 5868,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M192",
+   "text": "Elizabeth",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "elizabeth_bennet",
+   "start": 5877,
+   "end": 5886,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M193",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "georgiana_darcy",
+   "start": 5902,
+   "end": 5905,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M194",
+   "text": "Lady Catherine",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "lady_catherine_de_bourgh",
+   "start": 6069,
+   "end": 6083,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M195",
+   "text": "her nephew",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "fitzwilliam_darcy",
+   "start": 6127,
+   "end": 6137,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M196",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "lady_catherine_de_bourgh",
+   "start": 6127,
+   "end": 6130,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M197",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "lady_catherine_de_bourgh",
+   "start": 6146,
+   "end": 6149,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M198",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "lady_catherine_de_bourgh",
+   "start": 6191,
+   "end": 6194,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M199",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "lady_catherine_de_bourgh",
+   "start": 6209,
+   "end": 6212,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M200",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "lady_catherine_de_bourgh",
+   "start": 6266,
+   "end": 6269,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M201",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "fitzwilliam_darcy",
+   "start": 6275,
+   "end": 6278,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M202",
+   "text": "Elizabeth",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "elizabeth_bennet",
+   "start": 6319,
+   "end": 6328,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M203",
+   "text": "Elizabeth",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "elizabeth_bennet",
+   "start": 6398,
+   "end": 6407,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M204",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "fitzwilliam_darcy",
+   "start": 6422,
+   "end": 6424,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M205",
+   "text": "his aunt",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "lady_catherine_de_bourgh",
+   "start": 6548,
+   "end": 6556,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M206",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "fitzwilliam_darcy",
+   "start": 6548,
+   "end": 6551,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M207",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "lady_catherine_de_bourgh",
+   "start": 6558,
+   "end": 6561,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M208",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "lady_catherine_de_bourgh",
+   "start": 6593,
+   "end": 6596,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M209",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "fitzwilliam_darcy",
+   "start": 6611,
+   "end": 6614,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M210",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "lady_catherine_de_bourgh",
+   "start": 6619,
+   "end": 6622,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M211",
+   "text": "his wife",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "elizabeth_bennet",
+   "start": 6644,
+   "end": 6652,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M212",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "fitzwilliam_darcy",
+   "start": 6644,
+   "end": 6647,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M213",
+   "text": "herself",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "elizabeth_bennet",
+   "start": 6663,
+   "end": 6670,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M214",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "lady_catherine_de_bourgh",
+   "start": 6676,
+   "end": 6679,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M215",
+   "text": "them",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 6704,
+   "end": 6708,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M216",
+   "text": "Pemberley",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "pemberley",
+   "start": 6712,
+   "end": 6721,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M217",
+   "text": "such a mistress",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "elizabeth_bennet",
+   "start": 6812,
+   "end": 6827,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M218",
+   "text": "her uncle and aunt",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "gardiners",
+   "start": 6847,
+   "end": 6865,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M219",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "elizabeth_bennet",
+   "start": 6847,
+   "end": 6850,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M220",
+   "text": "the city",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "london",
+   "start": 6871,
+   "end": 6879,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M221",
+   "text": "the Gardiners",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "gardiners",
+   "start": 6887,
+   "end": 6900,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M222",
+   "text": "they",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 6902,
+   "end": 6906,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M223",
+   "text": "Darcy",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "fitzwilliam_darcy",
+   "start": 6947,
+   "end": 6952,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M224",
+   "text": "Elizabeth",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "elizabeth_bennet",
+   "start": 6965,
+   "end": 6974,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M225",
+   "text": "them",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "gardiners",
+   "start": 6989,
+   "end": 6993,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M226",
+   "text": "they",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 6999,
+   "end": 7003,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M227",
+   "text": "the persons",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "gardiners",
+   "start": 7061,
+   "end": 7072,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M228",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "elizabeth_bennet",
+   "start": 7090,
+   "end": 7093,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M229",
+   "text": "Derbyshire",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "derbyshire",
+   "start": 7099,
+   "end": 7109,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "mention_id": "M230",
+   "text": "them",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 7141,
+   "end": 7145,
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  }
+ ],
  "quotes": [],
  "events": [],
- "facts": [],
- "relationships": [],
+ "facts": [
+  {
+   "fact_id": "F1",
+   "entity_key": "charles_bingley",
+   "property": "location",
+   "value": "Netherfield",
+   "value_span": {
+    "start": 900,
+    "end": 911
+   },
+   "evidence": {
+    "start": 867,
+    "end": 930
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F2",
+   "entity_key": "jane_bennet",
+   "property": "location",
+   "value": "Netherfield",
+   "value_span": {
+    "start": 900,
+    "end": 911
+   },
+   "evidence": {
+    "start": 867,
+    "end": 930
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F3",
+   "entity_key": "mary_bennet",
+   "property": "location",
+   "value": "home",
+   "value_span": {
+    "start": 1950,
+    "end": 1954
+   },
+   "evidence": {
+    "start": 1907,
+    "end": 1954
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F4",
+   "entity_key": "georgiana_darcy",
+   "property": "location",
+   "value": "Pemberley",
+   "value_span": {
+    "start": 5302,
+    "end": 5311
+   },
+   "evidence": {
+    "start": 5302,
+    "end": 5336
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F5",
+   "entity_key": "lady_catherine_de_bourgh",
+   "property": "title",
+   "value": "Lady",
+   "value_span": {
+    "start": 6069,
+    "end": 6073
+   },
+   "evidence": {
+    "start": 6069,
+    "end": 6107
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "fact_id": "F6",
+   "entity_key": "gardiners",
+   "property": "origin",
+   "value": "the city",
+   "value_span": {
+    "start": 6871,
+    "end": 6879
+   },
+   "evidence": {
+    "start": 6833,
+    "end": 6879
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  }
+ ],
+ "relationships": [
+  {
+   "relationship_id": "R1",
+   "subject_entity_key": "mrs_bennet",
+   "predicate": "MOTHER_OF",
+   "object_entity_key": "bennet_daughters",
+   "evidence": {
+    "start": 329,
+    "end": 373
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R2",
+   "subject_entity_key": "mr_bennet",
+   "predicate": "MARRIED_TO",
+   "object_entity_key": "mrs_bennet",
+   "evidence": {
+    "start": 485,
+    "end": 528
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R3",
+   "subject_entity_key": "mrs_bennet",
+   "predicate": "MOTHER_OF",
+   "object_entity_key": "jane_bennet",
+   "evidence": {
+    "start": 932,
+    "end": 986
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R4",
+   "subject_entity_key": "mr_bennet",
+   "predicate": "FATHER_OF",
+   "object_entity_key": "elizabeth_bennet",
+   "evidence": {
+    "start": 661,
+    "end": 710
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R5",
+   "subject_entity_key": "mr_bennet",
+   "predicate": "FATHER_OF",
+   "object_entity_key": "kitty_bennet",
+   "evidence": {
+    "start": 1861,
+    "end": 1904
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R6",
+   "subject_entity_key": "mr_bennet",
+   "predicate": "FATHER_OF",
+   "object_entity_key": "mary_bennet",
+   "evidence": {
+    "start": 2263,
+    "end": 2326
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R7",
+   "subject_entity_key": "charles_bingley",
+   "predicate": "MARRIED_TO",
+   "object_entity_key": "jane_bennet",
+   "evidence": {
+    "start": 15,
+    "end": 231
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R8",
+   "subject_entity_key": "fitzwilliam_darcy",
+   "predicate": "MARRIED_TO",
+   "object_entity_key": "elizabeth_bennet",
+   "evidence": {
+    "start": 6616,
+    "end": 6670
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R9",
+   "subject_entity_key": "george_wickham",
+   "predicate": "MARRIED_TO",
+   "object_entity_key": "lydia_bennet",
+   "evidence": {
+    "start": 4756,
+    "end": 4816
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R10",
+   "subject_entity_key": "charles_bingley",
+   "predicate": "SIBLING_OF",
+   "object_entity_key": "bingley_sisters",
+   "evidence": {
+    "start": 1061,
+    "end": 1111
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R11",
+   "subject_entity_key": "charles_bingley",
+   "predicate": "OWNS",
+   "object_entity_key": "bingleys_estate",
+   "evidence": {
+    "start": 1113,
+    "end": 1171
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R12",
+   "subject_entity_key": "fitzwilliam_darcy",
+   "predicate": "SIBLING_OF",
+   "object_entity_key": "georgiana_darcy",
+   "evidence": {
+    "start": 5641,
+    "end": 5673
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R13",
+   "subject_entity_key": "elizabeth_bennet",
+   "predicate": "RELATED_TO",
+   "object_entity_key": "georgiana_darcy",
+   "evidence": {
+    "start": 5302,
+    "end": 5411
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R14",
+   "subject_entity_key": "lady_catherine_de_bourgh",
+   "predicate": "RELATED_TO",
+   "object_entity_key": "fitzwilliam_darcy",
+   "evidence": {
+    "start": 6069,
+    "end": 6137
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R15",
+   "subject_entity_key": "gardiners",
+   "predicate": "RELATED_TO",
+   "object_entity_key": "elizabeth_bennet",
+   "evidence": {
+    "start": 6833,
+    "end": 6879
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R16",
+   "subject_entity_key": "fitzwilliam_darcy",
+   "predicate": "FRIEND_OF",
+   "object_entity_key": "gardiners",
+   "evidence": {
+    "start": 6947,
+    "end": 6993
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  },
+  {
+   "relationship_id": "R17",
+   "subject_entity_key": "elizabeth_bennet",
+   "predicate": "FRIEND_OF",
+   "object_entity_key": "gardiners",
+   "evidence": {
+    "start": 6947,
+    "end": 6993
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "pending"
+   }
+  }
+ ],
  "temporal_expressions": [],
  "temporal_relations": []
 }
