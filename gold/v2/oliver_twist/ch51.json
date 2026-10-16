@@ -51,6 +51,10 @@
    {
     "name": "Claude",
     "role": "drafter"
+   },
+   {
+    "name": "annotation audit",
+    "role": "reviewer"
    }
   ]
  },
@@ -3575,8 +3579,9 @@
    "end": 8164,
    "review": {
     "origin": "pdnc",
-    "status": "pending",
-    "note": "PDNC links this to edward_leeford alone; 'us' is Monks and his mother, a set with no entity, so guidelines section 4 gives null. Drafter proposes null."
+    "status": "accepted",
+    "by": "annotation audit",
+    "note": "PDNC links this to edward_leeford alone; 'us' is Monks and his mother, a set with no entity, so guidelines section 4 gives null. Drafter proposes null. Accepted by the annotation audit: Plural us denotes Monks and his mother; no established group entity exists, so null per project policy."
    }
   },
   {

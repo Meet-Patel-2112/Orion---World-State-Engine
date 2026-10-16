@@ -46,11 +46,15 @@
     "coverage": "none"
    }
   },
-  "notes": "Quotes, characters and the mentions inside quotes are imported from PDNC at e507a27; every other item is Claude's draft and pending review. Sikes's dog is a character (animals that act) and gets the key bulls_eye, his name later in the novel (one key from the start, guidelines section 2); Sikes OWNS him. 'the Body' Bet went to see and 'the murdered woman' are Nancy; the narrator's 'murdered' confirms the DEAD status drafted in chapter 47. Kags's 'the exclusive young man' is Toby, and 'a friend ... from foreign parts' is Kags himself, the returned transport. 'the other man' who asks 'Isn't there any help for it?' could be Kags or Chitling: null. 'a robber of fifty years' is a predicate (not a mention) but states Kags's age and occupation. In Kags's 'He must have given him the slip somehow, or he wouldn't be so easy', PDNC links all three pronouns to Sikes because the dog is not in its character list. 'He' is Sikes; 'him' and 'he' are the dog, so those two PDNC items are re-opened (review pending) with the proposal bulls_eye.",
+  "notes": "Quotes, characters and the mentions inside quotes are imported from PDNC at e507a27; every other item is Claude's draft and pending review. Sikes's dog is a character (animals that act) and gets the key bulls_eye, his name later in the novel (one key from the start, guidelines section 2); Sikes OWNS him. 'the Body' Bet went to see and 'the murdered woman' are Nancy; the narrator's 'murdered' states her DEAD status (chapter 47 only implies it). The annotation audit removed the drafted Toby OWNS the house: 'You that keep this house' says he keeps it, not that he owns it. Kags's 'the exclusive young man' is Toby, and 'a friend ... from foreign parts' is Kags himself, the returned transport. 'the other man' who asks 'Isn't there any help for it?' could be Kags or Chitling: null. 'a robber of fifty years' is a predicate (not a mention) but states Kags's age and occupation. In Kags's 'He must have given him the slip somehow, or he wouldn't be so easy', PDNC links all three pronouns to Sikes because the dog is not in its character list. 'He' is Sikes; 'him' and 'he' are the dog, so those two PDNC items were re-opened with the proposal bulls_eye, which the annotation audit accepted.",
   "annotators": [
    {
     "name": "Claude",
     "role": "drafter"
+   },
+   {
+    "name": "annotation audit",
+    "role": "reviewer"
    }
   ]
  },
@@ -2888,8 +2892,9 @@
    "end": 9200,
    "review": {
     "origin": "pdnc",
-    "status": "pending",
-    "note": "PDNC links this to bill_sikes, but the dog (bulls_eye) is not in PDNC's character list, so PDNC could not link it to him. Drafter proposes bulls_eye: Sikes gave the dog the slip, and the dog is the one 'so easy'."
+    "status": "accepted",
+    "by": "annotation audit",
+    "note": "PDNC links this to bill_sikes, but the dog (bulls_eye) is not in PDNC's character list, so PDNC could not link it to him. Drafter proposes bulls_eye: Sikes gave the dog the slip, and the dog is the one 'so easy'. Accepted by the annotation audit: PDNC links pronoun to Sikes because dog absent from PDNC character list; local syntax supports dog as referent."
    }
   },
   {
@@ -2902,8 +2907,9 @@
    "end": 9224,
    "review": {
     "origin": "pdnc",
-    "status": "pending",
-    "note": "PDNC links this to bill_sikes, but the dog (bulls_eye) is not in PDNC's character list, so PDNC could not link it to him. Drafter proposes bulls_eye: Sikes gave the dog the slip, and the dog is the one 'so easy'."
+    "status": "accepted",
+    "by": "annotation audit",
+    "note": "PDNC links this to bill_sikes, but the dog (bulls_eye) is not in PDNC's character list, so PDNC could not link it to him. Drafter proposes bulls_eye: Sikes gave the dog the slip, and the dog is the one 'so easy'. Accepted by the annotation audit: PDNC links pronoun to Sikes because dog absent from PDNC character list; local syntax supports dog as referent."
    }
   },
   {
@@ -5161,22 +5167,6 @@
     "end": 7985
    },
    "assertion": "asserted",
-   "review": {
-    "origin": "claude_draft",
-    "status": "pending"
-   }
-  },
-  {
-   "relationship_id": "R2",
-   "subject_entity_key": "toby_crackit",
-   "predicate": "OWNS",
-   "object_entity_key": "crackits_house",
-   "evidence": {
-    "start": 11832,
-    "end": 11856
-   },
-   "assertion": "asserted",
-   "claimed_by": "bill_sikes",
    "review": {
     "origin": "claude_draft",
     "status": "pending"

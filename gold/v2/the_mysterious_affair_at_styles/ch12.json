@@ -51,6 +51,10 @@
    {
     "name": "Claude",
     "role": "drafter"
+   },
+   {
+    "name": "annotation audit",
+    "role": "reviewer"
    }
   ]
  },
@@ -4565,8 +4569,9 @@
    "end": 8203,
    "review": {
     "origin": "pdnc",
-    "status": "pending",
-    "note": "PDNC links this to manning. The two gardeners who witness the will are Manning and William Earl (chapter 6), a plural for two entities with no group key, so the drafter proposes null."
+    "status": "accepted",
+    "by": "annotation audit",
+    "note": "PDNC links this to manning. The two gardeners who witness the will are Manning and William Earl (chapter 6), a plural for two entities with no group key, so the drafter proposes null. Accepted by the annotation audit: The two gardeners means Manning and William Earl together; one entity key cannot represent both and no group entity exists, so null."
    }
   },
   {

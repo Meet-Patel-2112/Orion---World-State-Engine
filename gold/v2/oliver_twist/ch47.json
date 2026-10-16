@@ -46,11 +46,15 @@
     "coverage": "none"
    }
   },
-  "notes": "Quotes, characters and the mentions inside quotes are imported from PDNC at e507a27; every other item is Claude's draft and pending review. Sikes is 'a man muffled to the chin', 'the robber', 'the housebreaker', 'the man'; Nancy is 'the girl'; Noah is 'the sleeper' and answers to his assumed name, Bolter. 'A gentleman and a lady' in Noah's report are Mr. Brownlow and Rose Maylie, as PDNC links them. Fagin's 'us' / 'we' / 'our' is the group fagins_gang. In 'her refusal to yield him up', 'him' is Fagin. Nancy's death is not stated in so many words: the narrator calls Sikes 'the murderer' as he 'struck her down'; the DEAD status rests on that and reviewers should confirm it. The INJURED status is stated outright.",
+  "notes": "Quotes, characters and the mentions inside quotes are imported from PDNC at e507a27; every other item is Claude's draft and pending review. Sikes is 'a man muffled to the chin', 'the robber', 'the housebreaker', 'the man'; Nancy is 'the girl'; Noah is 'the sleeper' and answers to his assumed name, Bolter. 'A gentleman and a lady' in Noah's report are Mr. Brownlow and Rose Maylie, as PDNC links them; the annotation audit removed the drafted Nancy KNOWS Brownlow / Rose ties, because that evidence span names neither of them. Fagin's 'us' / 'we' / 'our' is the group fagins_gang. In 'her refusal to yield him up', 'him' is Fagin. Nancy's death is not stated in so many words (the narrator calls Sikes 'the murderer' as he 'struck her down'), so the annotation audit removed the drafted DEAD status here; chapter 50 states it ('the murdered woman'). The INJURED status is stated outright.",
   "annotators": [
    {
     "name": "Claude",
     "role": "drafter"
+   },
+   {
+    "name": "annotation audit",
+    "role": "reviewer"
    }
   ]
  },
@@ -6612,62 +6616,9 @@
     "origin": "claude_draft",
     "status": "pending"
    }
-  },
-  {
-   "fact_id": "F5",
-   "entity_key": "nancy",
-   "property": "status",
-   "value": "struck her down",
-   "value_span": {
-    "start": 13772,
-    "end": 13787
-   },
-   "status_value": "DEAD",
-   "evidence": {
-    "start": 13660,
-    "end": 13787
-   },
-   "assertion": "asserted",
-   "review": {
-    "origin": "claude_draft",
-    "status": "pending"
-   }
   }
  ],
- "relationships": [
-  {
-   "relationship_id": "R1",
-   "subject_entity_key": "nancy",
-   "predicate": "KNOWS",
-   "object_entity_key": "mr_brownlow",
-   "evidence": {
-    "start": 7351,
-    "end": 7419
-   },
-   "assertion": "asserted",
-   "claimed_by": "fagin",
-   "review": {
-    "origin": "claude_draft",
-    "status": "pending"
-   }
-  },
-  {
-   "relationship_id": "R2",
-   "subject_entity_key": "nancy",
-   "predicate": "KNOWS",
-   "object_entity_key": "rose_maylie",
-   "evidence": {
-    "start": 7351,
-    "end": 7419
-   },
-   "assertion": "asserted",
-   "claimed_by": "fagin",
-   "review": {
-    "origin": "claude_draft",
-    "status": "pending"
-   }
-  }
- ],
+ "relationships": [],
  "temporal_expressions": [],
  "temporal_relations": []
 }
