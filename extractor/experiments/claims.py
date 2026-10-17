@@ -93,7 +93,8 @@ def diagnose(pred: Dict[str, Any], gold_doc: Dict[str, Any], resolver: type = _R
         (s, s_src), (o, o_src) = resolve(r.get("subject_mention_id")), resolve(r.get("object_mention_id"))
         entry = {"predicate": r.get("predicate"), "subject": s, "object": o,
                  "subject_text": surface(r.get("subject_mention_id")), "object_text": surface(r.get("object_mention_id")),
-                 "fallback": s_src in FALLBACK or o_src in FALLBACK, "sources": [s_src, o_src]}
+                 "fallback": s_src in FALLBACK or o_src in FALLBACK, "sources": [s_src, o_src],
+                 "evidence": r.get("evidence")}
         if s is None or o is None:
             entry["class"] = "unresolved"
         else:
@@ -140,7 +141,8 @@ def diagnose(pred: Dict[str, Any], gold_doc: Dict[str, Any], resolver: type = _R
     for n, f in enumerate(pred.get("facts", [])):
         k, src = resolve(f.get("entity_mention_id"))
         entry = {"property": f.get("property"), "value": f.get("value"), "entity": k,
-                 "entity_text": surface(f.get("entity_mention_id")), "fallback": src in FALLBACK, "source": src}
+                 "entity_text": surface(f.get("entity_mention_id")), "fallback": src in FALLBACK, "source": src,
+                 "evidence": f.get("evidence")}
         if k is None:
             entry["class"] = "unresolved"
         else:
