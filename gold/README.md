@@ -6,10 +6,10 @@ Gold v2 lives in `v2/<work_id>/`: one `chNN.json` per chapter, valid against
 
 | Work | Chapters | Status |
 | --- | --- | --- |
-| Pride and Prejudice | 1, 3, 22, 46, 61 | ch01: reviewed (pilot, 2026-10-16). Others: Claude's draft, pending review |
-| Oliver Twist | 1, 8, 47, 50, 51 | Claude's draft, pending review |
-| The Invisible Man | 1, 7, 17, 20, 28 | Claude's draft, pending review |
-| The Mysterious Affair at Styles | 1, 3, 6, 12, 13 | Claude's draft, pending review |
+| Pride and Prejudice | 1, 3, 22, 46, 61 | ch01: reviewed (pilot 2026-10-16; recall and quotes 2026-10-17). Others: Claude's draft, pending review |
+| Oliver Twist | 1, 8, 47, 50, 51 | ch01: reviewed (2026-10-17). Others: Claude's draft, pending review |
+| The Invisible Man | 1, 7, 17, 20, 28 | ch01: reviewed (2026-10-17). Others: Claude's draft, pending review |
+| The Mysterious Affair at Styles | 1, 3, 6, 12, 13 | ch01: reviewed (2026-10-17). Others: Claude's draft, pending review |
 
 Every chapter has its text, characters, quotes with speakers, and the mentions PDNC marks inside quotes (imported,
 `review.origin` `pdnc`). A drafted chapter adds Claude's mentions (exhaustive over the region in

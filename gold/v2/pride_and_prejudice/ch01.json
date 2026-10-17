@@ -41,7 +41,7 @@
     "coverage": "none"
    }
   },
-  "notes": "Pilot chapter. Quotes, characters and the mentions inside quotes are imported from PDNC at e507a27; every other item is Claude's draft and pending review. Policy decisions from the pilot (2026-10-16), now in the guidelines: parentage stays on the group entity bennet_daughters (section 7); Sir William and Lady Lucas are not MARRIED_TO on titles alone (section 7); 'neighbourhood' is a provisional entity (section 2); plural mentions of a set with no entity have entity_key null (section 4); predicate nominals and generic uses are not mentions (section 4); claimed_by is the immediate claimant and source_entity_key the reported source, so F1 is Mrs. Bennet repeating Mrs. Long (section 8). Reviewed 2026-10-16: every drafted item accepted, none changed. The review did not list missing items, so no recall additions were made. Open limitation: a mention holds one entity key, so a plural naming two established entities (M91, the Lucases) stays null.",
+  "notes": "Pilot chapter. Quotes, characters and the mentions inside quotes are imported from PDNC at e507a27; every other item is Claude's draft and pending review. Policy decisions from the pilot (2026-10-16), now in the guidelines: parentage stays on the group entity bennet_daughters (section 7); Sir William and Lady Lucas are not MARRIED_TO on titles alone (section 7); 'neighbourhood' is a provisional entity (section 2); plural mentions of a set with no entity have entity_key null (section 4); predicate nominals and generic uses are not mentions (section 4); claimed_by is the immediate claimant and source_entity_key the reported source, so F1 is Mrs. Bennet repeating Mrs. Long (section 8). Reviewed 2026-10-16: every drafted item accepted, none changed. The review did not list missing items, so no recall additions were made. Open limitation: a mention holds one entity key, so a plural naming two established entities (M91, the Lucases) stays null. Review (2026-10-17, HS, on the review page): every pending item accepted, none corrected or deleted; recall pass over the mention region done, no missing mentions added; 28 PDNC quotes checked for span and speaker. Accepted in bulk (one action per layer): 28 quotes; a double review (guidelines section 9) should start with those layers.",
   "annotators": [
    {
     "name": "Claude",
@@ -49,6 +49,10 @@
    },
    {
     "name": "pilot review",
+    "role": "reviewer"
+   },
+   {
+    "name": "HS",
     "role": "reviewer"
    }
   ]
@@ -2653,7 +2657,7 @@
    "review": {
     "origin": "pdnc",
     "status": "accepted",
-    "by": "pdnc",
+    "by": "HS",
     "note": "PDNC Q0"
    }
   },
@@ -2677,7 +2681,7 @@
    "review": {
     "origin": "pdnc",
     "status": "accepted",
-    "by": "pdnc",
+    "by": "HS",
     "note": "PDNC Q1"
    }
   },
@@ -2697,7 +2701,7 @@
    "review": {
     "origin": "pdnc",
     "status": "accepted",
-    "by": "pdnc",
+    "by": "HS",
     "note": "PDNC Q2"
    }
   },
@@ -2717,7 +2721,7 @@
    "review": {
     "origin": "pdnc",
     "status": "accepted",
-    "by": "pdnc",
+    "by": "HS",
     "note": "PDNC Q3"
    }
   },
@@ -2737,7 +2741,7 @@
    "review": {
     "origin": "pdnc",
     "status": "accepted",
-    "by": "pdnc",
+    "by": "HS",
     "note": "PDNC Q4"
    }
   },
@@ -2757,7 +2761,7 @@
    "review": {
     "origin": "pdnc",
     "status": "accepted",
-    "by": "pdnc",
+    "by": "HS",
     "note": "PDNC Q5"
    }
   },
@@ -2777,7 +2781,7 @@
    "review": {
     "origin": "pdnc",
     "status": "accepted",
-    "by": "pdnc",
+    "by": "HS",
     "note": "PDNC Q6"
    }
   },
@@ -2797,7 +2801,7 @@
    "review": {
     "origin": "pdnc",
     "status": "accepted",
-    "by": "pdnc",
+    "by": "HS",
     "note": "PDNC Q7"
    }
   },
@@ -2817,7 +2821,7 @@
    "review": {
     "origin": "pdnc",
     "status": "accepted",
-    "by": "pdnc",
+    "by": "HS",
     "note": "PDNC Q8"
    }
   },
@@ -2837,7 +2841,7 @@
    "review": {
     "origin": "pdnc",
     "status": "accepted",
-    "by": "pdnc",
+    "by": "HS",
     "note": "PDNC Q9"
    }
   },
@@ -2861,7 +2865,7 @@
    "review": {
     "origin": "pdnc",
     "status": "accepted",
-    "by": "pdnc",
+    "by": "HS",
     "note": "PDNC Q10"
    }
   },
@@ -2881,7 +2885,7 @@
    "review": {
     "origin": "pdnc",
     "status": "accepted",
-    "by": "pdnc",
+    "by": "HS",
     "note": "PDNC Q11"
    }
   },
@@ -2901,7 +2905,7 @@
    "review": {
     "origin": "pdnc",
     "status": "accepted",
-    "by": "pdnc",
+    "by": "HS",
     "note": "PDNC Q12"
    }
   },
@@ -2921,7 +2925,7 @@
    "review": {
     "origin": "pdnc",
     "status": "accepted",
-    "by": "pdnc",
+    "by": "HS",
     "note": "PDNC Q13"
    }
   },
@@ -2941,7 +2945,7 @@
    "review": {
     "origin": "pdnc",
     "status": "accepted",
-    "by": "pdnc",
+    "by": "HS",
     "note": "PDNC Q14"
    }
   },
@@ -2961,7 +2965,7 @@
    "review": {
     "origin": "pdnc",
     "status": "accepted",
-    "by": "pdnc",
+    "by": "HS",
     "note": "PDNC Q15"
    }
   },
@@ -2981,7 +2985,7 @@
    "review": {
     "origin": "pdnc",
     "status": "accepted",
-    "by": "pdnc",
+    "by": "HS",
     "note": "PDNC Q16"
    }
   },
@@ -3001,7 +3005,7 @@
    "review": {
     "origin": "pdnc",
     "status": "accepted",
-    "by": "pdnc",
+    "by": "HS",
     "note": "PDNC Q17"
    }
   },
@@ -3021,7 +3025,7 @@
    "review": {
     "origin": "pdnc",
     "status": "accepted",
-    "by": "pdnc",
+    "by": "HS",
     "note": "PDNC Q18"
    }
   },
@@ -3041,7 +3045,7 @@
    "review": {
     "origin": "pdnc",
     "status": "accepted",
-    "by": "pdnc",
+    "by": "HS",
     "note": "PDNC Q19"
    }
   },
@@ -3061,7 +3065,7 @@
    "review": {
     "origin": "pdnc",
     "status": "accepted",
-    "by": "pdnc",
+    "by": "HS",
     "note": "PDNC Q20"
    }
   },
@@ -3085,7 +3089,7 @@
    "review": {
     "origin": "pdnc",
     "status": "accepted",
-    "by": "pdnc",
+    "by": "HS",
     "note": "PDNC Q21"
    }
   },
@@ -3105,7 +3109,7 @@
    "review": {
     "origin": "pdnc",
     "status": "accepted",
-    "by": "pdnc",
+    "by": "HS",
     "note": "PDNC Q22"
    }
   },
@@ -3125,7 +3129,7 @@
    "review": {
     "origin": "pdnc",
     "status": "accepted",
-    "by": "pdnc",
+    "by": "HS",
     "note": "PDNC Q23"
    }
   },
@@ -3145,7 +3149,7 @@
    "review": {
     "origin": "pdnc",
     "status": "accepted",
-    "by": "pdnc",
+    "by": "HS",
     "note": "PDNC Q24"
    }
   },
@@ -3165,7 +3169,7 @@
    "review": {
     "origin": "pdnc",
     "status": "accepted",
-    "by": "pdnc",
+    "by": "HS",
     "note": "PDNC Q25"
    }
   },
@@ -3185,7 +3189,7 @@
    "review": {
     "origin": "pdnc",
     "status": "accepted",
-    "by": "pdnc",
+    "by": "HS",
     "note": "PDNC Q26"
    }
   },
@@ -3205,7 +3209,7 @@
    "review": {
     "origin": "pdnc",
     "status": "accepted",
-    "by": "pdnc",
+    "by": "HS",
     "note": "PDNC Q27"
    }
   }
