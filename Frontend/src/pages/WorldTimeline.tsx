@@ -7,6 +7,7 @@ import {
   reorderEvents,
   deleteEvent,
   createEvent,
+  updateEvent,
   type EventResponse,
 } from '../api/events';
 
@@ -24,6 +25,9 @@ export const WorldTimeline: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
+  // Chapter filter state: null = All, 'unassigned' = No Chapter, or specific chapter_id
+  const [selectedChapterFilter, setSelectedChapterFilter] = useState<string | null>(null);
+
   // New event modal state
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newDescription, setNewDescription] = useState('');
@@ -31,7 +35,14 @@ export const WorldTimeline: React.FC = () => {
   const [newChapterId, setNewChapterId] = useState<string>('');
   const [creating, setCreating] = useState(false);
 
-  const chapters = manuscripts.flatMap((m) => m.chapters || []);
+  // Edit event modal state
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editDescription, setEditDescription] = useState('');
+  const [editEventType, setEditEventType] = useState('EVENT');
+  const [editChapterId, setEditChapterId] = useState<string>('');
+  const [updating, setUpdating] = useState(false);
+
+  const chapters = manuscripts.flatMap((m) => m.chapters || []).sort((a, b) => a.number - b.number);
 
   const loadTimeline = async (worldId: string) => {
     setLoading(true);
@@ -145,7 +156,7 @@ export const WorldTimeline: React.FC = () => {
     try {
       await createEvent(activeWorldId, {
         description: newDescription.trim(),
-        event_type: newEventType.trim() || 'EVENT',
+        event_type: newEventType.trim().toUpperCase() || 'EVENT',
         chapter_id: newChapterId || null,
       });
       setNewDescription('');
@@ -161,6 +172,34 @@ export const WorldTimeline: React.FC = () => {
     }
   };
 
+  const handleUpdateEvent = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!activeWorldId || !selectedEventId || !editDescription.trim()) return;
+
+    setUpdating(true);
+    try {
+      await updateEvent(activeWorldId, selectedEventId, {
+        description: editDescription.trim(),
+        event_type: editEventType.trim().toUpperCase() || 'EVENT',
+        chapter_id: editChapterId || null,
+      });
+      setIsEditModalOpen(false);
+      await loadTimeline(activeWorldId);
+    } catch (err: any) {
+      console.error('Failed to update event:', err);
+      setError(err?.message || 'Failed to update event');
+    } finally {
+      setUpdating(false);
+    }
+  };
+
+  // Filter events based on selected chapter pill
+  const displayedEvents = events.filter((e) => {
+    if (selectedChapterFilter === null) return true;
+    if (selectedChapterFilter === 'unassigned') return !e.chapter_id;
+    return e.chapter_id === selectedChapterFilter;
+  });
+
   return (
     <AppShell>
       {/* Background radial effects */}
@@ -171,20 +210,25 @@ export const WorldTimeline: React.FC = () => {
         <div className="flex-1 overflow-y-auto overflow-x-hidden relative scroll-smooth px-8 py-12 scrollbar-hide">
           <div className="max-w-4xl mx-auto relative min-h-full pb-32 pt-6">
             {/* Page Header */}
-            <header className="mb-14 flex items-start justify-between">
+            <header className="mb-8 flex items-start justify-between">
               <div>
-                <div className="flex items-center gap-3 mb-3">
+                <div className="flex items-center gap-3 mb-2">
                   <span className="material-symbols-outlined text-copper-glow text-2xl font-light">timeline</span>
                   <h1 className="font-display-lg text-display-lg text-starlight-white">Chronicle Timeline</h1>
                 </div>
-                <p className="font-body-lg text-body-lg text-on-surface-variant/80 leading-relaxed max-w-xl">
-                  Track how world parameters, faction controls, and character states transition across chronological milestones.
+                <p className="font-body-lg text-body-lg text-on-surface-variant/80 leading-relaxed max-w-xl text-sm">
+                  Track how world parameters, events, and character milestones unfold across chapters.
                 </p>
               </div>
 
               <button
-                onClick={() => setIsModalOpen(true)}
-                className="flex items-center gap-2 px-4 py-2 bg-primary/20 hover:bg-primary/30 text-primary border border-primary/40 rounded-lg text-sm font-medium transition-colors"
+                onClick={() => {
+                  setNewDescription('');
+                  setNewEventType('EVENT');
+                  setNewChapterId(selectedChapterFilter && selectedChapterFilter !== 'unassigned' ? selectedChapterFilter : '');
+                  setIsModalOpen(true);
+                }}
+                className="flex items-center gap-2 px-4 py-2 bg-primary/20 hover:bg-primary/30 text-primary border border-primary/40 rounded-lg text-sm font-medium transition-colors shadow-sm"
               >
                 <span className="material-symbols-outlined text-base">add</span>
                 Add Event
@@ -194,24 +238,70 @@ export const WorldTimeline: React.FC = () => {
             {error && (
               <div className="mb-6 p-4 rounded-lg bg-error/10 border border-error/30 text-error text-sm flex items-center justify-between">
                 <span>{error}</span>
-                <button onClick={() => setError(null)} className="text-xs hover:underline">Dismiss</button>
+                <button onClick={() => setError(null)} className="text-xs hover:underline">
+                  Dismiss
+                </button>
+              </div>
+            )}
+
+            {/* Chapter Filter Pill Bar */}
+            {chapters.length > 0 && (
+              <div className="mb-10 flex items-center gap-2 overflow-x-auto pb-2 scrollbar-hide">
+                <button
+                  onClick={() => setSelectedChapterFilter(null)}
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors border whitespace-nowrap ${
+                    selectedChapterFilter === null
+                      ? 'bg-primary text-surface-container font-semibold border-primary shadow-sm'
+                      : 'bg-surface-container-high/60 text-on-surface-variant border-starlight-white/10 hover:border-starlight-white/20 hover:text-starlight-white'
+                  }`}
+                >
+                  All Chapters ({events.length})
+                </button>
+                {chapters.map((ch) => {
+                  const count = events.filter((e) => e.chapter_id === ch.id).length;
+                  return (
+                    <button
+                      key={ch.id}
+                      onClick={() => setSelectedChapterFilter(ch.id)}
+                      className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors border whitespace-nowrap ${
+                        selectedChapterFilter === ch.id
+                          ? 'bg-primary text-surface-container font-semibold border-primary shadow-sm'
+                          : 'bg-surface-container-high/60 text-on-surface-variant border-starlight-white/10 hover:border-starlight-white/20 hover:text-starlight-white'
+                      }`}
+                    >
+                      Ch. {ch.number}: {ch.title} ({count})
+                    </button>
+                  );
+                })}
+                {events.some((e) => !e.chapter_id) && (
+                  <button
+                    onClick={() => setSelectedChapterFilter('unassigned')}
+                    className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors border whitespace-nowrap ${
+                      selectedChapterFilter === 'unassigned'
+                        ? 'bg-primary text-surface-container font-semibold border-primary shadow-sm'
+                        : 'bg-surface-container-high/60 text-on-surface-variant border-starlight-white/10 hover:border-starlight-white/20 hover:text-starlight-white'
+                    }`}
+                  >
+                    No Chapter ({events.filter((e) => !e.chapter_id).length})
+                  </button>
+                )}
               </div>
             )}
 
             {/* The Central Line */}
-            {events.length > 0 && (
-              <div className="absolute left-[50%] top-44 bottom-24 w-[1px] timeline-line -translate-x-1/2 z-0" />
+            {displayedEvents.length > 0 && (
+              <div className="absolute left-[50%] top-48 bottom-24 w-[1px] timeline-line -translate-x-1/2 z-0" />
             )}
 
             {/* Timeline Events Stack */}
-            {events.length === 0 && !loading ? (
+            {displayedEvents.length === 0 && !loading ? (
               <div className="text-center py-24 text-on-surface-variant/60">
                 <span className="material-symbols-outlined text-4xl mb-2 opacity-50">event_busy</span>
-                <p>No events recorded in this timeline yet.</p>
+                <p>No events found for this filter.</p>
               </div>
             ) : (
-              <div className="relative z-10 flex flex-col gap-20 mt-12">
-                {events.map((event, idx) => {
+              <div className="relative z-10 flex flex-col gap-20 mt-6">
+                {displayedEvents.map((event, idx) => {
                   const isLeft = idx % 2 === 0;
                   const isActive = event.id === selectedEventId;
 
@@ -264,7 +354,7 @@ export const WorldTimeline: React.FC = () => {
                         <div className={`flex items-center gap-2 mb-1.5 ${isLeft ? 'justify-end' : 'justify-start'}`}>
                           <span
                             className={`font-label-sm text-[10px] uppercase tracking-widest ${
-                              isActive ? 'text-primary' : 'text-primary/60'
+                              isActive ? 'text-primary font-semibold' : 'text-primary/60'
                             }`}
                           >
                             {event.chapter_number !== null
@@ -341,7 +431,7 @@ export const WorldTimeline: React.FC = () => {
         <aside className="w-[340px] bg-surface-container-low/95 border-l border-starlight-white/10 flex flex-col h-full shrink-0 z-20">
           {/* Header */}
           <div className="p-6 border-b border-starlight-white/5 bg-gradient-to-b from-surface-container-highest/20 to-transparent pt-14">
-            <span className="font-label-sm text-[10px] text-primary/70 block mb-1 tracking-wider uppercase">
+            <span className="font-label-sm text-[10px] text-primary/70 block mb-1 tracking-wider uppercase font-semibold">
               Event Chronicle
             </span>
             <h2 className="font-headline-md text-headline-md text-starlight-white leading-tight text-lg">
@@ -427,14 +517,27 @@ export const WorldTimeline: React.FC = () => {
                   </div>
                 )}
 
-                {/* Danger zone */}
-                <div className="pt-4 border-t border-starlight-white/5">
+                {/* Actions zone */}
+                <div className="pt-4 border-t border-starlight-white/5 space-y-2">
+                  <button
+                    onClick={() => {
+                      setEditDescription(selectedEvent.description);
+                      setEditEventType(selectedEvent.event_type);
+                      setEditChapterId(selectedEvent.chapter_id || '');
+                      setIsEditModalOpen(true);
+                    }}
+                    className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary border border-primary/30 text-xs font-semibold transition-colors"
+                  >
+                    <span className="material-symbols-outlined text-sm">edit</span>
+                    Edit Event (§15.3)
+                  </button>
+
                   <button
                     onClick={(e) => handleDeleteEvent(e, selectedEvent.id)}
                     className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-error/10 hover:bg-error/20 text-error border border-error/30 text-xs font-medium transition-colors"
                   >
                     <span className="material-symbols-outlined text-sm">delete</span>
-                    Delete Event
+                    Delete Event (§15.4)
                   </button>
                 </div>
               </>
@@ -514,6 +617,82 @@ export const WorldTimeline: React.FC = () => {
                   className="px-4 py-2 rounded-lg text-sm bg-primary text-surface-container font-semibold hover:bg-primary/90 transition-colors disabled:opacity-50"
                 >
                   {creating ? 'Creating...' : 'Create Event'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Edit Event Modal (§15.3) */}
+      {isEditModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
+          <div className="bg-surface-container border border-starlight-white/10 rounded-xl p-6 max-w-lg w-full shadow-2xl">
+            <h2 className="text-lg font-bold text-starlight-white mb-4 flex items-center gap-2">
+              <span className="material-symbols-outlined text-primary">edit</span>
+              Edit Chronicle Event
+            </h2>
+
+            <form onSubmit={handleUpdateEvent} className="space-y-4">
+              <div>
+                <label className="block text-xs font-medium text-on-surface-variant mb-1 uppercase tracking-wider">
+                  Description *
+                </label>
+                <textarea
+                  rows={3}
+                  required
+                  value={editDescription}
+                  onChange={(e) => setEditDescription(e.target.value)}
+                  placeholder="Describe what occurs at this milestone..."
+                  className="w-full rounded-lg bg-surface-container-high border border-starlight-white/10 px-3 py-2 text-sm text-starlight-white focus:outline-none focus:border-primary/50"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-medium text-on-surface-variant mb-1 uppercase tracking-wider">
+                  Event Type
+                </label>
+                <input
+                  type="text"
+                  value={editEventType}
+                  onChange={(e) => setEditEventType(e.target.value)}
+                  placeholder="e.g. BATTLE, ARRIVAL, MEETING"
+                  className="w-full rounded-lg bg-surface-container-high border border-starlight-white/10 px-3 py-2 text-sm text-starlight-white focus:outline-none focus:border-primary/50"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-medium text-on-surface-variant mb-1 uppercase tracking-wider">
+                  Chapter
+                </label>
+                <select
+                  value={editChapterId}
+                  onChange={(e) => setEditChapterId(e.target.value)}
+                  className="w-full rounded-lg bg-surface-container-high border border-starlight-white/10 px-3 py-2 text-sm text-starlight-white focus:outline-none focus:border-primary/50"
+                >
+                  <option value="">No chapter (unassigned)</option>
+                  {chapters.map((ch) => (
+                    <option key={ch.id} value={ch.id}>
+                      Chapter {ch.number}: {ch.title}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="flex items-center justify-end gap-3 pt-3 border-t border-starlight-white/5">
+                <button
+                  type="button"
+                  onClick={() => setIsEditModalOpen(false)}
+                  className="px-4 py-2 rounded-lg text-sm text-on-surface-variant hover:text-starlight-white transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={updating || !editDescription.trim()}
+                  className="px-4 py-2 rounded-lg text-sm bg-primary text-surface-container font-semibold hover:bg-primary/90 transition-colors disabled:opacity-50"
+                >
+                  {updating ? 'Saving...' : 'Save Changes'}
                 </button>
               </div>
             </form>

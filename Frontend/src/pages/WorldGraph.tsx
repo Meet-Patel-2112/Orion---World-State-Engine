@@ -9,6 +9,13 @@ import {
   forceCollide,
 } from 'd3-force';
 import { apiFetch } from '../api/client';
+import {
+  getRelationship,
+  createRelationship,
+  updateRelationship,
+  deleteRelationship,
+  type RelationshipResponse,
+} from '../api/relationships';
 
 interface Node {
   id: string;
@@ -30,6 +37,21 @@ interface Edge {
   color: string;
   dashed?: boolean;
 }
+
+const COMMON_RELATIONSHIP_TYPES = [
+  'ALLY_OF',
+  'ENEMY_OF',
+  'KNOWS',
+  'FRIEND_OF',
+  'LIVES_AT',
+  'KEEPER_OF',
+  'CAPTAIN_OF',
+  'FAMILY_OF',
+  'MEMBER_OF',
+  'EMPLOYS',
+  'WORKS_FOR',
+  'RELATED_TO',
+];
 
 export const WorldGraph: React.FC = () => {
   const { worldId } = useParams<{ worldId: string }>();
@@ -71,6 +93,28 @@ export const WorldGraph: React.FC = () => {
 
   // Hovered node state for highlighting connections
   const [hoveredNodeId, setHoveredNodeId] = useState<string | null>(null);
+
+  // Selected edge state for relationship details drawer
+  const [selectedEdgeId, setSelectedEdgeId] = useState<string | null>(null);
+  const [selectedRelData, setSelectedRelData] = useState<RelationshipResponse | null>(null);
+  const [loadingRel, setLoadingRel] = useState(false);
+  const [relActionError, setRelActionError] = useState<string | null>(null);
+
+  // Add Relationship Modal state
+  const [isAddRelOpen, setIsAddRelOpen] = useState(false);
+  const [newRelSource, setNewRelSource] = useState('');
+  const [newRelTarget, setNewRelTarget] = useState('');
+  const [newRelType, setNewRelType] = useState('ALLY_OF');
+  const [customNewRelType, setCustomNewRelType] = useState('');
+  const [newRelChapterId, setNewRelChapterId] = useState('');
+  const [submittingRel, setSubmittingRel] = useState(false);
+
+  // Edit Relationship Type state
+  const [isEditingRelType, setIsEditingRelType] = useState(false);
+  const [editRelType, setEditRelType] = useState('');
+  const [customEditRelType, setCustomEditRelType] = useState('');
+  const [editRelChapterId, setEditRelChapterId] = useState('');
+  const [updatingRel, setUpdatingRel] = useState(false);
 
   const fetchGraph = useCallback(async () => {
     if (!worldId) return;
@@ -178,7 +222,7 @@ export const WorldGraph: React.FC = () => {
   // Keyboard navigation (+, -, 0, Arrow keys)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (['INPUT', 'TEXTAREA'].includes((e.target as HTMLElement)?.tagName)) {
+      if (['INPUT', 'TEXTAREA', 'SELECT'].includes((e.target as HTMLElement)?.tagName)) {
         return;
       }
       if (e.key === '+' || e.key === '=') {
@@ -191,6 +235,11 @@ export const WorldGraph: React.FC = () => {
         e.preventDefault();
         setZoomScale(1);
         setPan({ x: 0, y: 0 });
+        if (e.key === 'Escape') {
+          setSelectedEdgeId(null);
+          setSelectedRelData(null);
+          setIsAddRelOpen(false);
+        }
       } else if (e.key === 'ArrowLeft') {
         e.preventDefault();
         setPan((p) => ({ ...p, x: p.x + 40 }));
@@ -260,7 +309,113 @@ export const WorldGraph: React.FC = () => {
     if (dragDistanceRef.current > 5) {
       return; // Was dragging, don't open info tab
     }
+    setSelectedEdgeId(null);
+    setSelectedRelData(null);
     setActiveEntity(nodeId);
+  };
+
+  // Edge Click: Load relationship version history
+  const handleEdgeClick = async (e: React.MouseEvent, edge: Edge) => {
+    e.stopPropagation();
+    if (!worldId) return;
+    setActiveEntity(null);
+    setSelectedEdgeId(edge.id);
+    setLoadingRel(true);
+    setRelActionError(null);
+    setIsEditingRelType(false);
+    try {
+      const data = await getRelationship(worldId, edge.id);
+      setSelectedRelData(data);
+      const curType = data.current_version?.relationship_type || edge.type;
+      if (COMMON_RELATIONSHIP_TYPES.includes(curType)) {
+        setEditRelType(curType);
+        setCustomEditRelType('');
+      } else {
+        setEditRelType('OTHER');
+        setCustomEditRelType(curType);
+      }
+      setEditRelChapterId(data.current_version?.chapter_id || '');
+    } catch (err: any) {
+      console.error('Failed to fetch relationship details:', err);
+      setRelActionError(err?.message || 'Failed to fetch relationship details');
+    } finally {
+      setLoadingRel(false);
+    }
+  };
+
+  // Update relationship type (§14.4)
+  const handleUpdateRelType = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!worldId || !selectedEdgeId) return;
+    const resolvedType = editRelType === 'OTHER' ? customEditRelType.trim() : editRelType.trim();
+    if (!resolvedType) {
+      setRelActionError('Please enter a relationship type');
+      return;
+    }
+
+    setUpdatingRel(true);
+    setRelActionError(null);
+    try {
+      const updated = await updateRelationship(worldId, selectedEdgeId, {
+        relationship_type: resolvedType.toUpperCase(),
+        chapter_id: editRelChapterId || null,
+      });
+      setSelectedRelData(updated);
+      setIsEditingRelType(false);
+      await fetchGraph();
+    } catch (err: any) {
+      console.error('Failed to update relationship:', err);
+      setRelActionError(err?.message || 'Failed to update relationship');
+    } finally {
+      setUpdatingRel(false);
+    }
+  };
+
+  // Delete relationship (§14.5)
+  const handleDeleteRel = async () => {
+    if (!worldId || !selectedEdgeId) return;
+    if (!confirm('Are you sure you want to delete this relationship and all historical versions?')) return;
+    try {
+      await deleteRelationship(worldId, selectedEdgeId);
+      setSelectedEdgeId(null);
+      setSelectedRelData(null);
+      await fetchGraph();
+    } catch (err: any) {
+      console.error('Failed to delete relationship:', err);
+      setRelActionError(err?.message || 'Failed to delete relationship');
+    }
+  };
+
+  // Create relationship (§14.3)
+  const handleCreateRelationship = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!worldId || !newRelSource || !newRelTarget) return;
+    if (newRelSource === newRelTarget) {
+      alert('Source and target entities must be different.');
+      return;
+    }
+    const resolvedType = newRelType === 'OTHER' ? customNewRelType.trim() : newRelType.trim();
+    if (!resolvedType) {
+      alert('Please specify a relationship type.');
+      return;
+    }
+
+    setSubmittingRel(true);
+    try {
+      await createRelationship(worldId, {
+        source_entity_id: newRelSource,
+        target_entity_id: newRelTarget,
+        relationship_type: resolvedType.toUpperCase(),
+        chapter_id: newRelChapterId || null,
+      });
+      setIsAddRelOpen(false);
+      await fetchGraph();
+    } catch (err: any) {
+      console.error('Failed to create relationship:', err);
+      alert(err?.message || 'Failed to create relationship');
+    } finally {
+      setSubmittingRel(false);
+    }
   };
 
   const getNodeColor = (type: Node['type']) => {
@@ -279,6 +434,7 @@ export const WorldGraph: React.FC = () => {
   };
 
   const isEdgeActive = (edge: Edge) => {
+    if (selectedEdgeId === edge.id) return true;
     if (!hoveredNodeId) return true;
     return edge.from === hoveredNodeId || edge.to === hoveredNodeId;
   };
@@ -310,7 +466,7 @@ export const WorldGraph: React.FC = () => {
       <main className="flex-1 w-full h-full flex relative select-none overflow-hidden">
         {/* Left Control Sidebar */}
         <aside className="w-72 bg-surface-container-low/70 backdrop-blur-md border-r border-starlight-white/10 h-full flex flex-col z-10 shrink-0 select-none">
-          <div className="p-gutter flex flex-col gap-6 h-full overflow-y-auto pt-8">
+          <div className="p-gutter flex flex-col gap-5 h-full overflow-y-auto pt-8">
             {/* Search */}
             <div className="relative group">
               <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-base group-focus-within:text-primary transition-colors font-light">
@@ -318,49 +474,50 @@ export const WorldGraph: React.FC = () => {
               </span>
               <input
                 type="text"
+                placeholder="Search entities..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search network entities..."
-                className="w-full bg-surface-container-highest/50 border border-starlight-white/10 rounded-lg px-9 py-2 font-body-md text-xs text-on-surface focus:border-primary focus:ring-0 focus:bg-surface-container-highest transition-all placeholder:text-on-surface-variant/40"
+                className="w-full bg-surface-container-high/60 border border-outline-variant/30 rounded-lg pl-9 pr-3 py-1.5 text-xs text-on-surface placeholder:text-on-surface-variant/50 focus:outline-none focus:border-primary/50 transition-colors"
               />
             </div>
 
-            {/* Time-Slice Slider Section (§16) */}
-            <div className="bg-surface-container/50 border border-starlight-white/10 rounded-xl p-4 flex flex-col gap-3">
+            {/* Narrative Time-Slice Scrubber (§16) */}
+            <div className="flex flex-col gap-3 p-3.5 rounded-xl bg-surface-container/60 border border-starlight-white/10 shadow-sm">
               <div className="flex items-center justify-between">
-                <span className="font-label-sm text-[10px] text-primary uppercase tracking-wider font-semibold flex items-center gap-1.5">
-                  <span className="material-symbols-outlined text-sm">history_toggle_off</span>
-                  Time-Slice State
+                <span className="font-label-sm text-[10px] text-primary uppercase tracking-widest font-semibold flex items-center gap-1.5">
+                  <span className="material-symbols-outlined text-sm">history</span>
+                  Time Slice
                 </span>
-                <span className="text-[10px] px-2 py-0.5 rounded bg-primary/10 text-primary font-medium">
-                  {asOfChapter !== null ? `Ch. ${asOfChapter}` : 'Latest'}
+                <span className="text-[11px] font-bold text-starlight-white bg-primary/10 border border-primary/20 px-2 py-0.5 rounded">
+                  {asOfChapter !== null ? `End of Ch. ${asOfChapter}` : 'Latest (Now)'}
                 </span>
               </div>
 
-              <div className="flex flex-col gap-2">
-                <div className="flex items-center justify-between text-[11px] text-on-surface-variant">
-                  <span>As of Chapter:</span>
-                  <span className="text-starlight-white font-medium">
-                    {asOfChapter !== null ? `End of Chapter ${asOfChapter}` : 'Latest (End of Story)'}
-                  </span>
-                </div>
-
+              <div className="flex flex-col gap-1.5 mt-1">
                 <input
                   type="range"
                   min="1"
-                  max={maxChapter}
+                  max={maxChapter + 1}
                   step="1"
-                  value={asOfChapter ?? maxChapter}
-                  onChange={(e) => setAsOfChapter(parseInt(e.target.value, 10))}
-                  className="w-full h-1.5 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-primary"
+                  value={asOfChapter === null ? maxChapter + 1 : asOfChapter}
+                  onChange={(e) => {
+                    const val = parseInt(e.target.value, 10);
+                    if (val > maxChapter) {
+                      setAsOfChapter(null); // Latest
+                    } else {
+                      setAsOfChapter(val);
+                    }
+                  }}
+                  className="w-full accent-primary h-1.5 bg-surface-container-highest rounded-lg cursor-pointer"
                 />
 
-                <div className="flex items-center justify-between text-[9px] text-on-surface-variant/60">
-                  <span>Ch. 1</span>
-                  <span>Ch. {maxChapter}</span>
+                <div className="flex justify-between items-center text-[10px] text-on-surface-variant/60 font-mono px-0.5 mt-1">
+                  <span>Ch 1</span>
+                  <span>Ch {maxChapter}</span>
+                  <span className="text-primary font-bold">Latest</span>
                 </div>
 
-                <div className="flex gap-2 mt-1">
+                <div className="flex items-center gap-1.5 mt-2">
                   <button
                     onClick={() => setAsOfChapter(1)}
                     className={`flex-1 py-1 px-2 rounded text-[10px] transition-colors border ${
@@ -394,6 +551,27 @@ export const WorldGraph: React.FC = () => {
                 </div>
               </div>
             </div>
+
+            {/* Add Relationship Action Button */}
+            <button
+              onClick={() => {
+                setIsAddRelOpen(true);
+                if (nodes.length >= 2) {
+                  setNewRelSource(nodes[0].id);
+                  setNewRelTarget(nodes[1].id);
+                } else if (nodes.length === 1) {
+                  setNewRelSource(nodes[0].id);
+                  setNewRelTarget('');
+                }
+                setNewRelType('ALLY_OF');
+                setCustomNewRelType('');
+                setNewRelChapterId('');
+              }}
+              className="w-full py-2 px-3 rounded-lg bg-primary/10 border border-primary/30 text-primary hover:bg-primary/20 text-xs font-semibold flex items-center justify-center gap-2 transition-colors shadow-sm"
+            >
+              <span className="material-symbols-outlined text-sm">add_link</span>
+              Add Relationship
+            </button>
 
             {/* Filters */}
             <div className="flex flex-col gap-3">
@@ -440,17 +618,17 @@ export const WorldGraph: React.FC = () => {
             </div>
 
             {/* Controls Guide */}
-            <div className="mt-auto bg-surface-container-low p-4 rounded-lg border border-starlight-white/5 text-[11px] text-on-surface-variant/70 leading-relaxed font-body-md select-none space-y-1.5">
+            <div className="mt-auto bg-surface-container-low p-3.5 rounded-lg border border-starlight-white/5 text-[11px] text-on-surface-variant/70 leading-relaxed font-body-md select-none space-y-1.5">
               <div className="font-semibold text-primary flex items-center gap-1">
                 <span className="material-symbols-outlined text-sm">keyboard</span>
-                Canvas Navigation
+                Canvas Controls
               </div>
-              <div>• <b>Ctrl + Scroll</b>: Zoom in/out at cursor</div>
-              <div>• <b>Drag Background</b>: Pan canvas</div>
+              <div>• <b>Ctrl + Scroll</b>: Zoom at cursor</div>
+              <div>• <b>Drag Canvas</b>: Pan view</div>
+              <div>• <b>Click Edge / Badge</b>: Inspect relationship</div>
+              <div>• <b>Single Click Node</b>: Inspect entity</div>
               <div>• <b>Drag Node</b>: Rearrange layout</div>
-              <div>• <b>Single Click Node</b>: Open details</div>
-              <div>• <b>+ / - / 0</b>: Zoom in/out/reset</div>
-              <div>• <b>Arrow Keys</b>: Pan view</div>
+              <div>• <b>+ / - / 0</b>: Zoom & reset</div>
             </div>
           </div>
         </aside>
@@ -499,7 +677,20 @@ export const WorldGraph: React.FC = () => {
                 >
                   <path d="M 0 0 L 10 5 L 0 10 z" fill="rgba(230,162,126,0.6)" />
                 </marker>
+                <marker
+                  id="arrow-selected"
+                  viewBox="0 0 10 10"
+                  refX="28"
+                  refY="5"
+                  markerWidth="7"
+                  markerHeight="7"
+                  orient="auto-start-reverse"
+                >
+                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#E6A27E" />
+                </marker>
               </defs>
+
+              {/* Edge Lines & Interactive Hit Areas */}
               {visibleEdges.map((edge) => {
                 const fromNode = visibleNodes.find((n) => n.id === edge.from);
                 const toNode = visibleNodes.find((n) => n.id === edge.to);
@@ -507,23 +698,78 @@ export const WorldGraph: React.FC = () => {
                 if (!fromNode || !toNode) return null;
 
                 const isHoveredRelated = isEdgeActive(edge);
-                const opacity = hoveredNodeId ? (isHoveredRelated ? 0.9 : 0.15) : 0.45;
-                const strokeWidth = hoveredNodeId && isHoveredRelated ? 2.2 : 1.4;
+                const isSelected = selectedEdgeId === edge.id;
+                const opacity = isSelected ? 1 : hoveredNodeId ? (isHoveredRelated ? 0.9 : 0.15) : 0.45;
+                const strokeWidth = isSelected ? 2.8 : hoveredNodeId && isHoveredRelated ? 2.2 : 1.4;
+
+                const midX = (fromNode.x + toNode.x) / 2;
+                const midY = (fromNode.y + toNode.y) / 2;
+                const badgeWidth = Math.max(edge.type.length * 5.2 + 14, 52);
 
                 return (
-                  <line
+                  <g
                     key={edge.id}
-                    x1={fromNode.x}
-                    y1={fromNode.y}
-                    x2={toNode.x}
-                    y2={toNode.y}
-                    stroke={edge.color}
-                    strokeWidth={strokeWidth}
-                    strokeDasharray={edge.dashed ? '4 4' : undefined}
-                    opacity={opacity}
-                    markerEnd="url(#arrow)"
-                    className="transition-opacity duration-200"
-                  />
+                    className="cursor-pointer pointer-events-auto"
+                    onClick={(e) => handleEdgeClick(e, edge)}
+                  >
+                    {/* Invisible fat line for easier hovering & clicking */}
+                    <line
+                      x1={fromNode.x}
+                      y1={fromNode.y}
+                      x2={toNode.x}
+                      y2={toNode.y}
+                      stroke="transparent"
+                      strokeWidth={18}
+                    />
+
+                    {/* Visible line */}
+                    <line
+                      x1={fromNode.x}
+                      y1={fromNode.y}
+                      x2={toNode.x}
+                      y2={toNode.y}
+                      stroke={isSelected ? '#E6A27E' : edge.color}
+                      strokeWidth={strokeWidth}
+                      strokeDasharray={edge.dashed ? '4 4' : undefined}
+                      opacity={opacity}
+                      markerEnd={isSelected ? 'url(#arrow-selected)' : 'url(#arrow)'}
+                      className="transition-all duration-200"
+                    />
+
+                    {/* Midpoint Label Badge */}
+                    <g transform={`translate(${midX}, ${midY})`}>
+                      <rect
+                        x={-(badgeWidth / 2)}
+                        y={-9}
+                        width={badgeWidth}
+                        height={18}
+                        rx={4}
+                        fill="#181c20"
+                        stroke={
+                          isSelected
+                            ? '#E6A27E'
+                            : hoveredNodeId && isHoveredRelated
+                            ? edge.color
+                            : 'rgba(255,255,255,0.18)'
+                        }
+                        strokeWidth={isSelected ? 1.8 : 1}
+                        opacity={hoveredNodeId ? (isHoveredRelated ? 1 : 0.25) : 0.9}
+                      />
+                      <text
+                        x={0}
+                        y={3.5}
+                        textAnchor="middle"
+                        fill={isSelected ? '#E6A27E' : hoveredNodeId && isHoveredRelated ? '#ffffff' : '#c2c6d6'}
+                        fontSize="8.5px"
+                        fontFamily="ui-monospace, monospace"
+                        fontWeight="600"
+                        letterSpacing="0.04em"
+                        opacity={hoveredNodeId ? (isHoveredRelated ? 1 : 0.3) : 0.95}
+                      >
+                        {edge.type.replace(/_/g, ' ')}
+                      </text>
+                    </g>
+                  </g>
                 );
               })}
             </svg>
@@ -620,7 +866,349 @@ export const WorldGraph: React.FC = () => {
             </button>
           </div>
         </div>
+
+        {/* Right-Side Relationship Details & Version History Drawer */}
+        {selectedEdgeId && (
+          <aside className="w-84 bg-surface-container-low/95 border-l border-starlight-white/10 h-full flex flex-col z-20 shrink-0 select-none overflow-y-auto">
+            {/* Header */}
+            <div className="p-5 border-b border-starlight-white/10 flex items-center justify-between bg-surface-container-high/40">
+              <div>
+                <span className="text-[10px] uppercase tracking-wider text-primary font-semibold block">
+                  Relationship Chronicle
+                </span>
+                <h3 className="text-sm font-bold text-starlight-white mt-0.5">
+                  {selectedRelData
+                    ? `${selectedRelData.source_name} → ${selectedRelData.target_name}`
+                    : 'Loading Edge...'}
+                </h3>
+              </div>
+              <button
+                onClick={() => {
+                  setSelectedEdgeId(null);
+                  setSelectedRelData(null);
+                }}
+                className="w-7 h-7 rounded-lg hover:bg-white/10 flex items-center justify-center text-on-surface-variant hover:text-starlight-white transition-colors"
+                title="Close"
+              >
+                <span className="material-symbols-outlined text-base">close</span>
+              </button>
+            </div>
+
+            {/* Content */}
+            <div className="p-5 space-y-6 flex-1">
+              {loadingRel ? (
+                <div className="flex items-center justify-center py-12 text-primary">
+                  <span className="material-symbols-outlined animate-spin text-2xl">progress_activity</span>
+                </div>
+              ) : selectedRelData ? (
+                <>
+                  {relActionError && (
+                    <div className="p-3 rounded-lg bg-error/10 border border-error/30 text-error text-xs">
+                      {relActionError}
+                    </div>
+                  )}
+
+                  {/* Current Active Status Card */}
+                  <div className="p-4 rounded-xl bg-surface-container/70 border border-starlight-white/10 space-y-2">
+                    <span className="text-[10px] uppercase tracking-wider text-on-surface-variant/70 font-semibold block">
+                      Active Narrative Status
+                    </span>
+                    <div className="flex items-center justify-between">
+                      <span className="text-base font-bold text-starlight-white font-mono">
+                        {selectedRelData.current_version?.relationship_type || 'NONE'}
+                      </span>
+                      <span
+                        className={`text-[10px] px-2 py-0.5 rounded font-semibold uppercase ${
+                          selectedRelData.current_version?.status === 'ACTIVE'
+                            ? 'bg-primary/20 text-primary border border-primary/30'
+                            : 'bg-surface-container-highest text-on-surface-variant'
+                        }`}
+                      >
+                        {selectedRelData.current_version?.status || 'INACTIVE'}
+                      </span>
+                    </div>
+
+                    <div className="flex items-center justify-between text-xs text-on-surface-variant/80 pt-1 border-t border-starlight-white/5">
+                      <span>Established In:</span>
+                      <span className="font-medium text-starlight-white">
+                        {selectedRelData.current_version?.chapter_number !== null &&
+                        selectedRelData.current_version?.chapter_number !== undefined
+                          ? `Chapter ${selectedRelData.current_version.chapter_number}`
+                          : 'Universal (No Chapter)'}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Update Relationship Type Section */}
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[11px] uppercase tracking-wider text-on-surface-variant font-semibold">
+                        Change Relationship Type
+                      </span>
+                      <button
+                        onClick={() => setIsEditingRelType(!isEditingRelType)}
+                        className="text-xs text-primary hover:underline flex items-center gap-1"
+                      >
+                        <span className="material-symbols-outlined text-xs">
+                          {isEditingRelType ? 'expand_less' : 'edit'}
+                        </span>
+                        {isEditingRelType ? 'Cancel' : 'Update Type'}
+                      </button>
+                    </div>
+
+                    {isEditingRelType && (
+                      <form
+                        onSubmit={handleUpdateRelType}
+                        className="p-3.5 rounded-xl bg-surface-container-high/40 border border-starlight-white/10 space-y-3"
+                      >
+                        <div>
+                          <label className="block text-[10px] text-on-surface-variant uppercase tracking-wider mb-1">
+                            New Type *
+                          </label>
+                          <select
+                            value={editRelType}
+                            onChange={(e) => setEditRelType(e.target.value)}
+                            className="w-full bg-surface-container-highest border border-starlight-white/10 rounded-lg px-2.5 py-1.5 text-xs text-starlight-white focus:outline-none focus:border-primary/50"
+                          >
+                            {COMMON_RELATIONSHIP_TYPES.map((t) => (
+                              <option key={t} value={t}>
+                                {t}
+                              </option>
+                            ))}
+                            <option value="OTHER">Custom Type...</option>
+                          </select>
+                        </div>
+
+                        {editRelType === 'OTHER' && (
+                          <div>
+                            <input
+                              type="text"
+                              placeholder="e.g. BETRAYED_BY"
+                              value={customEditRelType}
+                              onChange={(e) => setCustomEditRelType(e.target.value)}
+                              className="w-full bg-surface-container-highest border border-starlight-white/10 rounded-lg px-2.5 py-1.5 text-xs text-starlight-white focus:outline-none focus:border-primary/50"
+                            />
+                          </div>
+                        )}
+
+                        <div>
+                          <label className="block text-[10px] text-on-surface-variant uppercase tracking-wider mb-1">
+                            Chapter Effective
+                          </label>
+                          <select
+                            value={editRelChapterId}
+                            onChange={(e) => setEditRelChapterId(e.target.value)}
+                            className="w-full bg-surface-container-highest border border-starlight-white/10 rounded-lg px-2.5 py-1.5 text-xs text-starlight-white focus:outline-none focus:border-primary/50"
+                          >
+                            <option value="">Universal (No Chapter)</option>
+                            {chapters.map((ch) => (
+                              <option key={ch.id} value={ch.id}>
+                                Chapter {ch.number}: {ch.title}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+
+                        <button
+                          type="submit"
+                          disabled={updatingRel}
+                          className="w-full py-1.5 px-3 rounded-lg bg-primary text-surface-container font-semibold text-xs hover:bg-primary/90 transition-colors disabled:opacity-50"
+                        >
+                          {updatingRel ? 'Updating...' : 'Append New Version (§14.4)'}
+                        </button>
+                      </form>
+                    )}
+                  </div>
+
+                  {/* Version History Changelog */}
+                  <div className="space-y-3">
+                    <span className="text-[11px] uppercase tracking-wider text-on-surface-variant font-semibold block">
+                      Evolution History ({selectedRelData.versions.length} versions)
+                    </span>
+
+                    <div className="space-y-2">
+                      {selectedRelData.versions.map((ver, idx) => {
+                        const isCurrent = ver.status === 'ACTIVE';
+                        return (
+                          <div
+                            key={ver.id}
+                            className={`p-3 rounded-lg border text-xs space-y-1 ${
+                              isCurrent
+                                ? 'bg-primary/5 border-primary/30'
+                                : ver.status === 'CONTRADICTED'
+                                ? 'bg-error/5 border-error/20'
+                                : 'bg-surface-container-high/30 border-starlight-white/5'
+                            }`}
+                          >
+                            <div className="flex items-center justify-between">
+                              <span className="font-mono font-semibold text-starlight-white">
+                                #{selectedRelData.versions.length - idx} {ver.relationship_type}
+                              </span>
+                              <span
+                                className={`text-[9px] px-1.5 py-0.5 rounded font-bold uppercase ${
+                                  ver.status === 'ACTIVE'
+                                    ? 'bg-primary/20 text-primary'
+                                    : ver.status === 'CONTRADICTED'
+                                    ? 'bg-error/20 text-error'
+                                    : 'bg-white/10 text-on-surface-variant/60'
+                                }`}
+                              >
+                                {ver.status}
+                              </span>
+                            </div>
+
+                            <div className="text-[10px] text-on-surface-variant/60 flex items-center justify-between">
+                              <span>
+                                {ver.chapter_number !== null
+                                  ? `Chapter ${ver.chapter_number}`
+                                  : 'No Chapter'}
+                              </span>
+                              <span>Conf: {ver.confidence}</span>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Danger Zone: Delete Relationship */}
+                  <div className="pt-4 border-t border-starlight-white/10">
+                    <button
+                      onClick={handleDeleteRel}
+                      className="w-full py-2 px-3 rounded-lg bg-error/10 hover:bg-error/20 text-error border border-error/30 text-xs font-semibold flex items-center justify-center gap-2 transition-colors"
+                    >
+                      <span className="material-symbols-outlined text-sm">delete</span>
+                      Delete Relationship (§14.5)
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <p className="text-xs text-on-surface-variant/50">Click an edge to inspect.</p>
+              )}
+            </div>
+          </aside>
+        )}
       </main>
+
+      {/* Add Relationship Modal */}
+      {isAddRelOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
+          <div className="bg-surface-container border border-starlight-white/10 rounded-xl p-6 max-w-md w-full shadow-2xl">
+            <h2 className="text-base font-bold text-starlight-white mb-4 flex items-center gap-2">
+              <span className="material-symbols-outlined text-primary">add_link</span>
+              Establish Narrative Relationship
+            </h2>
+
+            <form onSubmit={handleCreateRelationship} className="space-y-4">
+              <div>
+                <label className="block text-xs font-medium text-on-surface-variant mb-1 uppercase tracking-wider">
+                  Source Entity *
+                </label>
+                <select
+                  value={newRelSource}
+                  onChange={(e) => setNewRelSource(e.target.value)}
+                  className="w-full rounded-lg bg-surface-container-high border border-starlight-white/10 px-3 py-2 text-sm text-starlight-white focus:outline-none focus:border-primary/50"
+                  required
+                >
+                  <option value="">Select source entity...</option>
+                  {nodes.map((n) => (
+                    <option key={n.id} value={n.id}>
+                      {n.name} ({n.subtype})
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-xs font-medium text-on-surface-variant mb-1 uppercase tracking-wider">
+                  Target Entity *
+                </label>
+                <select
+                  value={newRelTarget}
+                  onChange={(e) => setNewRelTarget(e.target.value)}
+                  className="w-full rounded-lg bg-surface-container-high border border-starlight-white/10 px-3 py-2 text-sm text-starlight-white focus:outline-none focus:border-primary/50"
+                  required
+                >
+                  <option value="">Select target entity...</option>
+                  {nodes
+                    .filter((n) => n.id !== newRelSource)
+                    .map((n) => (
+                      <option key={n.id} value={n.id}>
+                        {n.name} ({n.subtype})
+                      </option>
+                    ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-xs font-medium text-on-surface-variant mb-1 uppercase tracking-wider">
+                  Relationship Type *
+                </label>
+                <select
+                  value={newRelType}
+                  onChange={(e) => setNewRelType(e.target.value)}
+                  className="w-full rounded-lg bg-surface-container-high border border-starlight-white/10 px-3 py-2 text-sm text-starlight-white focus:outline-none focus:border-primary/50"
+                >
+                  {COMMON_RELATIONSHIP_TYPES.map((t) => (
+                    <option key={t} value={t}>
+                      {t}
+                    </option>
+                  ))}
+                  <option value="OTHER">Custom Type...</option>
+                </select>
+              </div>
+
+              {newRelType === 'OTHER' && (
+                <div>
+                  <input
+                    type="text"
+                    required
+                    placeholder="Enter custom type, e.g. MENTOR_OF"
+                    value={customNewRelType}
+                    onChange={(e) => setCustomNewRelType(e.target.value)}
+                    className="w-full rounded-lg bg-surface-container-high border border-starlight-white/10 px-3 py-2 text-sm text-starlight-white focus:outline-none focus:border-primary/50"
+                  />
+                </div>
+              )}
+
+              <div>
+                <label className="block text-xs font-medium text-on-surface-variant mb-1 uppercase tracking-wider">
+                  Effective Chapter
+                </label>
+                <select
+                  value={newRelChapterId}
+                  onChange={(e) => setNewRelChapterId(e.target.value)}
+                  className="w-full rounded-lg bg-surface-container-high border border-starlight-white/10 px-3 py-2 text-sm text-starlight-white focus:outline-none focus:border-primary/50"
+                >
+                  <option value="">Universal (Visible at all points)</option>
+                  {chapters.map((ch) => (
+                    <option key={ch.id} value={ch.id}>
+                      Chapter {ch.number}: {ch.title}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="flex items-center justify-end gap-3 pt-3 border-t border-starlight-white/5">
+                <button
+                  type="button"
+                  onClick={() => setIsAddRelOpen(false)}
+                  className="px-4 py-2 rounded-lg text-sm text-on-surface-variant hover:text-starlight-white transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={submittingRel || !newRelSource || !newRelTarget}
+                  className="px-4 py-2 rounded-lg text-sm bg-primary text-surface-container font-semibold hover:bg-primary/90 transition-colors disabled:opacity-50"
+                >
+                  {submittingRel ? 'Creating...' : 'Create Relationship (§14.3)'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </AppShell>
   );
 };
