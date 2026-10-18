@@ -81,5 +81,6 @@ def test_chapter_edit_dispatches_a_single_chapter_job(api, monkeypatch):
     resp = client.put(f"/api/v1/worlds/{world_id}/chapters/{runs[2]['chapter_id']}", json={"content": "Chapter 2: T2 edited\nAlice ran. [A]"})
 
     assert resp.status_code == 202 and resp.json()["status"] == "re_extraction_queued"
-    assert env.integration_order == [2]
+    assert env.extract_calls[-1] == ("A", 2)
+    assert env.integration_order == []             # re-extraction proposes, it doesn't write (docs/api.md §17)
     assert env.job(resp.json()["job_id"])["status"] == "done"

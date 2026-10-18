@@ -3,6 +3,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { AppShell } from '../components/AppShell';
 import { useWorldStore } from '../store/useWorldStore';
 import { apiFetch } from '../api/client';
+import { getProposals } from '../api/proposals';
+import type { ProposalsResponse } from '../api/proposals';
+import { ProposalReviewModal } from '../components/ProposalReviewModal';
 
 export const WritingRoom: React.FC = () => {
   const navigate = useNavigate();
@@ -42,6 +45,7 @@ export const WritingRoom: React.FC = () => {
   const [showHistory, setShowHistory] = useState(false);
   const [historyVersions, setHistoryVersions] = useState<any[]>([]);
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
+  const [review, setReview] = useState<ProposalsResponse | null>(null);
 
   useEffect(() => {
     if (activeChapter) {
@@ -96,8 +100,15 @@ export const WritingRoom: React.FC = () => {
               if (statusData.status === 'done') {
                 clearInterval(poll);
                 setIsExtracting(false);
-                setExtractionStatus('Entity extraction complete! Ledger updated.');
-                setTimeout(() => setExtractionStatus(null), 3000);
+                // Re-extraction proposes; nothing changes in the world until the author applies it (docs/api.md §17)
+                try {
+                  const found = await getProposals(res.job_id);
+                  setReview(found);
+                  setExtractionStatus(null);
+                } catch {
+                  setExtractionStatus('Extraction finished, but its proposals could not be loaded.');
+                  setTimeout(() => setExtractionStatus(null), 4000);
+                }
               } else if (statusData.status === 'failed') {
                 clearInterval(poll);
                 setIsExtracting(false);
@@ -439,6 +450,22 @@ export const WritingRoom: React.FC = () => {
             </div>
           </div>
         </div>
+      )}
+
+      {review && (
+        <ProposalReviewModal
+          worldId={currentWorldId}
+          chapterNumber={review.chapter_number}
+          proposals={review.proposals}
+          onClose={(applied) => {
+            setReview(null);
+            if (applied) {
+              useWorldStore.getState().fetchEntitiesForWorld(currentWorldId);
+              setExtractionStatus('Changes applied to your world.');
+              setTimeout(() => setExtractionStatus(null), 3000);
+            }
+          }}
+        />
       )}
 
       {/* Floating Extraction Toast */}
