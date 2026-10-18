@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "v0": {
+      "source": "headline-design/design-craft",
+      "sourceType": "github",
+      "skillPath": "v0/SKILL.md",
+      "computedHash": "360f688709ddb4b30e3dd0d2f5bd2857da6141a9e10bfab0c0d696350aaf2665"
+    }
+  }
+}
