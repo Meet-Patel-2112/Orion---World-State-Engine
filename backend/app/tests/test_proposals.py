@@ -38,7 +38,7 @@ def test_new_and_changed_claims_point_at_stored_or_proposed_entities(api, monkey
     env, world_id, client = api
     _, job_id, runs, _ = _upload_and_edit(env, world_id, client, monkeypatch)
     extraction = {"entities": [
-        {"canonical_name": "HeroAC", "type": "character", "aliases": [], "attributes": {"age": "99"}},
+        {"canonical_name": "HeroAC", "type": "character", "aliases": ["Ace"], "attributes": {"age": "99"}},
         {"canonical_name": "Newbie Quill", "type": "character", "aliases": ["Newbie"], "attributes": {"age": "7"}}],
         "relationships": [{"subject": "Newbie", "predicate": "SIBLING_OF", "object": "HeroAC"},
                           {"subject": "HeroAC", "predicate": "FRIEND_OF", "object": "SharedA"}],
@@ -52,6 +52,8 @@ def test_new_and_changed_claims_point_at_stored_or_proposed_entities(api, monkey
     hero, newbie = by[("entity", "Known character: HeroAC")], by[("entity", "New character: Newbie Quill")]
     assert hero["change"] == "known" and hero["match_entity_id"]
     assert newbie["change"] == "new" and newbie["match_entity_id"] is None
+    alias = by[("alias", "HeroAC is also called Ace")]
+    assert alias["entity_id"] == hero["match_entity_id"] and alias["proposed"] == {"alias": "Ace"}
     age = by[("fact", "HeroAC age: 32 → 99")]
     assert age["change"] == "changed" and age["current"]["value"] == "32" and age["proposed"]["value"] == "99"
     assert by[("fact", "Newbie Quill age: 7")]["entity"] == {"entity_ref": newbie["id"]}

@@ -66,6 +66,12 @@ class ProposalService:
             for n in [name, *aliases]:
                 ref_of[n.lower()] = ref
             label = found.canonical_name if found else name
+            if found:                                       # a known entity under a name it doesn't have yet
+                stored = {found.canonical_name.lower(), *(a.alias.lower() for a in found.aliases)}
+                for alias in dict.fromkeys(n for n in [name, *aliases] if n.lower() not in stored):
+                    proposals.append({"id": next_id(), "kind": "alias", "change": "new",
+                                      "summary": f"{label} is also called {alias}", "confidence": CONFIDENCE,
+                                      "entity_id": found.id, "proposed": {"alias": alias}})
 
             for prop, value in (ent.get("attributes") or {}).items():
                 if value in (None, ""):

@@ -27,7 +27,7 @@ const refsOf = (p: Proposal): string[] => {
  * until they tick it. New items start ticked; a changed value starts on "keep old".
  */
 export const ProposalReviewModal: React.FC<Props> = ({ worldId, chapterNumber, proposals, onClose }) => {
-  const shown = useMemo(() => proposals.filter((p) => p.change !== 'known' && p.kind !== 'alias'), [proposals]);
+  const shown = useMemo(() => proposals.filter((p) => p.change !== 'known'), [proposals]);
   const [accepted, setAccepted] = useState<Set<string>>(
     () => new Set(shown.filter((p) => p.change === 'new').map((p) => p.id)));
   const [busy, setBusy] = useState(false);

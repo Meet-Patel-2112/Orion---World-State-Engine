@@ -81,7 +81,7 @@ export interface ApplyResult {
 /**
  * Applies the accepted proposals through the manual endpoints (§17 "Applying"), in PROPOSAL_APPLY_ORDER, so each
  * accepted change is a new version like a manual edit. A rejected or failed `new` entity skips everything that points
- * at it. Alias proposals are skipped: the alias endpoint (§13.3) is not on main yet.
+ * at it.
  */
 export async function applyProposals(worldId: string, proposals: Proposal[], accepted: Set<string>): Promise<ApplyResult> {
   const created = new Map<string, string>();           // entity proposal id -> new entity id
@@ -99,8 +99,7 @@ export async function applyProposals(worldId: string, proposals: Proposal[], acc
           const ent = await post('/entities', p.proposed);
           created.set(p.id, ent.id);
         } else if (p.kind === 'alias') {
-          result.skipped++;
-          continue;
+          await post(`/entities/${p.entity_id}/aliases`, p.proposed);
         } else if (p.kind === 'fact') {
           const id = resolve(p.entity);
           if (!id) { result.skipped++; continue; }
