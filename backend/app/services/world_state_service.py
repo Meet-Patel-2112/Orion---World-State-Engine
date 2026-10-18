@@ -65,8 +65,12 @@ class WorldStateService:
         """The stored entity one of `names` refers to. An exact name or alias wins; otherwise a short or full form
         ("Mara" / "Mara Quinn") of exactly one stored entity of the same type. Role phrases ("mother") never match:
         "her mother" in two chapters is rarely the same person."""
-        names = [n for n in names if is_proper_name(n)]
         lookup = lambda n: self.entity_repo.get_by_canonical(world_id, n) or self.entity_repo.get_by_alias(world_id, n)
+        # An owner-qualified role ("Mr. Bennet's wife") names one person: exact matches only, e.g. the alias a merge left
+        owned = next((e for n in names if n.split("'s ")[0][:1].isupper() and "'s " in n and (e := lookup(n))), None)
+        if owned:
+            return owned
+        names = [n for n in names if is_proper_name(n)]
         exact = next((e for n in names if (e := lookup(n))), None)
         if exact or not names:
             return exact

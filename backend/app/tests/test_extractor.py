@@ -90,3 +90,18 @@ def test_names_keep_their_titles_and_mr_and_mrs_stay_two_people(world):
     with env.Session() as s:
         names = sorted(e.canonical_name for e in s.query(Entity).filter_by(world_id=w["world_id"]))
     assert names == ["Mr. Bennet", "Mrs. Bennet"]                 # same surname, conflicting titles: not one person
+
+
+def test_an_owner_qualified_role_finds_the_entity_it_was_merged_into(world):
+    from app.models.entity import Entity, EntityAlias
+    env, w = world
+    person = lambda name: {"canonical_name": name, "type": "character", "aliases": [], "attributes": {}}
+    integrate(env, w["world_id"], w["runs"][1], {"entities": [person("Mrs. Bennet")]})
+    with env.Session() as s:                                     # the author merged "Mr. Bennet's wife" into her
+        mrs = s.query(Entity).filter_by(world_id=w["world_id"]).one()
+        s.add(EntityAlias(entity_id=mrs.id, alias="Mr. Bennet's wife"))
+        s.commit()
+    integrate(env, w["world_id"], w["runs"][2], {"entities": [person("Mr. Bennet's wife"), person("his wife")]})
+    with env.Session() as s:
+        names = sorted(e.canonical_name for e in s.query(Entity).filter_by(world_id=w["world_id"]))
+    assert names == ["Mrs. Bennet", "his wife"]                   # "his wife" is still nobody in particular

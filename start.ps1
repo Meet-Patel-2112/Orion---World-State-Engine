@@ -38,7 +38,8 @@ Pop-Location
 # ---- API and frontend, one window each
 Start-Process powershell -WorkingDirectory "$root\backend" -ArgumentList "-NoExit", "-Command",
     "`$env:PYTHONPATH='.'; .\.venv\Scripts\uvicorn.exe app.main:app --host 127.0.0.1 --port 8000"
-Start-Process powershell -WorkingDirectory "$root\Frontend" -ArgumentList "-NoExit", "-Command", "npx vite --host 127.0.0.1 --port 5173"
+Start-Process powershell -WorkingDirectory "$root\Frontend" -ArgumentList "-NoExit", "-Command",
+    "`$env:VITE_API_BASE_URL='http://127.0.0.1:8000/api/v1'; npx vite --host 127.0.0.1 --port 5173"
 
 Write-Host "Frontend: http://127.0.0.1:5173   API: http://127.0.0.1:8000/api/v1/docs" -ForegroundColor Green
 Write-Host "Log in as demo@example.com / orion-demo (seed: backend\.venv\Scripts\python.exe backend\scripts\seed_demo_world.py)"
