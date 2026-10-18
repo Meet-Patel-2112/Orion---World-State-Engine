@@ -50,7 +50,7 @@ class ProposalService:
         next_id = lambda: f"p-{len(proposals) + 1:03d}"
 
         for ent in extraction.get("entities", []):
-            name = normalize_entity_name(ent.get("canonical_name", "").strip())
+            name = ent.get("canonical_name", "").strip()      # as integration stores it
             if not name:
                 continue
             kind = ent.get("type", "unknown").lower()

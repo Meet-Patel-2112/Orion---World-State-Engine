@@ -79,3 +79,14 @@ def test_a_chapter_naming_an_entity_by_its_alias_joins_the_stored_entity(world):
         [entity] = s.query(Entity).filter_by(world_id=w["world_id"]).all()
         aliases = sorted(a.alias for a in s.query(EntityAlias).filter_by(entity_id=entity.id))
     assert entity.canonical_name == "Dan" and aliases == ["Daniel", "Daniel Esperanza"]
+
+
+def test_names_keep_their_titles_and_mr_and_mrs_stay_two_people(world):
+    from app.models.entity import Entity
+    env, w = world
+    bennet = lambda name: {"canonical_name": name, "type": "character", "aliases": [], "attributes": {}}
+    integrate(env, w["world_id"], w["runs"][1], {"entities": [bennet("Mr. Bennet")]})
+    integrate(env, w["world_id"], w["runs"][2], {"entities": [bennet("Mrs. Bennet")]})
+    with env.Session() as s:
+        names = sorted(e.canonical_name for e in s.query(Entity).filter_by(world_id=w["world_id"]))
+    assert names == ["Mr. Bennet", "Mrs. Bennet"]                 # same surname, conflicting titles: not one person
