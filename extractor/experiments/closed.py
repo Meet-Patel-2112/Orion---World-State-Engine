@@ -81,16 +81,19 @@ def _post_ipv4(path: str, body: Dict[str, Any], timeout: int) -> Dict[str, Any]:
 class MeteredLLM:
     """The request body of `llm.generate`, cached on that body, with Ollama's token counts and durations kept."""
 
-    def __init__(self, path: Path, post: Callable[[str, Dict[str, Any], int], Dict[str, Any]] = None):
+    def __init__(self, path: Path, post: Callable[[str, Dict[str, Any], int], Dict[str, Any]] = None,
+                 model: str = None, extra: Dict[str, Any] = None):
         self.path, self.post = path, post or _post_ipv4
+        self.model, self.extra = model or llm.MODEL, extra or {}
         self.store: Dict[str, Any] = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
         self.hits = self.misses = 0
 
-    @staticmethod
-    def body(system: str, user: str, schema: Any, num_predict: int = 1024, model: str = None) -> Dict[str, Any]:
-        return {"model": model or llm.MODEL, "stream": False, "format": schema,
+    def body(self, system: str, user: str, schema: Any, num_predict: int = 1024) -> Dict[str, Any]:
+        """`llm.generate`'s body for this model; `extra` adds request fields (e.g. think: false), never options."""
+        return {"model": self.model, "stream": False, "format": schema,
                 "options": {"temperature": 0, "num_ctx": llm.NUM_CTX, "num_predict": num_predict},
-                "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}]}
+                "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}],
+                **self.extra}
 
     def __call__(self, system: str, user: str, schema: Any = "json", num_predict: int = 1024) -> Dict[str, Any]:
         body = self.body(system, user, schema, num_predict)
@@ -102,9 +105,14 @@ class MeteredLLM:
         t0 = time.time()
         reply = self.post("chat", body, 600)
         cut = reply.get("done_reason") == "length"
-        entry = {"answer": None if cut else json.loads(reply["message"]["content"]), "cut_off": cut,
+        try:
+            answer = None if cut else json.loads(reply["message"]["content"])
+        except json.JSONDecodeError:
+            answer = None                               # an unparseable reply counts as no answer
+        entry = {"answer": answer, "cut_off": cut,
                  "prompt_tokens": reply.get("prompt_eval_count"), "output_tokens": reply.get("eval_count"),
-                 "seconds": round(reply.get("total_duration", (time.time() - t0) * 1e9) / 1e9, 3)}
+                 "seconds": round(reply.get("total_duration", (time.time() - t0) * 1e9) / 1e9, 3),
+                 "wall_seconds": round(time.time() - t0, 3)}
         self.store[key] = entry
         self.path.parent.mkdir(parents=True, exist_ok=True)
         self.path.write_text(json.dumps(self.store, ensure_ascii=False), encoding="utf-8")
@@ -117,6 +125,73 @@ def ask(call: MeteredLLM, template: Dict[str, Any], examples: List[Tuple[str, Di
     shots = f"# Examples:\n{shots}" if shots else ""
     return call(SYSTEM, f"# Template:\n{json.dumps(template, indent=4, ensure_ascii=False)}\n{shots}# Context:\n{context}",
                 "json")
+
+
+# ---------------------------------------------------------------- dialects: the same question, two phrasings
+# Each returns the answer under the NuExtract template's own keys, so parsing, validation and scoring are shared.
+class NuExtractDialect:
+    name, prompt_version = "nuextract", PROMPT_VERSION
+
+    def fact(self, call, key: str, ex_key: str, prop: str, context: str) -> Dict[str, Any]:
+        if prop == "status":
+            template = {key: "verbatim-string", "status class": STATUS}
+            example = {ex_key: MARTA["status"], "status class": "injured"}
+        else:
+            template, example = {key: "verbatim-string"}, {ex_key: MARTA.get(prop)}
+        reply = ask(call, template, [(EXAMPLE, example)], context)
+        return reply["answer"] if isinstance(reply["answer"], dict) else {}
+
+    def relation(self, call, key: str, options: List[str], context: str, example: Dict[str, Any]) -> Dict[str, Any]:
+        reply = ask(call, {key: options + ["none"], "evidence": "verbatim-string"}, [(EXAMPLE, example)], context)
+        return reply["answer"] if isinstance(reply["answer"], dict) else {}
+
+
+INSTRUCT_SYSTEM = ("You answer questions about a passage from a novel. Use only what the passage explicitly states. "
+                   "If the passage does not explicitly state the answer, answer \"none\". Do not guess, and do not "
+                   "infer anything from two people simply being mentioned together.")
+
+
+class InstructDialect:
+    """The same task written as instructions for a chat model (prompt version closed-instruct-v1): the same question,
+    the same worked example (Marta Lindqvist), the same context. A JSON schema limits a relationship answer to the
+    offered options plus "none"; a fact answer is a string, copied or "none". No gold values, predicates or evidence
+    appear in a prompt."""
+    name, prompt_version = "instruct", "closed-instruct-v1"
+
+    def fact(self, call, key: str, ex_key: str, prop: str, context: str) -> Dict[str, Any]:
+        label = LABEL[prop]
+        name = key[len(label) + len(" of "):]
+        status = prop == "status"
+        ex_answer = {"answer": MARTA.get(prop) or "none", **({"status_class": "injured"} if status else {})}
+        user = (f"Example passage:\n{EXAMPLE}\nExample question: What does the passage explicitly state as the {label} "
+                f"of Marta Lindqvist?\nExample answer: {json.dumps(ex_answer)}\n\n"
+                f"Passage:\n{context}\n\nQuestion: What does the passage explicitly state as the {label} of {name}? "
+                f"Copy the exact words from the passage. If the passage does not state it about {name}, answer "
+                f"\"none\"." + (" Also give the condition's class: alive, dead, missing, injured, unconscious, or "
+                               "none." if status else ""))
+        props = {"answer": {"type": "string"}, **({"status_class": {"enum": STATUS}} if status else {})}
+        reply = call(INSTRUCT_SYSTEM, user, {"type": "object", "properties": props, "required": list(props)})
+        a = reply["answer"] if isinstance(reply["answer"], dict) else {}
+        return {key: a.get("answer"), **({"status class": a.get("status_class")} if status else {})}
+
+    def relation(self, call, key: str, options: List[str], context: str, example: Dict[str, Any]) -> Dict[str, Any]:
+        names = key[len("How are "):-len(" related?")]
+        ex_rel = next(v for k, v in example.items() if k != "evidence")
+        user = (f"Example passage:\n{EXAMPLE}\nExample: between Tomas and Marta Lindqvist the passage states "
+                f"\"{ex_rel}\"; evidence: \"{example['evidence']}\".\n\n"
+                f"Passage:\n{context}\n\nQuestion: Which of these relationships between {names} does the passage "
+                f"explicitly state?\n" + "\n".join(f"- {o}" for o in options) + "\n- none\n"
+                "Choose \"none\" unless the passage itself states the relationship. If you choose one, copy the words "
+                "from the passage that state it as the evidence; otherwise give an empty evidence string.")
+        schema = {"type": "object", "properties": {"relation": {"enum": options + ["none"]},
+                                                   "evidence": {"type": "string"}},
+                  "required": ["relation", "evidence"]}
+        reply = call(INSTRUCT_SYSTEM, user, schema)
+        a = reply["answer"] if isinstance(reply["answer"], dict) else {}
+        return {key: a.get("relation"), "evidence": a.get("evidence")}
+
+
+DIALECTS = {"nuextract": NuExtractDialect(), "instruct": InstructDialect()}
 
 
 # ---------------------------------------------------------------- answers and evidence (pure, tested)
@@ -213,7 +288,8 @@ def run_probe(ch: Chapter, call: MeteredLLM, log: List[Dict[str, Any]]) -> List[
     return facts
 
 
-def run_facts(ch: Chapter, call: MeteredLLM, log: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+def run_facts(ch: Chapter, call: MeteredLLM, log: List[Dict[str, Any]], dialect=None) -> List[Dict[str, Any]]:
+    dialect = dialect or DIALECTS["nuextract"]
     facts = []
     for chunk in ch.chunks:
         for k in ch.fact_entities():
@@ -223,13 +299,7 @@ def run_facts(ch: Chapter, call: MeteredLLM, log: List[Dict[str, Any]]) -> List[
             context, name = "\n".join(s.text for s in window), ch.name[k]
             for prop in FACT_PROPERTIES:
                 key, ex_key = f"{LABEL[prop]} of {name}", f"{LABEL[prop]} of Marta Lindqvist"
-                if prop == "status":
-                    template = {key: "verbatim-string", "status class": STATUS}
-                    example = {ex_key: MARTA["status"], "status class": "injured"}
-                else:
-                    template, example = {key: "verbatim-string"}, {ex_key: MARTA.get(prop)}
-                reply = ask(call, template, [(EXAMPLE, example)], context)
-                answer = reply["answer"] if isinstance(reply["answer"], dict) else {}
+                answer = dialect.fact(call, key, ex_key, prop, context)
                 value = answer_value(answer.get(key))
                 kept = _keep_fact(ch, k, prop, value, window, log, "facts")
                 if kept and prop == "status":
@@ -268,18 +338,18 @@ def pair_windows(ch: Chapter, a: str, b: str) -> List[List[int]]:
     return sorted(windows)[:WINDOWS_PER_PAIR]
 
 
-def run_rels(ch: Chapter, call: MeteredLLM, pairs: Iterable[Tuple[str, str]], log, exp) -> List[Dict[str, Any]]:
+def run_rels(ch: Chapter, call: MeteredLLM, pairs: Iterable[Tuple[str, str]], log, exp,
+             dialect=None) -> List[Dict[str, Any]]:
+    dialect = dialect or DIALECTS["nuextract"]
     rels = []
     example = {"How are Tomas and Marta Lindqvist related?": "Tomas and Marta Lindqvist are siblings",
                "evidence": EXAMPLE[:EXAMPLE.index(".") + 1]}
     for a, b in pairs:
         opts = rel_options(ch.name[a], ch.name[b], ch.kind[a], ch.kind[b])
         key = f"How are {ch.name[a]} and {ch.name[b]} related?"
-        template = {key: [p for p, _, _ in opts] + ["none"], "evidence": "verbatim-string"}
         for w in pair_windows(ch, a, b):
             window = [ch.sentences[i] for i in w]
-            reply = ask(call, template, [(EXAMPLE, example)], "\n".join(s.text for s in window))
-            answer = reply["answer"] if isinstance(reply["answer"], dict) else {}
+            answer = dialect.relation(call, key, [p for p, _, _ in opts], "\n".join(s.text for s in window), example)
             choice = parse_relation(answer, key, opts)
             entry = {"experiment": exp, "pair": [a, b], "names": [ch.name[a], ch.name[b]], "window": w,
                      "choice": answer.get(key)}
@@ -340,9 +410,14 @@ def main(argv: Optional[List[str]] = None) -> int:
     ap.add_argument("experiment", choices=["probe", "facts", "rels-oracle", "rels-candidates"])
     ap.add_argument("out_dir")
     ap.add_argument("--upstream", required=True)
+    ap.add_argument("--model", default=llm.MODEL, help="Ollama model (default: the production NuExtract)")
+    ap.add_argument("--dialect", choices=sorted(DIALECTS), default="nuextract")
+    ap.add_argument("--no-think", action="store_true", help='send "think": false (thinking models such as Qwen3.5)')
     a = ap.parse_args(argv)
     out = Path(a.out_dir)
-    call = MeteredLLM(out / "llm_cache.json")
+    dialect = DIALECTS[a.dialect]
+    call = MeteredLLM(out / "llm_cache.json", model=a.model, extra={"think": False} if a.no_think else None)
+    wall0 = time.time()
     gold_dir = Path(__file__).resolve().parents[2] / "gold" / "v2"
     meta, log = [], []
     for path in sorted(gold_dir.rglob("ch*.json")):
@@ -357,12 +432,12 @@ def main(argv: Optional[List[str]] = None) -> int:
         if a.experiment == "probe":
             pred["facts"] = run_probe(ch, call, log)
         elif a.experiment == "facts":
-            pred["facts"] = run_facts(ch, call, log)
+            pred["facts"] = run_facts(ch, call, log, dialect)
         else:
             resolver = _Resolver(upstream, _Gold(gold, include_pending=False))
             pairs = (oracle_pairs(ch, gold, lambda mid: resolver(mid)[0]) if a.experiment == "rels-oracle"
                      else candidate_pairs(ch))
-            pred["relationships"] = run_rels(ch, call, pairs, log, a.experiment)
+            pred["relationships"] = run_rels(ch, call, pairs, log, a.experiment, dialect)
         for i, f in enumerate(pred["facts"], 1):
             f["fact_id"] = f"F{i}"
         for i, r in enumerate(pred["relationships"], 1):
@@ -381,10 +456,14 @@ def main(argv: Optional[List[str]] = None) -> int:
     cost = {"requests": len(entries), "prompt_tokens": sum(e["prompt_tokens"] or 0 for e in entries),
             "output_tokens": sum(e["output_tokens"] or 0 for e in entries),
             "model_seconds": round(sum(e["seconds"] or 0 for e in entries), 1),
-            "cut_off": sum(bool(e["cut_off"]) for e in entries)}
+            "cut_off": sum(bool(e["cut_off"]) for e in entries),
+            "no_answer": sum(e["answer"] is None for e in entries),
+            "request_wall_seconds": round(sum(e.get("wall_seconds") or 0 for e in entries), 1),
+            "this_run_wall_seconds": round(time.time() - wall0, 1)}
     (out / "answers.json").write_text(json.dumps(log, ensure_ascii=False, indent=1), encoding="utf-8")
-    (out / "run_meta.json").write_text(json.dumps({"experiment": a.experiment, "prompt_version": PROMPT_VERSION,
-                                                   "model": llm.MODEL, "upstream": a.upstream, "chapters": meta,
+    (out / "run_meta.json").write_text(json.dumps({"experiment": a.experiment, "prompt_version": dialect.prompt_version,
+                                                   "dialect": dialect.name, "model": a.model, "request_extra": call.extra,
+                                                   "upstream": a.upstream, "chapters": meta,
                                                    "cost_all_cached_requests": cost}, indent=1), encoding="utf-8")
     print(json.dumps(cost))
     return 0

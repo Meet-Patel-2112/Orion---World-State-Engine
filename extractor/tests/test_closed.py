@@ -37,8 +37,11 @@ def test_metered_cache_records_cost_and_replays(tmp_path):
     fake = FakeOllama({"x": "y"})
     call = MeteredLLM(tmp_path / "c.json", fake)
     first, again = call("s", "u"), call("s", "u")
-    assert first == again == {"answer": {"x": "y"}, "cut_off": False, "prompt_tokens": 120, "output_tokens": 7,
-                              "seconds": 0.25}
+    assert first == again and {k: first[k] for k in ("answer", "cut_off", "prompt_tokens", "output_tokens",
+                                                     "seconds")} == {"answer": {"x": "y"}, "cut_off": False,
+                                                                     "prompt_tokens": 120, "output_tokens": 7,
+                                                                     "seconds": 0.25}
+    assert first["wall_seconds"] >= 0
     assert (call.hits, call.misses, len(fake.calls)) == (1, 1, 1)
     assert fake.calls[0]["options"] == {"temperature": 0, "num_ctx": 4096, "num_predict": 1024}   # llm.generate's body
     replay = MeteredLLM(tmp_path / "c.json", FakeOllama(lambda b: 1 / 0))       # a cached call never reaches the model
@@ -108,3 +111,60 @@ def test_run_rels_and_facts_end_to_end_with_a_fake_model(tmp_path):
     facts = run_facts(ch, MeteredLLM(tmp_path / "f.json", FakeOllama(answer)), log := [])
     assert [(f["property"], f["value"]) for f in facts] == [("occupation", "nurse")]
     assert {e["result"] for e in log} == {"kept", "none"}
+
+
+# ---------------------------------------------------------------- instruction-model dialect
+from experiments.closed import DIALECTS, InstructDialect  # noqa: E402
+
+
+def test_nuextract_requests_are_unchanged_by_the_model_option(tmp_path):
+    """Default MeteredLLM bodies (no model, no extra) are byte-identical to before: old caches still replay."""
+    import extractor.llm as llm
+    body = MeteredLLM(tmp_path / "c.json").body("s", "u", "json")
+    assert body == {"model": llm.MODEL, "stream": False, "format": "json",
+                    "options": {"temperature": 0, "num_ctx": 4096, "num_predict": 1024},
+                    "messages": [{"role": "system", "content": "s"}, {"role": "user", "content": "u"}]}
+    other = MeteredLLM(tmp_path / "d.json", model="qwen3.5:9b", extra={"think": False}).body("s", "u", "json")
+    assert other["model"] == "qwen3.5:9b" and other["think"] is False and other["options"] == body["options"]
+
+
+def test_instruct_fact_question_returns_template_keys_and_none(tmp_path):
+    seen = []
+
+    def answer(body):
+        seen.append(body)
+        return {"answer": "none", "status_class": "dead"} if "condition" in body["messages"][1]["content"] \
+            else {"answer": "a nurse"}
+    call = MeteredLLM(tmp_path / "c.json", FakeOllama(answer), model="m")
+    d = InstructDialect()
+    assert d.fact(call, "occupation of Anna Bell", "occupation of Marta Lindqvist", "occupation", "ctx") == \
+        {"occupation of Anna Bell": "a nurse"}
+    status_key = "condition (alive, dead, injured...) of Anna Bell"
+    got = d.fact(call, status_key, "x", "status", "ctx")
+    assert got == {status_key: "none", "status class": "dead"} and answer_value(got[status_key]) is None
+    assert seen[1]["format"]["properties"]["status_class"]["enum"][-1] == "none"
+    question = seen[0]["messages"][1]["content"].split("\nPassage:\n")[1]       # after the shared worked example
+    assert question.startswith("ctx\n\nQuestion: What does the passage explicitly state as the occupation of Anna Bell?")
+    assert "nurse" not in question                                                # no answer hint in the question
+
+
+def test_instruct_relation_question_offers_options_plus_none(tmp_path):
+    seen = []
+    call = MeteredLLM(tmp_path / "c.json", FakeOllama(lambda b: seen.append(b) or {"relation": "none", "evidence": ""}))
+    opts = rel_options("Ben", "Anna Bell", "character", "character")
+    key = "How are Ben and Anna Bell related?"
+    example = {"How are Tomas and Marta Lindqvist related?": "Tomas and Marta Lindqvist are siblings", "evidence": "e."}
+    got = DIALECTS["instruct"].relation(call, key, [p for p, _, _ in opts], "ctx", example)
+    assert got == {key: "none", "evidence": ""} and parse_relation(got, key, opts) is None
+    enum = seen[0]["format"]["properties"]["relation"]["enum"]
+    assert enum[-1] == "none" and "Ben works for Anna Bell" in enum
+
+
+def test_unparseable_reply_is_no_answer(tmp_path):
+    class Bad(FakeOllama):
+        def __call__(self, path, body, timeout):
+            return {**super().__call__(path, body, timeout), "message": {"content": "not json"}}
+    entry = MeteredLLM(tmp_path / "c.json", Bad({}))("s", "u")
+    assert entry["answer"] is None and InstructDialect().relation(
+        MeteredLLM(tmp_path / "c.json", Bad({})), "How are A and B related?", ["A owns B"], "ctx",
+        {"q": "x", "evidence": "e"}) == {"How are A and B related?": None, "evidence": None}
