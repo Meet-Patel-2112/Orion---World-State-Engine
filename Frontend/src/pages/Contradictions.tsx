@@ -24,56 +24,108 @@ export const Contradictions: React.FC = () => {
     setResolutionChoice(null);
   };
 
-  const handleExecuteResolve = (id: string, correctText: string) => {
+  const handleExecuteResolve = (
+    id: string,
+    correctText: string,
+    preferredFactVersionId?: string | null,
+    preferredRelationshipVersionId?: string | null
+  ) => {
     setResolutionChoice(correctText);
     
     // Briefly show selection, then animate out
-    setTimeout(() => {
+    setTimeout(async () => {
       if (activeWorldId) {
-        resolveContradictionInBackend(activeWorldId, id);
+        await resolveContradictionInBackend(
+          activeWorldId,
+          id,
+          preferredFactVersionId,
+          preferredRelationshipVersionId
+        );
       }
       setResolvingId(null);
       setResolutionChoice(null);
-    }, 1000);
+    }, 800);
   };
 
-  // Helper to render choice selectors based on contradiction ID
-  const renderResolveChoices = (id: string) => {
-    if (id === 'con-1') {
+  // Helper to render choice selectors based on contradiction data
+  const renderResolveChoices = (c: typeof contradictions[0]) => {
+    if (c.old_fact_version_id && c.new_fact_version_id) {
       return (
-        <div className="space-y-2 mt-4 bg-void-black/60 p-4 rounded-lg border border-primary/20 animate-fade-in-up">
-          <p className="font-label-sm text-[10px] text-primary uppercase tracking-wider mb-2">Establish Authority Value</p>
-          <button 
-            onClick={() => handleExecuteResolve(id, 'Elara Vance is 32 in Chapter 3 (meaning 35 in Chapter 12)')}
-            className="w-full text-left p-3 rounded bg-surface-container hover:bg-surface-container-high border border-starlight-white/5 hover:border-primary/40 text-xs text-starlight-white transition-all"
-          >
-            A: Set age to <span className="text-primary font-bold">35</span> in Ch. 12 (Preserves Ch. 3 chronology)
-          </button>
-          <button 
-            onClick={() => handleExecuteResolve(id, 'Elara Vance is 31 in Chapter 3 (meaning 34 in Chapter 12)')}
-            className="w-full text-left p-3 rounded bg-surface-container hover:bg-surface-container-high border border-starlight-white/5 hover:border-primary/40 text-xs text-starlight-white transition-all mt-2"
-          >
-            B: Set age to <span className="text-primary font-bold">34</span> (Recalculate Ch. 3 to 31 years of age)
-          </button>
+        <div className="space-y-3 mt-4 bg-void-black/60 p-4 rounded-lg border border-copper-glow/20 animate-fade-in-up">
+          <p className="font-label-sm text-[10px] text-copper-glow uppercase tracking-wider">
+            Establish Authority Fact Version
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <button 
+              onClick={() => handleExecuteResolve(c.id, 'Retained Old Version', c.old_fact_version_id, null)}
+              className="flex-1 text-left p-3 rounded bg-surface-container hover:bg-surface-container-high border border-starlight-white/10 hover:border-copper-glow/50 text-xs text-starlight-white transition-all group"
+            >
+              <div className="font-semibold text-copper-glow text-xs mb-1 group-hover:underline flex items-center gap-1.5">
+                <span className="material-symbols-outlined text-sm">history</span> Keep Old Version
+              </div>
+              <p className="text-[11px] text-on-surface-variant/70">
+                Preserve the previously accepted fact version as ACTIVE and supersede the new conflicting version.
+              </p>
+            </button>
+            <button 
+              onClick={() => handleExecuteResolve(c.id, 'Adopted New Version', c.new_fact_version_id, null)}
+              className="flex-1 text-left p-3 rounded bg-surface-container hover:bg-surface-container-high border border-starlight-white/10 hover:border-copper-glow/50 text-xs text-starlight-white transition-all group"
+            >
+              <div className="font-semibold text-emerald-400 text-xs mb-1 group-hover:underline flex items-center gap-1.5">
+                <span className="material-symbols-outlined text-sm">update</span> Keep New Version
+              </div>
+              <p className="text-[11px] text-on-surface-variant/70">
+                Adopt the new incoming version as ACTIVE and retire the older version to SUPERSEDED.
+              </p>
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    if (c.old_relationship_version_id && c.new_relationship_version_id) {
+      return (
+        <div className="space-y-3 mt-4 bg-void-black/60 p-4 rounded-lg border border-copper-glow/20 animate-fade-in-up">
+          <p className="font-label-sm text-[10px] text-copper-glow uppercase tracking-wider">
+            Establish Authority Relationship Version
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <button 
+              onClick={() => handleExecuteResolve(c.id, 'Retained Old Relationship', null, c.old_relationship_version_id)}
+              className="flex-1 text-left p-3 rounded bg-surface-container hover:bg-surface-container-high border border-starlight-white/10 hover:border-copper-glow/50 text-xs text-starlight-white transition-all group"
+            >
+              <div className="font-semibold text-copper-glow text-xs mb-1 group-hover:underline flex items-center gap-1.5">
+                <span className="material-symbols-outlined text-sm">history</span> Keep Old Relationship
+              </div>
+              <p className="text-[11px] text-on-surface-variant/70">
+                Preserve the previously recorded relationship type as ACTIVE.
+              </p>
+            </button>
+            <button 
+              onClick={() => handleExecuteResolve(c.id, 'Adopted New Relationship', null, c.new_relationship_version_id)}
+              className="flex-1 text-left p-3 rounded bg-surface-container hover:bg-surface-container-high border border-starlight-white/10 hover:border-copper-glow/50 text-xs text-starlight-white transition-all group"
+            >
+              <div className="font-semibold text-emerald-400 text-xs mb-1 group-hover:underline flex items-center gap-1.5">
+                <span className="material-symbols-outlined text-sm">update</span> Keep New Relationship
+              </div>
+              <p className="text-[11px] text-on-surface-variant/70">
+                Adopt the newly asserted relationship version as ACTIVE.
+              </p>
+            </button>
+          </div>
         </div>
       );
     }
     
-    // Geographic contradiction choices
+    // Default fallback resolution choice
     return (
       <div className="space-y-2 mt-4 bg-void-black/60 p-4 rounded-lg border border-primary/20 animate-fade-in-up">
-        <p className="font-label-sm text-[10px] text-primary uppercase tracking-wider mb-2">Establish Authority Direction</p>
+        <p className="font-label-sm text-[10px] text-primary uppercase tracking-wider mb-2">Establish Authority Value</p>
         <button 
-          onClick={() => handleExecuteResolve(id, 'Bordering the Eastern Sea')}
+          onClick={() => handleExecuteResolve(c.id, 'Acknowledged & Resolved')}
           className="w-full text-left p-3 rounded bg-surface-container hover:bg-surface-container-high border border-starlight-white/5 hover:border-primary/40 text-xs text-starlight-white transition-all"
         >
-          A: Maintain Atlas record: Bordering the <span className="text-primary font-bold">Eastern Sea</span> (Will update Prologue text)
-        </button>
-        <button 
-          onClick={() => handleExecuteResolve(id, 'Bordering the Western Shore')}
-          className="w-full text-left p-3 rounded bg-surface-container hover:bg-surface-container-high border border-starlight-white/5 hover:border-primary/40 text-xs text-starlight-white transition-all mt-2"
-        >
-          B: Trust travelogue: Bordering the <span className="text-primary font-bold">Western Sea</span> (Updates World Atlas)
+          <span className="text-primary font-bold">Acknowledge & Resolve</span>: Keep current state as canonical
         </button>
       </div>
     );
@@ -192,7 +244,7 @@ export const Contradictions: React.FC = () => {
                           RESOLVED: {resolutionChoice}
                         </div>
                       ) : (
-                        renderResolveChoices(c.id)
+                        renderResolveChoices(c)
                       )
                     )}
 

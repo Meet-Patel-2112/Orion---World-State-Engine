@@ -10,12 +10,30 @@ interface EntityPanelProps {
 
 export const EntityPanel: React.FC<EntityPanelProps> = ({ entityId, onClose }) => {
   const navigate = useNavigate();
-  const { entities, addFact, deleteFact, updateEntity, activeWorldId, setActiveChapter, setActiveManuscript } = useWorldStore();
+  const { 
+    entities, 
+    addFact, 
+    deleteFact, 
+    updateEntity, 
+    addAlias, 
+    removeAlias, 
+    activeWorldId, 
+    setActiveChapter, 
+    setActiveManuscript 
+  } = useWorldStore();
   const entity = entities.find((e) => e.id === entityId);
 
   const [activeTab, setActiveTab] = useState<'details' | 'relations' | 'history'>('details');
-  const [newFactText, setNewFactText] = useState('');
+  const [factProperty, setFactProperty] = useState('');
+  const [factValue, setFactValue] = useState('');
+  const [factError, setFactError] = useState<string | null>(null);
+  const [isSubmittingFact, setIsSubmittingFact] = useState(false);
   const [isAddingFact, setIsAddingFact] = useState(false);
+
+  const [newAlias, setNewAlias] = useState('');
+  const [isAddingAlias, setIsAddingAlias] = useState(false);
+  const [aliasError, setAliasError] = useState<string | null>(null);
+
   const [newTrait, setNewTrait] = useState('');
   const [isAddingTrait, setIsAddingTrait] = useState(false);
 
@@ -27,12 +45,45 @@ export const EntityPanel: React.FC<EntityPanelProps> = ({ entityId, onClose }) =
     );
   }
 
-  const handleAddFact = (e: React.FormEvent) => {
+  const aliasList = (entity.aliases && entity.aliases.length > 0)
+    ? entity.aliases
+    : (entity.alias ? [entity.alias] : []);
+
+  const handleAddFact = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (newFactText.trim()) {
-      addFact(entity.id, newFactText.trim(), 'manual', 'Manual Entry');
-      setNewFactText('');
+    if (!factProperty.trim() || !factValue.trim()) return;
+    setFactError(null);
+    setIsSubmittingFact(true);
+    try {
+      await addFact(entity.id, factProperty.trim(), factValue.trim(), 'Manual Entry');
+      setFactProperty('');
+      setFactValue('');
       setIsAddingFact(false);
+    } catch (err: any) {
+      setFactError(err?.message || 'Failed to add fact.');
+    } finally {
+      setIsSubmittingFact(false);
+    }
+  };
+
+  const handleAddAlias = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newAlias.trim()) return;
+    setAliasError(null);
+    try {
+      await addAlias(entity.id, newAlias.trim());
+      setNewAlias('');
+      setIsAddingAlias(false);
+    } catch (err: any) {
+      setAliasError(err?.message || 'Failed to add alias.');
+    }
+  };
+
+  const handleRemoveAlias = async (aliasToRemove: string) => {
+    try {
+      await removeAlias(entity.id, aliasToRemove);
+    } catch (err: any) {
+      console.error('Failed to remove alias:', err);
     }
   };
 
@@ -89,11 +140,23 @@ export const EntityPanel: React.FC<EntityPanelProps> = ({ entityId, onClose }) =
       <div className="p-6 border-b border-starlight-white/5 bg-gradient-to-b from-surface-container-highest/30 to-transparent pt-8">
         <div className="flex justify-between items-start mb-4 relative z-10">
           <div>
-            <span className={`font-label-sm text-label-sm uppercase tracking-widest flex items-center gap-2 mb-1 py-0.5 px-2 rounded-full border w-fit ${getTypeColor(entity.type)}`}>
-              <span className="material-symbols-outlined text-sm font-light">{getTypeIcon(entity.type)}</span>
-              {entity.type}
-            </span>
-            <h2 className="font-headline-md text-headline-md text-starlight-white leading-tight mt-2">{entity.name}</h2>
+            <div className="flex items-center gap-2 mb-1">
+              <span className={`material-symbols-outlined text-sm font-light ${getTypeColor(entity.type).split(' ')[0]}`}>
+                {getTypeIcon(entity.type)}
+              </span>
+              <label className="text-[10px] font-label-sm text-on-surface-variant/60 uppercase tracking-widest">Type:</label>
+              <select
+                value={entity.type}
+                onChange={(e) => updateEntity(entity.id, { type: e.target.value as Entity['type'] })}
+                className={`font-label-sm text-[11px] uppercase tracking-wider py-0.5 px-2.5 rounded-full border bg-surface-container cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary ${getTypeColor(entity.type)}`}
+              >
+                <option value="character" className="bg-void-black text-starlight-white">Character</option>
+                <option value="location" className="bg-void-black text-starlight-white">Location</option>
+                <option value="object" className="bg-void-black text-starlight-white">Object</option>
+                <option value="event" className="bg-void-black text-starlight-white">Event</option>
+              </select>
+            </div>
+            <h2 className="font-headline-md text-headline-md text-starlight-white leading-tight mt-1">{entity.name}</h2>
           </div>
           <button onClick={onClose} className="text-on-surface-variant hover:text-white transition-colors p-1 hover:bg-white/5 rounded-full">
             <span className="material-symbols-outlined font-light">close</span>
@@ -140,18 +203,79 @@ export const EntityPanel: React.FC<EntityPanelProps> = ({ entityId, onClose }) =
               </div>
             )}
 
-            {/* Quick Meta */}
-            <div className="grid grid-cols-2 gap-4 bg-surface-container-lowest/40 p-4 rounded-lg border border-starlight-white/5">
+            {/* Quick Meta: Subtype & Aliases */}
+            <div className="space-y-4 bg-surface-container-lowest/40 p-4 rounded-lg border border-starlight-white/5">
               <div>
                 <p className="font-label-sm text-label-sm text-on-surface-variant/60 uppercase text-[10px] mb-1">Subtype / Role</p>
                 <p className="font-body-md text-body-md text-on-surface text-sm">{entity.subtype || 'Supporting entry'}</p>
               </div>
-              {entity.alias && (
-                <div>
-                  <p className="font-label-sm text-label-sm text-on-surface-variant/60 uppercase text-[10px] mb-1">Aliases</p>
-                  <p className="font-body-md text-body-md text-on-surface text-sm">"{entity.alias}"</p>
+
+              {/* Aliases Tag Manager */}
+              <div className="pt-2 border-t border-starlight-white/5">
+                <div className="flex justify-between items-center mb-2">
+                  <p className="font-label-sm text-label-sm text-on-surface-variant/70 uppercase text-[10px] tracking-wider flex items-center gap-1.5">
+                    <span className="material-symbols-outlined text-[12px]">sell</span>
+                    Aliases
+                  </p>
+                  {!isAddingAlias && (
+                    <button
+                      onClick={() => setIsAddingAlias(true)}
+                      className="font-label-sm text-[10px] text-primary hover:text-white flex items-center gap-1 uppercase tracking-wider transition-colors"
+                    >
+                      <span className="material-symbols-outlined text-[11px]">add</span> Add Alias
+                    </button>
+                  )}
                 </div>
-              )}
+
+                <div className="flex flex-wrap gap-1.5">
+                  {aliasList.length === 0 && !isAddingAlias && (
+                    <span className="text-xs text-on-surface-variant/40 italic">No aliases recorded.</span>
+                  )}
+                  {aliasList.map((a, idx) => (
+                    <span
+                      key={idx}
+                      className="px-2.5 py-0.5 bg-surface-container text-on-surface-variant font-label-sm text-[11px] rounded-full border border-starlight-white/5 flex items-center gap-1.5 group/alias hover:border-primary/30"
+                    >
+                      "{a}"
+                      <button
+                        onClick={() => handleRemoveAlias(a)}
+                        className="opacity-40 group-hover/alias:opacity-100 hover:text-error transition-opacity"
+                        title={`Remove alias "${a}"`}
+                      >
+                        <span className="material-symbols-outlined text-[10px]">close</span>
+                      </button>
+                    </span>
+                  ))}
+                  {isAddingAlias && (
+                    <form onSubmit={handleAddAlias} className="flex items-center gap-1 mt-1">
+                      <input
+                        type="text"
+                        value={newAlias}
+                        onChange={(e) => setNewAlias(e.target.value)}
+                        placeholder="New alias..."
+                        autoFocus
+                        className="bg-surface-container-high border border-outline-variant/30 text-xs rounded px-2 py-0.5 text-starlight-white focus:outline-none focus:ring-1 focus:ring-primary w-28"
+                      />
+                      <button type="submit" className="text-primary hover:text-white">
+                        <span className="material-symbols-outlined text-sm">check</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setIsAddingAlias(false);
+                          setAliasError(null);
+                        }}
+                        className="text-on-surface-variant"
+                      >
+                        <span className="material-symbols-outlined text-sm">close</span>
+                      </button>
+                    </form>
+                  )}
+                </div>
+                {aliasError && (
+                  <p className="text-[11px] text-error mt-1.5">{aliasError}</p>
+                )}
+              </div>
             </div>
 
             {/* Description */}
@@ -232,18 +356,53 @@ export const EntityPanel: React.FC<EntityPanelProps> = ({ entityId, onClose }) =
               </div>
 
               {isAddingFact && (
-                <form onSubmit={handleAddFact} className="flex flex-col gap-2 p-3 bg-surface-container rounded border border-outline-variant/30">
-                  <textarea 
-                    value={newFactText}
-                    onChange={(e) => setNewFactText(e.target.value)}
-                    placeholder="Enter fact text..."
-                    rows={2}
-                    className="w-full bg-void-black text-sm text-starlight-white placeholder:text-on-surface-variant/40 rounded border border-starlight-white/10 p-2 focus:border-primary focus:ring-0 focus:outline-none"
-                    required
-                  />
-                  <button type="submit" className="w-full py-1 bg-primary text-void-black font-label-sm text-xs rounded hover:bg-copper-glow transition-all uppercase tracking-wider font-semibold">
-                    Submit Fact
-                  </button>
+                <form onSubmit={handleAddFact} className="flex flex-col gap-2.5 p-3 bg-surface-container rounded border border-outline-variant/30 animate-fade-in-up">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <div>
+                      <label className="block text-[10px] font-label-sm text-on-surface-variant/70 uppercase mb-1">Property Name</label>
+                      <input 
+                        type="text"
+                        value={factProperty}
+                        onChange={(e) => setFactProperty(e.target.value)}
+                        placeholder="e.g. status, title, weapon"
+                        className="w-full bg-void-black text-xs text-starlight-white placeholder:text-on-surface-variant/40 rounded border border-starlight-white/10 p-2 focus:border-primary focus:ring-0 focus:outline-none"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] font-label-sm text-on-surface-variant/70 uppercase mb-1">Value</label>
+                      <input 
+                        type="text"
+                        value={factValue}
+                        onChange={(e) => setFactValue(e.target.value)}
+                        placeholder="e.g. deceased, High Commander"
+                        className="w-full bg-void-black text-xs text-starlight-white placeholder:text-on-surface-variant/40 rounded border border-starlight-white/10 p-2 focus:border-primary focus:ring-0 focus:outline-none"
+                        required
+                      />
+                    </div>
+                  </div>
+                  {factError && (
+                    <p className="text-[11px] text-error">{factError}</p>
+                  )}
+                  <div className="flex gap-2">
+                    <button 
+                      type="submit" 
+                      disabled={isSubmittingFact}
+                      className="flex-1 py-1.5 bg-primary text-void-black font-label-sm text-xs rounded hover:bg-copper-glow transition-all uppercase tracking-wider font-semibold disabled:opacity-50"
+                    >
+                      {isSubmittingFact ? 'Recording...' : 'Submit Fact'}
+                    </button>
+                    <button 
+                      type="button" 
+                      onClick={() => {
+                        setIsAddingFact(false);
+                        setFactError(null);
+                      }}
+                      className="px-3 py-1.5 border border-starlight-white/10 text-on-surface-variant font-label-sm text-xs rounded hover:text-white uppercase tracking-wider"
+                    >
+                      Cancel
+                    </button>
+                  </div>
                 </form>
               )}
 

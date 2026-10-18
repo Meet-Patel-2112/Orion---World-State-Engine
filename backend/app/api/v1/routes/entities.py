@@ -7,9 +7,11 @@ from app.core.constants import FactStatus
 from app.models.world import World
 from app.schemas.entity import (
     EntityCreate, EntityUpdate, EntityResponse, EntityDetailResponse,
-    FactCreate, FactResponse, FactVersionResponse
+    FactCreate, FactResponse, FactVersionResponse, MergeEntitiesRequest,
+    BulkDeleteEntitiesRequest, AliasCreateRequest
 )
 from app.services.entity_service import EntityService
+from app.services.merge_service import MergeService
 
 router = APIRouter()
 
@@ -18,6 +20,42 @@ def current_version(fact):
     current value. Newest of any status only if none is active."""
     return next((v for v in fact.versions if v.status == FactStatus.ACTIVE.value),
                 fact.versions[0] if fact.versions else None)
+
+
+def entity_to_response(ent) -> EntityResponse:
+    aliases = [a.alias for a in ent.aliases]
+    facts_out = []
+    for f in ent.facts:
+        active_v = current_version(f)
+        v_resp = None
+        if active_v:
+            v_resp = FactVersionResponse(
+                id=active_v.id,
+                fact_id=active_v.fact_id,
+                chapter_id=active_v.chapter_id,
+                value=active_v.value,
+                status=active_v.status,
+                confidence=active_v.confidence,
+                created_at=active_v.created_at
+            )
+        facts_out.append(FactResponse(
+            id=f.id,
+            property_name=f.property_name,
+            created_at=f.created_at,
+            current_version=v_resp
+        ))
+    return EntityResponse(
+        id=ent.id,
+        world_id=ent.world_id,
+        entity_type=ent.entity_type,
+        canonical_name=ent.canonical_name,
+        source_extraction_id=ent.source_extraction_id,
+        provenance=ent.provenance,
+        aliases=aliases,
+        facts=facts_out,
+        created_at=ent.created_at,
+        updated_at=ent.updated_at
+    )
 
 
 @router.get("/{world_id}/entities", response_model=List[EntityResponse])
@@ -100,6 +138,28 @@ def create_entity(
         created_at=ent.created_at,
         updated_at=ent.updated_at
     )
+
+@router.post("/{world_id}/entities/merge", response_model=EntityResponse, status_code=status.HTTP_200_OK)
+def merge_entities(
+    world_id: str,
+    req: MergeEntitiesRequest,
+    world: World = Depends(get_current_user_world),
+    db: Session = Depends(get_db)
+):
+    service = MergeService(db)
+    survivor = service.merge_entities(world.id, req.source_id, req.target_id)
+    return entity_to_response(survivor)
+
+@router.post("/{world_id}/entities/bulk-delete", status_code=status.HTTP_204_NO_CONTENT)
+def bulk_delete_entities(
+    world_id: str,
+    req: BulkDeleteEntitiesRequest,
+    world: World = Depends(get_current_user_world),
+    db: Session = Depends(get_db)
+):
+    service = EntityService(db)
+    service.bulk_delete_entities(world.id, req.entity_ids)
+    return None
 
 @router.get("/{world_id}/entities/{entity_id}", response_model=EntityDetailResponse)
 def get_entity(
@@ -192,16 +252,7 @@ def update_entity(
         entity_type=ent_in.entity_type,
         attributes=ent_in.attributes
     )
-    return EntityResponse(
-        id=updated.id,
-        world_id=updated.world_id,
-        entity_type=updated.entity_type,
-        canonical_name=updated.canonical_name,
-        aliases=[a.alias for a in updated.aliases],
-        facts=[],
-        created_at=updated.created_at,
-        updated_at=updated.updated_at
-    )
+    return entity_to_response(updated)
 
 @router.delete("/{world_id}/entities/{entity_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_entity(
@@ -215,6 +266,30 @@ def delete_entity(
     if not ent or ent.world_id != world.id:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Entity not found")
     service.delete_entity(entity_id)
+    return None
+
+@router.post("/{world_id}/entities/{entity_id}/aliases", response_model=EntityResponse, status_code=status.HTTP_201_CREATED)
+def add_alias(
+    world_id: str,
+    entity_id: str,
+    req: AliasCreateRequest,
+    world: World = Depends(get_current_user_world),
+    db: Session = Depends(get_db)
+):
+    service = EntityService(db)
+    updated = service.add_alias(world.id, entity_id, req.alias)
+    return entity_to_response(updated)
+
+@router.delete("/{world_id}/entities/{entity_id}/aliases", status_code=status.HTTP_204_NO_CONTENT)
+def remove_alias(
+    world_id: str,
+    entity_id: str,
+    alias: str = Query(..., min_length=1),
+    world: World = Depends(get_current_user_world),
+    db: Session = Depends(get_db)
+):
+    service = EntityService(db)
+    service.remove_alias(world.id, entity_id, alias)
     return None
 
 @router.post("/{world_id}/entities/{entity_id}/facts", status_code=status.HTTP_201_CREATED)
