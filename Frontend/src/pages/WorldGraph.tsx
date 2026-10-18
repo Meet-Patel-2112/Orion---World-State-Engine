@@ -73,6 +73,9 @@ export const WorldGraph: React.FC = () => {
   const maxChapter = chapters.length > 0 ? Math.max(...chapters.map((c) => c.number)) : 2;
 
   const [nodes, setNodes] = useState<Node[]>([]);
+  const nodePositionsRef = useRef<Map<string, { x: number; y: number }>>(new Map());
+  const hasInitializedLayoutRef = useRef(false);
+  const graphRequestRef = useRef(0);
   const [edges, setEdges] = useState<Edge[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -118,18 +121,23 @@ export const WorldGraph: React.FC = () => {
 
   const fetchGraph = useCallback(async () => {
     if (!worldId) return;
+    const requestId = ++graphRequestRef.current;
     setLoading(true);
     try {
       const query = asOfChapter !== null ? `?as_of_chapter=${asOfChapter}` : '';
       const data = await apiFetch<any>(`/worlds/${worldId}/graph${query}`);
+      if (requestId !== graphRequestRef.current) return;
       if (data && data.nodes) {
         const containerW = containerRef.current?.clientWidth || 900;
         const containerH = containerRef.current?.clientHeight || 600;
         const centerX = containerW / 2;
         const centerY = containerH / 2;
 
-        const fetchedNodes: Node[] = data.nodes.map((ent: any) => {
+        const previousPositions = nodePositionsRef.current;
+        const fetchedNodes: Node[] = data.nodes.map((ent: any, index: number) => {
           const t = (ent.type || ent.entity_type || 'character').toLowerCase();
+          const previous = previousPositions.get(ent.id);
+          const angle = (index / Math.max(data.nodes.length, 1)) * Math.PI * 2;
           return {
             id: ent.id,
             name: ent.label || ent.canonical_name || 'Entity',
@@ -145,8 +153,8 @@ export const WorldGraph: React.FC = () => {
             subtype: t,
             degree: ent.degree || 0,
             properties: ent.properties || {},
-            x: centerX + (Math.random() - 0.5) * 450,
-            y: centerY + (Math.random() - 0.5) * 350,
+            x: previous?.x ?? centerX + Math.cos(angle) * Math.min(containerW, 460) * 0.28,
+            y: previous?.y ?? centerY + Math.sin(angle) * Math.min(containerH, 360) * 0.28,
           };
         });
 
@@ -159,25 +167,36 @@ export const WorldGraph: React.FC = () => {
           dashed: rel.type === 'ENEMY_OF',
         }));
 
-        const simulation = forceSimulation(fetchedNodes)
-          .force('charge', forceManyBody().strength(-450))
-          .force('center', forceCenter(centerX, centerY))
-          .force('collide', forceCollide().radius(70))
-          .stop();
+        if (!hasInitializedLayoutRef.current && fetchedNodes.length > 0) {
+          const simulation = forceSimulation(fetchedNodes)
+            .force('charge', forceManyBody().strength(-450))
+            .force('center', forceCenter(centerX, centerY))
+            .force('collide', forceCollide().radius(70))
+            .stop();
 
-        for (let i = 0; i < 300; ++i) {
-          simulation.tick();
+          for (let i = 0; i < 300; ++i) {
+            simulation.tick();
+          }
+          hasInitializedLayoutRef.current = true;
         }
 
+        fetchedNodes.forEach((node) => nodePositionsRef.current.set(node.id, { x: node.x, y: node.y }));
         setNodes([...fetchedNodes]);
         setEdges(fetchedEdges);
       }
     } catch (err) {
       console.error('Failed to fetch graph data:', err);
     } finally {
-      setLoading(false);
+      if (requestId === graphRequestRef.current) setLoading(false);
     }
   }, [worldId, asOfChapter]);
+
+  useEffect(() => {
+    nodePositionsRef.current.clear();
+    hasInitializedLayoutRef.current = false;
+    setNodes([]);
+    setEdges([]);
+  }, [worldId]);
 
   useEffect(() => {
     fetchGraph();
@@ -285,11 +304,12 @@ export const WorldGraph: React.FC = () => {
       dragDistanceRef.current += Math.hypot(e.movementX || 0, e.movementY || 0);
 
       setNodes((prev) =>
-        prev.map((n) =>
-          n.id === draggingNodeId
-            ? { ...n, x: nodeStartPos.current.x + dx, y: nodeStartPos.current.y + dy }
-            : n
-        )
+        prev.map((n) => {
+          if (n.id !== draggingNodeId) return n;
+          const updated = { ...n, x: nodeStartPos.current.x + dx, y: nodeStartPos.current.y + dy };
+          nodePositionsRef.current.set(updated.id, { x: updated.x, y: updated.y });
+          return updated;
+        })
       );
     } else if (isPanning) {
       setPan({
@@ -457,16 +477,48 @@ export const WorldGraph: React.FC = () => {
   const handleZoomIn = () => setZoomScale((prev) => Math.min(prev * 1.15, 3.0));
   const handleZoomOut = () => setZoomScale((prev) => Math.max(prev / 1.15, 0.25));
   const handleZoomFit = () => {
-    setZoomScale(1);
-    setPan({ x: 0, y: 0 });
+    if (!visibleNodes.length || !containerRef.current) {
+      setZoomScale(1);
+      setPan({ x: 0, y: 0 });
+      return;
+    }
+    const bounds = visibleNodes.reduce(
+      (acc, node) => ({
+        minX: Math.min(acc.minX, node.x),
+        maxX: Math.max(acc.maxX, node.x),
+        minY: Math.min(acc.minY, node.y),
+        maxY: Math.max(acc.maxY, node.y),
+      }),
+      { minX: Infinity, maxX: -Infinity, minY: Infinity, maxY: -Infinity },
+    );
+    const width = Math.max(bounds.maxX - bounds.minX + 160, 240);
+    const height = Math.max(bounds.maxY - bounds.minY + 160, 240);
+    const scale = Math.min(
+      1,
+      Math.max(0.25, Math.min(containerRef.current.clientWidth / width, containerRef.current.clientHeight / height)),
+    );
+    setZoomScale(scale);
+    setPan({
+      x: containerRef.current.clientWidth / 2 - ((bounds.minX + bounds.maxX) / 2) * scale,
+      y: containerRef.current.clientHeight / 2 - ((bounds.minY + bounds.maxY) / 2) * scale,
+    });
   };
 
   return (
     <AppShell>
-      <main className="flex-1 w-full h-full flex relative select-none overflow-hidden">
+      <header className="absolute inset-x-0 top-0 h-14 bg-surface-dim/85 backdrop-blur-md border-b border-starlight-white/5 z-40 flex items-center justify-between px-6 pointer-events-none">
+        <div className="flex items-center gap-4">
+          <span className="font-headline-md text-headline-md text-primary">World Graph</span>
+          <span className="text-on-surface-variant/50">/</span>
+          <span className="font-label-sm uppercase tracking-widest text-on-surface-variant/70">Network relationships</span>
+        </div>
+        <span className="font-label-sm uppercase tracking-widest text-on-surface-variant/60">{visibleNodes.length} entities</span>
+      </header>
+
+      <main className="flex-1 w-full h-full pt-14 flex relative select-none overflow-hidden">
         {/* Left Control Sidebar */}
         <aside className="w-72 bg-surface-container-low/70 backdrop-blur-md border-r border-starlight-white/10 h-full flex flex-col z-10 shrink-0 select-none">
-          <div className="p-gutter flex flex-col gap-5 h-full overflow-y-auto pt-8">
+          <div className="p-gutter flex flex-col gap-5 h-full overflow-y-auto pt-6">
             {/* Search */}
             <div className="relative group">
               <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-base group-focus-within:text-primary transition-colors font-light">
@@ -614,14 +666,31 @@ export const WorldGraph: React.FC = () => {
                   <div className="w-2.5 h-2.5 rounded-full bg-[#c8c6c5] shadow-[0_0_8px_rgba(200,198,197,0.5)]"></div>
                   <span className="text-on-surface group-hover:text-tertiary transition-colors">Objects</span>
                 </label>
+
+                <label className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 cursor-pointer transition-colors group text-xs font-label-sm uppercase tracking-wider">
+                  <input
+                    type="checkbox"
+                    checked={filters.event}
+                    onChange={(e) => setFilters({ ...filters, event: e.target.checked })}
+                    className="form-checkbox rounded bg-surface border-outline-variant/30 text-primary focus:ring-primary focus:ring-offset-surface-container-low w-4 h-4"
+                  />
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#ffb4ab] shadow-[0_0_8px_rgba(255,180,171,0.5)]"></div>
+                  <span className="text-on-surface group-hover:text-error transition-colors">Events</span>
+                </label>
               </div>
             </div>
 
             {/* Controls Guide */}
-            <div className="mt-auto bg-surface-container-low p-3.5 rounded-lg border border-starlight-white/5 text-[11px] text-on-surface-variant/70 leading-relaxed font-body-md select-none space-y-1.5">
-              <div className="font-semibold text-primary flex items-center gap-1">
+            <details className="mt-auto bg-surface-container-low rounded-lg border border-starlight-white/5 text-[11px] text-on-surface-variant/70 leading-relaxed font-body-md select-none">
+              <summary className="cursor-pointer list-none p-3.5 font-semibold text-primary flex items-center gap-1 focus-visible:outline focus-visible:outline-1 focus-visible:outline-primary">
                 <span className="material-symbols-outlined text-sm">keyboard</span>
-                Canvas Controls
+                Canvas controls
+                <span className="material-symbols-outlined text-sm ml-auto">expand_more</span>
+              </summary>
+              <div className="px-3.5 pb-3.5 space-y-1.5">
+              <div className="font-semibold text-primary flex items-center gap-1">
+                <span className="material-symbols-outlined text-sm">info</span>
+                Shortcuts
               </div>
               <div>• <b>Ctrl + Scroll</b>: Zoom at cursor</div>
               <div>• <b>Drag Canvas</b>: Pan view</div>
@@ -629,7 +698,8 @@ export const WorldGraph: React.FC = () => {
               <div>• <b>Single Click Node</b>: Inspect entity</div>
               <div>• <b>Drag Node</b>: Rearrange layout</div>
               <div>• <b>+ / - / 0</b>: Zoom & reset</div>
-            </div>
+              </div>
+            </details>
           </div>
         </aside>
 
@@ -651,6 +721,36 @@ export const WorldGraph: React.FC = () => {
             </span>
             <div className={`w-2 h-2 rounded-full ${loading ? 'bg-copper-glow animate-spin' : 'bg-primary animate-pulse'}`}></div>
           </div>
+
+          {loading && (
+            <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
+              <div className="glass-panel rounded-xl px-4 py-3 text-xs text-primary flex items-center gap-2">
+                <span className="material-symbols-outlined animate-spin text-base">progress_activity</span>
+                Loading network…
+              </div>
+            </div>
+          )}
+
+          {!loading && nodes.length === 0 && (
+            <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none p-6">
+              <div className="glass-panel rounded-xl max-w-sm text-center px-6 py-8">
+                <span className="material-symbols-outlined text-3xl text-primary/70 mb-3">bubble_chart</span>
+                <h2 className="font-headline-md text-headline-md text-starlight-white">No relationships yet</h2>
+                <p className="text-sm text-on-surface-variant/70 mt-2">Add entities and relationships to begin mapping this world.</p>
+              </div>
+            </div>
+          )}
+
+          {!loading && nodes.length > 0 && visibleNodes.length === 0 && (
+            <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none p-6">
+              <div className="glass-panel rounded-xl max-w-sm text-center px-6 py-8 pointer-events-auto">
+                <span className="material-symbols-outlined text-3xl text-on-surface-variant/70 mb-3">filter_alt_off</span>
+                <h2 className="font-headline-md text-headline-md text-starlight-white">No matching entities</h2>
+                <p className="text-sm text-on-surface-variant/70 mt-2">Adjust the search or entity filters to restore the network.</p>
+                <button onClick={() => { setSearchQuery(''); setFilters({ character: true, location: true, object: true, event: true }); }} className="mt-4 text-xs text-primary hover:underline">Reset filters</button>
+              </div>
+            </div>
+          )}
 
           {/* Unified Pan/Zoom Graph Container */}
           <div
@@ -793,6 +893,15 @@ export const WorldGraph: React.FC = () => {
                   onMouseEnter={() => setHoveredNodeId(node.id)}
                   onMouseLeave={() => setHoveredNodeId(null)}
                   onClick={() => handleNodeClick(node.id)}
+                  tabIndex={0}
+                  role="button"
+                  aria-label={`${node.name}, ${node.type}, ${node.degree} connections`}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      handleNodeClick(node.id);
+                    }
+                  }}
                   className={`absolute -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-auto cursor-grab active:cursor-grabbing transition-opacity duration-200 select-none ${
                     isDimmed ? 'opacity-25 scale-95' : 'opacity-100 scale-100'
                   }`}
@@ -869,7 +978,7 @@ export const WorldGraph: React.FC = () => {
 
         {/* Right-Side Relationship Details & Version History Drawer */}
         {selectedEdgeId && (
-          <aside className="w-84 bg-surface-container-low/95 border-l border-starlight-white/10 h-full flex flex-col z-20 shrink-0 select-none overflow-y-auto">
+          <aside className="w-side-panel-width max-w-[min(360px,42vw)] bg-surface-container-low/95 border-l border-starlight-white/10 h-full flex flex-col z-20 shrink-0 select-none overflow-y-auto">
             {/* Header */}
             <div className="p-5 border-b border-starlight-white/10 flex items-center justify-between bg-surface-container-high/40">
               <div>
