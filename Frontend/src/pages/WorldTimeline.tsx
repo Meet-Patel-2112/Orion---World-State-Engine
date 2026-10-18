@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useRef } from 'react';
 import { AppShell } from '../components/AppShell';
 import { useWorldStore } from '../store/useWorldStore';
 import { useNavigate } from 'react-router-dom';
@@ -46,6 +46,8 @@ export const WorldTimeline: React.FC = () => {
 
   const [events, setEvents] = useState<EventResponse[]>([]);
   const [selectedEventId, setSelectedEventId] = useState<string | null>(null);
+  const [isDetailsOpen, setIsDetailsOpen] = useState(true);
+  const [collapsedChapters, setCollapsedChapters] = useState<Record<string, boolean>>({});
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -79,31 +81,49 @@ export const WorldTimeline: React.FC = () => {
   const [modalParticipants, setModalParticipants] = useState<ModalParticipantItem[]>([]);
   const [modalSelectedEntityId, setModalSelectedEntityId] = useState('');
   const [modalRoleInput, setModalRoleInput] = useState('PARTICIPANT');
+  const chapterRefs = useRef<Record<string, HTMLElement | null>>({});
+  const timelineRequestRef = useRef(0);
+  const entityRequestRef = useRef(0);
 
   const chapters = manuscripts.flatMap((m) => m.chapters || []).sort((a, b) => a.number - b.number);
+  const chapterLocations = useMemo(() => {
+    const locations = new Map<string, { manuscriptId: string; chapter: (typeof chapters)[number] }>();
+    manuscripts.forEach((manuscript) => {
+      manuscript.chapters?.forEach((chapter) => {
+        locations.set(chapter.id, { manuscriptId: manuscript.id, chapter });
+      });
+    });
+    return locations;
+  }, [manuscripts]);
 
-  const loadTimeline = async (worldId: string) => {
+  const loadTimeline = async (worldId: string, requestId = ++timelineRequestRef.current) => {
     setLoading(true);
     setError(null);
     try {
       const data = await getTimeline(worldId);
+      if (requestId !== timelineRequestRef.current) return;
       setEvents(data.events || []);
       if (data.events?.length > 0 && !selectedEventId) {
         setSelectedEventId(data.events[0].id);
       }
     } catch (err: any) {
+      if (requestId !== timelineRequestRef.current) return;
       console.error('Failed to load timeline:', err);
       setError(err?.message || 'Failed to load timeline');
     } finally {
-      setLoading(false);
+      if (requestId === timelineRequestRef.current) setLoading(false);
     }
   };
 
   useEffect(() => {
+    const timelineRequestId = ++timelineRequestRef.current;
+    const entityRequestId = ++entityRequestRef.current;
     if (activeWorldId) {
-      loadTimeline(activeWorldId);
+      loadTimeline(activeWorldId, timelineRequestId);
       apiFetch<any[]>(`/worlds/${activeWorldId}/entities`)
-        .then((data) => setAvailableEntities(data || []))
+        .then((data) => {
+          if (entityRequestId === entityRequestRef.current) setAvailableEntities(data || []);
+        })
         .catch((err) => console.error('Failed to load entities:', err));
     }
   }, [activeWorldId]);
@@ -168,12 +188,15 @@ export const WorldTimeline: React.FC = () => {
 
   const handleSelectEvent = (id: string) => {
     setSelectedEventId(id);
+    setIsDetailsOpen(true);
   };
 
   const navigateToChapter = (chapterId: string) => {
-    setActiveManuscript('ms-1');
+    const location = chapterLocations.get(chapterId);
+    if (!location) return;
+    setActiveManuscript(location.manuscriptId);
     setActiveChapter(chapterId);
-    navigate(`/worlds/${activeWorldId}/manuscripts/ms-1`);
+    navigate(`/worlds/${activeWorldId}/manuscripts/${location.manuscriptId}`);
   };
 
   const handleMoveUp = async (e: React.MouseEvent, event: EventResponse) => {
@@ -359,15 +382,104 @@ export const WorldTimeline: React.FC = () => {
     return true;
   });
 
+  const eventsByChapter = useMemo(() => {
+    const groups = new Map<string, EventResponse[]>();
+    events.forEach((event) => {
+      const key = event.chapter_id || 'unassigned';
+      const group = groups.get(key) || [];
+      group.push(event);
+      groups.set(key, group);
+    });
+    return groups;
+  }, [events]);
+
+  const chapterGroups = useMemo(() => {
+    const groups = new Map<string, EventResponse[]>();
+    displayedEvents.forEach((event) => {
+      const key = event.chapter_id || 'unassigned';
+      const group = groups.get(key) || [];
+      group.push(event);
+      groups.set(key, group);
+    });
+    return Array.from(groups.entries()).map(([key, group]) => {
+      const chapter = chapterLocations.get(key)?.chapter;
+      return {
+        key,
+        events: group,
+        number: chapter?.number ?? null,
+        title: chapter?.title || 'Loose Fragments',
+      };
+    });
+  }, [chapterLocations, displayedEvents]);
+
+  const scrollToChapter = (key: string) => {
+    chapterRefs.current[key]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   return (
     <AppShell>
       {/* Background radial effects */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-surface-container-high/20 via-void-black to-void-black -z-10 pointer-events-none"></div>
 
-      <main className="flex-1 h-screen flex relative overflow-hidden select-none">
+      <header className="absolute inset-x-0 top-0 h-14 bg-surface-dim/85 backdrop-blur-md border-b border-starlight-white/5 z-40 flex items-center justify-between px-6 pointer-events-none">
+        <div className="flex items-center gap-4">
+          <span className="font-headline-md text-headline-md text-primary">World Timeline</span>
+          <span className="text-on-surface-variant/50">/</span>
+          <span className="font-label-sm uppercase tracking-widest text-on-surface-variant/70">Chronicle sequence</span>
+        </div>
+        <span className="font-label-sm uppercase tracking-widest text-on-surface-variant/60">{displayedEvents.length} events</span>
+      </header>
+
+      <main className="flex-1 h-screen pt-14 flex relative overflow-hidden select-none">
         {/* Timeline Canvas (Scrollable) */}
         <div className="flex-1 overflow-y-auto overflow-x-hidden relative scroll-smooth px-8 py-10 scrollbar-hide">
-          <div className="max-w-4xl mx-auto relative min-h-full pb-32 pt-4">
+          <div className="max-w-6xl mx-auto relative min-h-full pb-32 pt-4 flex gap-6">
+            {/* Archive index */}
+            <aside className="hidden lg:block w-44 shrink-0 sticky top-4 self-start pt-2">
+              <div className="border-r border-starlight-white/10 pr-4">
+                <div className="flex items-center justify-between mb-4">
+                  <span className="font-label-sm text-[10px] uppercase tracking-widest text-primary">Archive index</span>
+                  <span className="text-[10px] text-on-surface-variant/50">{chapterGroups.length}</span>
+                </div>
+                <nav className="space-y-1" aria-label="Timeline chapters">
+                  <button
+                    onClick={() => scrollToChapter('all')}
+                    className="w-full text-left rounded-lg px-3 py-2 text-xs text-on-surface-variant hover:bg-white/5 hover:text-primary transition-colors"
+                  >
+                    <span className="block font-semibold">Complete archive</span>
+                    <span className="text-[10px] text-on-surface-variant/50">{events.length} events</span>
+                  </button>
+                  {chapters.map((chapter) => {
+                    const count = eventsByChapter.get(chapter.id)?.length || 0;
+                    const visible = chapterGroups.some((group) => group.key === chapter.id);
+                    return (
+                      <button
+                        key={chapter.id}
+                        onClick={() => scrollToChapter(chapter.id)}
+                        className={`w-full text-left rounded-lg px-3 py-2 transition-colors ${
+                          visible ? 'text-on-surface-variant hover:bg-white/5 hover:text-primary' : 'text-on-surface-variant/35'
+                        }`}
+                      >
+                        <span className="block font-label-sm text-[10px] uppercase tracking-wider">Ch. {chapter.number}</span>
+                        <span className="block truncate text-xs mt-0.5">{chapter.title}</span>
+                        <span className="block text-[10px] text-on-surface-variant/50 mt-0.5">{count} {count === 1 ? 'event' : 'events'}</span>
+                      </button>
+                    );
+                  })}
+                  {events.some((event) => !event.chapter_id) && (
+                    <button
+                      onClick={() => scrollToChapter('unassigned')}
+                      className="w-full text-left rounded-lg px-3 py-2 text-on-surface-variant hover:bg-white/5 hover:text-primary transition-colors"
+                    >
+                      <span className="block font-label-sm text-[10px] uppercase tracking-wider">Fragments</span>
+                      <span className="block text-[10px] text-on-surface-variant/50 mt-0.5">{eventsByChapter.get('unassigned')?.length || 0} unassigned</span>
+                    </button>
+                  )}
+                </nav>
+              </div>
+            </aside>
+
+            <div className="min-w-0 flex-1">
             {/* Page Header */}
             <header className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div>
@@ -443,7 +555,7 @@ export const WorldTimeline: React.FC = () => {
             )}
 
             {/* Filter Section: Chapters & Characters */}
-            <div className="mb-8 space-y-3">
+            <div className="mb-8 space-y-3 sticky top-0 z-30 -mx-2 px-2 py-2 bg-void-black/85 backdrop-blur-md">
               {/* Chapter Filter Pill Bar */}
               {chapters.length > 0 && (
                 <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-hide">
@@ -461,7 +573,7 @@ export const WorldTimeline: React.FC = () => {
                     All Chapters ({events.length})
                   </button>
                   {chapters.map((ch) => {
-                    const count = events.filter((e) => e.chapter_id === ch.id).length;
+                    const count = eventsByChapter.get(ch.id)?.length || 0;
                     return (
                       <button
                         key={ch.id}
@@ -485,7 +597,7 @@ export const WorldTimeline: React.FC = () => {
                           : 'bg-surface-container-high/60 text-on-surface-variant border-starlight-white/10 hover:border-starlight-white/20 hover:text-starlight-white'
                       }`}
                     >
-                      No Chapter ({events.filter((e) => !e.chapter_id).length})
+                      No Chapter ({eventsByChapter.get('unassigned')?.length || 0})
                     </button>
                   )}
                 </div>
@@ -535,6 +647,21 @@ export const WorldTimeline: React.FC = () => {
                 </div>
               )}
             </div>
+
+            {(selectedChapterFilter !== null || selectedCharacterId !== null || searchQuery.trim()) && (
+              <div className="-mt-4 mb-6 flex items-center justify-between gap-3 text-xs text-on-surface-variant/70">
+                <span>
+                  Showing {displayedEvents.length} of {events.length} events
+                  {selectedCharacter ? ` · ${selectedCharacter.name}'s arc` : ''}
+                </span>
+                <button
+                  onClick={() => { setSelectedChapterFilter(null); setSelectedCharacterId(null); setSearchQuery(''); }}
+                  className="text-primary hover:underline focus-visible:outline focus-visible:outline-1 focus-visible:outline-primary"
+                >
+                  Reset filters
+                </button>
+              </div>
+            )}
 
             {/* Character Arc Spotlight Banner */}
             {selectedCharacter && (
@@ -604,20 +731,11 @@ export const WorldTimeline: React.FC = () => {
               </div>
             )}
 
-            {/* The Central Line */}
-            {displayedEvents.length > 0 && (
-              <div
-                className={`absolute left-[50%] top-64 bottom-24 w-[1px] timeline-line -translate-x-1/2 z-0 ${
-                  selectedCharacterId ? 'border-copper-glow/40' : ''
-                }`}
-              />
-            )}
-
-            {/* Timeline Events Stack */}
+            {/* Chapter folios */}
             {displayedEvents.length === 0 && !loading ? (
               <div className="text-center py-24 text-on-surface-variant/60">
-                <span className="material-symbols-outlined text-4xl mb-2 opacity-50">event_busy</span>
-                <p>No events found for this filter criteria.</p>
+                <span className="material-symbols-outlined text-4xl mb-2 opacity-50">menu_book</span>
+                <p>{events.length === 0 ? 'This archive has no events yet.' : 'No events match the current lens.'}</p>
                 {(selectedChapterFilter || selectedCharacterId || searchQuery) && (
                   <button
                     onClick={() => {
@@ -627,192 +745,183 @@ export const WorldTimeline: React.FC = () => {
                     }}
                     className="mt-3 text-xs text-primary hover:underline"
                   >
-                    Reset all filters
+                    Reset filters
                   </button>
                 )}
               </div>
             ) : (
-              <div className="relative z-10 flex flex-col gap-20 mt-6">
-                {displayedEvents.map((event, idx) => {
-                  const isLeft = idx % 2 === 0;
-                  const isActive = event.id === selectedEventId;
-
-                  // Find index within the same chapter
-                  const chapterEvents = events.filter((ev) => ev.chapter_id === event.chapter_id);
-                  const idxInChapter = chapterEvents.findIndex((ev) => ev.id === event.id);
-                  const canMoveUp = idxInChapter > 0;
-                  const canMoveDown = idxInChapter >= 0 && idxInChapter < chapterEvents.length - 1;
-
-                  // Check if target character is in this event
-                  const targetParticipant = selectedCharacterId
-                    ? event.participants.find((p) => p.entity_id === selectedCharacterId)
-                    : null;
-
-                  return (
-                    <div
-                      key={event.id}
-                      onClick={() => handleSelectEvent(event.id)}
-                      className={`flex items-center w-full relative group cursor-pointer ${
-                        isLeft
-                          ? 'justify-end pr-12 text-right w-1/2'
-                          : 'justify-start pl-12 ml-auto w-1/2 text-left'
-                      }`}
-                    >
-                      {/* Node Dot Indicator */}
-                      <div
-                        className={`absolute top-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full border border-background transition-all duration-300 z-20 ${
-                          isLeft ? 'right-[-7px]' : 'left-[-7px]'
-                        } ${
-                          isActive
-                            ? 'bg-primary timeline-node-active scale-125 border-primary shadow-[0_0_12px_rgba(254,182,141,0.8)]'
-                            : targetParticipant
-                            ? 'bg-copper-glow border-copper-glow shadow-[0_0_8px_rgba(230,162,126,0.5)]'
-                            : 'bg-outline-variant group-hover:bg-primary'
-                        }`}
-                      />
-
-                      {/* Active Halo Glow */}
-                      {(isActive || targetParticipant) && (
-                        <div
-                          className={`absolute top-1/2 -translate-y-1/2 w-10 h-10 rounded-full blur-[6px] z-10 pointer-events-none ${
-                            isActive ? 'bg-primary/20' : 'bg-copper-glow/15'
-                          } ${isLeft ? 'right-[-20px]' : 'left-[-20px]'}`}
-                        />
-                      )}
-
-                      {/* Event Info Block */}
-                      <div
-                        className={`transition-all duration-300 w-full max-w-md ${
-                          isActive
-                            ? 'glass-card p-5 rounded-xl border border-primary/40 relative overflow-hidden shadow-2xl scale-[1.02]'
-                            : targetParticipant
-                            ? 'glass-card p-5 rounded-xl border border-copper-glow/30 opacity-90 hover:opacity-100 hover:border-copper-glow/60'
-                            : 'opacity-70 hover:opacity-100'
-                        }`}
-                      >
-                        {isActive && (
-                          <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent pointer-events-none" />
-                        )}
-
-                        <div className={`flex items-center gap-2 mb-1.5 ${isLeft ? 'justify-end' : 'justify-start'}`}>
-                          <span
-                            className={`font-label-sm text-[10px] uppercase tracking-widest ${
-                              isActive ? 'text-primary font-semibold' : 'text-primary/70'
-                            }`}
-                          >
-                            {event.chapter_number !== null
-                              ? `Chapter ${event.chapter_number}`
-                              : 'No Chapter'}
-                            {event.sequence_index !== null ? ` • Seq #${event.sequence_index}` : ''}
+              <div ref={(node) => { chapterRefs.current.all = node; }} className="space-y-8">
+                {chapterGroups.map((group) => (
+                  <section
+                    key={group.key}
+                    ref={(node) => { chapterRefs.current[group.key] = node; }}
+                    className="scroll-mt-20"
+                    aria-labelledby={`chapter-${group.key}`}
+                  >
+                    <div className="flex items-end gap-4 mb-4 border-b border-starlight-white/10 pb-3">
+                      <div className="flex items-center gap-3 min-w-0">
+                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-primary/40 bg-primary/10 font-label-sm text-xs text-primary">
+                          {group.number ?? '·'}
+                        </span>
+                        <div className="min-w-0">
+                          <span className="block font-label-sm text-[10px] uppercase tracking-widest text-primary/70">
+                            {group.number !== null ? `Chapter ${group.number}` : 'Loose Fragments'}
                           </span>
-
-                          {/* Reordering Chevrons & Actions */}
-                          <div
-                            className="flex items-center gap-0.5 ml-2 opacity-0 group-hover:opacity-100 transition-opacity"
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            <button
-                              disabled={!canMoveUp}
-                              onClick={(e) => handleMoveUp(e, event)}
-                              className="p-0.5 rounded hover:bg-white/10 disabled:opacity-20 text-on-surface-variant hover:text-primary transition-colors"
-                              title="Move earlier in chapter"
-                            >
-                              <span className="material-symbols-outlined text-sm">arrow_upward</span>
-                            </button>
-                            <button
-                              disabled={!canMoveDown}
-                              onClick={(e) => handleMoveDown(e, event)}
-                              className="p-0.5 rounded hover:bg-white/10 disabled:opacity-20 text-on-surface-variant hover:text-primary transition-colors"
-                              title="Move later in chapter"
-                            >
-                              <span className="material-symbols-outlined text-sm">arrow_downward</span>
-                            </button>
-                            <button
-                              onClick={(e) => handleDeleteEvent(e, event.id)}
-                              className="p-0.5 rounded hover:bg-white/10 text-on-surface-variant hover:text-error transition-colors"
-                              title="Delete event"
-                            >
-                              <span className="material-symbols-outlined text-sm">delete</span>
-                            </button>
-                          </div>
+                          <h2 id={`chapter-${group.key}`} className="font-headline-md text-headline-md text-starlight-white truncate">
+                            {group.title}
+                          </h2>
                         </div>
-
-                        <h3
-                          className={`font-headline-md text-headline-md group-hover:text-primary transition-colors text-base font-bold ${
-                            isActive ? 'text-starlight-white' : 'text-on-surface'
-                          }`}
+                      </div>
+                      <div className="ml-auto flex shrink-0 items-center gap-2">
+                        <span className="font-label-sm text-[10px] uppercase tracking-wider text-on-surface-variant/50">
+                          {group.events.length} {group.events.length === 1 ? 'entry' : 'entries'}
+                        </span>
+                        <button
+                          onClick={() => setCollapsedChapters((current) => ({ ...current, [group.key]: !current[group.key] }))}
+                          aria-expanded={!collapsedChapters[group.key]}
+                          aria-label={`${collapsedChapters[group.key] ? 'Expand' : 'Collapse'} ${group.title}`}
+                          className="rounded p-1 text-on-surface-variant/60 hover:bg-white/5 hover:text-primary focus-visible:outline focus-visible:outline-1 focus-visible:outline-primary"
                         >
-                          {event.event_type.replace(/_/g, ' ')}
-                        </h3>
-
-                        <p className="font-body-md text-xs text-on-surface-variant/80 mt-2 leading-relaxed">
-                          {event.description}
-                        </p>
-
-                        {/* Interactive Participant Chips */}
-                        {event.participants.length > 0 && (
-                          <div
-                            className={`mt-3.5 flex flex-wrap gap-1.5 ${
-                              isLeft ? 'justify-end' : 'justify-start'
-                            }`}
-                          >
-                            {event.participants.map((p, pIdx) => {
-                              const isTarget = selectedCharacterId === p.entity_id;
-                              return (
-                                <button
-                                  key={pIdx}
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    setSelectedCharacterId(isTarget ? null : p.entity_id);
-                                  }}
-                                  className={`px-2 py-0.5 rounded text-[10px] transition-all flex items-center gap-1 border ${
-                                    isTarget
-                                      ? 'bg-copper-glow/20 border-copper-glow text-copper-glow font-bold shadow-[0_0_8px_rgba(230,162,126,0.3)]'
-                                      : 'bg-surface-container/60 border-white/5 text-on-surface-variant hover:border-copper-glow/40 hover:text-starlight-white'
-                                  }`}
-                                  title={`Click to filter by ${p.entity_name || p.entity_id}'s timeline`}
-                                >
-                                  {isTarget && (
-                                    <span className="material-symbols-outlined text-[10px] text-copper-glow">
-                                      star
-                                    </span>
-                                  )}
-                                  <span>{p.entity_name || p.entity_id}</span>
-                                  <span className="opacity-60 text-[9px]">
-                                    ({p.role.toLowerCase()})
-                                  </span>
-                                </button>
-                              );
-                            })}
-                          </div>
-                        )}
+                          <span className="material-symbols-outlined text-base">
+                            {collapsedChapters[group.key] ? 'expand_more' : 'expand_less'}
+                          </span>
+                        </button>
                       </div>
                     </div>
-                  );
-                })}
+
+                    {!collapsedChapters[group.key] && <div className="relative space-y-3 pl-4 before:absolute before:bottom-3 before:left-[7px] before:top-3 before:w-px before:bg-gradient-to-b before:from-primary/40 before:via-outline-variant/30 before:to-transparent">
+                      {group.events.map((event) => {
+                        const isActive = event.id === selectedEventId;
+                        const targetParticipant = selectedCharacterId
+                          ? event.participants.find((p) => p.entity_id === selectedCharacterId)
+                          : null;
+                        const chapterEvents = eventsByChapter.get(event.chapter_id || 'unassigned') || [];
+                        const idxInChapter = chapterEvents.findIndex((candidate) => candidate.id === event.id);
+                        const canMoveUp = idxInChapter > 0;
+                        const canMoveDown = idxInChapter >= 0 && idxInChapter < chapterEvents.length - 1;
+
+                        return (
+                          <article
+                            key={event.id}
+                            onClick={() => handleSelectEvent(event.id)}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault();
+                                handleSelectEvent(event.id);
+                              }
+                            }}
+                            tabIndex={0}
+                            className={`group relative cursor-pointer rounded-xl border p-4 pl-5 transition-all focus-visible:outline focus-visible:outline-1 focus-visible:outline-primary ${
+                              isActive
+                                ? 'border-primary/50 bg-primary/[0.08] shadow-[0_0_28px_rgba(254,182,141,0.08)]'
+                                : targetParticipant
+                                ? 'border-copper-glow/35 bg-copper-glow/[0.05] hover:border-copper-glow/60'
+                                : 'border-starlight-white/[0.08] bg-surface-container-low/55 hover:border-starlight-white/20 hover:bg-surface-container/70'
+                            }`}
+                          >
+                            <span className={`absolute -left-[21px] top-6 h-3.5 w-3.5 rounded-full border-2 border-void-black ${
+                              isActive ? 'bg-primary shadow-[0_0_14px_rgba(254,182,141,0.8)]' : targetParticipant ? 'bg-copper-glow' : 'bg-outline-variant'
+                            }`} />
+                            <div className="flex items-start gap-3">
+                              <div className="min-w-0 flex-1">
+                                <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                                  <span className="font-label-sm text-[10px] uppercase tracking-widest text-primary/75">
+                                    {event.sequence_index !== null ? `Sequence ${event.sequence_index}` : 'Unsequenced'}
+                                  </span>
+                                  {event.confidence < 0.7 && (
+                                    <span className="rounded-full border border-outline-variant/40 px-2 py-0.5 font-label-sm text-[9px] uppercase tracking-wider text-on-surface-variant/60">
+                                      Low confidence
+                                    </span>
+                                  )}
+                                </div>
+                                <h3 className="mt-1 font-headline-md text-headline-md text-starlight-white group-hover:text-primary">
+                                  {event.event_type.replace(/_/g, ' ')}
+                                </h3>
+                              </div>
+                              <div className="flex shrink-0 items-center gap-1 opacity-100 md:opacity-0 md:group-hover:opacity-100 focus-within:opacity-100" onClick={(e) => e.stopPropagation()}>
+                                <button disabled={!canMoveUp} onClick={(e) => handleMoveUp(e, event)} className="rounded p-1 text-on-surface-variant hover:bg-white/10 hover:text-primary disabled:opacity-20" title="Move earlier in chapter" aria-label="Move earlier in chapter">
+                                  <span className="material-symbols-outlined text-sm">arrow_upward</span>
+                                </button>
+                                <button disabled={!canMoveDown} onClick={(e) => handleMoveDown(e, event)} className="rounded p-1 text-on-surface-variant hover:bg-white/10 hover:text-primary disabled:opacity-20" title="Move later in chapter" aria-label="Move later in chapter">
+                                  <span className="material-symbols-outlined text-sm">arrow_downward</span>
+                                </button>
+                                <button onClick={(e) => handleDeleteEvent(e, event.id)} className="rounded p-1 text-on-surface-variant hover:bg-white/10 hover:text-error" title="Delete event" aria-label="Delete event">
+                                  <span className="material-symbols-outlined text-sm">delete</span>
+                                </button>
+                              </div>
+                            </div>
+
+                            <p className="mt-2 max-w-3xl font-body-md text-sm leading-relaxed text-on-surface-variant/80">
+                              {event.description}
+                            </p>
+
+                            {event.participants.length > 0 && (
+                              <div className="mt-3 flex flex-wrap gap-1.5">
+                                {event.participants.map((participant, participantIndex) => {
+                                  const isTarget = selectedCharacterId === participant.entity_id;
+                                  return (
+                                    <button
+                                      key={`${participant.entity_id}-${participantIndex}`}
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        setSelectedCharacterId(isTarget ? null : participant.entity_id);
+                                      }}
+                                      className={`rounded-full border px-2.5 py-1 font-label-sm text-[10px] transition-colors ${
+                                        isTarget
+                                          ? 'border-copper-glow/70 bg-copper-glow/20 text-copper-glow'
+                                          : 'border-starlight-white/10 bg-surface-container/70 text-on-surface-variant hover:border-copper-glow/40 hover:text-starlight-white'
+                                      }`}
+                                      title={`Show ${participant.entity_name || participant.entity_id}'s arc`}
+                                    >
+                                      {participant.entity_name || participant.entity_id}
+                                      <span className="ml-1 opacity-60">· {participant.role.toLowerCase()}</span>
+                                    </button>
+                                  );
+                                })}
+                              </div>
+                            )}
+                          </article>
+                        );
+                      })}
+                    </div>}
+                  </section>
+                ))}
               </div>
             )}
+            </div>
           </div>
         </div>
 
         {/* Dynamic World State Changes wing inside the main stage (Right side wing) */}
-        <aside className="w-[340px] bg-surface-container-low/95 border-l border-starlight-white/10 flex flex-col h-full shrink-0 z-20">
+        {isDetailsOpen ? (
+        <aside className="w-side-panel-width max-w-[min(360px,38vw)] max-lg:absolute max-lg:right-0 max-lg:top-0 max-lg:bottom-0 max-lg:w-[min(360px,calc(100vw-24px))] max-lg:max-w-none bg-surface-container-low/95 border-l border-starlight-white/10 flex flex-col h-full shrink-0 z-20">
           {/* Header */}
           <div className="p-6 border-b border-starlight-white/5 bg-gradient-to-b from-surface-container-highest/20 to-transparent pt-14">
             <span className="font-label-sm text-[10px] text-primary/70 block mb-1 tracking-wider uppercase font-semibold">
               Event Chronicle
             </span>
-            <h2 className="font-headline-md text-headline-md text-starlight-white leading-tight text-lg">
-              {selectedEvent ? selectedEvent.event_type.replace(/_/g, ' ') : 'No Selection'}
-            </h2>
-            <p className="font-label-sm text-[10px] text-on-surface-variant/50 uppercase tracking-widest mt-1">
-              {selectedEvent?.chapter_number !== null && selectedEvent?.chapter_number !== undefined
-                ? `Chapter ${selectedEvent.chapter_number}`
-                : 'No Chapter'}
-              {selectedEvent?.sequence_index !== null && selectedEvent?.sequence_index !== undefined
-                ? ` • Sequence #${selectedEvent.sequence_index}`
-                : ''}
-            </p>
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <h2 className="font-headline-md text-headline-md text-starlight-white leading-tight text-lg">
+                  {selectedEvent ? selectedEvent.event_type.replace(/_/g, ' ') : 'No Selection'}
+                </h2>
+                <p className="font-label-sm text-[10px] text-on-surface-variant/50 uppercase tracking-widest mt-1">
+                  {selectedEvent?.chapter_number !== null && selectedEvent?.chapter_number !== undefined
+                    ? `Chapter ${selectedEvent.chapter_number}`
+                    : 'No Chapter'}
+                  {selectedEvent?.sequence_index !== null && selectedEvent?.sequence_index !== undefined
+                    ? ` • Sequence #${selectedEvent.sequence_index}`
+                    : ''}
+                </p>
+              </div>
+              <button
+                onClick={() => setIsDetailsOpen(false)}
+                aria-label="Close event details"
+                className="w-8 h-8 rounded-lg text-on-surface-variant hover:text-primary hover:bg-white/5 flex items-center justify-center focus-visible:outline focus-visible:outline-1 focus-visible:outline-primary"
+              >
+                <span className="material-symbols-outlined text-lg">close</span>
+              </button>
+            </div>
           </div>
 
           {/* Details Scroll */}
@@ -952,6 +1061,14 @@ export const WorldTimeline: React.FC = () => {
             )}
           </div>
         </aside>
+        ) : (
+          <button
+            onClick={() => setIsDetailsOpen(true)}
+            className="absolute right-4 top-4 z-30 px-3 py-2 rounded-lg bg-surface-container-high/90 border border-starlight-white/10 text-xs text-primary hover:bg-surface-container-highest focus-visible:outline focus-visible:outline-1 focus-visible:outline-primary"
+          >
+            Open event details
+          </button>
+        )}
       </main>
 
       {/* Create Event Modal */}
