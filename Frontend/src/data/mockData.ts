@@ -4,6 +4,7 @@ export interface Entity {
   type: 'character' | 'location' | 'object' | 'event';
   subtype?: string;
   alias?: string;
+  aliases?: string[];
   description: string;
   image?: string;
   traits?: string[];
@@ -12,6 +13,8 @@ export interface Entity {
     text: string;
     source: string;
     type: 'extracted' | 'manual';
+    property_name?: string;
+    value?: unknown;
   }[];
   relationships: {
     targetId: string;
@@ -54,6 +57,10 @@ export interface Contradiction {
     highlightedWord: string;
   }[];
   resolved: boolean;
+  old_fact_version_id?: string | null;
+  new_fact_version_id?: string | null;
+  old_relationship_version_id?: string | null;
+  new_relationship_version_id?: string | null;
 }
 
 export interface Chapter {

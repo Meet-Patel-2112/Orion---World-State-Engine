@@ -87,3 +87,22 @@ class EntityResponse(EntityBase):
 class EntityDetailResponse(EntityResponse):
     relationships: List[Dict[str, Any]] = []
     events: List[Dict[str, Any]] = []
+
+class MergeEntitiesRequest(BaseModel):
+    source_id: str
+    target_id: str
+
+class BulkDeleteEntitiesRequest(BaseModel):
+    entity_ids: List[str] = Field(..., min_length=1)
+
+class AliasCreateRequest(BaseModel):
+    alias: str = Field(..., min_length=1, max_length=255)
+
+    @field_validator("alias")
+    @classmethod
+    def validate_alias(cls, v: str) -> str:
+        s = v.strip()
+        if not s:
+            raise ValueError("alias cannot be empty.")
+        return s
+
