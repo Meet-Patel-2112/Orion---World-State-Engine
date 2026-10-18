@@ -43,17 +43,26 @@ interface WorldState {
   // Entity Actions
   fetchEntitiesForWorld: (worldId: string) => Promise<void>;
   addEntity: (entity: Omit<Entity, 'facts' | 'relationships' | 'appearances'>) => Promise<void>;
-  updateEntity: (id: string, updated: Partial<Entity>) => void;
-  deleteEntity: (id: string) => void;
+  updateEntity: (id: string, updated: Partial<Entity>) => Promise<void> | void;
+  deleteEntity: (id: string) => Promise<void> | void;
+  mergeEntities: (sourceId: string, targetId: string) => Promise<void>;
+  bulkDeleteEntities: (entityIds: string[]) => Promise<void>;
+  addAlias: (entityId: string, alias: string) => Promise<void>;
+  removeAlias: (entityId: string, alias: string) => Promise<void>;
   
   // Fact Actions
-  addFact: (entityId: string, text: string, type?: 'manual' | 'extracted', source?: string) => void;
-  deleteFact: (entityId: string, factId: string) => void;
+  addFact: (entityId: string, propertyOrText: string, valueOrType?: unknown, source?: string) => Promise<void> | void;
+  deleteFact: (entityId: string, factId: string) => Promise<void> | void;
 
   // Timeline & Contradictions Actions
   fetchTimelineForWorld: (worldId: string) => Promise<void>;
   fetchContradictionsForWorld: (worldId: string) => Promise<void>;
-  resolveContradictionInBackend: (worldId: string, contradictionId: string) => Promise<void>;
+  resolveContradictionInBackend: (
+    worldId: string,
+    contradictionId: string,
+    preferredFactVersionId?: string | null,
+    preferredRelationshipVersionId?: string | null
+  ) => Promise<void>;
   resolveContradiction: (id: string) => void;
   
   // Manuscript Actions
@@ -145,11 +154,15 @@ export const useWorldStore = create<WorldState>((set, get) => ({
         name: ent.canonical_name,
         type: ent.entity_type as any,
         description: (ent.aliases || []).length ? `Also called: ${ent.aliases.join(', ')}` : '',
+        alias: (ent.aliases || [])[0] || '',
+        aliases: ent.aliases || [],
         facts: (ent.facts || []).map((f: any) => ({
           id: f.id,
           text: `${f.property_name}: ${f.current_version?.value ?? ''}`,
           source: f.current_version?.chapter_id || 'System',
-          type: 'extracted'
+          type: 'extracted',
+          property_name: f.property_name,
+          value: f.current_version?.value
         })),
         relationships: [],
         appearances: []
@@ -193,7 +206,11 @@ export const useWorldStore = create<WorldState>((set, get) => ({
           severity: c.confidence >= 0.85 ? 'high' : c.confidence >= 0.6 ? 'medium' : 'low',
           summary: text || '',
           resolved: c.status === 'RESOLVED',
-          sources: []
+          sources: [],
+          old_fact_version_id: c.old_fact_version_id || null,
+          new_fact_version_id: c.new_fact_version_id || null,
+          old_relationship_version_id: c.old_relationship_version_id || null,
+          new_relationship_version_id: c.new_relationship_version_id || null
         };
       });
       set({ contradictions: mapped });
@@ -202,15 +219,28 @@ export const useWorldStore = create<WorldState>((set, get) => ({
     }
   },
 
-  resolveContradictionInBackend: async (worldId: string, contradictionId: string) => {
+  resolveContradictionInBackend: async (
+    worldId: string,
+    contradictionId: string,
+    preferredFactVersionId?: string | null,
+    preferredRelationshipVersionId?: string | null
+  ) => {
     try {
+      const payload: Record<string, any> = { status: 'RESOLVED' };
+      if (preferredFactVersionId) {
+        payload.preferred_fact_version_id = preferredFactVersionId;
+      }
+      if (preferredRelationshipVersionId) {
+        payload.preferred_relationship_version_id = preferredRelationshipVersionId;
+      }
       await apiFetch(`/worlds/${worldId}/contradictions/${contradictionId}/resolve`, {
         method: 'POST',
-        body: JSON.stringify({ status: 'RESOLVED' })
+        body: JSON.stringify(payload)
       });
       get().resolveContradiction(contradictionId);   // only once the backend has it
     } catch (e) {
       console.error("Could not resolve the contradiction on the API", e);
+      throw e;
     }
   },
   
@@ -266,63 +296,320 @@ export const useWorldStore = create<WorldState>((set, get) => ({
     });
   },
   
-  updateEntity: (id, updated) => set((state) => ({
-    entities: state.entities.map((e) => e.id === id ? { ...e, ...updated } : e)
-  })),
-  
-  deleteEntity: (id) => set((state) => {
-    const entityToDelete = state.entities.find((e) => e.id === id);
-    const updatedWorlds = state.worlds.map((w) => {
-      if (w.id === state.activeWorldId && entityToDelete) {
-        return {
-          ...w,
-          entityCount: Math.max(0, w.entityCount - 1),
-          characterCount: entityToDelete.type === 'character' ? Math.max(0, w.characterCount - 1) : w.characterCount,
-          locationCount: entityToDelete.type === 'location' ? Math.max(0, w.locationCount - 1) : w.locationCount,
-          objectCount: entityToDelete.type === 'object' ? Math.max(0, w.objectCount - 1) : w.objectCount,
-          eventCount: entityToDelete.type === 'event' ? Math.max(0, w.eventCount - 1) : w.eventCount
-        };
+  updateEntity: async (id, updated) => {
+    const activeWorldId = get().activeWorldId;
+    if (activeWorldId) {
+      try {
+        const body: Record<string, any> = {};
+        if (updated.name !== undefined) body.canonical_name = updated.name;
+        if (updated.type !== undefined) body.entity_type = updated.type;
+        if (updated.description !== undefined || updated.subtype !== undefined) {
+          body.attributes = {
+            description: updated.description,
+            subtype: updated.subtype
+          };
+        }
+        await apiFetch(`/worlds/${activeWorldId}/entities/${id}`, {
+          method: 'PUT',
+          body: JSON.stringify(body)
+        });
+      } catch (err) {
+        console.error("Failed to update entity on API", err);
       }
-      return w;
-    });
+    }
+    set((state) => ({
+      entities: state.entities.map((e) => e.id === id ? { ...e, ...updated } : e)
+    }));
+  },
+  
+  deleteEntity: async (id) => {
+    const activeWorldId = get().activeWorldId;
+    if (activeWorldId) {
+      try {
+        await apiFetch(`/worlds/${activeWorldId}/entities/${id}`, {
+          method: 'DELETE'
+        });
+      } catch (err) {
+        console.error("Failed to delete entity on API", err);
+      }
+    }
+    set((state) => {
+      const entityToDelete = state.entities.find((e) => e.id === id);
+      const updatedWorlds = state.worlds.map((w) => {
+        if (w.id === state.activeWorldId && entityToDelete) {
+          return {
+            ...w,
+            entityCount: Math.max(0, w.entityCount - 1),
+            characterCount: entityToDelete.type === 'character' ? Math.max(0, w.characterCount - 1) : w.characterCount,
+            locationCount: entityToDelete.type === 'location' ? Math.max(0, w.locationCount - 1) : w.locationCount,
+            objectCount: entityToDelete.type === 'object' ? Math.max(0, w.objectCount - 1) : w.objectCount,
+            eventCount: entityToDelete.type === 'event' ? Math.max(0, w.eventCount - 1) : w.eventCount
+          };
+        }
+        return w;
+      });
 
-    return {
-      entities: state.entities.filter((e) => e.id !== id),
-      worlds: updatedWorlds,
-      activeEntityId: state.activeEntityId === id ? null : state.activeEntityId,
-      isEntityPanelOpen: state.activeEntityId === id ? false : state.isEntityPanelOpen
-    };
-  }),
-  
-  addFact: (entityId, text, type = 'manual', source = 'Manual') => set((state) => ({
-    entities: state.entities.map((e) => {
-      if (e.id === entityId) {
-        const newFact = {
-          id: `fact-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-          text,
-          source,
-          type
+      return {
+        entities: state.entities.filter((e) => e.id !== id),
+        worlds: updatedWorlds,
+        activeEntityId: state.activeEntityId === id ? null : state.activeEntityId,
+        isEntityPanelOpen: state.activeEntityId === id ? false : state.isEntityPanelOpen
+      };
+    });
+  },
+
+  mergeEntities: async (sourceId: string, targetId: string) => {
+    const activeWorldId = get().activeWorldId;
+    if (!activeWorldId) return;
+
+    try {
+      const survivor = await apiFetch<any>(`/worlds/${activeWorldId}/entities/merge`, {
+        method: 'POST',
+        body: JSON.stringify({ source_id: sourceId, target_id: targetId })
+      });
+
+      set((state) => {
+        const sourceEntity = state.entities.find((e) => e.id === sourceId);
+        const mappedSurvivor: Entity = {
+          id: survivor.id,
+          name: survivor.canonical_name,
+          type: survivor.entity_type as any,
+          description: (survivor.aliases || []).length ? `Also called: ${survivor.aliases.join(', ')}` : '',
+          alias: (survivor.aliases || [])[0] || '',
+          aliases: survivor.aliases || [],
+          facts: (survivor.facts || []).map((f: any) => ({
+            id: f.id,
+            text: `${f.property_name}: ${f.current_version?.value ?? ''}`,
+            source: f.current_version?.chapter_id || 'System',
+            type: 'extracted',
+            property_name: f.property_name,
+            value: f.current_version?.value
+          })),
+          relationships: [],
+          appearances: []
         };
+
+        const updatedWorlds = state.worlds.map((w) => {
+          if (w.id === state.activeWorldId) {
+            return {
+              ...w,
+              entityCount: Math.max(0, w.entityCount - 1),
+              characterCount: sourceEntity?.type === 'character' ? Math.max(0, w.characterCount - 1) : w.characterCount,
+              locationCount: sourceEntity?.type === 'location' ? Math.max(0, w.locationCount - 1) : w.locationCount,
+              objectCount: sourceEntity?.type === 'object' ? Math.max(0, w.objectCount - 1) : w.objectCount,
+              eventCount: sourceEntity?.type === 'event' ? Math.max(0, w.eventCount - 1) : w.eventCount
+            };
+          }
+          return w;
+        });
+
         return {
-          ...e,
-          facts: [...e.facts, newFact]
+          entities: state.entities
+            .filter((e) => e.id !== sourceId)
+            .map((e) => e.id === targetId ? mappedSurvivor : e),
+          worlds: updatedWorlds,
+          activeEntityId: state.activeEntityId === sourceId ? targetId : state.activeEntityId
         };
-      }
-      return e;
-    })
-  })),
-  
-  deleteFact: (entityId, factId) => set((state) => ({
-    entities: state.entities.map((e) => {
-      if (e.id === entityId) {
+      });
+
+      get().fetchContradictionsForWorld(activeWorldId);
+    } catch (err) {
+      console.error("Failed to merge entities on API", err);
+      throw err;
+    }
+  },
+
+  bulkDeleteEntities: async (entityIds: string[]) => {
+    const activeWorldId = get().activeWorldId;
+    if (!activeWorldId || !entityIds.length) return;
+
+    try {
+      await apiFetch(`/worlds/${activeWorldId}/entities/bulk-delete`, {
+        method: 'POST',
+        body: JSON.stringify({ entity_ids: entityIds })
+      });
+
+      set((state) => {
+        const idSet = new Set(entityIds);
+        const deletedEntities = state.entities.filter((e) => idSet.has(e.id));
+        const updatedWorlds = state.worlds.map((w) => {
+          if (w.id === state.activeWorldId) {
+            let charCount = w.characterCount;
+            let locCount = w.locationCount;
+            let objCount = w.objectCount;
+            let evCount = w.eventCount;
+            for (const de of deletedEntities) {
+              if (de.type === 'character') charCount = Math.max(0, charCount - 1);
+              if (de.type === 'location') locCount = Math.max(0, locCount - 1);
+              if (de.type === 'object') objCount = Math.max(0, objCount - 1);
+              if (de.type === 'event') evCount = Math.max(0, evCount - 1);
+            }
+            return {
+              ...w,
+              entityCount: Math.max(0, w.entityCount - deletedEntities.length),
+              characterCount: charCount,
+              locationCount: locCount,
+              objectCount: objCount,
+              eventCount: evCount
+            };
+          }
+          return w;
+        });
+
         return {
-          ...e,
-          facts: e.facts.filter((f) => f.id !== factId)
+          entities: state.entities.filter((e) => !idSet.has(e.id)),
+          worlds: updatedWorlds,
+          activeEntityId: idSet.has(state.activeEntityId || '') ? null : state.activeEntityId,
+          isEntityPanelOpen: idSet.has(state.activeEntityId || '') ? false : state.isEntityPanelOpen
         };
+      });
+
+      get().fetchContradictionsForWorld(activeWorldId);
+    } catch (err) {
+      console.error("Failed to bulk delete entities on API", err);
+      throw err;
+    }
+  },
+
+  addAlias: async (entityId: string, alias: string) => {
+    const activeWorldId = get().activeWorldId;
+    if (!activeWorldId) return;
+
+    try {
+      const updated = await apiFetch<any>(`/worlds/${activeWorldId}/entities/${entityId}/aliases`, {
+        method: 'POST',
+        body: JSON.stringify({ alias })
+      });
+
+      set((state) => ({
+        entities: state.entities.map((e) => {
+          if (e.id === entityId) {
+            return {
+              ...e,
+              alias: (updated.aliases || [])[0] || '',
+              aliases: updated.aliases || [],
+              description: (updated.aliases || []).length ? `Also called: ${updated.aliases.join(', ')}` : e.description
+            };
+          }
+          return e;
+        })
+      }));
+    } catch (err) {
+      console.error("Failed to add alias on API", err);
+      throw err;
+    }
+  },
+
+  removeAlias: async (entityId: string, alias: string) => {
+    const activeWorldId = get().activeWorldId;
+    if (!activeWorldId) return;
+
+    try {
+      await apiFetch(`/worlds/${activeWorldId}/entities/${entityId}/aliases?alias=${encodeURIComponent(alias)}`, {
+        method: 'DELETE'
+      });
+
+      set((state) => ({
+        entities: state.entities.map((e) => {
+          if (e.id === entityId) {
+            const currentAliases: string[] = (e as any).aliases || (e.alias ? [e.alias] : []);
+            const newAliases = currentAliases.filter((a) => a.toLowerCase() !== alias.toLowerCase());
+            return {
+              ...e,
+              alias: newAliases[0] || '',
+              aliases: newAliases,
+              description: newAliases.length ? `Also called: ${newAliases.join(', ')}` : ''
+            };
+          }
+          return e;
+        })
+      }));
+    } catch (err) {
+      console.error("Failed to remove alias on API", err);
+      throw err;
+    }
+  },
+  
+  addFact: async (entityId, propertyOrText, valueOrType, source = 'Manual Entry') => {
+    const activeWorldId = get().activeWorldId;
+    let propName = propertyOrText.trim();
+    let val: unknown = valueOrType;
+
+    if (valueOrType === 'manual' || valueOrType === 'extracted' || valueOrType === undefined) {
+      if (propertyOrText.includes(':')) {
+        const parts = propertyOrText.split(':');
+        propName = parts[0].trim();
+        val = parts.slice(1).join(':').trim();
+      } else {
+        propName = 'attribute';
+        val = propertyOrText.trim();
       }
-      return e;
-    })
-  })),
+    }
+
+    let factVersionId = `fact-${Date.now()}`;
+    if (activeWorldId) {
+      try {
+        const res = await apiFetch<any>(`/worlds/${activeWorldId}/entities/${entityId}/facts`, {
+          method: 'POST',
+          body: JSON.stringify({
+            property_name: propName,
+            value: val,
+            confidence: 1.0
+          })
+        });
+        if (res && res.id) {
+          factVersionId = res.id;
+        }
+      } catch (err) {
+        console.error("Failed to add fact on API", err);
+      }
+    }
+
+    set((state) => ({
+      entities: state.entities.map((e) => {
+        if (e.id === entityId) {
+          const newFact = {
+            id: factVersionId,
+            text: `${propName}: ${String(val)}`,
+            source: typeof source === 'string' ? source : 'Manual Entry',
+            type: 'manual' as const,
+            property_name: propName,
+            value: val
+          };
+          return {
+            ...e,
+            facts: [...e.facts, newFact]
+          };
+        }
+        return e;
+      })
+    }));
+  },
+  
+  deleteFact: async (entityId, factId) => {
+    const activeWorldId = get().activeWorldId;
+    if (activeWorldId) {
+      try {
+        await apiFetch(`/worlds/${activeWorldId}/entities/${entityId}/facts/${factId}`, {
+          method: 'DELETE'
+        });
+      } catch (err) {
+        console.error("Failed to delete fact on API", err);
+      }
+    }
+
+    set((state) => ({
+      entities: state.entities.map((e) => {
+        if (e.id === entityId) {
+          return {
+            ...e,
+            facts: e.facts.filter((f) => f.id !== factId)
+          };
+        }
+        return e;
+      })
+    }));
+  },
   
   resolveContradiction: (id) => set((state) => {
     const updatedContradictions = state.contradictions.map((c) => 
