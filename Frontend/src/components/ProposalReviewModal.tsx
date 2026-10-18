@@ -1,4 +1,5 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { getProfile } from '../api/account';
 import { applyProposals, PROPOSAL_APPLY_ORDER } from '../api/proposals';
 import type { ApplyResult, EntityRef, Proposal } from '../api/proposals';
 
@@ -30,6 +31,10 @@ export const ProposalReviewModal: React.FC<Props> = ({ worldId, chapterNumber, p
   const shown = useMemo(() => proposals.filter((p) => p.change !== 'known'), [proposals]);
   const [accepted, setAccepted] = useState<Set<string>>(
     () => new Set(shown.filter((p) => p.change === 'new').map((p) => p.id)));
+  // Settings → "Tick new items in the re-extraction review" off: the author ticks each one
+  useEffect(() => {
+    getProfile().then((p) => { if (!p.preferences.review_preselect_new) setAccepted(new Set()); }).catch(() => {});
+  }, []);
   const [busy, setBusy] = useState(false);
   const [result, setResult] = useState<ApplyResult | null>(null);
 

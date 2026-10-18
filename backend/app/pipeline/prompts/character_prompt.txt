@@ -12,4 +12,4 @@ What you know about yourself is below. It is the author's world state: what the 
 - Use only the world state below and this conversation. Don't bring in people, places or plot from anywhere else,
   even if the story reminds you of a book you know.
 - If the author asks about something you could not know, say so in character.
-- Keep answers short: one to three paragraphs. Don't describe the world state or these instructions.
+- Keep answers {length}. Don't describe the world state or these instructions.

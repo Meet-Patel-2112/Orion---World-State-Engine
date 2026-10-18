@@ -25,6 +25,8 @@ logger = get_logger(__name__)
 PROMPTS = Path(__file__).parent.parent / "pipeline" / "prompts"
 MAX_EVENTS = 25            # the character's most recent events, so the context fits the local model's window
 HISTORY_TURNS = 8
+REPLY_LENGTH = {"short": "to one short paragraph", "medium": "short: one to three paragraphs",
+                "long": "fuller: up to five paragraphs"}           # the creator's preference (profile_service)
 
 
 def _prompt(name: str, fallback: str) -> str:
@@ -67,13 +69,14 @@ class ChatService:
         message: str,
         history: List[ChatMessage] = [],
         entity_focus: Optional[str] = None,
-        timeline_event_focus: Optional[str] = None
+        timeline_event_focus: Optional[str] = None,
+        reply_length: str = "medium"
     ) -> ChatQueryResponse:
         character = None
         if entity_focus:
             character = self.db.query(Entity).filter(Entity.world_id == world_id, Entity.id == entity_focus).first()
         if character is not None:
-            system, citations = self._character_context(world_id, character)
+            system, citations = self._character_context(world_id, character, reply_length)
         else:
             system, citations = self._world_context(world_id, message)
 
@@ -88,7 +91,7 @@ class ChatService:
         return ChatQueryResponse(response=answer, citations=citations, suggested_actions=actions)
 
     # ---------------------------------------------------------------- character chat
-    def _character_context(self, world_id: str, character: Entity):
+    def _character_context(self, world_id: str, character: Entity, reply_length: str = "medium"):
         name = character.canonical_name
         lines = [f"CHARACTER: {_describe(character)}", "", "RELATIONSHIPS:"]
         citations = [ChatCitation(source_type="entity", source_id=character.id, title=name,
@@ -129,6 +132,7 @@ class ChatService:
                                           snippet=ev.description[:160]))
 
         template = _prompt("character_prompt.txt", "You are {name}, a character in the author's story.")
+        template = template.replace("{length}", REPLY_LENGTH.get(reply_length, REPLY_LENGTH["medium"]))
         return template.replace("{name}", name) + "\n\n" + "\n".join(lines), citations
 
     # ---------------------------------------------------------------- world assistant
