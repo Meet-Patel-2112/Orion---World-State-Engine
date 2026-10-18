@@ -7,6 +7,7 @@ The pipeline runs in its own Python 3.12 venv with torch and the GPU, so it is c
 coreference within the chapter; entities join earlier chapters by name and alias (WorldStateService).
 """
 import json
+import os
 import subprocess
 import tempfile
 from collections import Counter
@@ -19,7 +20,7 @@ from app.preprocessing import preprocess_chapter
 logger = get_logger(__name__)
 
 EXTRACTOR_DIR = Path(__file__).resolve().parents[3] / "extractor"
-EXTRACTOR_PYTHON = EXTRACTOR_DIR / ".venv" / "bin" / "python"
+EXTRACTOR_PYTHON = EXTRACTOR_DIR / ".venv" / ("Scripts/python.exe" if os.name == "nt" else "bin/python")
 TIMEOUT_S = 900                                   # about 40 s per chapter on the RTX 4050, most of it model loading
 ENTITY_TYPES = ("character", "location", "organization")
 # ponytail: OTHER events (85% of the extractor's triggers, mostly noise) are left out of the world state; keep them if the
@@ -34,10 +35,28 @@ def run_extractor(text: str, chapter_number: int) -> Dict[str, Any]:
         src.write_text(text, encoding="utf-8")
         done = subprocess.run([str(EXTRACTOR_PYTHON), "-m", "extractor", "run", str(src), str(out),
                                "--story-id", f"chapter_{chapter_number}"],
-                              cwd=EXTRACTOR_DIR, capture_output=True, text=True, timeout=TIMEOUT_S)
+                              cwd=EXTRACTOR_DIR, capture_output=True, text=True, encoding="utf-8", errors="replace",
+                              env={**os.environ, "PYTHONUTF8": "1"}, timeout=TIMEOUT_S)  # cp1252 on Windows otherwise
         if done.returncode != 0:
             raise RuntimeError(f"Extraction failed on chapter {chapter_number}: {done.stderr.strip()[-2000:]}")
         return json.loads(out.read_text(encoding="utf-8"))
+
+
+DETERMINERS = {"a", "an", "the", "his", "her", "my", "our", "their", "your", "its"}
+IRREGULAR_PLURALS = {"children", "people", "men", "women", "folk", "folks", "family", "parents"}
+_proper = lambda group: any(m.get("mention_kind") == "proper" for m in group)
+
+
+def _bare(name: str) -> str:
+    """'his wife' -> 'wife': the role noun without its determiner."""
+    words = name.split()
+    return " ".join(words[1:]) if len(words) > 1 and words[0].casefold() in DETERMINERS else name
+
+
+def _plural(name: str) -> bool:
+    """A nominal naming a group ('daughters', 'the children'). ponytail: English suffix check, not a lemmatizer"""
+    last = name.split()[-1].casefold()
+    return last in IRREGULAR_PLURALS or (last.endswith("s") and not last.endswith(("ss", "us", "is")))
 
 
 def to_legacy(doc: Dict[str, Any], chapter_number: int) -> Dict[str, Any]:
@@ -54,7 +73,7 @@ def to_legacy(doc: Dict[str, Any], chapter_number: int) -> Dict[str, Any]:
     about |= {group_of[r[k]] for r in doc["relationships"] for k in ("subject_mention_id", "object_mention_id")}
 
     names: Dict[int, str] = {}
-    by_name: Dict[str, Dict[str, Any]] = {}                        # groups with the same name are one entity
+    picked = []                                                    # (group, kind, proper names) per kept group
     for n, g in enumerate(groups):
         kind = Counter(m["type"] for m in g).most_common(1)[0][0]
         proper = Counter(m["text"] for m in g if m.get("mention_kind") == "proper")
@@ -62,7 +81,28 @@ def to_legacy(doc: Dict[str, Any], chapter_number: int) -> Dict[str, Any]:
         if kind not in ENTITY_TYPES or not (proper or (n in about and nominal)):
             continue
         name = max((proper or nominal).items(), key=lambda kv: (kv[1], -len(kv[0])))[0]   # tie: the shorter name
+        if not proper and _plural(name):                           # "daughters", "children": a group, not a character
+            continue
         names[n] = name
+        picked.append((n, kind, proper))
+    # A role noun alone ("wife") names nobody: call it after the named entity it is related to ("Mr. Bennet's wife")
+    renamed = set()
+    for r in doc["relationships"]:
+        s, o = group_of[r["subject_mention_id"]], group_of[r["object_mention_id"]]
+        for role, owner in ((s, o), (o, s)):
+            if role in names and owner in names and role not in renamed and not _proper(groups[role]) \
+                    and _proper(groups[owner]):
+                names[role] = f"{names[owner]}'s {_bare(names[role])}"
+                renamed.add(role)
+    ends = [(group_of[r["subject_mention_id"]], group_of[r["object_mention_id"]]) for r in doc["relationships"]]
+    related = {g for s, o in ends if s in names and o in names for g in (s, o)}
+    facts_on = {group_of[f["entity_mention_id"]] for f in doc["facts"]}
+    by_name: Dict[str, Dict[str, Any]] = {}                        # groups with the same name are one entity
+    for n, kind, proper in picked:
+        if not proper and n not in related and n not in facts_on:  # its only relationship was to a dropped group
+            del names[n]
+            continue
+        name = names[n]
         entity = by_name.setdefault(name, {"canonical_name": name, "type": kind, "mention": name, "aliases": [],
                                            "attributes": {}})
         entity["aliases"] = sorted(set(entity["aliases"]) | set(proper) - {name})

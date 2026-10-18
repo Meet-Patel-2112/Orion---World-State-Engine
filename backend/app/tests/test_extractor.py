@@ -48,13 +48,14 @@ def test_entities_are_named_clusters_or_what_facts_and_relationships_are_about()
     assert out["entities"] == [
         {"canonical_name": "Evelyn", "type": "character", "mention": "Evelyn", "aliases": ["Evelyn McKinnon"],
          "attributes": {"age": "twenty four"}},
-        {"canonical_name": "boss", "type": "character", "mention": "boss", "aliases": [], "attributes": {}},
+        {"canonical_name": "Evelyn's boss", "type": "character", "mention": "Evelyn's boss", "aliases": [],
+         "attributes": {}},                                           # a role noun alone is named after its owner
         {"canonical_name": "Dan", "type": "character", "mention": "Dan", "aliases": [], "attributes": {}},
     ]   # fog: not a character / location / organization; woman: no name and nothing is about her
-    assert out["relationships"] == [{"subject": "Evelyn", "predicate": "WORKS_FOR", "object": "boss"}]
+    assert out["relationships"] == [{"subject": "Evelyn", "predicate": "WORKS_FOR", "object": "Evelyn's boss"}]
     assert out["events"] == [{"id": "E1", "type": "CONVERSATION", "evidence": "I told my boss about the fog.",
                               "participants": [{"name": "Evelyn", "role": "AGENT"},
-                                               {"name": "boss", "role": "RECIPIENT"}]}]   # OTHER events: left out ...
+                                               {"name": "Evelyn's boss", "role": "RECIPIENT"}]}]   # OTHER: left out ...
     assert out["temporal_relations"] == []                            # ... with their temporal relations
 
 
