@@ -1,0 +1,17 @@
+{
+  "work_id": "oliver_twist",
+  "title": "Oliver Twist",
+  "author": "Charles Dickens",
+  "pdnc_folder": "OliverTwist",
+  "chapters": [1, 8, 47, 50, 51],
+  "entities": {
+    "The Artful Dodger": {"key": "jack_dawkins", "name": "Jack Dawkins"},
+    "Nance": {"key": "nancy", "name": "Nancy"},
+    "Monks": {"key": "edward_leeford", "name": "Edward Leeford"},
+    "Mrs. Thingummy": {"key": "old_sally", "name": "Old Sally"},
+    "Mrs. Bolter": {"key": "charlotte", "name": "Charlotte"}
+  },
+  "extra_entities": [],
+  "name_map": {},
+  "notes": "Monks is Edward Leeford, revealed late; the gold uses one key from the start (guidelines section 2)."
+}

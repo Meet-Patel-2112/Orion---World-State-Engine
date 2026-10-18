@@ -47,10 +47,20 @@ def strip_position_ids(model_dir: Path) -> None:
             torch.save(state, path)
 
 
+BIG_CHECKPOINTS = {"entity_model_path": "entities_google_bert_uncased_L-6_H-768_A-12-v1.0.model",
+                   "coref_model_path": "coref_google_bert_uncased_L-12_H-768_A-12-v1.0.model",
+                   "quote_attribution_model_path": "speaker_google_bert_uncased_L-12_H-768_A-12-v1.0.1.model"}
+
+
 @cache
 def _booknlp():
     from booknlp.booknlp import BookNLP
     params = {"pipeline": "entity,quote,event,coref", "model": "big"}   # coref requires quote attribution
+    if all((BOOKNLP_MODELS / name).exists() for name in BIG_CHECKPOINTS.values()):
+        # The same "big" checkpoints, named explicitly with "/" separators: BookNLP derives each BERT name from
+        # `path.split("/")[-1]`, which breaks on a Windows path built with "\". "big" alone also downloads them.
+        params = {"pipeline": params["pipeline"], "model": "custom",
+                  **{k: f"{BOOKNLP_MODELS.as_posix()}/{name}" for k, name in BIG_CHECKPOINTS.items()}}
     try:
         return BookNLP("en", params)
     except RuntimeError as exc:                     # first run: checkpoints just downloaded, not yet fixed

@@ -67,6 +67,10 @@ JOB_NOUNS = {"position", "job", "role", "career", "post", "gig"}   # "a radio DJ
 NOT_OCCUPATIONS = ({w for w, (predicate, _) in ROLES.items() if predicate != "WORKS_FOR"}
                    | {"coworker", "co-worker", "colleague", "partner", "neighbor", "neighbour", "roommate"})
 UNCHECKED = {"age", "date_of_birth", "status"}                    # numbers, dates, free states: length check only
+# Scene state, not standing facts: where someone is and how they are change from scene to scene, and all 5 location and
+# status facts production kept on the reviewed gold v2 chapter-1 files were wrong. Still asked, so the prompt and its
+# cache are unchanged, but never kept. ponytail: model them as events with a time if the timeline needs them
+SCENE_STATE = {"location", "status"}
 # A relationship is kept only if its evidence has a word that states it: NuExtract asserts FRIEND_OF, ALLY_OF and
 # MARRIED_TO between any two people in a sentence (Phase 9 in the plan). Stems, matched at a word start.
 # ponytail: keyword cues miss implied relations; a verifier model is the upgrade if recall matters more than precision
@@ -287,6 +291,8 @@ def relations(doc: Dict[str, Any]) -> None:
         for person in ask(PEOPLE, chunk.text).get("people") or []:
             m = find(person.get("name"))
             for prop in FACT_PROPERTIES if m else ():
+                if prop in SCENE_STATE:
+                    continue
                 value = person.get(prop).strip() if isinstance(person.get(prop), str) else ""
                 at = chunk.text.casefold().find(value.casefold()) if value else -1
                 if at < 0 or len(value) > MAX_VALUE_CHARS:

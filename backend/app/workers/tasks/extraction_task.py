@@ -9,8 +9,9 @@ from app.models.chapter_version import ChapterVersion
 from app.models.extraction_run import ExtractionRun
 from app.models.processing_job import ProcessingJob
 from app.models.world import World
-from app.core.constants import JobStatus, ExtractionRunStatus
+from app.core.constants import JobStatus, JobType, ExtractionRunStatus
 from app.pipeline import extractor
+from app.services.proposal_service import ProposalService
 from app.services.world_state_service import WorldStateService
 from app.utils.file_handler import read_file_text
 from app.workers.celery_app import celery_app
@@ -146,6 +147,20 @@ def _execute(
         f"chapter_id={chapter_id} chapter={chapter_number}"
     )
     extracted_data = extractor.extract_chapter(chapter_text, chapter_number)
+
+    job = db.get(ProcessingJob, job_id)
+    if job is not None and job.job_type == JobType.RE_EXTRACTION.value:
+        # Propose, don't write (docs/api.md §17): the world the author has accepted stays as it is until they apply
+        # what they choose through the manual endpoints.
+        result = ProposalService(db).build(world_id, job_id, chapter_id, chapter_number, extracted_data)
+        ProposalService(db).save(result)
+        db.rollback()                                   # the comparison only read
+        run = db.get(ExtractionRun, extraction_run_id)
+        run.status = ExtractionRunStatus.DONE.value
+        run.completed_at = _now()
+        run.error_message = None
+        db.commit()
+        return {"status": "success", "counts": {"proposals": len(result["proposals"])}}
 
     # ---- single integration transaction: lock -> ordering gate -> integrate -> DONE -> commit ----
     _lock_world(db, world_id)

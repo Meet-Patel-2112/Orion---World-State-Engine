@@ -48,13 +48,14 @@ def test_entities_are_named_clusters_or_what_facts_and_relationships_are_about()
     assert out["entities"] == [
         {"canonical_name": "Evelyn", "type": "character", "mention": "Evelyn", "aliases": ["Evelyn McKinnon"],
          "attributes": {"age": "twenty four"}},
-        {"canonical_name": "boss", "type": "character", "mention": "boss", "aliases": [], "attributes": {}},
+        {"canonical_name": "Evelyn's boss", "type": "character", "mention": "Evelyn's boss", "aliases": [],
+         "attributes": {}},                                           # a role noun alone is named after its owner
         {"canonical_name": "Dan", "type": "character", "mention": "Dan", "aliases": [], "attributes": {}},
     ]   # fog: not a character / location / organization; woman: no name and nothing is about her
-    assert out["relationships"] == [{"subject": "Evelyn", "predicate": "WORKS_FOR", "object": "boss"}]
+    assert out["relationships"] == [{"subject": "Evelyn", "predicate": "WORKS_FOR", "object": "Evelyn's boss"}]
     assert out["events"] == [{"id": "E1", "type": "CONVERSATION", "evidence": "I told my boss about the fog.",
                               "participants": [{"name": "Evelyn", "role": "AGENT"},
-                                               {"name": "boss", "role": "RECIPIENT"}]}]   # OTHER events: left out ...
+                                               {"name": "Evelyn's boss", "role": "RECIPIENT"}]}]   # OTHER: left out ...
     assert out["temporal_relations"] == []                            # ... with their temporal relations
 
 
@@ -78,3 +79,29 @@ def test_a_chapter_naming_an_entity_by_its_alias_joins_the_stored_entity(world):
         [entity] = s.query(Entity).filter_by(world_id=w["world_id"]).all()
         aliases = sorted(a.alias for a in s.query(EntityAlias).filter_by(entity_id=entity.id))
     assert entity.canonical_name == "Dan" and aliases == ["Daniel", "Daniel Esperanza"]
+
+
+def test_names_keep_their_titles_and_mr_and_mrs_stay_two_people(world):
+    from app.models.entity import Entity
+    env, w = world
+    bennet = lambda name: {"canonical_name": name, "type": "character", "aliases": [], "attributes": {}}
+    integrate(env, w["world_id"], w["runs"][1], {"entities": [bennet("Mr. Bennet")]})
+    integrate(env, w["world_id"], w["runs"][2], {"entities": [bennet("Mrs. Bennet")]})
+    with env.Session() as s:
+        names = sorted(e.canonical_name for e in s.query(Entity).filter_by(world_id=w["world_id"]))
+    assert names == ["Mr. Bennet", "Mrs. Bennet"]                 # same surname, conflicting titles: not one person
+
+
+def test_an_owner_qualified_role_finds_the_entity_it_was_merged_into(world):
+    from app.models.entity import Entity, EntityAlias
+    env, w = world
+    person = lambda name: {"canonical_name": name, "type": "character", "aliases": [], "attributes": {}}
+    integrate(env, w["world_id"], w["runs"][1], {"entities": [person("Mrs. Bennet")]})
+    with env.Session() as s:                                     # the author merged "Mr. Bennet's wife" into her
+        mrs = s.query(Entity).filter_by(world_id=w["world_id"]).one()
+        s.add(EntityAlias(entity_id=mrs.id, alias="Mr. Bennet's wife"))
+        s.commit()
+    integrate(env, w["world_id"], w["runs"][2], {"entities": [person("Mr. Bennet's wife"), person("his wife")]})
+    with env.Session() as s:
+        names = sorted(e.canonical_name for e in s.query(Entity).filter_by(world_id=w["world_id"]))
+    assert names == ["Mrs. Bennet", "his wife"]                   # "his wife" is still nobody in particular

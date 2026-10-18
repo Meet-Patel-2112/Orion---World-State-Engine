@@ -1,0 +1,3337 @@
+{
+ "schema_version": "2.0",
+ "doc_id": "pride_and_prejudice/ch01",
+ "work": {
+  "work_id": "pride_and_prejudice",
+  "title": "Pride and Prejudice",
+  "author": "Jane Austen",
+  "chapter_number": 1,
+  "source": {
+   "corpus": "pdnc",
+   "url": "https://github.com/Priya22/project-dialogism-novel-corpus",
+   "revision": "e507a27b89a85c1e9710a897ad0b3f5a9ad73dc4",
+   "license": "Annotations: CC-BY 4.0 (PDNC, Vishnubhotla, Hammond and Hirst 2022); text: public domain",
+   "text_offset": 0
+  }
+ },
+ "text": "CHAPTER I.\n\n\nIt is a truth universally acknowledged, that a single man in possession\nof a good fortune, must be in want of a wife.\n\nHowever little known the feelings or views of such a man may be on his\nfirst entering a neighbourhood, this truth is so well fixed in the minds\nof the surrounding families, that he is considered as the rightful\nproperty of some one or other of their daughters.\n\n\"My dear Mr. Bennet,\" said his lady to him one day, \"have you heard that\nNetherfield Park is let at last?\"\n\nMr. Bennet replied that he had not.\n\n\"But it is,\" returned she; \"for Mrs. Long has just been here, and she\ntold me all about it.\"\n\nMr. Bennet made no answer.\n\n\"Do not you want to know who has taken it?\" cried his wife impatiently.\n\n\"_You_ want to tell me, and I have no objection to hearing it.\"\n\nThis was invitation enough.\n\n\"Why, my dear, you must know, Mrs. Long says that Netherfield is taken\nby a young man of large fortune from the north of England; that he came\ndown on Monday in a chaise and four to see the place, and was so much\ndelighted with it that he agreed with Mr. Morris immediately; that he is\nto take possession before Michaelmas, and some of his servants are to be\nin the house by the end of next week.\"\n\n\"What is his name?\"\n\n\"Bingley.\"\n\n\"Is he married or single?\"\n\n\"Oh! single, my dear, to be sure! A single man of large fortune; four\nor five thousand a year. What a fine thing for our girls!\"\n\n\"How so? how can it affect them?\"\n\n\"My dear Mr. Bennet,\" replied his wife, \"how can you be so tiresome! You\nmust know that I am thinking of his marrying one of them.\"\n\n\"Is that his design in settling here?\"\n\n\"Design! nonsense, how can you talk so! But it is very likely that he\n_may_ fall in love with one of them, and therefore you must visit him as\nsoon as he comes.\"\n\n\"I see no occasion for that. You and the girls may go, or you may send\nthem by themselves, which perhaps will be still better, for as you are\nas handsome as any of them, Mr. Bingley might like you the best of the\nparty.\"\n\n\"My dear, you flatter me. I certainly _have_ had my share of beauty, but\nI do not pretend to be any thing extraordinary now. When a woman has\nfive grown up daughters, she ought to give over thinking of her own\nbeauty.\"\n\n\"In such cases, a woman has not often much beauty to think of.\"\n\n\"But, my dear, you must indeed go and see Mr. Bingley when he comes into\nthe neighbourhood.\"\n\n\"It is more than I engage for, I assure you.\"\n\n\"But consider your daughters. Only think what an establishment it would\nbe for one of them. Sir William and Lady Lucas are determined to go,\nmerely on that account, for in general you know they visit no new\ncomers. Indeed you must go, for it will be impossible for _us_ to visit\nhim, if you do not.\"\n\n\"You are over scrupulous surely. I dare say Mr. Bingley will be very\nglad to see you; and I will send a few lines by you to assure him of my\nhearty consent to his marrying which ever he chuses of the girls; though\nI must throw in a good word for my little Lizzy.\"\n\n\"I desire you will do no such thing. Lizzy is not a bit better than the\nothers; and I am sure she is not half so handsome as Jane, nor half so\ngood humoured as Lydia. But you are always giving _her_ the\npreference.\"\n\n\"They have none of them much to recommend them,\" replied he; \"they are\nall silly and ignorant like other girls; but Lizzy has something more of\nquickness than her sisters.\"\n\n\"Mr. Bennet, how can you abuse your own children in such a way? You take\ndelight in vexing me. You have no compassion on my poor nerves.\"\n\n\"You mistake me, my dear. I have a high respect for your nerves. They\nare my old friends. I have heard you mention them with consideration\nthese twenty years at least.\"\n\n\"Ah! you do not know what I suffer.\"\n\n\"But I hope you will get over it, and live to see many young men of four\nthousand a year come into the neighbourhood.\"\n\n\"It will be no use to us, if twenty such should come since you will not\nvisit them.\"\n\n\"Depend upon it, my dear, that when there are twenty, I will visit them\nall.\"\n\nMr. Bennet was so odd a mixture of quick parts, sarcastic humour,\nreserve, and caprice, that the experience of three and twenty years had\nbeen insufficient to make his wife understand his character. _Her_ mind\nwas less difficult to develope. She was a woman of mean understanding,\nlittle information, and uncertain temper. When she was discontented she\nfancied herself nervous. The business of her life was to get her\ndaughters married; its solace was visiting and news.",
+ "annotation": {
+  "guidelines_version": "2.0",
+  "status": "reviewed",
+  "layers": {
+   "mentions": {
+    "coverage": "exhaustive"
+   },
+   "quotes": {
+    "coverage": "exhaustive"
+   },
+   "events": {
+    "coverage": "none"
+   },
+   "facts": {
+    "coverage": "exhaustive"
+   },
+   "relationships": {
+    "coverage": "exhaustive"
+   },
+   "temporal_expressions": {
+    "coverage": "none"
+   },
+   "temporal_relations": {
+    "coverage": "none"
+   }
+  },
+  "notes": "Pilot chapter. Quotes, characters and the mentions inside quotes are imported from PDNC at e507a27; every other item is Claude's draft and pending review. Policy decisions from the pilot (2026-10-16), now in the guidelines: parentage stays on the group entity bennet_daughters (section 7); Sir William and Lady Lucas are not MARRIED_TO on titles alone (section 7); 'neighbourhood' is a provisional entity (section 2); plural mentions of a set with no entity have entity_key null (section 4); predicate nominals and generic uses are not mentions (section 4); claimed_by is the immediate claimant and source_entity_key the reported source, so F1 is Mrs. Bennet repeating Mrs. Long (section 8). Reviewed 2026-10-16: every drafted item accepted, none changed. The review did not list missing items, so no recall additions were made. Open limitation: a mention holds one entity key, so a plural naming two established entities (M91, the Lucases) stays null. Review (2026-10-17, HS, on the review page): every pending item accepted, none corrected or deleted; recall pass over the mention region done, no missing mentions added; 28 PDNC quotes checked for span and speaker. Accepted in bulk (one action per layer): 28 quotes; a double review (guidelines section 9) should start with those layers.",
+  "annotators": [
+   {
+    "name": "Claude",
+    "role": "drafter"
+   },
+   {
+    "name": "pilot review",
+    "role": "reviewer"
+   },
+   {
+    "name": "HS",
+    "role": "reviewer"
+   }
+  ]
+ },
+ "entities": [
+  {
+   "entity_key": "bennet_daughters",
+   "name": "the Bennet daughters",
+   "type": "character",
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "entity_key": "charles_bingley",
+   "name": "Charles Bingley",
+   "type": "character",
+   "aliases": [
+    "Bingley",
+    "Charles",
+    "Mr. Bingley"
+   ],
+   "external_ids": {
+    "pdnc": "17"
+   },
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc"
+   }
+  },
+  {
+   "entity_key": "elizabeth_bennet",
+   "name": "Elizabeth Bennet",
+   "type": "character",
+   "aliases": [
+    "Eliza",
+    "Elizabeth",
+    "Lizzy",
+    "Miss Eliza",
+    "Miss Elizabeth",
+    "Miss Lizzy",
+    "My Dear Miss Eliza",
+    "My Dear Miss Elizabeth",
+    "My Dearest Lizzy"
+   ],
+   "external_ids": {
+    "pdnc": "5"
+   },
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc"
+   }
+  },
+  {
+   "entity_key": "jane_bennet",
+   "name": "Jane Bennet",
+   "type": "character",
+   "aliases": [
+    "Jane",
+    "Miss Bennet",
+    "My Dear Jane"
+   ],
+   "external_ids": {
+    "pdnc": "7"
+   },
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc"
+   }
+  },
+  {
+   "entity_key": "lady_lucas",
+   "name": "Lady Lucas",
+   "type": "character",
+   "aliases": [],
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc"
+   }
+  },
+  {
+   "entity_key": "lydia_bennet",
+   "name": "Lydia Bennet",
+   "type": "character",
+   "aliases": [
+    "Lydia",
+    "Mrs. Wickham"
+   ],
+   "external_ids": {
+    "pdnc": "11"
+   },
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc"
+   }
+  },
+  {
+   "entity_key": "mr_bennet",
+   "name": "Mr. Bennet",
+   "type": "character",
+   "aliases": [],
+   "external_ids": {
+    "pdnc": "16"
+   },
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc"
+   }
+  },
+  {
+   "entity_key": "mr_morris",
+   "name": "Mr. Morris",
+   "type": "character",
+   "aliases": [],
+   "external_ids": {
+    "pdnc": "71"
+   },
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc"
+   }
+  },
+  {
+   "entity_key": "mrs_bennet",
+   "name": "Mrs. Bennet",
+   "type": "character",
+   "aliases": [],
+   "external_ids": {
+    "pdnc": "25"
+   },
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc"
+   }
+  },
+  {
+   "entity_key": "mrs_long",
+   "name": "Mrs. Long",
+   "type": "character",
+   "aliases": [],
+   "external_ids": {
+    "pdnc": "31"
+   },
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc"
+   }
+  },
+  {
+   "entity_key": "neighbourhood",
+   "name": "the neighbourhood",
+   "type": "location",
+   "provisional": true,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "entity_key": "netherfield_park",
+   "name": "Netherfield Park",
+   "type": "location",
+   "aliases": [
+    "Netherfield"
+   ],
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "entity_key": "sir_william_lucas",
+   "name": "Sir William Lucas",
+   "type": "character",
+   "aliases": [
+    "Sir William"
+   ],
+   "external_ids": {
+    "pdnc": "35"
+   },
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc"
+   }
+  }
+ ],
+ "mentions": [
+  {
+   "mention_id": "M1",
+   "text": "My dear Mr. Bennet",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mr_bennet",
+   "start": 395,
+   "end": 413,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M2",
+   "text": "Mr. Bennet",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mr_bennet",
+   "start": 403,
+   "end": 413,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M3",
+   "text": "his lady",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "mrs_bennet",
+   "start": 421,
+   "end": 429,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M4",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 421,
+   "end": 424,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16: accepted provisionally; possessive determiner: a mention of the possessor (guidelines section 4)"
+   }
+  },
+  {
+   "mention_id": "M5",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 433,
+   "end": 436,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M6",
+   "text": "you",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 452,
+   "end": 455,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M7",
+   "text": "Netherfield Park",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "netherfield_park",
+   "start": 467,
+   "end": 483,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M8",
+   "text": "Mr. Bennet",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mr_bennet",
+   "start": 502,
+   "end": 512,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M9",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 526,
+   "end": 528,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M10",
+   "text": "it",
+   "type": "location",
+   "mention_kind": "pronominal",
+   "entity_key": "netherfield_park",
+   "start": 544,
+   "end": 546,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M11",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mrs_bennet",
+   "start": 561,
+   "end": 564,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M12",
+   "text": "Mrs. Long",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mrs_long",
+   "start": 571,
+   "end": 580,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M13",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mrs_long",
+   "start": 605,
+   "end": 608,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M14",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mrs_bennet",
+   "start": 614,
+   "end": 616,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M15",
+   "text": "Mr. Bennet",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mr_bennet",
+   "start": 633,
+   "end": 643,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M16",
+   "text": "you",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 669,
+   "end": 672,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M17",
+   "text": "it",
+   "type": "location",
+   "mention_kind": "pronominal",
+   "entity_key": "netherfield_park",
+   "start": 700,
+   "end": 702,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M18",
+   "text": "his wife",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "mrs_bennet",
+   "start": 711,
+   "end": 719,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M19",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 711,
+   "end": 714,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16: accepted provisionally; possessive determiner: a mention of the possessor (guidelines section 4)"
+   }
+  },
+  {
+   "mention_id": "M20",
+   "text": "You",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mrs_bennet",
+   "start": 736,
+   "end": 739,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M21",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 754,
+   "end": 756,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16: speaker verified: Q4 is Mr. Bennet's line"
+   }
+  },
+  {
+   "mention_id": "M22",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 762,
+   "end": 763,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M23",
+   "text": "my dear",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "mr_bennet",
+   "start": 834,
+   "end": 841,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M24",
+   "text": "you",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 843,
+   "end": 846,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M25",
+   "text": "Mrs. Long",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mrs_long",
+   "start": 858,
+   "end": 867,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M26",
+   "text": "Netherfield",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": "netherfield_park",
+   "start": 878,
+   "end": 889,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M27",
+   "text": "a young man",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "charles_bingley",
+   "start": 902,
+   "end": 913,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M28",
+   "text": "the north of England",
+   "type": "location",
+   "mention_kind": "proper",
+   "entity_key": null,
+   "start": 936,
+   "end": 956,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16: accepted provisionally; null key, no canonical entity for the region"
+   }
+  },
+  {
+   "mention_id": "M29",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "charles_bingley",
+   "start": 963,
+   "end": 965,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M30",
+   "text": "the place",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "netherfield_park",
+   "start": 1014,
+   "end": 1023,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16: accepted provisionally; the place Bingley came to see"
+   }
+  },
+  {
+   "mention_id": "M31",
+   "text": "it",
+   "type": "location",
+   "mention_kind": "pronominal",
+   "entity_key": "netherfield_park",
+   "start": 1056,
+   "end": 1058,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M32",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "charles_bingley",
+   "start": 1064,
+   "end": 1066,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M33",
+   "text": "Mr. Morris",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mr_morris",
+   "start": 1079,
+   "end": 1089,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M34",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "charles_bingley",
+   "start": 1108,
+   "end": 1110,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M35",
+   "text": "his servants",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 1164,
+   "end": 1176,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M36",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "charles_bingley",
+   "start": 1164,
+   "end": 1167,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M37",
+   "text": "the house",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "netherfield_park",
+   "start": 1190,
+   "end": 1199,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16: accepted provisionally; the house and the estate are linked here by context, not treated as identical everywhere"
+   }
+  },
+  {
+   "mention_id": "M38",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "charles_bingley",
+   "start": 1236,
+   "end": 1239,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M39",
+   "text": "Bingley",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "charles_bingley",
+   "start": 1249,
+   "end": 1256,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M40",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "charles_bingley",
+   "start": 1264,
+   "end": 1266,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M41",
+   "text": "my dear",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "mr_bennet",
+   "start": 1301,
+   "end": 1308,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M42",
+   "text": "our girls",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "bennet_daughters",
+   "start": 1405,
+   "end": 1414,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M43",
+   "text": "our",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 1405,
+   "end": 1408,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16: possessive determiner: a mention of the possessor (guidelines section 4); null key: Mr. and Mrs. Bennet together, no entity"
+   }
+  },
+  {
+   "mention_id": "M44",
+   "text": "them",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "bennet_daughters",
+   "start": 1445,
+   "end": 1449,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M45",
+   "text": "My dear Mr. Bennet",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mr_bennet",
+   "start": 1454,
+   "end": 1472,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16: nested with M46 (Mr. Bennet), as nested spans are allowed"
+   }
+  },
+  {
+   "mention_id": "M46",
+   "text": "Mr. Bennet",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mr_bennet",
+   "start": 1462,
+   "end": 1472,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M47",
+   "text": "his wife",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "mrs_bennet",
+   "start": 1483,
+   "end": 1491,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M48",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 1483,
+   "end": 1486,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16: possessive determiner: a mention of the possessor (guidelines section 4)"
+   }
+  },
+  {
+   "mention_id": "M49",
+   "text": "you",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 1502,
+   "end": 1505,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M50",
+   "text": "You",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 1522,
+   "end": 1525,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M51",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mrs_bennet",
+   "start": 1541,
+   "end": 1542,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M52",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "charles_bingley",
+   "start": 1558,
+   "end": 1561,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M53",
+   "text": "them",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "bennet_daughters",
+   "start": 1578,
+   "end": 1582,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M54",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "charles_bingley",
+   "start": 1595,
+   "end": 1598,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M55",
+   "text": "you",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 1653,
+   "end": 1656,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M56",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "charles_bingley",
+   "start": 1693,
+   "end": 1695,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M57",
+   "text": "them",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "bennet_daughters",
+   "start": 1727,
+   "end": 1731,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M58",
+   "text": "you",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 1747,
+   "end": 1750,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M59",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "charles_bingley",
+   "start": 1762,
+   "end": 1765,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M60",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "charles_bingley",
+   "start": 1777,
+   "end": 1779,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M61",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 1790,
+   "end": 1791,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M62",
+   "text": "You",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mrs_bennet",
+   "start": 1818,
+   "end": 1821,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M63",
+   "text": "the girls",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "bennet_daughters",
+   "start": 1826,
+   "end": 1835,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M64",
+   "text": "you",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mrs_bennet",
+   "start": 1847,
+   "end": 1850,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M65",
+   "text": "them",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "bennet_daughters",
+   "start": 1860,
+   "end": 1864,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M66",
+   "text": "themselves",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "bennet_daughters",
+   "start": 1868,
+   "end": 1878,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M67",
+   "text": "you",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mrs_bennet",
+   "start": 1923,
+   "end": 1926,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M68",
+   "text": "them",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "bennet_daughters",
+   "start": 1953,
+   "end": 1957,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M69",
+   "text": "Mr. Bingley",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "charles_bingley",
+   "start": 1959,
+   "end": 1970,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M70",
+   "text": "you",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mrs_bennet",
+   "start": 1982,
+   "end": 1985,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M71",
+   "text": "My dear",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mr_bennet",
+   "start": 2012,
+   "end": 2019,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M72",
+   "text": "you",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 2021,
+   "end": 2024,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M73",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mrs_bennet",
+   "start": 2033,
+   "end": 2035,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M74",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mrs_bennet",
+   "start": 2037,
+   "end": 2038,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M75",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mrs_bennet",
+   "start": 2060,
+   "end": 2062,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16: possessive determiner: a mention of the possessor (guidelines section 4)"
+   }
+  },
+  {
+   "mention_id": "M76",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mrs_bennet",
+   "start": 2084,
+   "end": 2085,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M77",
+   "text": "my dear",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "mr_bennet",
+   "start": 2302,
+   "end": 2309,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M78",
+   "text": "you",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 2311,
+   "end": 2314,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M79",
+   "text": "Mr. Bingley",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "charles_bingley",
+   "start": 2338,
+   "end": 2349,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M80",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "charles_bingley",
+   "start": 2355,
+   "end": 2357,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M81",
+   "text": "the neighbourhood",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "neighbourhood",
+   "start": 2369,
+   "end": 2386,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M82",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 2407,
+   "end": 2408,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M83",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 2421,
+   "end": 2422,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M84",
+   "text": "you",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mrs_bennet",
+   "start": 2430,
+   "end": 2433,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M85",
+   "text": "your daughters",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "bennet_daughters",
+   "start": 2451,
+   "end": 2465,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M86",
+   "text": "your",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 2451,
+   "end": 2455,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16: possessive determiner: a mention of the possessor (guidelines section 4)"
+   }
+  },
+  {
+   "mention_id": "M87",
+   "text": "them",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "bennet_daughters",
+   "start": 2523,
+   "end": 2527,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M88",
+   "text": "Sir William",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "sir_william_lucas",
+   "start": 2529,
+   "end": 2540,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M89",
+   "text": "Lady Lucas",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "lady_lucas",
+   "start": 2545,
+   "end": 2555,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M90",
+   "text": "you",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 2617,
+   "end": 2620,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M91",
+   "text": "they",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 2626,
+   "end": 2630,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16: Sir William and Lady Lucas together; a mention holds one entity key, so null rather than picking one"
+   }
+  },
+  {
+   "mention_id": "M92",
+   "text": "you",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 2659,
+   "end": 2662,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M93",
+   "text": "us",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 2703,
+   "end": 2705,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16: null key: the group is not an established entity"
+   }
+  },
+  {
+   "mention_id": "M94",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "charles_bingley",
+   "start": 2716,
+   "end": 2719,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M95",
+   "text": "you",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 2724,
+   "end": 2727,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M96",
+   "text": "You",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mrs_bennet",
+   "start": 2739,
+   "end": 2742,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M97",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 2771,
+   "end": 2772,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M98",
+   "text": "Mr. Bingley",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "charles_bingley",
+   "start": 2782,
+   "end": 2793,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M99",
+   "text": "you",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mrs_bennet",
+   "start": 2819,
+   "end": 2822,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M100",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 2828,
+   "end": 2829,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M101",
+   "text": "you",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mrs_bennet",
+   "start": 2855,
+   "end": 2858,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M102",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "charles_bingley",
+   "start": 2869,
+   "end": 2872,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M103",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 2876,
+   "end": 2878,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16: possessive determiner: a mention of the possessor (guidelines section 4)"
+   }
+  },
+  {
+   "mention_id": "M104",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "charles_bingley",
+   "start": 2897,
+   "end": 2900,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M105",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "charles_bingley",
+   "start": 2921,
+   "end": 2923,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M106",
+   "text": "the girls",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "bennet_daughters",
+   "start": 2934,
+   "end": 2943,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M107",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 2952,
+   "end": 2953,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M108",
+   "text": "my little Lizzy",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "elizabeth_bennet",
+   "start": 2984,
+   "end": 2999,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M109",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 2984,
+   "end": 2986,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16: possessive determiner: a mention of the possessor (guidelines section 4)"
+   }
+  },
+  {
+   "mention_id": "M110",
+   "text": "Lizzy",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "elizabeth_bennet",
+   "start": 2994,
+   "end": 2999,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M111",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mrs_bennet",
+   "start": 3004,
+   "end": 3005,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M112",
+   "text": "you",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 3013,
+   "end": 3016,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M113",
+   "text": "Lizzy",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "elizabeth_bennet",
+   "start": 3040,
+   "end": 3045,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M114",
+   "text": "the\nothers",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 3071,
+   "end": 3081,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16: null key: the daughters other than Elizabeth, a subset rather than bennet_daughters"
+   }
+  },
+  {
+   "mention_id": "M115",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mrs_bennet",
+   "start": 3087,
+   "end": 3088,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M116",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "elizabeth_bennet",
+   "start": 3097,
+   "end": 3100,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M117",
+   "text": "Jane",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "jane_bennet",
+   "start": 3128,
+   "end": 3132,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M118",
+   "text": "Lydia",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "lydia_bennet",
+   "start": 3163,
+   "end": 3168,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M119",
+   "text": "you",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 3174,
+   "end": 3177,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M120",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "elizabeth_bennet",
+   "start": 3197,
+   "end": 3200,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M121",
+   "text": "They",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "bennet_daughters",
+   "start": 3221,
+   "end": 3225,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M122",
+   "text": "them",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "bennet_daughters",
+   "start": 3239,
+   "end": 3243,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M123",
+   "text": "them",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "bennet_daughters",
+   "start": 3262,
+   "end": 3266,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M124",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 3277,
+   "end": 3279,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M125",
+   "text": "they",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "bennet_daughters",
+   "start": 3282,
+   "end": 3286,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M126",
+   "text": "Lizzy",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "elizabeth_bennet",
+   "start": 3336,
+   "end": 3341,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M127",
+   "text": "her sisters",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 3379,
+   "end": 3390,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16: null key: Elizabeth's sisters, a subset rather than bennet_daughters"
+   }
+  },
+  {
+   "mention_id": "M128",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "elizabeth_bennet",
+   "start": 3379,
+   "end": 3382,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16: possessive determiner: a mention of the possessor (guidelines section 4)"
+   }
+  },
+  {
+   "mention_id": "M129",
+   "text": "Mr. Bennet",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mr_bennet",
+   "start": 3395,
+   "end": 3405,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M130",
+   "text": "you",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 3415,
+   "end": 3418,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M131",
+   "text": "your own children",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "bennet_daughters",
+   "start": 3425,
+   "end": 3442,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M132",
+   "text": "your",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 3425,
+   "end": 3429,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16: possessive determiner: a mention of the possessor (guidelines section 4)"
+   }
+  },
+  {
+   "mention_id": "M133",
+   "text": "You",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 3458,
+   "end": 3461,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M134",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mrs_bennet",
+   "start": 3485,
+   "end": 3487,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M135",
+   "text": "You",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 3489,
+   "end": 3492,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M136",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mrs_bennet",
+   "start": 3515,
+   "end": 3517,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16: possessive determiner: a mention of the possessor (guidelines section 4)"
+   }
+  },
+  {
+   "mention_id": "M137",
+   "text": "You",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mrs_bennet",
+   "start": 3534,
+   "end": 3537,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M138",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 3546,
+   "end": 3548,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M139",
+   "text": "my dear",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "mrs_bennet",
+   "start": 3550,
+   "end": 3557,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M140",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 3559,
+   "end": 3560,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M141",
+   "text": "your",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mrs_bennet",
+   "start": 3585,
+   "end": 3589,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M142",
+   "text": "my",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 3607,
+   "end": 3609,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16: possessive determiner: a mention of the possessor (guidelines section 4)"
+   }
+  },
+  {
+   "mention_id": "M143",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 3623,
+   "end": 3624,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M144",
+   "text": "you",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mrs_bennet",
+   "start": 3636,
+   "end": 3639,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M145",
+   "text": "you",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 3708,
+   "end": 3711,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M146",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mrs_bennet",
+   "start": 3729,
+   "end": 3730,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M147",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 3746,
+   "end": 3747,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M148",
+   "text": "you",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mrs_bennet",
+   "start": 3753,
+   "end": 3756,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M149",
+   "text": "the neighbourhood",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "neighbourhood",
+   "start": 3840,
+   "end": 3857,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M150",
+   "text": "us",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 3883,
+   "end": 3885,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16: null key: the group is not an established entity"
+   }
+  },
+  {
+   "mention_id": "M151",
+   "text": "you",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 3920,
+   "end": 3923,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M152",
+   "text": "my dear",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "mrs_bennet",
+   "start": 3964,
+   "end": 3971,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M153",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 4001,
+   "end": 4002,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M154",
+   "text": "Mr. Bennet",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "mr_bennet",
+   "start": 4026,
+   "end": 4036,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M155",
+   "text": "his wife",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "mrs_bennet",
+   "start": 4190,
+   "end": 4198,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M156",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 4190,
+   "end": 4193,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16: possessive determiner: a mention of the possessor (guidelines section 4)"
+   }
+  },
+  {
+   "mention_id": "M157",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mr_bennet",
+   "start": 4210,
+   "end": 4213,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16: accepted provisionally; possessive determiner: a mention of the possessor (guidelines section 4)"
+   }
+  },
+  {
+   "mention_id": "M158",
+   "text": "Her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mrs_bennet",
+   "start": 4226,
+   "end": 4229,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M159",
+   "text": "She",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mrs_bennet",
+   "start": 4268,
+   "end": 4271,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M160",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mrs_bennet",
+   "start": 4354,
+   "end": 4357,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M161",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mrs_bennet",
+   "start": 4375,
+   "end": 4378,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M162",
+   "text": "herself",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mrs_bennet",
+   "start": 4387,
+   "end": 4394,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M163",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mrs_bennet",
+   "start": 4420,
+   "end": 4423,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16: possessive determiner: a mention of the possessor (guidelines section 4)"
+   }
+  },
+  {
+   "mention_id": "M164",
+   "text": "her\ndaughters",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "bennet_daughters",
+   "start": 4440,
+   "end": 4453,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "mention_id": "M165",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "mrs_bennet",
+   "start": 4440,
+   "end": 4443,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16: possessive determiner: a mention of the possessor (guidelines section 4)"
+   }
+  }
+ ],
+ "quotes": [
+  {
+   "quote_id": "Q1",
+   "spans": [
+    {
+     "start": 395,
+     "end": 414
+    },
+    {
+     "start": 447,
+     "end": 499
+    }
+   ],
+   "speaker_entity_key": "mrs_bennet",
+   "addressee_entity_keys": [
+    "mr_bennet"
+   ],
+   "quote_type": "anaphoric",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "HS",
+    "note": "PDNC Q0"
+   }
+  },
+  {
+   "quote_id": "Q2",
+   "spans": [
+    {
+     "start": 540,
+     "end": 550
+    },
+    {
+     "start": 567,
+     "end": 630
+    }
+   ],
+   "speaker_entity_key": "mrs_bennet",
+   "addressee_entity_keys": [
+    "mr_bennet"
+   ],
+   "quote_type": "anaphoric",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "HS",
+    "note": "PDNC Q1"
+   }
+  },
+  {
+   "quote_id": "Q3",
+   "spans": [
+    {
+     "start": 662,
+     "end": 703
+    }
+   ],
+   "speaker_entity_key": "mrs_bennet",
+   "addressee_entity_keys": [
+    "mr_bennet"
+   ],
+   "quote_type": "anaphoric",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "HS",
+    "note": "PDNC Q2"
+   }
+  },
+  {
+   "quote_id": "Q4",
+   "spans": [
+    {
+     "start": 735,
+     "end": 796
+    }
+   ],
+   "speaker_entity_key": "mr_bennet",
+   "addressee_entity_keys": [
+    "mrs_bennet"
+   ],
+   "quote_type": "implicit",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "HS",
+    "note": "PDNC Q3"
+   }
+  },
+  {
+   "quote_id": "Q5",
+   "spans": [
+    {
+     "start": 829,
+     "end": 1224
+    }
+   ],
+   "speaker_entity_key": "mrs_bennet",
+   "addressee_entity_keys": [
+    "mr_bennet"
+   ],
+   "quote_type": "implicit",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "HS",
+    "note": "PDNC Q4"
+   }
+  },
+  {
+   "quote_id": "Q6",
+   "spans": [
+    {
+     "start": 1228,
+     "end": 1245
+    }
+   ],
+   "speaker_entity_key": "mr_bennet",
+   "addressee_entity_keys": [
+    "mrs_bennet"
+   ],
+   "quote_type": "implicit",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "HS",
+    "note": "PDNC Q5"
+   }
+  },
+  {
+   "quote_id": "Q7",
+   "spans": [
+    {
+     "start": 1249,
+     "end": 1257
+    }
+   ],
+   "speaker_entity_key": "mrs_bennet",
+   "addressee_entity_keys": [
+    "mr_bennet"
+   ],
+   "quote_type": "implicit",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "HS",
+    "note": "PDNC Q6"
+   }
+  },
+  {
+   "quote_id": "Q8",
+   "spans": [
+    {
+     "start": 1261,
+     "end": 1285
+    }
+   ],
+   "speaker_entity_key": "mr_bennet",
+   "addressee_entity_keys": [
+    "mrs_bennet"
+   ],
+   "quote_type": "implicit",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "HS",
+    "note": "PDNC Q7"
+   }
+  },
+  {
+   "quote_id": "Q9",
+   "spans": [
+    {
+     "start": 1289,
+     "end": 1415
+    }
+   ],
+   "speaker_entity_key": "mrs_bennet",
+   "addressee_entity_keys": [
+    "mr_bennet"
+   ],
+   "quote_type": "implicit",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "HS",
+    "note": "PDNC Q8"
+   }
+  },
+  {
+   "quote_id": "Q10",
+   "spans": [
+    {
+     "start": 1419,
+     "end": 1450
+    }
+   ],
+   "speaker_entity_key": "mr_bennet",
+   "addressee_entity_keys": [
+    "mrs_bennet"
+   ],
+   "quote_type": "implicit",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "HS",
+    "note": "PDNC Q9"
+   }
+  },
+  {
+   "quote_id": "Q11",
+   "spans": [
+    {
+     "start": 1454,
+     "end": 1473
+    },
+    {
+     "start": 1494,
+     "end": 1583
+    }
+   ],
+   "speaker_entity_key": "mrs_bennet",
+   "addressee_entity_keys": [
+    "mr_bennet"
+   ],
+   "quote_type": "anaphoric",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "HS",
+    "note": "PDNC Q10"
+   }
+  },
+  {
+   "quote_id": "Q12",
+   "spans": [
+    {
+     "start": 1587,
+     "end": 1623
+    }
+   ],
+   "speaker_entity_key": "mr_bennet",
+   "addressee_entity_keys": [
+    "mrs_bennet"
+   ],
+   "quote_type": "implicit",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "HS",
+    "note": "PDNC Q11"
+   }
+  },
+  {
+   "quote_id": "Q13",
+   "spans": [
+    {
+     "start": 1627,
+     "end": 1786
+    }
+   ],
+   "speaker_entity_key": "mrs_bennet",
+   "addressee_entity_keys": [
+    "mr_bennet"
+   ],
+   "quote_type": "implicit",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "HS",
+    "note": "PDNC Q12"
+   }
+  },
+  {
+   "quote_id": "Q14",
+   "spans": [
+    {
+     "start": 1790,
+     "end": 2008
+    }
+   ],
+   "speaker_entity_key": "mr_bennet",
+   "addressee_entity_keys": [
+    "mrs_bennet"
+   ],
+   "quote_type": "implicit",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "HS",
+    "note": "PDNC Q13"
+   }
+  },
+  {
+   "quote_id": "Q15",
+   "spans": [
+    {
+     "start": 2012,
+     "end": 2228
+    }
+   ],
+   "speaker_entity_key": "mrs_bennet",
+   "addressee_entity_keys": [
+    "mr_bennet"
+   ],
+   "quote_type": "implicit",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "HS",
+    "note": "PDNC Q14"
+   }
+  },
+  {
+   "quote_id": "Q16",
+   "spans": [
+    {
+     "start": 2232,
+     "end": 2293
+    }
+   ],
+   "speaker_entity_key": "mr_bennet",
+   "addressee_entity_keys": [
+    "mrs_bennet"
+   ],
+   "quote_type": "implicit",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "HS",
+    "note": "PDNC Q15"
+   }
+  },
+  {
+   "quote_id": "Q17",
+   "spans": [
+    {
+     "start": 2297,
+     "end": 2387
+    }
+   ],
+   "speaker_entity_key": "mrs_bennet",
+   "addressee_entity_keys": [
+    "mr_bennet"
+   ],
+   "quote_type": "implicit",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "HS",
+    "note": "PDNC Q16"
+   }
+  },
+  {
+   "quote_id": "Q18",
+   "spans": [
+    {
+     "start": 2391,
+     "end": 2434
+    }
+   ],
+   "speaker_entity_key": "mr_bennet",
+   "addressee_entity_keys": [
+    "mrs_bennet"
+   ],
+   "quote_type": "implicit",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "HS",
+    "note": "PDNC Q17"
+   }
+  },
+  {
+   "quote_id": "Q19",
+   "spans": [
+    {
+     "start": 2438,
+     "end": 2735
+    }
+   ],
+   "speaker_entity_key": "mrs_bennet",
+   "addressee_entity_keys": [
+    "mr_bennet"
+   ],
+   "quote_type": "implicit",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "HS",
+    "note": "PDNC Q18"
+   }
+  },
+  {
+   "quote_id": "Q20",
+   "spans": [
+    {
+     "start": 2739,
+     "end": 3000
+    }
+   ],
+   "speaker_entity_key": "mr_bennet",
+   "addressee_entity_keys": [
+    "mrs_bennet"
+   ],
+   "quote_type": "implicit",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "HS",
+    "note": "PDNC Q19"
+   }
+  },
+  {
+   "quote_id": "Q21",
+   "spans": [
+    {
+     "start": 3004,
+     "end": 3217
+    }
+   ],
+   "speaker_entity_key": "mrs_bennet",
+   "addressee_entity_keys": [
+    "mr_bennet"
+   ],
+   "quote_type": "implicit",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "HS",
+    "note": "PDNC Q20"
+   }
+  },
+  {
+   "quote_id": "Q22",
+   "spans": [
+    {
+     "start": 3221,
+     "end": 3267
+    },
+    {
+     "start": 3282,
+     "end": 3391
+    }
+   ],
+   "speaker_entity_key": "mr_bennet",
+   "addressee_entity_keys": [
+    "mrs_bennet"
+   ],
+   "quote_type": "anaphoric",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "HS",
+    "note": "PDNC Q21"
+   }
+  },
+  {
+   "quote_id": "Q23",
+   "spans": [
+    {
+     "start": 3395,
+     "end": 3530
+    }
+   ],
+   "speaker_entity_key": "mrs_bennet",
+   "addressee_entity_keys": [
+    "mr_bennet"
+   ],
+   "quote_type": "implicit",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "HS",
+    "note": "PDNC Q22"
+   }
+  },
+  {
+   "quote_id": "Q24",
+   "spans": [
+    {
+     "start": 3534,
+     "end": 3700
+    }
+   ],
+   "speaker_entity_key": "mr_bennet",
+   "addressee_entity_keys": [
+    "mrs_bennet"
+   ],
+   "quote_type": "implicit",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "HS",
+    "note": "PDNC Q23"
+   }
+  },
+  {
+   "quote_id": "Q25",
+   "spans": [
+    {
+     "start": 3704,
+     "end": 3738
+    }
+   ],
+   "speaker_entity_key": "mrs_bennet",
+   "addressee_entity_keys": [
+    "mr_bennet"
+   ],
+   "quote_type": "implicit",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "HS",
+    "note": "PDNC Q24"
+   }
+  },
+  {
+   "quote_id": "Q26",
+   "spans": [
+    {
+     "start": 3742,
+     "end": 3858
+    }
+   ],
+   "speaker_entity_key": "mr_bennet",
+   "addressee_entity_keys": [
+    "mrs_bennet"
+   ],
+   "quote_type": "implicit",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "HS",
+    "note": "PDNC Q25"
+   }
+  },
+  {
+   "quote_id": "Q27",
+   "spans": [
+    {
+     "start": 3862,
+     "end": 3944
+    }
+   ],
+   "speaker_entity_key": "mrs_bennet",
+   "addressee_entity_keys": [
+    "mr_bennet"
+   ],
+   "quote_type": "implicit",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "HS",
+    "note": "PDNC Q26"
+   }
+  },
+  {
+   "quote_id": "Q28",
+   "spans": [
+    {
+     "start": 3948,
+     "end": 4023
+    }
+   ],
+   "speaker_entity_key": "mr_bennet",
+   "addressee_entity_keys": [
+    "mrs_bennet"
+   ],
+   "quote_type": "implicit",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "HS",
+    "note": "PDNC Q27"
+   }
+  }
+ ],
+ "events": [],
+ "facts": [
+  {
+   "fact_id": "F1",
+   "entity_key": "charles_bingley",
+   "property": "origin",
+   "value": "the north of England",
+   "value_span": {
+    "start": 936,
+    "end": 956
+   },
+   "evidence": {
+    "start": 858,
+    "end": 956
+   },
+   "assertion": "asserted",
+   "claimed_by": "mrs_bennet",
+   "source_entity_key": "mrs_long",
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "fact_id": "F2",
+   "entity_key": "sir_william_lucas",
+   "property": "title",
+   "value": "Sir",
+   "value_span": {
+    "start": 2529,
+    "end": 2532
+   },
+   "evidence": {
+    "start": 2529,
+    "end": 2576
+   },
+   "assertion": "asserted",
+   "claimed_by": "mrs_bennet",
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "fact_id": "F3",
+   "entity_key": "lady_lucas",
+   "property": "title",
+   "value": "Lady",
+   "value_span": {
+    "start": 2545,
+    "end": 2549
+   },
+   "evidence": {
+    "start": 2529,
+    "end": 2576
+   },
+   "assertion": "asserted",
+   "claimed_by": "mrs_bennet",
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  }
+ ],
+ "relationships": [
+  {
+   "relationship_id": "R1",
+   "subject_entity_key": "mr_bennet",
+   "predicate": "MARRIED_TO",
+   "object_entity_key": "mrs_bennet",
+   "evidence": {
+    "start": 4026,
+    "end": 4224
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "relationship_id": "R2",
+   "subject_entity_key": "mrs_bennet",
+   "predicate": "MOTHER_OF",
+   "object_entity_key": "bennet_daughters",
+   "evidence": {
+    "start": 4404,
+    "end": 4462
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  },
+  {
+   "relationship_id": "R3",
+   "subject_entity_key": "mr_bennet",
+   "predicate": "FATHER_OF",
+   "object_entity_key": "bennet_daughters",
+   "evidence": {
+    "start": 2438,
+    "end": 2466
+   },
+   "assertion": "asserted",
+   "claimed_by": "mrs_bennet",
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "note": "pilot review 2026-10-16"
+   }
+  }
+ ],
+ "temporal_expressions": [],
+ "temporal_relations": []
+}

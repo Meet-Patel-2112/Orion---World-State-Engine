@@ -1,6 +1,6 @@
 import json
 import os
-from typing import List, Union
+from typing import List, Optional, Union
 from pydantic import field_validator
 
 try:
@@ -41,8 +41,10 @@ class Settings(BaseSettings):
 
     # LLM Settings (chat only; extraction runs ../extractor, app/pipeline/extractor.py)
     LLM_PROVIDER: str = "ollama"  # ollama | openai | mock
-    OLLAMA_URL: str = "http://localhost:11434/api/chat"
-    OLLAMA_MODEL: str = "qwen2.5:7b"
+    OLLAMA_URL: str = "http://127.0.0.1:11434/api/chat"   # not localhost: Windows tries IPv6 first, ~2 s a request
+    OLLAMA_MODEL: str = "qwen3.5:9b"
+    OLLAMA_THINK: Optional[bool] = False                 # sent as Ollama's "think"; None leaves the model's default
+    OLLAMA_NUM_CTX: int = 8192                           # character context + history; Ollama's default is 4096
     OPENAI_API_KEY: str = ""
     OPENAI_MODEL: str = "gpt-4o-mini"
 

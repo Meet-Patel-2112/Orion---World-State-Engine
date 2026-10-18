@@ -1,0 +1,43 @@
+{
+  "work_id": "the_invisible_man",
+  "title": "The Invisible Man",
+  "author": "H. G. Wells",
+  "pdnc_folder": "TheInvisibleMan",
+  "reference_text": {
+    "source": "Project Gutenberg eBook #5230",
+    "url": "https://www.gutenberg.org/cache/epub/5230/pg5230.txt",
+    "mode": "char"
+  },
+  "chapters": [
+    1,
+    7,
+    17,
+    20,
+    28
+  ],
+  "entities": {
+    "The Invisible Man": {
+      "key": "griffin",
+      "name": "Griffin"
+    },
+    "The Doctor": {
+      "key": "kemp",
+      "name": "Dr. Kemp"
+    },
+    "Mr. Thomas Marvel": {
+      "key": "thomas_marvel",
+      "name": "Thomas Marvel"
+    },
+    "Mr. Teddy Henfrey": {
+      "key": "teddy_henfrey",
+      "name": "Teddy Henfrey"
+    },
+    "Mr. Sandy Wadgers": {
+      "key": "sandy_wadgers",
+      "name": "Sandy Wadgers"
+    }
+  },
+  "extra_entities": [],
+  "name_map": {},
+  "notes": "PDNC's main names for Griffin ('The Invisible Man') and Kemp ('The Doctor') are descriptions; keys use the proper names. PDNC's text has every non-ASCII character, apostrophes included, replaced by a space: convert with --reference-text pointing at the Gutenberg edition."
+}

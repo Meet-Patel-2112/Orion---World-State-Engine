@@ -55,8 +55,15 @@ export interface Contradiction {
     sourceName: string;
     text: string;
     highlightedWord: string;
+    /** Where it is: open the Writing Room at this chapter and highlight [start, end) (backend: contradiction_sources) */
+    chapterId?: string | null;
+    manuscriptId?: string | null;
+    start?: number | null;
+    end?: number | null;
   }[];
   resolved: boolean;
+  /** DETECTED (open), RESOLVED, or DISMISSED (the author rejected it; it is not raised again) */
+  status?: 'DETECTED' | 'RESOLVED' | 'DISMISSED';
   old_fact_version_id?: string | null;
   new_fact_version_id?: string | null;
   old_relationship_version_id?: string | null;
