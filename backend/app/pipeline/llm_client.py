@@ -38,12 +38,10 @@ class LLMClient:
             except Exception as e:
                 logger.warning(f"Ollama chat failed ({e}), using mock answer.")
 
-        # Fallback chat response
-        last_user_msg = messages[-1]["content"] if messages else ""
+        # No model answered: say so rather than inventing a reply
         return (
-            f"Orion Knowledge Assistant: In response to '{last_user_msg}', "
-            f"based on current world state entries, all entity attributes and relationships "
-            f"have been verified. No critical timeline conflicts detected."
+            f"(The chat model is not available. Start Ollama and pull '{self.ollama_model}', "
+            f"or set LLM_PROVIDER in backend/.env.)"
         )
 
     def _chat_ollama(self, messages: List[Dict[str, str]], temperature: float) -> str:
@@ -51,9 +49,12 @@ class LLMClient:
             "model": self.ollama_model,
             "messages": messages,
             "stream": False,
-            "options": {"temperature": temperature}
+            "options": {"temperature": temperature, "num_ctx": settings.OLLAMA_NUM_CTX}
         }
-        with httpx.Client(timeout=120.0) as client:
+        if settings.OLLAMA_THINK is not None:          # Qwen3.5 thinks by default: minutes per reply on a laptop GPU
+            payload["think"] = settings.OLLAMA_THINK
+        # ponytail: the first request loads the model (6.6 GB for qwen3.5:9b), hence the long timeout
+        with httpx.Client(timeout=300.0) as client:
             resp = client.post(self.ollama_url, json=payload)
             resp.raise_for_status()
             data = resp.json()
