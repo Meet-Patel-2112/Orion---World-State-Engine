@@ -1,6 +1,6 @@
 // Owner: Person B (feature/graph-timeline). Contract: docs/api.md §14.
 import type { VersionStatus } from './entities';
-import { notImplemented } from './stub';
+import { apiFetch } from './client';
 
 export interface RelationshipVersionResponse {
   id: string;
@@ -48,24 +48,52 @@ export interface ListRelationshipsParams {
 }
 
 /** GET /worlds/{worldId}/relationships → 200 (§14.1) */
-export const listRelationships: (worldId: string, params?: ListRelationshipsParams) => Promise<RelationshipResponse[]> =
-  notImplemented('listRelationships');
+export async function listRelationships(
+  worldId: string,
+  params?: ListRelationshipsParams,
+): Promise<RelationshipResponse[]> {
+  const query = params?.entity_id ? `?entity_id=${encodeURIComponent(params.entity_id)}` : '';
+  return apiFetch<RelationshipResponse[]>(`/worlds/${worldId}/relationships${query}`);
+}
 
 /** GET /worlds/{worldId}/relationships/{relationshipId} → 200 (§14.2) */
-export const getRelationship: (worldId: string, relationshipId: string) => Promise<RelationshipResponse> =
-  notImplemented('getRelationship');
+export async function getRelationship(
+  worldId: string,
+  relationshipId: string,
+): Promise<RelationshipResponse> {
+  return apiFetch<RelationshipResponse>(`/worlds/${worldId}/relationships/${relationshipId}`);
+}
 
 /** POST /worlds/{worldId}/relationships → 201 new pair, 200 new version on an existing pair (§14.3) */
-export const createRelationship: (worldId: string, body: RelationshipCreateRequest) => Promise<RelationshipResponse> =
-  notImplemented('createRelationship');
+export async function createRelationship(
+  worldId: string,
+  body: RelationshipCreateRequest,
+): Promise<RelationshipResponse> {
+  return apiFetch<RelationshipResponse>(`/worlds/${worldId}/relationships`, {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+}
 
 /** PUT /worlds/{worldId}/relationships/{relationshipId} → 200 (§14.4) */
-export const updateRelationship: (
+export async function updateRelationship(
   worldId: string,
   relationshipId: string,
   body: RelationshipUpdateRequest,
-) => Promise<RelationshipResponse> = notImplemented('updateRelationship');
+): Promise<RelationshipResponse> {
+  return apiFetch<RelationshipResponse>(`/worlds/${worldId}/relationships/${relationshipId}`, {
+    method: 'PUT',
+    body: JSON.stringify(body),
+  });
+}
 
 /** DELETE /worlds/{worldId}/relationships/{relationshipId} → 204 (§14.5) */
-export const deleteRelationship: (worldId: string, relationshipId: string) => Promise<void> =
-  notImplemented('deleteRelationship');
+export async function deleteRelationship(
+  worldId: string,
+  relationshipId: string,
+): Promise<void> {
+  await apiFetch<void>(`/worlds/${worldId}/relationships/${relationshipId}`, {
+    method: 'DELETE',
+  });
+}
+
