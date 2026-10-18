@@ -23,7 +23,7 @@ fi
 
 # ---- containers
 echo -e "${YELLOW}Starting Postgres, Redis and the frontend...${NC}"
-docker compose up -d --build db redis frontend
+docker compose up -d db redis frontend
 echo -e "${YELLOW}Waiting for Postgres...${NC}"
 until [ "$(docker inspect -f '{{.State.Health.Status}}' orion_db)" = "healthy" ]; do sleep 1; done
 

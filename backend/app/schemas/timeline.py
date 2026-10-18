@@ -26,3 +26,27 @@ class TimelineEventResponse(BaseModel):
 class TimelineResponse(BaseModel):
     events: List[TimelineEventResponse] = []
     total: int = 0
+
+class EventParticipantInput(BaseModel):
+    entity_id: str
+    role: str = "PARTICIPANT"
+
+class EventCreateRequest(BaseModel):
+    description: str
+    event_type: str = "EVENT"
+    chapter_id: Optional[str] = None
+    sequence_index: Optional[int] = None
+    participants: List[EventParticipantInput] = []
+
+class EventUpdateRequest(BaseModel):
+    description: Optional[str] = None
+    event_type: Optional[str] = None
+    chapter_id: Optional[str] = None
+    participants: Optional[List[EventParticipantInput]] = None
+
+class EventReorderRequest(BaseModel):
+    chapter_id: Optional[str] = None
+    event_ids: List[str]
+
+EventResponse = TimelineEventResponse
+

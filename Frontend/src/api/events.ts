@@ -1,5 +1,5 @@
 // Owner: Person B (feature/graph-timeline). Contract: docs/api.md §9 and §15.
-import { notImplemented } from './stub';
+import { apiFetch } from './client';
 
 export interface EventParticipantResponse {
   entity_id: string;
@@ -57,22 +57,52 @@ export interface EventReorderRequest {
 }
 
 /** GET /worlds/{worldId}/timeline → 200 (§9.1) */
-export const getTimeline: (worldId: string) => Promise<TimelineResponse> = notImplemented('getTimeline');
+export async function getTimeline(worldId: string): Promise<TimelineResponse> {
+  return apiFetch<TimelineResponse>(`/worlds/${worldId}/timeline`);
+}
 
 /** GET /worlds/{worldId}/events/{eventId} → 200 (§15.2) */
-export const getEvent: (worldId: string, eventId: string) => Promise<EventResponse> = notImplemented('getEvent');
+export async function getEvent(worldId: string, eventId: string): Promise<EventResponse> {
+  return apiFetch<EventResponse>(`/worlds/${worldId}/events/${eventId}`);
+}
 
 /** POST /worlds/{worldId}/events → 201 (§15.1) */
-export const createEvent: (worldId: string, body: EventCreateRequest) => Promise<EventResponse> =
-  notImplemented('createEvent');
+export async function createEvent(
+  worldId: string,
+  body: EventCreateRequest,
+): Promise<EventResponse> {
+  return apiFetch<EventResponse>(`/worlds/${worldId}/events`, {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+}
 
 /** PUT /worlds/{worldId}/events/{eventId} → 200 (§15.3) */
-export const updateEvent: (worldId: string, eventId: string, body: EventUpdateRequest) => Promise<EventResponse> =
-  notImplemented('updateEvent');
+export async function updateEvent(
+  worldId: string,
+  eventId: string,
+  body: EventUpdateRequest,
+): Promise<EventResponse> {
+  return apiFetch<EventResponse>(`/worlds/${worldId}/events/${eventId}`, {
+    method: 'PUT',
+    body: JSON.stringify(body),
+  });
+}
 
 /** DELETE /worlds/{worldId}/events/{eventId} → 204 (§15.4) */
-export const deleteEvent: (worldId: string, eventId: string) => Promise<void> = notImplemented('deleteEvent');
+export async function deleteEvent(worldId: string, eventId: string): Promise<void> {
+  await apiFetch<void>(`/worlds/${worldId}/events/${eventId}`, {
+    method: 'DELETE',
+  });
+}
 
 /** PATCH /worlds/{worldId}/events/reorder → 200, that chapter's events in the new order (§15.5) */
-export const reorderEvents: (worldId: string, body: EventReorderRequest) => Promise<TimelineResponse> =
-  notImplemented('reorderEvents');
+export async function reorderEvents(
+  worldId: string,
+  body: EventReorderRequest,
+): Promise<TimelineResponse> {
+  return apiFetch<TimelineResponse>(`/worlds/${worldId}/events/reorder`, {
+    method: 'PATCH',
+    body: JSON.stringify(body),
+  });
+}
