@@ -206,7 +206,16 @@ export const useWorldStore = create<WorldState>((set, get) => ({
           severity: c.confidence >= 0.85 ? 'high' : c.confidence >= 0.6 ? 'medium' : 'low',
           summary: text || '',
           resolved: c.status === 'RESOLVED',
-          sources: [],
+          status: c.status,
+          sources: (c.sources || []).map((s: any) => ({
+            sourceName: s.chapter_title ? `${s.label} · ${s.chapter_title}` : s.label,
+            text: s.snippet || s.value || '',
+            highlightedWord: s.highlight || '',
+            chapterId: s.chapter_id,
+            manuscriptId: s.manuscript_id,
+            start: s.start,
+            end: s.end
+          })),
           old_fact_version_id: c.old_fact_version_id || null,
           new_fact_version_id: c.new_fact_version_id || null,
           old_relationship_version_id: c.old_relationship_version_id || null,

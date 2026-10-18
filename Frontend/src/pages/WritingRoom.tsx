@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { AppShell } from '../components/AppShell';
 import { useWorldStore } from '../store/useWorldStore';
 import { apiFetch } from '../api/client';
@@ -35,6 +35,15 @@ export const WritingRoom: React.FC = () => {
     }
   }, [currentWorldId, currentManuscriptId, manuscripts, fetchManuscriptsForWorld]);
 
+  // A link from a contradiction: ?chapter=<id>&start=<offset>&end=<offset> opens that chapter at the cited words
+  const [searchParams] = useSearchParams();
+  const linkedChapterId = searchParams.get('chapter');
+  const linkStart = Number(searchParams.get('start'));
+  const linkEnd = Number(searchParams.get('end'));
+  useEffect(() => {
+    if (linkedChapterId) setActiveChapter(linkedChapterId);
+  }, [linkedChapterId, setActiveChapter]);
+
   const manuscript = manuscripts.find((m) => m.id === currentManuscriptId);
   const activeChapter = manuscript?.chapters.find((ch) => ch.id === activeChapterId) || manuscript?.chapters[0];
 
@@ -64,6 +73,12 @@ export const WritingRoom: React.FC = () => {
       }
     }
   }, [activeChapterId, currentWorldId]);
+
+  useEffect(() => {
+    if (linkedChapterId && activeChapter?.id === linkedChapterId) {
+      document.getElementById('orion-cited')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, [linkedChapterId, activeChapter?.id, activeChapter?.content]);
 
   const handleStartEdit = () => {
     if (activeChapter) {
@@ -409,11 +424,28 @@ export const WritingRoom: React.FC = () => {
                   className="prose prose-invert prose-lg font-body-lg text-body-lg text-on-surface-variant leading-relaxed space-y-8 select-text"
                   style={{ fontFamily: 'Source Serif 4, serif', fontSize: '18px', lineHeight: '28px' }}
                 >
-                  {activeChapter?.content.split('\n\n').map((paragraph, index) => (
-                    <p key={index}>
-                      {renderTextWithHighlights(paragraph)}
-                    </p>
-                  ))}
+                  {(() => {
+                    const cited = activeChapter && activeChapter.id === linkedChapterId && linkEnd > linkStart
+                      ? { start: linkStart, end: linkEnd } : null;
+                    let offset = 0;                                   // each '\n\n' separator is 2 characters
+                    return activeChapter?.content.split('\n\n').map((paragraph, index) => {
+                      const from = offset;
+                      offset += paragraph.length + 2;
+                      if (!cited || cited.start >= from + paragraph.length || cited.end <= from) {
+                        return <p key={index}>{renderTextWithHighlights(paragraph)}</p>;
+                      }
+                      const a = Math.max(0, cited.start - from), b = Math.min(paragraph.length, cited.end - from);
+                      return (
+                        <p key={index} id="orion-cited">
+                          {renderTextWithHighlights(paragraph.slice(0, a))}
+                          <mark className="bg-error/20 text-starlight-white border-b-2 border-error rounded-sm px-0.5">
+                            {paragraph.slice(a, b)}
+                          </mark>
+                          {renderTextWithHighlights(paragraph.slice(b))}
+                        </p>
+                      );
+                    });
+                  })()}
                 </div>
               )}
 
