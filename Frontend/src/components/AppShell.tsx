@@ -30,7 +30,8 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
   }, [worldId, activeWorldId, setActiveWorld]);
 
   const currentPath = location.pathname;
-  const currentWorldId = worldId || 'terra-incognita';
+  if (!worldId) return null;
+  const currentWorldId = worldId;
 
   // Count open contradictions to show a badge on the navigation rail (rejected ones don't count)
   const unresolvedContradictionsCount = contradictions.filter(c => !c.resolved && c.status !== 'DISMISSED').length;
@@ -68,11 +69,6 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
       label: 'Contradictions',
       badge: unresolvedContradictionsCount > 0 ? unresolvedContradictionsCount : undefined
     },
-    {
-      path: `/worlds/${currentWorldId}/assistant`,
-      icon: 'chat_bubble_outline',
-      label: 'AI Assistant'
-    }
   ];
 
   const handleReturnToArchive = () => {
@@ -137,6 +133,7 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
 
         {/* Secondary Actions / Footer */}
         <div className="w-full flex flex-col gap-1 border-t border-starlight-white/10 pt-4 mt-auto">
+<<<<<<< HEAD
           <button
             onClick={() => setOpenPanel('profile')}
             className="flex flex-col items-center justify-center py-4 text-on-surface-variant/60 hover:text-primary hover:bg-white/5 transition-colors duration-300 w-full group relative"
@@ -149,6 +146,10 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
           </button>
           <button
             onClick={() => setOpenPanel('settings')}
+=======
+          <button 
+            onClick={handleReturnToArchive}
+>>>>>>> feature/graph-timeline
             className="flex flex-col items-center justify-center py-4 text-on-surface-variant/60 hover:text-primary hover:bg-white/5 transition-colors duration-300 w-full group relative"
             title="Archive Settings"
           >

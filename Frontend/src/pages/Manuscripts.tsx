@@ -97,7 +97,7 @@ export const Manuscripts: React.FC = () => {
     if (!deleteConfirm) return;
     const { manuscriptId, chapterId } = deleteConfirm;
     
-    if (worldId && !worldId.startsWith('terra-')) {
+    if (worldId) {
       try {
         await apiFetch(`/worlds/${worldId}/chapters/${chapterId}`, {
           method: 'DELETE'

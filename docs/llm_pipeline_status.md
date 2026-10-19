@@ -91,9 +91,8 @@ Part 4 took 595s end to end. The SRS budget is 10s per chapter.
 
 ## 6. Other finding
 
-`llm_client.chat()` (character chat) still has a silent fallback: if Ollama fails it returns a canned "all entity
-attributes and relationships have been verified. No critical timeline conflicts detected." That is a fabricated answer
-shown to the user, the same class of problem already fixed in extraction.
+`llm_client.chat()` now fails explicitly when the configured provider is unavailable; it does not return fabricated
+world-state text.
 
 ## 7. Suggested next steps
 
@@ -101,7 +100,7 @@ shown to the user, the same class of problem already fixed in extraction.
 2. Strip id prefixes from evidence before the verbatim check.
 3. Skip and log a fully invalid chunk instead of failing the whole chapter.
 4. Enforce the label vocabularies in each stage's validation.
-5. Remove the chat fallback.
+5. Keep chat unavailable when its configured provider is unavailable.
 6. Commit Phases 3–7.
 
 ## 8. Reproducing

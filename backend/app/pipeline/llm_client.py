@@ -31,18 +31,24 @@ class LLMClient:
                 return self._chat_openai(all_messages, temperature)
             except Exception as e:
                 logger.warning(f"OpenAI chat failed: {e}")
+                raise RuntimeError("Configured OpenAI provider is unavailable") from e
 
-        if self.provider == "ollama" or (self.provider != "mock" and not self.openai_key):
+        if self.provider == "ollama":
             try:
                 return self._chat_ollama(all_messages, temperature)
             except Exception as e:
-                logger.warning(f"Ollama chat failed ({e}), using mock answer.")
+                logger.warning(f"Ollama chat failed: {e}")
+                raise RuntimeError("Configured Ollama provider is unavailable") from e
 
+<<<<<<< HEAD
         # No model answered: say so rather than inventing a reply
         return (
             f"(The chat model is not available. Start Ollama and pull '{self.ollama_model}', "
             f"or set LLM_PROVIDER in backend/.env.)"
         )
+=======
+        raise RuntimeError(f"Unsupported or incomplete LLM provider configuration: {self.provider}")
+>>>>>>> feature/graph-timeline
 
     def _chat_ollama(self, messages: List[Dict[str, str]], temperature: float) -> str:
         payload = {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useWorldStore } from '../store/useWorldStore';
-import type { Entity } from '../data/mockData';
+import type { Entity } from '../types/world';
 import { useNavigate } from 'react-router-dom';
 
 interface EntityPanelProps {
@@ -19,7 +19,8 @@ export const EntityPanel: React.FC<EntityPanelProps> = ({ entityId, onClose }) =
     removeAlias, 
     activeWorldId, 
     setActiveChapter, 
-    setActiveManuscript 
+    setActiveManuscript,
+    manuscripts
   } = useWorldStore();
   const entity = entities.find((e) => e.id === entityId);
 
@@ -104,10 +105,11 @@ export const EntityPanel: React.FC<EntityPanelProps> = ({ entityId, onClose }) =
   };
 
   const navigateToChapter = (chapterId: string) => {
-    // We assume manuscript 1 since it's the primary demo, but can locate it
-    setActiveManuscript('ms-1');
+    const manuscript = manuscripts.find((candidate) => candidate.chapters.some((chapter) => chapter.id === chapterId));
+    if (!manuscript) return;
+    setActiveManuscript(manuscript.id);
     setActiveChapter(chapterId);
-    navigate(`/worlds/${activeWorldId}/manuscripts/ms-1`);
+    navigate(`/worlds/${activeWorldId}/manuscripts/${manuscript.id}`);
   };
 
   // Color mapping based on entity type
