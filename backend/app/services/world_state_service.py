@@ -31,6 +31,20 @@ def title_gender(name: str):
     return _GENDERED_TITLES.get(first)
 
 
+_SPOUSE = {("mr", "wife"): "Mrs.", ("mr", "lady"): "Mrs.", ("mrs", "husband"): "Mr."}
+
+
+def spouse_name(name: str) -> Optional[str]:
+    """The name a spouse role implies: "Mr. Bennet's wife" -> "Mrs. Bennet", "Mrs. Hall's husband" -> "Mr. Hall";
+    None for any other name. ponytail: English "Mr./Mrs. Surname" only; a first name ("Mr. John Hall") is dropped."""
+    owner, sep, role = name.partition("'s ")
+    words = owner.split()
+    if not sep or len(words) < 2:
+        return None
+    title = _SPOUSE.get((words[0].rstrip(".").lower(), role.strip().lower()))
+    return f"{title} {words[-1]}" if title else None
+
+
 class WorldStateService:
     def __init__(self, db: Session):
         self.db = db
@@ -66,14 +80,22 @@ class WorldStateService:
         ("Mara" / "Mara Quinn") of exactly one stored entity of the same type. Role phrases ("mother") never match:
         "her mother" in two chapters is rarely the same person."""
         lookup = lambda n: self.entity_repo.get_by_canonical(world_id, n) or self.entity_repo.get_by_alias(world_id, n)
-        # An owner-qualified role ("Mr. Bennet's wife") names one person: exact matches only, e.g. the alias a merge left
-        owned = next((e for n in names if n.split("'s ")[0][:1].isupper() and "'s " in n and (e := lookup(n))), None)
+        # An owner-qualified role ("Mr. Bennet's wife") names one person: exact matches only, e.g. the alias a merge left,
+        # or the name the role implies ("Mrs. Bennet")
+        owned = next((e for n in names if n.split("'s ")[0][:1].isupper() and "'s " in n
+                      and (e := lookup(n) or (spouse_name(n) and lookup(spouse_name(n))))), None)
         if owned:
             return owned
         names = [n for n in names if is_proper_name(n)]
         exact = next((e for n in names if (e := lookup(n))), None)
         if exact or not names:
             return exact
+        # "Mrs. Bennet" in chapter 2 is "Mr. Bennet's wife" from chapter 1, where she was never named
+        implied = [e for e in self.entity_repo.list_with_aliases(world_id)
+                   if (entity_type is None or e.entity_type == entity_type)
+                   and any(spouse_name(s) in names for s in [e.canonical_name, *(a.alias for a in e.aliases)])]
+        if len(implied) == 1:
+            return implied[0]
         wanted = [name_words(n) for n in names]
         # ponytail: scans every entity of the world per unmatched name; index the name words if worlds grow to thousands
         stored = lambda e: [name_words(n) for n in [e.canonical_name, *(a.alias for a in e.aliases)]
@@ -134,6 +156,14 @@ class WorldStateService:
             if existing_ent:
                 entity = existing_ent
                 counts["entities_updated"] += 1
+                # Named at last: "Mr. Bennet's wife" (ch 1) becomes "Mrs. Bennet" (ch 2), the role kept as an alias. Only a
+                # role name gets replaced; a name the author typed has no "'s " role and stays.
+                if "'s " in entity.canonical_name and is_proper_name(canonical):
+                    self.entity_repo.add_alias(entity.id, entity.canonical_name, commit=False)
+                    for a in [a for a in entity.aliases if a.alias.strip().lower() == canonical.lower()]:
+                        self.db.delete(a)
+                    entity.canonical_name = canonical
+                    self.db.flush()
                 # Add any new aliases, this chapter's canonical name included
                 for alias in names:
                     if alias.strip().lower() != entity.canonical_name.strip().lower():

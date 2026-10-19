@@ -109,6 +109,14 @@ def test_titles_before_a_name_become_facts_but_honorifics_do_not():
         ("M5", "title", "Captain")]
 
 
+def test_rank_titles_become_facts():
+    t = "Sir William Lucas bowed to Lady Lucas, and his lady smiled."
+    ms = [{"mention_id": f"M{i}", "text": n, "type": "character", "mention_kind": "proper", "start": t.index(n),
+           "end": t.index(n) + len(n)} for i, n in enumerate(["Sir William Lucas", "Lucas"], 1)]
+    ms[1]["start"] = t.index("Lucas,"); ms[1]["end"] = ms[1]["start"] + 5
+    assert R.title_facts({"text": t, "mentions": ms}) == [("M1", "title", "Sir"), ("M2", "title", "Lady")]
+
+
 def test_fact_values_are_checked_per_property():
     t = ("I let him give the weather forecast. His moppy dark hair flew. This is Evelyn with 104.6 F.M. "
          "I applied for a radio DJ position. I tend to my new coworker. He is recovering. A bird with human eyes. "

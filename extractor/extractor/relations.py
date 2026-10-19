@@ -51,14 +51,15 @@ ROLES = {**_roles("WORKS_FOR", True, "boss", "employer", "manager", "supervisor"
          **_roles("ENEMY_OF", True, "enemy", "nemesis", "rival"),
          **_roles("RELATED_TO", True, "cousin", "aunt", "uncle", "niece", "nephew")}
 IMPERSONAL = {"it", "this", "that", "there", "who", "which"}      # "It was my boss": the subject isn't the boss
-# A title written before a name states a fact ("Doctor Hanna Weiss", "Captain Elias Brandt"), and NuExtract misses it.
-# Honorifics (Mr, Mrs, Sir) say nothing: left out. ponytail: English titles only, extend the map for other stories
+# A title written before a name states a fact ("Doctor Hanna Weiss", "Captain Elias Brandt", "Sir William Lucas"), and
+# NuExtract misses it. Mr, Mrs and Miss say nothing (gold guidelines: rank titles only): left out.
+# ponytail: English titles only, extend the map for other stories
 TITLE_FACTS = {"doctor": ("occupation", "doctor"), "dr": ("occupation", "doctor"),
                "professor": ("occupation", "professor"), "prof": ("occupation", "professor"),
                "detective": ("occupation", "detective"), "inspector": ("occupation", "inspector"),
                "capt": ("title", "Captain"),
                **{w: ("title", w.capitalize()) for w in ("captain", "general", "sergeant", "lieutenant", "colonel",
-                                                          "admiral")}}
+                                                          "admiral", "sir", "lady", "lord", "dame")}}
 # Fact value checks (`fact_value`), from NuExtract's wrong answers on the gold stories (Phase 9 in the plan).
 COLORS = {"black", "brown", "dark", "blond", "blonde", "red", "auburn", "ginger", "grey", "gray", "white", "silver",
           "golden", "gold", "fair", "light", "pale", "chestnut", "copper", "green", "blue", "hazel", "amber", "violet",

@@ -12,7 +12,7 @@ import subprocess
 import tempfile
 from collections import Counter
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 from app.config.logging import get_logger
 from app.preprocessing import preprocess_chapter
@@ -57,6 +57,41 @@ def _plural(name: str) -> bool:
     """A nominal naming a group ('daughters', 'the children'). ponytail: English suffix check, not a lemmatizer"""
     last = name.split()[-1].casefold()
     return last in IRREGULAR_PLURALS or (last.endswith("s") and not last.endswith(("ss", "us", "is")))
+
+
+MALE = {"father", "dad", "papa", "pa", "mr", "sir", "lord", "he", "him", "his", "himself", "husband", "son", "brother"}
+FEMALE = {"mother", "mum", "mom", "mama", "ma", "step-mother", "stepmother", "mrs", "miss", "ms", "lady", "dame", "she",
+          "her", "hers", "herself", "wife", "daughter", "sister"}
+PRONOUNS = {"he", "him", "his", "himself", "she", "her", "hers", "herself"}
+
+
+def gender(group: List[Dict[str, Any]]) -> Optional[str]:
+    """'m' or 'f' for a coreference group, None when unclear. A role noun or title in a name decides ("his mother",
+    "Mr. Bennet", "Lord Abbotsbury"); else the cluster's pronouns, when one gender has at least twice the other's."""
+    named, pronoun = Counter(), Counter()
+    for m in group:
+        words = [w.strip(".,'’").casefold() for w in m["text"].split()]
+        if len(words) == 1 and words[0] in PRONOUNS:
+            pronoun["m" if words[0] in MALE else "f"] += 1
+        elif words:
+            for w in (words[0], words[-1]):                        # a title, or the role noun ("John's father")
+                if w in MALE - PRONOUNS:
+                    named["m"] += 1
+                elif w in FEMALE - PRONOUNS:
+                    named["f"] += 1
+    for counts, least in ((named, 1), (pronoun, 2)):
+        (top, n), *rest = counts.most_common(2) or [(None, 0)]
+        if top and n >= least and n >= 2 * (rest[0][1] if rest else 0):
+            return top
+    return None
+
+
+def parent_predicate(predicate: str, parent: List[Dict[str, Any]]) -> str:
+    """PARENT_OF split by the parent's gender into the FATHER_OF / MOTHER_OF the world state and its one-father rule
+    use (consistency/vocabulary.py); PARENT_OF when the gender is unclear. Other predicates unchanged."""
+    if predicate != "PARENT_OF":
+        return predicate
+    return {"m": "FATHER_OF", "f": "MOTHER_OF"}.get(gender(parent), predicate)
 
 
 def to_legacy(doc: Dict[str, Any], chapter_number: int) -> Dict[str, Any]:
@@ -111,12 +146,13 @@ def to_legacy(doc: Dict[str, Any], chapter_number: int) -> Dict[str, Any]:
         if name:                                                  # one value per property and chapter: the first
             by_name[name]["attributes"].setdefault(f["property"], f["value"])
 
-    relationships = [{"subject": names[s], "predicate": r["predicate"], "object": names[o]}
+    relationships = [{"subject": names[s], "predicate": parent_predicate(r["predicate"], groups[s]), "object": names[o]}
                      for r in doc["relationships"]
                      if (s := group_of[r["subject_mention_id"]]) in names and (o := group_of[r["object_mention_id"]]) in names]
 
     sentences = list(preprocess_chapter(doc["text"]).iter_sentences())
-    sentence_at = lambda i: next((s.text for s in sentences if s.start <= i < s.end), "")
+    # one line: the book's hard line breaks ("heard that / Netherfield") would show in the timeline
+    sentence_at = lambda i: " ".join(next((s.text for s in sentences if s.start <= i < s.end), "").split())
     events = []
     for e in doc["events"]:
         if e["type"] in SKIP_EVENT_TYPES:
