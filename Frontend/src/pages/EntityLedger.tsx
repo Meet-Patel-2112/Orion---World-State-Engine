@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AppShell } from '../components/AppShell';
 import { useWorldStore } from '../store/useWorldStore';
-import type { Entity } from '../data/mockData';
+import type { Entity } from '../types/world';
 
 export const EntityLedger: React.FC = () => {
   const { 

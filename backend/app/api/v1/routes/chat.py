@@ -22,11 +22,14 @@ def chat_with_world(
         )
 
     chat_service = ChatService(db)
-    response = chat_service.query(
-        world_id=world.id,
-        message=query_in.message.strip(),
-        history=query_in.history,
-        entity_focus=query_in.entity_focus,
-        timeline_event_focus=query_in.timeline_event_focus
-    )
+    try:
+        response = chat_service.query(
+            world_id=world.id,
+            message=query_in.message.strip(),
+            history=query_in.history,
+            entity_focus=query_in.entity_focus,
+            timeline_event_focus=query_in.timeline_event_focus
+        )
+    except RuntimeError as exc:
+        raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail=str(exc)) from exc
     return response

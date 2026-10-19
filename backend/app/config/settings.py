@@ -40,7 +40,7 @@ class Settings(BaseSettings):
     CELERY_RESULT_BACKEND: str = "redis://localhost:6379/0"
 
     # LLM Settings (chat only; extraction runs ../extractor, app/pipeline/extractor.py)
-    LLM_PROVIDER: str = "ollama"  # ollama | openai | mock
+    LLM_PROVIDER: str = "ollama"  # ollama | openai
     OLLAMA_URL: str = "http://localhost:11434/api/chat"
     OLLAMA_MODEL: str = "qwen2.5:7b"
     OPENAI_API_KEY: str = ""

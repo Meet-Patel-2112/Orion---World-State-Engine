@@ -2,12 +2,11 @@ import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useWorldStore } from '../store/useWorldStore';
 import { apiFetch } from '../api/client';
-import type { World } from '../data/mockData';
 
 export const NewWorld: React.FC = () => {
   const navigate = useNavigate();
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const { addWorld, setActiveWorld } = useWorldStore();
+  const { setActiveWorld } = useWorldStore();
   const [worldName, setWorldName] = useState('');
   const [description, setDescription] = useState('');
   const [loading, setLoading] = useState(false);
@@ -28,22 +27,6 @@ export const NewWorld: React.FC = () => {
         body: JSON.stringify({ name: nameToUse, description: descToUse })
       });
 
-      const newWorld: World = {
-        id: worldData.id,
-        name: worldData.name,
-        description: worldData.description || '',
-        status: 'active',
-        coverImage: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAuBUQknn_uISnwdR-0unHTT5VRn-yce6HhfPUnOIG_Ony7WbXISoUWuWh5wyVeqSOLTYFIiAP74lHr0RUBulB0dCbAuA9H3-tAAOjJyR81Mq8O6R3RvmKn59tBm-9l7GCG4SfTilfGXtrFZCYZB8exnTe1_mAXZFow2X7Xc6mLFUmxt3pgQ06mqEa2md5K7Pjv_DD0xt27x6wjj1JqQ9A-zVBTwdoBwbbKRPLuYWojrHy2j6YDRs9kHg',
-        entryCount: 0,
-        entityCount: 0,
-        manuscriptCount: 1,
-        characterCount: 0,
-        locationCount: 0,
-        objectCount: 0,
-        eventCount: 0
-      };
-
-      addWorld(newWorld);
       setActiveWorld(worldData.id);
 
       // Step 2: Upload manuscript file
@@ -93,22 +76,6 @@ export const NewWorld: React.FC = () => {
         body: JSON.stringify({ name: nameToUse, description: descToUse })
       });
 
-      const newWorld: World = {
-        id: data.id,
-        name: data.name,
-        description: data.description || '',
-        status: 'active',
-        coverImage: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAuBUQknn_uISnwdR-0unHTT5VRn-yce6HhfPUnOIG_Ony7WbXISoUWuWh5wyVeqSOLTYFIiAP74lHr0RUBulB0dCbAuA9H3-tAAOjJyR81Mq8O6R3RvmKn59tBm-9l7GCG4SfTilfGXtrFZCYZB8exnTe1_mAXZFow2X7Xc6mLFUmxt3pgQ06mqEa2md5K7Pjv_DD0xt27x6wjj1JqQ9A-zVBTwdoBwbbKRPLuYWojrHy2j6YDRs9kHg',
-        entryCount: 0,
-        entityCount: 0,
-        manuscriptCount: 0,
-        characterCount: 0,
-        locationCount: 0,
-        objectCount: 0,
-        eventCount: 0
-      };
-
-      addWorld(newWorld);
       setActiveWorld(data.id);
       navigate(`/worlds/${data.id}`);
     } catch (e: any) {

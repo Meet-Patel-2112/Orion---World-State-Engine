@@ -28,7 +28,8 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
   }, [worldId, activeWorldId, setActiveWorld]);
 
   const currentPath = location.pathname;
-  const currentWorldId = worldId || 'terra-incognita';
+  if (!worldId) return null;
+  const currentWorldId = worldId;
 
   // Count active contradictions to show a badge on the navigation rail
   const unresolvedContradictionsCount = contradictions.filter(c => !c.resolved).length;
@@ -65,11 +66,6 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
       label: 'Contradictions',
       badge: unresolvedContradictionsCount > 0 ? unresolvedContradictionsCount : undefined
     },
-    {
-      path: `/worlds/${currentWorldId}/assistant`,
-      icon: 'chat_bubble_outline',
-      label: 'AI Assistant'
-    }
   ];
 
   const handleReturnToArchive = () => {
@@ -134,16 +130,6 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
 
         {/* Secondary Actions / Footer */}
         <div className="w-full flex flex-col gap-1 border-t border-starlight-white/10 pt-4 mt-auto">
-          <Link 
-            to={`/worlds/${currentWorldId}/assistant`}
-            className="flex flex-col items-center justify-center py-4 text-on-surface-variant/60 hover:text-primary hover:bg-white/5 transition-colors duration-300 w-full group relative"
-            title="Profile"
-          >
-            <span className="material-symbols-outlined text-[22px] font-light group-hover:scale-110 transition-transform">person_outline</span>
-            <span className="opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 absolute left-full ml-4 bg-surface-container-high border border-starlight-white/10 px-3 py-1 rounded text-starlight-white text-xs font-label-sm pointer-events-none transition-all duration-200 z-50 whitespace-nowrap shadow-xl">
-              Creator Profile
-            </span>
-          </Link>
           <button 
             onClick={handleReturnToArchive}
             className="flex flex-col items-center justify-center py-4 text-on-surface-variant/60 hover:text-primary hover:bg-white/5 transition-colors duration-300 w-full group relative"

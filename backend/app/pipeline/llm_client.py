@@ -31,20 +31,16 @@ class LLMClient:
                 return self._chat_openai(all_messages, temperature)
             except Exception as e:
                 logger.warning(f"OpenAI chat failed: {e}")
+                raise RuntimeError("Configured OpenAI provider is unavailable") from e
 
-        if self.provider == "ollama" or (self.provider != "mock" and not self.openai_key):
+        if self.provider == "ollama":
             try:
                 return self._chat_ollama(all_messages, temperature)
             except Exception as e:
-                logger.warning(f"Ollama chat failed ({e}), using mock answer.")
+                logger.warning(f"Ollama chat failed: {e}")
+                raise RuntimeError("Configured Ollama provider is unavailable") from e
 
-        # Fallback chat response
-        last_user_msg = messages[-1]["content"] if messages else ""
-        return (
-            f"Orion Knowledge Assistant: In response to '{last_user_msg}', "
-            f"based on current world state entries, all entity attributes and relationships "
-            f"have been verified. No critical timeline conflicts detected."
-        )
+        raise RuntimeError(f"Unsupported or incomplete LLM provider configuration: {self.provider}")
 
     def _chat_ollama(self, messages: List[Dict[str, str]], temperature: float) -> str:
         payload = {
