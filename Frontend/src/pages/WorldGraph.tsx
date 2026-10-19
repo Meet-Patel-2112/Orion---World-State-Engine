@@ -534,7 +534,8 @@ export const WorldGraph: React.FC = () => {
             </div>
 
             {/* Narrative Time-Slice Scrubber (§16) */}
-            <div className="flex flex-col gap-3 p-3.5 rounded-xl bg-surface-container/60 border border-starlight-white/10 shadow-sm">
+            {chapters.length > 0 && (
+              <div className="flex flex-col gap-3 p-3.5 rounded-xl bg-surface-container/60 border border-starlight-white/10 shadow-sm">
               <div className="flex items-center justify-between">
                 <span className="font-label-sm text-[10px] text-primary uppercase tracking-widest font-semibold flex items-center gap-1.5">
                   <span className="material-symbols-outlined text-sm">history</span>
@@ -602,7 +603,8 @@ export const WorldGraph: React.FC = () => {
                   </button>
                 </div>
               </div>
-            </div>
+              </div>
+            )}
 
             {/* Add Relationship Action Button */}
             <button
