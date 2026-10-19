@@ -17,17 +17,11 @@ def doc():
             "coreference_clusters": [{"cluster_id": "C1", "mentions": ["M1", "M2", "M3"]}]}
 
 
-def test_answers_are_grounded_deduplicated_and_recorded_on_named_mentions(monkeypatch):
+def test_relationship_answers_are_grounded_deduplicated_and_recorded_on_named_mentions(monkeypatch):
     prompts = []
 
     def fake(system, user, fmt):
         prompts.append(user)
-        if '"people"' in user:
-            return {"people": [{"name": "I", "age": "twenty four", "occupation": None},     # recorded on Evelyn
-                               {"name": "Evelyn", "age": "twenty four"},                   # duplicate
-                               {"name": "boss", "age": "24"},                              # value not in the text
-                               {"name": "name", "occupation": "Evelyn"},                   # not a character
-                               {"name": "Rose", "age": "Dan"}]}                            # no such mention
         work = "I am Twenty four and work for my boss."
         return {"relationships": [{"subject": "I", "relation": "works_for", "object": "boss", "evidence": work},
                                   {"subject": "Evelyn", "relation": "friend_of", "object": "my",    # same entity
@@ -43,11 +37,11 @@ def test_answers_are_grounded_deduplicated_and_recorded_on_named_mentions(monkey
     monkeypatch.setattr(R, "generate", fake)
     d = doc()
     R.relations(d)
-    assert d["facts"] == [{"fact_id": "F1", "property": "age", "entity_mention_id": "M2", "value": "Twenty four"}]
+    assert d["facts"] == []                                    # facts are the next stage's (extractor.facts)
     assert d["relationships"] == [{"relationship_id": "R1", "predicate": "WORKS_FOR", "subject_mention_id": "M2",
                                    "object_mention_id": "M4"}]
-    assert prompts[0].startswith("# Template:\n{") and prompts[0].endswith(f"# Context:\n{TEXT}")
-    assert "# Examples:" in prompts[0] and '"relationships"' in prompts[1]
+    assert len(prompts) == 1 and prompts[0].startswith("# Template:\n{") and prompts[0].endswith(f"# Context:\n{TEXT}")
+    assert "# Examples:" in prompts[0] and '"relationships"' in prompts[0]
 
 
 def test_canonical_folds_symmetric_and_inverse_relations():

@@ -133,3 +133,20 @@ def test_a_parent_relationship_takes_the_parents_gender():
     assert parent_predicate("PARENT_OF", m("Pat", "she", "he")) == "PARENT_OF"            # unclear: left as is
     assert parent_predicate("PARENT_OF", m("Pat", "she")) == "PARENT_OF"                  # one pronoun is not enough
     assert parent_predicate("SIBLING_OF", m("Mr. Bennet")) == "SIBLING_OF"
+
+
+def test_a_role_already_named_after_its_owner_is_not_renamed_and_relationships_are_listed_once():
+    text = "John's father loved John. John's father and John's mother left."
+    at = lambda s, n=0: [i for i in range(len(text)) if text.startswith(s, i)][n]
+    m = lambda mid, s, kind, n=0: {"mention_id": mid, "text": s, "type": "character", "mention_kind": kind,
+                                   "start": at(s, n), "end": at(s, n) + len(s)}
+    doc = {"text": text, "mentions": [m("M1", "John's father", "nominal"), m("M2", "John", "proper", 1),
+                                      m("M3", "John's father", "nominal", 1)],
+           "coreference_clusters": [], "facts": [], "events": [], "temporal_relations": [],
+           "relationships": [{"relationship_id": "R1", "predicate": "PARENT_OF", "subject_mention_id": "M1",
+                              "object_mention_id": "M2"},
+                             {"relationship_id": "R2", "predicate": "PARENT_OF", "subject_mention_id": "M3",
+                              "object_mention_id": "M2"}]}
+    out = to_legacy(doc, 1)
+    assert sorted(e["canonical_name"] for e in out["entities"]) == ["John", "John's father"]
+    assert out["relationships"] == [{"subject": "John's father", "predicate": "FATHER_OF", "object": "John"}]

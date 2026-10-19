@@ -17,6 +17,7 @@ echo -e "${BLUE}Starting Orion World State Engine${NC}"
 curl -sf http://localhost:11434/api/tags >/dev/null || fail "Ollama is not running on localhost:11434"
 curl -sf http://localhost:11434/api/tags | grep -q '"nuextract2-4b' \
   || fail "Ollama has no nuextract2-4b model: register it (see extractor/requirements.txt)"
+curl -sf http://localhost:11434/api/tags | grep -q '"qwen3.5:9b'   || echo -e "${YELLOW}Ollama has no qwen3.5:9b: the chat will not answer and extraction keeps only title facts (ollama pull qwen3.5:9b)${NC}"
 if ss -ltn 2>/dev/null | grep -q ':8000 '; then
   fail "Port 8000 is in use (an API already running?)"
 fi

@@ -21,7 +21,7 @@ logger = get_logger(__name__)
 
 EXTRACTOR_DIR = Path(__file__).resolve().parents[3] / "extractor"
 EXTRACTOR_PYTHON = EXTRACTOR_DIR / ".venv" / ("Scripts/python.exe" if os.name == "nt" else "bin/python")
-TIMEOUT_S = 900                                   # about 40 s per chapter on the RTX 4050, most of it model loading
+TIMEOUT_S = 900                                   # 2-6 min per chapter on the RTX 4050 (4 models load in turn)
 ENTITY_TYPES = ("character", "location", "organization")
 # ponytail: OTHER events (85% of the extractor's triggers, mostly noise) are left out of the world state; keep them if the
 # timeline needs every verb
@@ -126,7 +126,7 @@ def to_legacy(doc: Dict[str, Any], chapter_number: int) -> Dict[str, Any]:
         s, o = group_of[r["subject_mention_id"]], group_of[r["object_mention_id"]]
         for role, owner in ((s, o), (o, s)):
             if role in names and owner in names and role not in renamed and not _proper(groups[role]) \
-                    and _proper(groups[owner]):
+                    and _proper(groups[owner]) and "'s " not in names[role]:     # "John's father" has its owner
                 names[role] = f"{names[owner]}'s {_bare(names[role])}"
                 renamed.add(role)
     ends = [(group_of[r["subject_mention_id"]], group_of[r["object_mention_id"]]) for r in doc["relationships"]]
@@ -149,6 +149,8 @@ def to_legacy(doc: Dict[str, Any], chapter_number: int) -> Dict[str, Any]:
     relationships = [{"subject": names[s], "predicate": parent_predicate(r["predicate"], groups[s]), "object": names[o]}
                      for r in doc["relationships"]
                      if (s := group_of[r["subject_mention_id"]]) in names and (o := group_of[r["object_mention_id"]]) in names]
+    # two groups with one name are one entity: their relationships repeat ("John's mother MOTHER_OF John" twice)
+    relationships = [dict(t) for t in dict.fromkeys(tuple(r.items()) for r in relationships)]
 
     sentences = list(preprocess_chapter(doc["text"]).iter_sentences())
     # one line: the book's hard line breaks ("heard that / Netherfield") would show in the timeline

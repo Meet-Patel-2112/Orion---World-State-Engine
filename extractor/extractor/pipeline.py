@@ -7,6 +7,7 @@ from app.evaluation.schema import load_schema, schema_errors
 from extractor import coref as coref_module, llm, mentions as mentions_module
 from extractor.coref import coref
 from extractor.events import events, llm_types
+from extractor.facts import facts
 from extractor.mentions import mentions
 from extractor.relations import relations
 from extractor.temporal import temporal
@@ -32,7 +33,7 @@ def release_llm(doc: Dict[str, Any]) -> None:
 
 # Each stage appends to the document's lists in place; stages are added phase by phase (see the plan).
 STAGES: Tuple[Callable[[Dict[str, Any]], None], ...] = (release_llm, mentions, coref, events, temporal,
-                                                        release_encoders, llm_types, relations, release_llm)
+                                                        release_encoders, llm_types, relations, facts, release_llm)
 
 
 def extract(story_id: str, text: str) -> Dict[str, Any]:

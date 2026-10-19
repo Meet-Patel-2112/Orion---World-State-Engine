@@ -19,7 +19,7 @@ if (-not $pg -or $pg.Status -ne "Running") { Fail "The PostgreSQL service is not
 try { $tags = Invoke-RestMethod -Uri "http://127.0.0.1:11434/api/tags" -TimeoutSec 5 } catch { Fail "Ollama is not running on 127.0.0.1:11434" }
 $models = $tags.models.name
 if (-not ($models -match "^nuextract2-4b")) { Fail "Ollama has no nuextract2-4b model (extraction): see extractor\requirements.txt" }
-if (-not ($models -match "^qwen3.5:9b")) { Write-Host "Ollama has no qwen3.5:9b: the chat will not answer (ollama pull qwen3.5:9b)" -ForegroundColor Yellow }
+if (-not ($models -match "^qwen3.5:9b")) { Write-Host "Ollama has no qwen3.5:9b: the chat will not answer and extraction keeps only title facts (ollama pull qwen3.5:9b)" -ForegroundColor Yellow }
 if (Get-NetTCPConnection -LocalPort 8000 -State Listen -ErrorAction SilentlyContinue) { Fail "Port 8000 is in use (an API already running?)" }
 
 # ---- environment: caches and temp on D: (C: is nearly full), UTF-8 for the extractor subprocess
