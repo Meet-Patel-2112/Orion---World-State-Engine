@@ -1,0 +1,2174 @@
+{
+ "schema_version": "2.0",
+ "doc_id": "oliver_twist/ch01",
+ "work": {
+  "work_id": "oliver_twist",
+  "title": "Oliver Twist",
+  "author": "Charles Dickens",
+  "chapter_number": 1,
+  "chapter_title": "TREATS OF THE PLACE WHERE OLIVER TWIST WAS BORN AND OF THE",
+  "source": {
+   "corpus": "pdnc",
+   "url": "https://github.com/Priya22/project-dialogism-novel-corpus",
+   "revision": "e507a27b89a85c1e9710a897ad0b3f5a9ad73dc4",
+   "license": "Annotations: CC-BY 4.0 (PDNC, Vishnubhotla, Hammond and Hirst 2022); text: public domain",
+   "text_offset": 64
+  }
+ },
+ "text": " CHAPTER I.\nTREATS OF THE PLACE WHERE OLIVER TWIST WAS BORN AND OF THE\nCIRCUMSTANCES ATTENDING HIS BIRTH\n\n\nAmong other public buildings in a certain town, which for many reasons\nit will be prudent to refrain from mentioning, and to which I will\nassign no fictitious name, there is one anciently common to most towns,\ngreat or small: to wit, a workhouse; and in this workhouse was born; on\na day and date which I need not trouble myself to repeat, inasmuch as\nit can be of no possible consequence to the reader, in this stage of\nthe business at all events; the item of mortality whose name is\nprefixed to the head of this chapter.\n\nFor a long time after it was ushered into this world of sorrow and\ntrouble, by the parish surgeon, it remained a matter of considerable\ndoubt whether the child would survive to bear any name at all; in which\ncase it is somewhat more than probable that these memoirs would never\nhave appeared; or, if they had, that being comprised within a couple of\npages, they would have possessed the inestimable merit of being the\nmost concise and faithful specimen of biography, extant in the\nliterature of any age or country.\n\nAlthough I am not disposed to maintain that the being born in a\nworkhouse, is in itself the most fortunate and enviable circumstance\nthat can possibly befall a human being, I do mean to say that in this\nparticular instance, it was the best thing for Oliver Twist that could\nby possibility have occurred. The fact is, that there was considerable\ndifficulty in inducing Oliver to take upon himself the office of\nrespiration, a troublesome practice, but one which custom has rendered\nnecessary to our easy existence; and for some time he lay gasping on a\nlittle flock mattress, rather unequally poised between this world and\nthe next: the balance being decidedly in favour of the latter. Now, if,\nduring this brief period, Oliver had been surrounded by careful\ngrandmothers, anxious aunts, experienced nurses, and doctors of\nprofound wisdom, he would most inevitably and indubitably have been\nkilled in no time. There being nobody by, however, but a pauper old\nwoman, who was rendered rather misty by an unwonted allowance of beer;\nand a parish surgeon who did such matters by contract; Oliver and\nNature fought out the point between them. The result was, that, after a\nfew struggles, Oliver breathed, sneezed, and proceeded to advertise to\nthe inmates of the workhouse the fact of a new burden having been\nimposed upon the parish, by setting up as loud a cry as could\nreasonably have been expected from a male infant who had not been\npossessed of that very useful appendage, a voice, for a much longer\nspace of time than three minutes and a quarter.\n\nAs Oliver gave this first proof of the free and proper action of his\nlungs, the patchwork coverlet which was carelessly flung over the iron\nbedstead, rustled; the pale face of a young woman was raised feebly\nfrom the pillow; and a faint voice imperfectly articulated the words,\n\"Let me see the child, and die.\"\n\nThe surgeon had been sitting with his face turned towards the fire:\ngiving the palms of his hands a warm and a rub alternately. As the\nyoung woman spoke, he rose, and advancing to the bed's head, said, with\nmore kindness than might have been expected of him:\n\n\"Oh, you must not talk about dying yet.\"\n\n\"Lor bless her dear heart, no!\" interposed the nurse, hastily\ndepositing in her pocket a green glass bottle, the contents of which\nshe had been tasting in a corner with evident satisfaction.\n\n\"Lor bless her dear heart, when she has lived as long as I have, sir,\nand had thirteen children of her own, and all on 'em dead except two,\nand them in the wurkus with me, she'll know better than to take on in\nthat way, bless her dear heart! Think what it is to be a mother,\nthere's a dear young lamb do.\"\n\nApparently this consolatory perspective of a mother's prospects failed\nin producing its due effect. The patient shook her head, and stretched\nout her hand towards the child.\n\nThe surgeon deposited it in her arms. She imprinted her cold white lips\npassionately on its forehead; passed her hands over her face; gazed\nwildly round; shuddered; fell back and died. They chafed her breast,\nhands, and temples; but the blood had stopped forever. They talked of\nhope and comfort. They had been strangers too long.\n\n\"It's all over, Mrs. Thingummy!\" said the surgeon at last.\n\n\"Ah, poor dear, so it is!\" said the nurse, picking up the cork of the\ngreen bottle, which had fallen out on the pillow, as she stooped to\ntake up the child. \"Poor dear!\"\n\n\"You needn't mind sending up to me, if the child cries, nurse,\" said\nthe surgeon, putting on his gloves with great deliberation. \"It's very\nlikely it _will_ be troublesome. Give it a little gruel if it is.\" He\nput on his hat, and, pausing by the bed-side on his way to the door,\nadded, \"She was a good-looking girl, too; where did she come from?\"\n\n\"She was brought here last night,\" replied the old woman, \"by the\noverseer's order. She was found lying in the street. She had walked\nsome distance, for her shoes were worn to pieces; but where she came\nfrom, or where she was going to, nobody knows.\"\n\nThe surgeon leaned over the body, and raised the left hand. \"The old\nstory,\" he said, shaking his head: \"no wedding-ring, I see. Ah!\nGood-night!\"\n\nThe medical gentleman walked away to dinner; and the nurse, having once\nmore applied herself to the green bottle, sat down on a low chair\nbefore the fire, and proceeded to dress the infant.\n\nWhat an excellent example of the power of dress, young Oliver Twist\nwas! Wrapped in the blanket which had hitherto formed his only\ncovering, he might have been the child of a nobleman or a beggar; it\nwould have been hard for the haughtiest stranger to have assigned him\nhis proper station in society. But now that he was enveloped in the old\ncalico robes which had grown yellow in the same service, he was badged\nand ticketed, and fell into his place at once a parish child the orphan\nof a workhouse the humble, half-starved drudge to be cuffed and\nbuffeted through the world despised by all, and pitied by none.\n\nOliver cried lustily. If he could have known that he was an orphan,\nleft to the tender mercies of church-wardens and overseers, perhaps he\nwould have cried the louder.",
+ "annotation": {
+  "guidelines_version": "2.0",
+  "status": "reviewed",
+  "layers": {
+   "mentions": {
+    "coverage": "exhaustive"
+   },
+   "quotes": {
+    "coverage": "exhaustive"
+   },
+   "events": {
+    "coverage": "none"
+   },
+   "facts": {
+    "coverage": "exhaustive"
+   },
+   "relationships": {
+    "coverage": "exhaustive"
+   },
+   "temporal_expressions": {
+    "coverage": "none"
+   },
+   "temporal_relations": {
+    "coverage": "none"
+   }
+  },
+  "notes": "Quotes, characters and the mentions inside quotes are imported from PDNC at e507a27; every other item is Claude's draft and pending review. The young woman is Agnes Fleming and the nurse Old Sally (Mrs. Thingummy), as PDNC attributes their lines; one key from the start (guidelines section 2). The infant is 'it' / 'the child' / 'the infant' and links to Oliver. The narrator's 'I' has no entity (null). 'a certain town' is a provisional key: Dickens never names it here. Agnes MOTHER_OF Oliver was drafted on the nurse's 'Think what it is to be a mother' and deleted on review (team decision, 2026-10-16): the line makes Agnes a mother in general but never names the child, and the chapter only shows the tie (she asks to see the child, kisses it and dies), which section 7 does not allow as evidence. Predicate descriptions ('a parish child the orphan of a workhouse') are not mentions. 'her' in 'thirteen children of her own' (Q-line of the nurse) keeps PDNC's reading, Agnes, the grammatical subject; the drafter read it as the nurse's own children. Ambiguous; reviewers decide. Review (2026-10-17, HS, on the review page): every pending item accepted, none corrected or deleted; recall pass over the mention region done, no missing mentions added; 10 PDNC quotes checked for span and speaker. Accepted in bulk (one action per layer): 98 mentions, 10 quotes; a double review (guidelines section 9) should start with those layers.",
+  "annotators": [
+   {
+    "name": "Het Soni",
+    "role": "reviewer"
+   },
+   {
+    "name": "HS",
+    "role": "reviewer"
+   }
+  ]
+ },
+ "entities": [
+  {
+   "entity_key": "agnes_fleming",
+   "name": "Agnes Fleming",
+   "type": "character",
+   "aliases": [],
+   "external_ids": {
+    "pdnc": "0"
+   },
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc"
+   }
+  },
+  {
+   "entity_key": "old_sally",
+   "name": "Old Sally",
+   "type": "character",
+   "aliases": [
+    "Mrs. Thingummy",
+    "Sally",
+    "The Nurse"
+   ],
+   "external_ids": {
+    "pdnc": "39"
+   },
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc"
+   }
+  },
+  {
+   "entity_key": "oliver_town",
+   "name": "the town",
+   "type": "location",
+   "provisional": true,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "entity_key": "oliver_twist",
+   "name": "Oliver Twist",
+   "type": "character",
+   "aliases": [
+    "Nolly",
+    "Oliver",
+    "Twist"
+   ],
+   "external_ids": {
+    "pdnc": "40"
+   },
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc"
+   }
+  },
+  {
+   "entity_key": "the_parish",
+   "name": "the parish",
+   "type": "organization",
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "entity_key": "the_surgeon",
+   "name": "The Surgeon",
+   "type": "character",
+   "aliases": [],
+   "external_ids": {
+    "pdnc": "84"
+   },
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc"
+   }
+  },
+  {
+   "entity_key": "the_workhouse",
+   "name": "the workhouse",
+   "type": "location",
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  }
+ ],
+ "mentions": [
+  {
+   "mention_id": "M1",
+   "text": "HIS",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 95,
+   "end": 98,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M2",
+   "text": "a certain town",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "oliver_town",
+   "start": 139,
+   "end": 153,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M3",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 238,
+   "end": 239,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M4",
+   "text": "this workhouse",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "the_workhouse",
+   "start": 361,
+   "end": 375,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M5",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 410,
+   "end": 411,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M6",
+   "text": "myself",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 429,
+   "end": 435,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M7",
+   "text": "the item of mortality",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "oliver_twist",
+   "start": 556,
+   "end": 577,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M8",
+   "text": "it",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "oliver_twist",
+   "start": 653,
+   "end": 655,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M9",
+   "text": "the parish surgeon",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "the_surgeon",
+   "start": 710,
+   "end": 728,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M10",
+   "text": "the child",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "oliver_twist",
+   "start": 781,
+   "end": 790,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M11",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 1156,
+   "end": 1157,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M12",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 1320,
+   "end": 1321,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M13",
+   "text": "Oliver Twist",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "oliver_twist",
+   "start": 1397,
+   "end": 1409,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M14",
+   "text": "Oliver",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "oliver_twist",
+   "start": 1515,
+   "end": 1521,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M15",
+   "text": "himself",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 1535,
+   "end": 1542,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M16",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 1679,
+   "end": 1681,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M17",
+   "text": "Oliver",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "oliver_twist",
+   "start": 1867,
+   "end": 1873,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M18",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 1986,
+   "end": 1988,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M19",
+   "text": "a pauper old\nwoman",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "old_sally",
+   "start": 2092,
+   "end": 2110,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M20",
+   "text": "a parish surgeon",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "the_surgeon",
+   "start": 2180,
+   "end": 2196,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M21",
+   "text": "parish",
+   "type": "organization",
+   "mention_kind": "nominal",
+   "entity_key": "the_parish",
+   "start": 2182,
+   "end": 2188,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M22",
+   "text": "Oliver",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "oliver_twist",
+   "start": 2231,
+   "end": 2237,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M23",
+   "text": "Oliver",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "oliver_twist",
+   "start": 2329,
+   "end": 2335,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M24",
+   "text": "the inmates",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 2385,
+   "end": 2396,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M25",
+   "text": "the workhouse",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": "the_workhouse",
+   "start": 2400,
+   "end": 2413,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M26",
+   "text": "the parish",
+   "type": "organization",
+   "mention_kind": "nominal",
+   "entity_key": "the_parish",
+   "start": 2464,
+   "end": 2474,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M27",
+   "text": "Oliver",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "oliver_twist",
+   "start": 2699,
+   "end": 2705,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M28",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 2761,
+   "end": 2764,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M29",
+   "text": "a young woman",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "agnes_fleming",
+   "start": 2872,
+   "end": 2885,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M30",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "agnes_fleming",
+   "start": 2979,
+   "end": 2981,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M31",
+   "text": "the child",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "oliver_twist",
+   "start": 2986,
+   "end": 2995,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M32",
+   "text": "The surgeon",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "the_surgeon",
+   "start": 3008,
+   "end": 3019,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M33",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_surgeon",
+   "start": 3042,
+   "end": 3045,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M34",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_surgeon",
+   "start": 3096,
+   "end": 3099,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M35",
+   "text": "the\nyoung woman",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "agnes_fleming",
+   "start": 3139,
+   "end": 3154,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M36",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_surgeon",
+   "start": 3162,
+   "end": 3164,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M37",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_surgeon",
+   "start": 3262,
+   "end": 3265,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M38",
+   "text": "you",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "agnes_fleming",
+   "start": 3273,
+   "end": 3276,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M39",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "agnes_fleming",
+   "start": 3321,
+   "end": 3324,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M40",
+   "text": "the nurse",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "old_sally",
+   "start": 3353,
+   "end": 3362,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M41",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "old_sally",
+   "start": 3386,
+   "end": 3389,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M42",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "old_sally",
+   "start": 3441,
+   "end": 3444,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M43",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "agnes_fleming",
+   "start": 3513,
+   "end": 3516,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M44",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "agnes_fleming",
+   "start": 3534,
+   "end": 3537,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M45",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "old_sally",
+   "start": 3559,
+   "end": 3560,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M46",
+   "text": "sir",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "the_surgeon",
+   "start": 3567,
+   "end": 3570,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M47",
+   "text": "thirteen children of her own",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 3580,
+   "end": 3608,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M48",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "agnes_fleming",
+   "start": 3601,
+   "end": 3604,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M49",
+   "text": "'em",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 3621,
+   "end": 3624,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M50",
+   "text": "them",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 3646,
+   "end": 3650,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M51",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "old_sally",
+   "start": 3670,
+   "end": 3672,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M52",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "agnes_fleming",
+   "start": 3674,
+   "end": 3677,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M53",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "agnes_fleming",
+   "start": 3728,
+   "end": 3731,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M54",
+   "text": "a dear young lamb",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "agnes_fleming",
+   "start": 3785,
+   "end": 3802,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M55",
+   "text": "The patient",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "agnes_fleming",
+   "start": 3909,
+   "end": 3920,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M56",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "agnes_fleming",
+   "start": 3927,
+   "end": 3930,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M57",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "agnes_fleming",
+   "start": 3955,
+   "end": 3958,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M58",
+   "text": "the child",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "oliver_twist",
+   "start": 3972,
+   "end": 3981,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M59",
+   "text": "The surgeon",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "the_surgeon",
+   "start": 3984,
+   "end": 3995,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M60",
+   "text": "it",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "oliver_twist",
+   "start": 4001,
+   "end": 4003,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M61",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "agnes_fleming",
+   "start": 4012,
+   "end": 4015,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M62",
+   "text": "She",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "agnes_fleming",
+   "start": 4022,
+   "end": 4025,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M63",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "agnes_fleming",
+   "start": 4036,
+   "end": 4039,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M64",
+   "text": "its",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "oliver_twist",
+   "start": 4072,
+   "end": 4075,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M65",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "agnes_fleming",
+   "start": 4093,
+   "end": 4096,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M66",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "agnes_fleming",
+   "start": 4108,
+   "end": 4111,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M67",
+   "text": "They",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": null,
+   "start": 4169,
+   "end": 4173,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M68",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "agnes_fleming",
+   "start": 4181,
+   "end": 4184,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M69",
+   "text": "Mrs. Thingummy",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "old_sally",
+   "start": 4332,
+   "end": 4346,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M70",
+   "text": "the surgeon",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "the_surgeon",
+   "start": 4354,
+   "end": 4365,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M71",
+   "text": "the nurse",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "old_sally",
+   "start": 4408,
+   "end": 4417,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M72",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "old_sally",
+   "start": 4499,
+   "end": 4502,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M73",
+   "text": "the child",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "oliver_twist",
+   "start": 4522,
+   "end": 4531,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M74",
+   "text": "You",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "old_sally",
+   "start": 4548,
+   "end": 4551,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M75",
+   "text": "me",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_surgeon",
+   "start": 4579,
+   "end": 4581,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M76",
+   "text": "the child",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "oliver_twist",
+   "start": 4586,
+   "end": 4595,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M77",
+   "text": "nurse",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "old_sally",
+   "start": 4603,
+   "end": 4608,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M78",
+   "text": "the surgeon",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "the_surgeon",
+   "start": 4616,
+   "end": 4627,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M79",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_surgeon",
+   "start": 4640,
+   "end": 4643,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M80",
+   "text": "it",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "oliver_twist",
+   "start": 4694,
+   "end": 4696,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M81",
+   "text": "it",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "oliver_twist",
+   "start": 4725,
+   "end": 4727,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M82",
+   "text": "He",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_surgeon",
+   "start": 4754,
+   "end": 4756,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M83",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_surgeon",
+   "start": 4764,
+   "end": 4767,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M84",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_surgeon",
+   "start": 4805,
+   "end": 4808,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M85",
+   "text": "She",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "agnes_fleming",
+   "start": 4834,
+   "end": 4837,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M86",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "agnes_fleming",
+   "start": 4878,
+   "end": 4881,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M87",
+   "text": "She",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "agnes_fleming",
+   "start": 4896,
+   "end": 4899,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M88",
+   "text": "the old woman",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "old_sally",
+   "start": 4938,
+   "end": 4951,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M89",
+   "text": "the\noverseer",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 4957,
+   "end": 4969,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M90",
+   "text": "overseer",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 4961,
+   "end": 4969,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M91",
+   "text": "She",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "agnes_fleming",
+   "start": 4979,
+   "end": 4982,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M92",
+   "text": "the street",
+   "type": "location",
+   "mention_kind": "nominal",
+   "entity_key": null,
+   "start": 5002,
+   "end": 5012,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M93",
+   "text": "She",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "agnes_fleming",
+   "start": 5014,
+   "end": 5017,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M94",
+   "text": "her",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "agnes_fleming",
+   "start": 5048,
+   "end": 5051,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M95",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "agnes_fleming",
+   "start": 5089,
+   "end": 5092,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M96",
+   "text": "she",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "agnes_fleming",
+   "start": 5113,
+   "end": 5116,
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "pdnc",
+    "note": "mention_kind set by the converter"
+   }
+  },
+  {
+   "mention_id": "M97",
+   "text": "The surgeon",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "the_surgeon",
+   "start": 5147,
+   "end": 5158,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M98",
+   "text": "the body",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "agnes_fleming",
+   "start": 5171,
+   "end": 5179,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M99",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_surgeon",
+   "start": 5224,
+   "end": 5226,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M100",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_surgeon",
+   "start": 5241,
+   "end": 5244,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M101",
+   "text": "I",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "the_surgeon",
+   "start": 5269,
+   "end": 5270,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M102",
+   "text": "The medical gentleman",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "the_surgeon",
+   "start": 5294,
+   "end": 5315,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M103",
+   "text": "the nurse",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "old_sally",
+   "start": 5343,
+   "end": 5352,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M104",
+   "text": "herself",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "old_sally",
+   "start": 5379,
+   "end": 5386,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M105",
+   "text": "the infant",
+   "type": "character",
+   "mention_kind": "nominal",
+   "entity_key": "oliver_twist",
+   "start": 5472,
+   "end": 5482,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M106",
+   "text": "young Oliver Twist",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "oliver_twist",
+   "start": 5534,
+   "end": 5552,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M107",
+   "text": "Oliver Twist",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "oliver_twist",
+   "start": 5540,
+   "end": 5552,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M108",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 5607,
+   "end": 5610,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M109",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 5626,
+   "end": 5628,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M110",
+   "text": "him",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 5751,
+   "end": 5754,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M111",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 5755,
+   "end": 5758,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M112",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 5799,
+   "end": 5801,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M113",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 5884,
+   "end": 5886,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M114",
+   "text": "his",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 5926,
+   "end": 5929,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M115",
+   "text": "Oliver",
+   "type": "character",
+   "mention_kind": "proper",
+   "entity_key": "oliver_twist",
+   "start": 6099,
+   "end": 6105,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M116",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 6124,
+   "end": 6126,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M117",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 6149,
+   "end": 6151,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "mention_id": "M118",
+   "text": "he",
+   "type": "character",
+   "mention_kind": "pronominal",
+   "entity_key": "oliver_twist",
+   "start": 6235,
+   "end": 6237,
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  }
+ ],
+ "quotes": [
+  {
+   "quote_id": "Q1",
+   "spans": [
+    {
+     "start": 2975,
+     "end": 3005
+    }
+   ],
+   "speaker_entity_key": "agnes_fleming",
+   "addressee_entity_keys": [
+    "old_sally",
+    "the_surgeon"
+   ],
+   "quote_type": "anaphoric",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "HS",
+    "note": "PDNC Q0"
+   }
+  },
+  {
+   "quote_id": "Q2",
+   "spans": [
+    {
+     "start": 3269,
+     "end": 3307
+    }
+   ],
+   "speaker_entity_key": "the_surgeon",
+   "addressee_entity_keys": [
+    "old_sally",
+    "agnes_fleming"
+   ],
+   "quote_type": "anaphoric",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "HS",
+    "note": "PDNC Q1"
+   }
+  },
+  {
+   "quote_id": "Q3",
+   "spans": [
+    {
+     "start": 3311,
+     "end": 3340
+    }
+   ],
+   "speaker_entity_key": "old_sally",
+   "addressee_entity_keys": [
+    "agnes_fleming",
+    "the_surgeon"
+   ],
+   "quote_type": "anaphoric",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "HS",
+    "note": "PDNC Q2"
+   }
+  },
+  {
+   "quote_id": "Q4",
+   "spans": [
+    {
+     "start": 3503,
+     "end": 3806
+    }
+   ],
+   "speaker_entity_key": "old_sally",
+   "addressee_entity_keys": [
+    "agnes_fleming",
+    "the_surgeon"
+   ],
+   "quote_type": "implicit",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "HS",
+    "note": "PDNC Q3"
+   }
+  },
+  {
+   "quote_id": "Q5",
+   "spans": [
+    {
+     "start": 4317,
+     "end": 4347
+    }
+   ],
+   "speaker_entity_key": "the_surgeon",
+   "addressee_entity_keys": [
+    "old_sally"
+   ],
+   "quote_type": "explicit",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "HS",
+    "note": "PDNC Q4"
+   }
+  },
+  {
+   "quote_id": "Q6",
+   "spans": [
+    {
+     "start": 4377,
+     "end": 4401
+    },
+    {
+     "start": 4534,
+     "end": 4544
+    }
+   ],
+   "speaker_entity_key": "old_sally",
+   "addressee_entity_keys": [
+    "the_surgeon"
+   ],
+   "quote_type": "anaphoric",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "HS",
+    "note": "PDNC Q5"
+   }
+  },
+  {
+   "quote_id": "Q7",
+   "spans": [
+    {
+     "start": 4548,
+     "end": 4609
+    },
+    {
+     "start": 4677,
+     "end": 4752
+    }
+   ],
+   "speaker_entity_key": "the_surgeon",
+   "addressee_entity_keys": [
+    "old_sally"
+   ],
+   "quote_type": "explicit",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "HS",
+    "note": "PDNC Q6"
+   }
+  },
+  {
+   "quote_id": "Q8",
+   "spans": [
+    {
+     "start": 4834,
+     "end": 4892
+    }
+   ],
+   "speaker_entity_key": "the_surgeon",
+   "addressee_entity_keys": [
+    "old_sally"
+   ],
+   "quote_type": "anaphoric",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "HS",
+    "note": "PDNC Q7"
+   }
+  },
+  {
+   "quote_id": "Q9",
+   "spans": [
+    {
+     "start": 4896,
+     "end": 4928
+    },
+    {
+     "start": 4954,
+     "end": 5144
+    }
+   ],
+   "speaker_entity_key": "old_sally",
+   "addressee_entity_keys": [
+    "the_surgeon"
+   ],
+   "quote_type": "anaphoric",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "HS",
+    "note": "PDNC Q8"
+   }
+  },
+  {
+   "quote_id": "Q10",
+   "spans": [
+    {
+     "start": 5208,
+     "end": 5222
+    },
+    {
+     "start": 5252,
+     "end": 5291
+    }
+   ],
+   "speaker_entity_key": "the_surgeon",
+   "addressee_entity_keys": [
+    "old_sally"
+   ],
+   "quote_type": "anaphoric",
+   "review": {
+    "origin": "pdnc",
+    "status": "accepted",
+    "by": "HS",
+    "note": "PDNC Q9"
+   }
+  }
+ ],
+ "events": [],
+ "facts": [
+  {
+   "fact_id": "F1",
+   "entity_key": "oliver_twist",
+   "property": "birth_place",
+   "value": "this workhouse",
+   "value_span": {
+    "start": 361,
+    "end": 375
+   },
+   "evidence": {
+    "start": 354,
+    "end": 384
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "fact_id": "F2",
+   "entity_key": "agnes_fleming",
+   "property": "status",
+   "value": "died",
+   "value_span": {
+    "start": 4163,
+    "end": 4167
+   },
+   "status_value": "DEAD",
+   "evidence": {
+    "start": 4149,
+    "end": 4167
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "fact_id": "F3",
+   "entity_key": "the_surgeon",
+   "property": "occupation",
+   "value": "surgeon",
+   "value_span": {
+    "start": 721,
+    "end": 728
+   },
+   "evidence": {
+    "start": 707,
+    "end": 728
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "fact_id": "F4",
+   "entity_key": "old_sally",
+   "property": "occupation",
+   "value": "nurse",
+   "value_span": {
+    "start": 3357,
+    "end": 3362
+   },
+   "evidence": {
+    "start": 3342,
+    "end": 3362
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  },
+  {
+   "fact_id": "F5",
+   "entity_key": "agnes_fleming",
+   "property": "location",
+   "value": "the street",
+   "value_span": {
+    "start": 5002,
+    "end": 5012
+   },
+   "evidence": {
+    "start": 4979,
+    "end": 5012
+   },
+   "assertion": "asserted",
+   "claimed_by": "old_sally",
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  }
+ ],
+ "relationships": [
+  {
+   "relationship_id": "R2",
+   "subject_entity_key": "the_surgeon",
+   "predicate": "WORKS_FOR",
+   "object_entity_key": "the_parish",
+   "evidence": {
+    "start": 2180,
+    "end": 2229
+   },
+   "assertion": "asserted",
+   "review": {
+    "origin": "claude_draft",
+    "status": "accepted",
+    "by": "HS"
+   }
+  }
+ ],
+ "temporal_expressions": [],
+ "temporal_relations": []
+}

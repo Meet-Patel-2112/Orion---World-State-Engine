@@ -22,6 +22,15 @@ from app.config.logging import get_logger
 
 logger = get_logger(__name__)
 
+_GENDERED_TITLES = {"mr": "m", "sir": "m", "lord": "m", "mrs": "f", "miss": "f", "ms": "f", "lady": "f"}
+
+
+def title_gender(name: str):
+    """'m' for "Mr. Bennet", 'f' for "Mrs. Bennet", None without a gendered title: the two Bennets are not one person."""
+    first = name.split()[0].rstrip(".").lower() if name.split() else ""
+    return _GENDERED_TITLES.get(first)
+
+
 class WorldStateService:
     def __init__(self, db: Session):
         self.db = db
@@ -56,8 +65,12 @@ class WorldStateService:
         """The stored entity one of `names` refers to. An exact name or alias wins; otherwise a short or full form
         ("Mara" / "Mara Quinn") of exactly one stored entity of the same type. Role phrases ("mother") never match:
         "her mother" in two chapters is rarely the same person."""
-        names = [n for n in names if is_proper_name(n)]
         lookup = lambda n: self.entity_repo.get_by_canonical(world_id, n) or self.entity_repo.get_by_alias(world_id, n)
+        # An owner-qualified role ("Mr. Bennet's wife") names one person: exact matches only, e.g. the alias a merge left
+        owned = next((e for n in names if n.split("'s ")[0][:1].isupper() and "'s " in n and (e := lookup(n))), None)
+        if owned:
+            return owned
+        names = [n for n in names if is_proper_name(n)]
         exact = next((e for n in names if (e := lookup(n))), None)
         if exact or not names:
             return exact
@@ -65,9 +78,11 @@ class WorldStateService:
         # ponytail: scans every entity of the world per unmatched name; index the name words if worlds grow to thousands
         stored = lambda e: [name_words(n) for n in [e.canonical_name, *(a.alias for a in e.aliases)]
                             if is_proper_name(n)]
+        genders = {g for n in names if (g := title_gender(n))}
         candidates = [e for e in self.entity_repo.list_with_aliases(world_id)
                       if (entity_type is None or e.entity_type == entity_type)
-                      and any(w <= s or s <= w for s in stored(e) for w in wanted)]
+                      and any(w <= s or s <= w for s in stored(e) for w in wanted)
+                      and not (genders and (g := title_gender(e.canonical_name)) and g not in genders)]
         return candidates[0] if len(candidates) == 1 else None   # "Quinn" with three Quinns stored: ambiguous, no match
 
     def integrate_extraction_result(
@@ -105,7 +120,8 @@ class WorldStateService:
 
         # 1. Process Entities
         for ent_data in extraction_data.get("entities", []):
-            canonical = normalize_entity_name(ent_data.get("canonical_name", "").strip())
+            # Stored as written ("Mrs. Long", not "Long"); matching still compares names without titles
+            canonical = ent_data.get("canonical_name", "").strip()
             if not canonical:
                 continue
             entity_type = ent_data.get("type", "unknown").lower()

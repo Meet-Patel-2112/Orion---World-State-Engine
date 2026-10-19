@@ -414,10 +414,10 @@ def test_short_names_and_titles_reach_the_full_name_so_rules_fire_across_chapter
     ch2 = [person("Mara", age="thirty-eight", eye_color="grey"), person("Captain Brandt", status="alive and well")]
     integrate(env, w["world_id"], w["runs"][2], chapter_data(ch2, [rel("Captain Brandt", "FRIEND_OF", "Mara")]))
 
-    assert entity_names(env, w["world_id"]) == ["Elias Brandt", "Lily Quinn", "Mara Quinn"]
+    assert entity_names(env, w["world_id"]) == ["Captain Elias Brandt", "Lily Quinn", "Mara Quinn"]   # stored as written
     rules = sorted(c["explanation"].split("]")[0][1:] for c in contradictions(env, w["world_id"]))
     assert rules == ["AGE_MONOTONIC", "DEAD_THEN_ALIVE", "IMMUTABLE_FACT"]
-    assert rel_statuses(env, w["world_id"], "Elias Brandt", "Mara Quinn") == [("FRIEND_OF", "ACTIVE")]
+    assert rel_statuses(env, w["world_id"], "Captain Elias Brandt", "Mara Quinn") == [("FRIEND_OF", "ACTIVE")]
 
 
 def test_ambiguous_short_names_and_role_words_are_never_merged(world):

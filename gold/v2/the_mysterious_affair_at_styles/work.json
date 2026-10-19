@@ -1,0 +1,61 @@
+{
+  "work_id": "the_mysterious_affair_at_styles",
+  "title": "The Mysterious Affair at Styles",
+  "author": "Agatha Christie",
+  "pdnc_folder": "TheMysteriousAffairAtStyles",
+  "chapters": [
+    1,
+    3,
+    6,
+    12,
+    13
+  ],
+  "entities": {
+    "Mr. Hastings": {
+      "key": "arthur_hastings",
+      "name": "Arthur Hastings",
+      "drop_aliases": [
+        "Narr",
+        "_narr"
+      ]
+    },
+    "Miss Murdoch": {
+      "key": "cynthia_murdoch",
+      "name": "Cynthia Murdoch"
+    },
+    "Mr. Lawrence Cavendish": {
+      "key": "lawrence_cavendish",
+      "name": "Lawrence Cavendish"
+    },
+    "Mrs. Inglethorp": {
+      "key": "emily_inglethorp",
+      "name": "Emily Inglethorp"
+    },
+    "Japp": {
+      "key": "james_japp",
+      "name": "James Japp"
+    },
+    "Mr. Mace": {
+      "key": "albert_mace",
+      "name": "Albert Mace"
+    },
+    "Ernest Heavywether": {
+      "key": "sir_ernest_heavywether",
+      "name": "Sir Ernest Heavywether"
+    }
+  },
+  "extra_entities": [],
+  "name_map": {
+    "Narr": "arthur_hastings",
+    "_narr": "arthur_hastings"
+  },
+  "notes": "Hastings narrates; PDNC marks narrator speech with 'Narr' / '_narr', mapped to his key. PDNC's text replaced every non-ASCII character with one space per UTF-8 byte (an em dash became three spaces, an e-acute two) and wrote right single quotes as straight apostrophes: convert with --reference-text pointing at the Gutenberg edition; mode 'bytes' moves every span accordingly. reference_text.extra_lines restores a line whose wording differs between PDNC's edition and Gutenberg's (PDNC 'indeed', Gutenberg 'induced'), keeping PDNC's words.",
+  "reference_text": {
+    "source": "Project Gutenberg eBook #863",
+    "url": "https://www.gutenberg.org/cache/epub/863/pg863.txt",
+    "mode": "bytes",
+    "extra_lines": [
+      "believe—or her unconsciousness was indeed by artificial means."
+    ]
+  }
+}

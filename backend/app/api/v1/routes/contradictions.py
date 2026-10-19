@@ -6,6 +6,7 @@ from app.api.deps import get_db, get_current_user_world
 from app.models.world import World
 from app.schemas.contradiction import ContradictionResponse, ContradictionResolveRequest
 from app.services.consistency_service import ConsistencyService
+from app.services.contradiction_sources import sources_for
 
 router = APIRouter()
 
@@ -18,7 +19,13 @@ def list_contradictions(
 ):
     service = ConsistencyService(db)
     contradictions = service.list_contradictions(world.id, status=status_filter)
-    return contradictions
+    return [_with_sources(db, c) for c in contradictions]
+
+
+def _with_sources(db: Session, con) -> ContradictionResponse:
+    """The row plus where each side of it is in the text, so the author can jump to it."""
+    return ContradictionResponse.model_validate({**ContradictionResponse.model_validate(con).model_dump(),
+                                                 "sources": sources_for(db, con)})
 
 @router.post("/{world_id}/contradictions/{contradiction_id}/resolve", response_model=ContradictionResponse)
 def resolve_contradiction(
@@ -43,4 +50,4 @@ def resolve_contradiction(
     except ValueError as e:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
 
-    return resolved
+    return _with_sources(db, resolved)

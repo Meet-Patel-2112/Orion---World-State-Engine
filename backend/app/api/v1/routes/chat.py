@@ -5,6 +5,7 @@ from app.api.deps import get_db, get_current_user_world
 from app.models.world import World
 from app.schemas.chat import ChatQueryRequest, ChatQueryResponse
 from app.services.chat_service import ChatService
+from app.services.profile_service import load_profile
 
 router = APIRouter()
 
@@ -27,6 +28,7 @@ def chat_with_world(
         message=query_in.message.strip(),
         history=query_in.history,
         entity_focus=query_in.entity_focus,
-        timeline_event_focus=query_in.timeline_event_focus
+        timeline_event_focus=query_in.timeline_event_focus,
+        reply_length=load_profile(world.user_id)["preferences"]["chat_reply_length"] if world.user_id else "medium"
     )
     return response

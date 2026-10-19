@@ -2,6 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { AppShell } from '../components/AppShell';
 import { useWorldStore } from '../store/useWorldStore';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
+import { setContradictionStatus } from '../api/contradictions';
+import type { ContradictionStatus } from '../api/contradictions';
+
+type Tab = 'open' | 'resolved' | 'rejected';
+const TAB_STATUS: Record<Tab, ContradictionStatus> = { open: 'DETECTED', resolved: 'RESOLVED', rejected: 'DISMISSED' };
 
 export const Contradictions: React.FC = () => {
   const { contradictions, activeWorldId, fetchContradictionsForWorld, resolveContradictionInBackend, setActiveEntity } = useWorldStore();
@@ -16,8 +22,29 @@ export const Contradictions: React.FC = () => {
   const [resolvingId, setResolvingId] = useState<string | null>(null);
   const [resolutionChoice, setResolutionChoice] = useState<string | null>(null);
 
+  const navigate = useNavigate();
+  const [tab, setTab] = useState<Tab>('open');
+  const statusOf = (c: typeof contradictions[0]): ContradictionStatus => c.status ?? (c.resolved ? 'RESOLVED' : 'DETECTED');
+  const byTab = (t: Tab) => contradictions.filter((c) => statusOf(c) === TAB_STATUS[t]);
   // Unresolved contradictions list
-  const activeContradictions = contradictions.filter((c) => !c.resolved);
+  const activeContradictions = byTab('open');
+  const shown = byTab(tab);
+
+  // Reject (the author says it isn't a contradiction: it is not raised again) or restore it to the open list
+  const changeStatus = async (id: string, next: ContradictionStatus) => {
+    if (!activeWorldId) return;
+    try {
+      await setContradictionStatus(activeWorldId, id, next);
+    } finally {
+      fetchContradictionsForWorld(activeWorldId);
+    }
+  };
+
+  const openInChapter = (s: typeof contradictions[0]['sources'][0]) => {
+    if (!activeWorldId || !s.manuscriptId || !s.chapterId) return;
+    const range = s.start != null && s.end != null ? `&start=${s.start}&end=${s.end}` : '';
+    navigate(`/worlds/${activeWorldId}/manuscripts/${s.manuscriptId}?chapter=${s.chapterId}${range}`);
+  };
 
   const handleStartResolve = (id: string) => {
     setResolvingId(id);
@@ -41,6 +68,7 @@ export const Contradictions: React.FC = () => {
           preferredFactVersionId,
           preferredRelationshipVersionId
         );
+        fetchContradictionsForWorld(activeWorldId);
       }
       setResolvingId(null);
       setResolutionChoice(null);
@@ -163,10 +191,31 @@ export const Contradictions: React.FC = () => {
             </div>
           </div>
 
+          {/* Open / Resolved / Rejected */}
+          <div className="flex gap-2 select-none">
+            {(['open', 'resolved', 'rejected'] as Tab[]).map((t) => (
+              <button
+                key={t}
+                onClick={() => { setTab(t); setResolvingId(null); }}
+                className={`px-4 py-1.5 rounded-full border text-[10px] font-label-sm uppercase tracking-widest transition-all ${
+                  tab === t ? 'border-copper-glow text-copper-glow bg-copper-glow/5' : 'border-starlight-white/10 text-on-surface-variant/60 hover:text-starlight-white'
+                }`}
+              >
+                {t} ({byTab(t).length})
+              </button>
+            ))}
+          </div>
+
+          {shown.length === 0 && (
+            <p className="text-on-surface-variant/60 text-sm">
+              {tab === 'open' ? 'No open contradictions.' : tab === 'resolved' ? 'Nothing resolved yet.' : 'You have not rejected any contradiction.'}
+            </p>
+          )}
+
           {/* Cards Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-7xl pb-32">
             <AnimatePresence>
-              {activeContradictions.map((c) => {
+              {shown.map((c) => {
                 const isResolving = resolvingId === c.id;
 
                 return (
@@ -212,11 +261,24 @@ export const Contradictions: React.FC = () => {
 
                     {/* Sources Side-by-side display */}
                     <div className={`flex-1 grid grid-cols-1 gap-4 py-2 ${c.severity === 'high' ? 'md:grid-cols-2' : ''}`}>
+                      {c.sources.length === 0 && (
+                        <p className="text-xs text-on-surface-variant/50 italic">No chapter text found for this contradiction.</p>
+                      )}
                       {c.sources.map((source, idx) => (
                         <div key={idx} className="bg-deep-charcoal/50 rounded-lg p-4 border border-starlight-white/5 flex flex-col gap-2">
                           <div className="font-label-sm text-[10px] text-on-surface-variant/40 mb-1 flex items-center gap-1.5 uppercase tracking-wider select-none">
                             <span className="material-symbols-outlined text-[14px] font-light">menu_book</span>
-                            {source.sourceName}
+                            <span className="flex-1">{source.sourceName}</span>
+                            {source.chapterId && source.manuscriptId && (
+                              <button
+                                onClick={() => openInChapter(source)}
+                                className="normal-case tracking-normal text-copper-glow hover:underline flex items-center gap-1"
+                                title="Open the chapter at this line"
+                              >
+                                Open in chapter
+                                <span className="material-symbols-outlined text-[14px]">arrow_outward</span>
+                              </button>
+                            )}
                           </div>
                           
                           {/* Text passage with highlighted conflicting word */}
@@ -249,17 +311,34 @@ export const Contradictions: React.FC = () => {
                     )}
 
                     {/* Card Footer Actions */}
-                    {!isResolving && (
+                    {!isResolving && tab !== 'open' && (
+                      <footer className="mt-auto pt-4 flex items-center justify-between border-t border-starlight-white/5 select-none">
+                        <p className="font-body-md text-xs text-on-surface-variant/50 italic">{c.summary}</p>
+                        {tab === 'rejected' ? (
+                          <button
+                            onClick={() => changeStatus(c.id, 'DETECTED')}
+                            className="font-label-sm text-xs text-on-surface-variant hover:text-white px-3 py-1.5 transition-colors uppercase tracking-wider"
+                          >
+                            Restore
+                          </button>
+                        ) : (
+                          <span className="font-label-sm text-[10px] text-emerald-400 uppercase tracking-wider">Resolved</span>
+                        )}
+                      </footer>
+                    )}
+
+                    {!isResolving && tab === 'open' && (
                       <footer className="mt-auto pt-4 flex items-center justify-between border-t border-starlight-white/5 select-none">
                         <p className="font-body-md text-xs text-on-surface-variant/50 italic">
                           {c.summary}
                         </p>
                         <div className="flex gap-2.5">
                           <button 
-                            onClick={() => activeWorldId && resolveContradictionInBackend(activeWorldId, c.id)}
+                            onClick={() => changeStatus(c.id, 'DISMISSED')}
                             className="font-label-sm text-xs text-on-surface-variant hover:text-white px-3 py-1.5 transition-colors uppercase tracking-wider"
+                            title="Not a contradiction: move it to Rejected and don't raise it again"
                           >
-                            Ignore
+                            Reject
                           </button>
                           <button 
                             onClick={() => handleStartResolve(c.id)}

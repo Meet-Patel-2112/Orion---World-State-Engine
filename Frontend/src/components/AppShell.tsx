@@ -1,8 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useParams, useNavigate } from 'react-router-dom';
 import { useWorldStore } from '../store/useWorldStore';
 import { AnimatePresence, motion } from 'framer-motion';
 import { EntityPanel } from './EntityPanel';
+import { CreatorProfileModal } from './CreatorProfileModal';
+import { SettingsModal } from './SettingsModal';
 
 interface AppShellProps {
   children: React.ReactNode;
@@ -30,8 +32,9 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
   const currentPath = location.pathname;
   const currentWorldId = worldId || 'terra-incognita';
 
-  // Count active contradictions to show a badge on the navigation rail
-  const unresolvedContradictionsCount = contradictions.filter(c => !c.resolved).length;
+  // Count open contradictions to show a badge on the navigation rail (rejected ones don't count)
+  const unresolvedContradictionsCount = contradictions.filter(c => !c.resolved && c.status !== 'DISMISSED').length;
+  const [openPanel, setOpenPanel] = useState<'profile' | 'settings' | null>(null);
 
   const navItems = [
     {
@@ -134,8 +137,8 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
 
         {/* Secondary Actions / Footer */}
         <div className="w-full flex flex-col gap-1 border-t border-starlight-white/10 pt-4 mt-auto">
-          <Link 
-            to={`/worlds/${currentWorldId}/assistant`}
+          <button
+            onClick={() => setOpenPanel('profile')}
             className="flex flex-col items-center justify-center py-4 text-on-surface-variant/60 hover:text-primary hover:bg-white/5 transition-colors duration-300 w-full group relative"
             title="Profile"
           >
@@ -143,9 +146,9 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
             <span className="opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 absolute left-full ml-4 bg-surface-container-high border border-starlight-white/10 px-3 py-1 rounded text-starlight-white text-xs font-label-sm pointer-events-none transition-all duration-200 z-50 whitespace-nowrap shadow-xl">
               Creator Profile
             </span>
-          </Link>
-          <button 
-            onClick={handleReturnToArchive}
+          </button>
+          <button
+            onClick={() => setOpenPanel('settings')}
             className="flex flex-col items-center justify-center py-4 text-on-surface-variant/60 hover:text-primary hover:bg-white/5 transition-colors duration-300 w-full group relative"
             title="Archive Settings"
           >
@@ -156,6 +159,9 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
           </button>
         </div>
       </nav>
+
+      {openPanel === 'profile' && <CreatorProfileModal onClose={() => setOpenPanel(null)} />}
+      {openPanel === 'settings' && <SettingsModal worldId={worldId ?? null} onClose={() => setOpenPanel(null)} />}
 
       {/* Primary Stage */}
       <div className="flex-1 ml-nav-rail-width h-full relative flex z-10 overflow-hidden bg-void-black">

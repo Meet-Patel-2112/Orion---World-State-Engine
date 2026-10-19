@@ -11,16 +11,24 @@ interface Message {
   time: string;
 }
 
+const now = () => new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+const greeting = (character: string | null): Message => ({
+  id: `msg-intro-${Date.now()}`,
+  sender: 'assistant',
+  text: character
+    ? `You're talking to ${character}. Ask what they would do, how they feel or what they want; they answer from what your world state says about them.`
+    : 'Greetings, Chronicler. I am the Orion World Engine Assistant. Ask me about the characters, places and events in your world. Pick a character above to talk to them instead.',
+  time: now(),
+});
+
 export const WorldAssistant: React.FC = () => {
-  const { activeWorldId, setActiveEntity } = useWorldStore();
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: 'msg-1',
-      sender: 'assistant',
-      text: 'Greetings, Chronicler. I am the Orion World Engine Assistant. Ask me to cross-reference entities, discover timeline patterns, or locate consistency gaps in your manuscripts.',
-      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-    }
-  ]);
+  const { activeWorldId, setActiveEntity, entities, fetchEntitiesForWorld } = useWorldStore();
+  // Character chat (writer's block): null talks to the world assistant, an entity id to that character
+  const [focusId, setFocusId] = useState<string | null>(null);
+  const characters = entities.filter((e) => e.type === 'character');
+  const focus = characters.find((e) => e.id === focusId) ?? null;
+  const [messages, setMessages] = useState<Message[]>(() => [greeting(null)]);
   const [inputVal, setInputVal] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -32,6 +40,15 @@ export const WorldAssistant: React.FC = () => {
   useEffect(() => {
     scrollToBottom();
   }, [messages, isTyping]);
+
+  useEffect(() => {
+    if (activeWorldId && !activeWorldId.startsWith('terra-')) fetchEntitiesForWorld(activeWorldId);
+  }, [activeWorldId, fetchEntitiesForWorld]);
+
+  const switchTo = (id: string | null) => {
+    setFocusId(id);
+    setMessages([greeting(characters.find((e) => e.id === id)?.name ?? null)]);
+  };
 
   const handleSendMessage = async (text: string) => {
     if (!text.trim()) return;
@@ -49,7 +66,7 @@ export const WorldAssistant: React.FC = () => {
 
     try {
       if (activeWorldId && !activeWorldId.startsWith('terra-')) {
-        const historyPayload = messages.slice(-6).map((m) => ({
+        const historyPayload = messages.slice(1).slice(-8).map((m) => ({   // skip the greeting
           role: m.sender === 'user' ? 'user' : 'assistant',
           content: typeof m.text === 'string' ? m.text : ''
         }));
@@ -58,7 +75,8 @@ export const WorldAssistant: React.FC = () => {
           method: 'POST',
           body: JSON.stringify({
             message: text.trim(),
-            history: historyPayload
+            history: historyPayload,
+            entity_focus: focusId
           })
         });
 
@@ -116,19 +134,17 @@ export const WorldAssistant: React.FC = () => {
       setMessages((prev) => [...prev, {
         id: `msg-${Date.now() + 1}`,
         sender: 'assistant',
-        text: 'I am cross-referencing your lore matrices. (Note: LLM provider is operating in local fallback mode).',
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        text: `The chat could not be reached (${e?.message ?? 'network error'}). Is the backend running?`,
+        time: now()
       }]);
     } finally {
       setIsTyping(false);
     }
   };
 
-  const presetQueries = [
-    'Who is Kaelen?',
-    'What contradictions are in my manuscripts?',
-    'Tell me about Elara Vance.'
-  ];
+  const presetQueries = focus
+    ? [`What would you do next, ${focus.name}?`, 'How do you feel right now?', 'What do you want most?']
+    : ['Who are the main characters?', 'Summarise what has happened so far.', 'How are the characters connected?'];
 
   return (
     <AppShell>
@@ -143,11 +159,26 @@ export const WorldAssistant: React.FC = () => {
               <span className="material-symbols-outlined text-primary text-lg font-light">chat_bubble_outline</span>
             </div>
             <div>
-              <h2 className="font-headline-md text-sm text-starlight-white font-semibold">Orion Assistant</h2>
-              <p className="text-[10px] font-label-sm text-on-surface-variant/45 uppercase tracking-wider mt-0.5">Grounded Lore Engine AI</p>
+              <h2 className="font-headline-md text-sm text-starlight-white font-semibold">
+                {focus ? `Talking to ${focus.name}` : 'Orion Assistant'}
+              </h2>
+              <p className="text-[10px] font-label-sm text-on-surface-variant/45 uppercase tracking-wider mt-0.5">
+                {focus ? 'Character chat · answers from your world state' : 'Grounded Lore Engine AI'}
+              </p>
             </div>
           </div>
-          <span className="text-[10px] font-label-sm text-emerald-400 uppercase tracking-widest bg-emerald-500/5 border border-emerald-500/10 px-2 py-0.5 rounded">Sync Online</span>
+          <label className="flex items-center gap-2 text-[10px] font-label-sm text-on-surface-variant/60 uppercase tracking-wider">
+            Talk to
+            <select
+              value={focusId ?? ''}
+              onChange={(e) => switchTo(e.target.value || null)}
+              disabled={isTyping}
+              className="bg-surface-container-lowest border border-starlight-white/10 rounded-full px-3 py-1 text-xs normal-case tracking-normal text-starlight-white focus:border-primary focus:outline-none"
+            >
+              <option value="">Orion (whole world)</option>
+              {characters.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
+            </select>
+          </label>
         </header>
 
         {/* Messages Stream */}
@@ -246,7 +277,7 @@ export const WorldAssistant: React.FC = () => {
                 type="text"
                 value={inputVal}
                 onChange={(e) => setInputVal(e.target.value)}
-                placeholder="Ask Orion about your manuscripts..."
+                placeholder={focus ? `Ask ${focus.name} what they would do...` : 'Ask Orion about your manuscripts...'}
                 className="w-full bg-surface-container-lowest border border-starlight-white/10 rounded-full pl-6 pr-14 py-3 text-xs text-on-surface placeholder:text-on-surface-variant/30 focus:border-primary focus:ring-0 focus:outline-none"
               />
               <button 
