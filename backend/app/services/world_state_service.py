@@ -75,10 +75,12 @@ class WorldStateService:
     def delete_world(self, world_id: str) -> Optional[World]:
         return self.world_repo.delete(world_id)
 
-    def find_entity(self, world_id: str, names: List[str], entity_type: Optional[str] = None) -> Optional[Entity]:
+    def find_entity(self, world_id: str, names: List[str], entity_type: Optional[str] = None,
+                    *, identity_evidence: Optional[Dict[str, Optional[str]]] = None) -> Optional[Entity]:
         """The stored entity one of `names` refers to. An exact name or alias wins; otherwise a short or full form
         ("Mara" / "Mara Quinn") of exactly one stored entity of the same type. Role phrases ("mother") never match:
-        "her mother" in two chapters is rarely the same person."""
+        "her mother" in two chapters is rarely the same person. A titled-surname fuzzy join also needs affirmative
+        compatible source evidence; the optional chapter-local sidecar is never persisted as a fact."""
         lookup = lambda n: self.entity_repo.get_by_canonical(world_id, n) or self.entity_repo.get_by_alias(world_id, n)
         # An owner-qualified role ("Mr. Bennet's wife") names one person: exact matches only, e.g. the alias a merge left,
         # or the name the role implies ("Mrs. Bennet")
@@ -101,11 +103,46 @@ class WorldStateService:
         stored = lambda e: [name_words(n) for n in [e.canonical_name, *(a.alias for a in e.aliases)]
                             if is_proper_name(n)]
         genders = {g for n in names if (g := title_gender(n))}
+        evidence = {n.strip().casefold(): g for n, g in (identity_evidence or {}).items()}
+
+        def titled_surname(forms):
+            return any(is_proper_name(n) and title_gender(n) and len(name_words(n)) == 1 for n in forms)
+
+        def supported_gender(forms):
+            # No first-name guesses, stored gender facts, or evidence from another world/chapter.
+            # Explicitly unresolved source groups (including collapsed conflicts)
+            # must not be rescued by the title on their selected display name.
+            if any(n.strip().casefold() in evidence and evidence[n.strip().casefold()] not in ("m", "f")
+                   for n in forms):
+                return set()
+            return {g for n in forms for g in (title_gender(n) if "'s " not in n else None,
+                                               evidence.get(n.strip().casefold())) if g in ("m", "f")}
+
+        incoming_titled = titled_surname(names)
+        incoming_support = supported_gender(names)
+
+        def compatible_identity(e):
+            forms = [e.canonical_name, *(a.alias for a in e.aliases)]
+            if e.entity_type != "character" or not (incoming_titled or titled_surname(forms)):
+                return True
+            # A full/untitled name must not lose its distinguishing information to
+            # fit an existing titled surname (Mary Cavendish != every Mrs. Cavendish).
+            # Exact names/aliases and owner/spouse matches have already returned.
+            if not incoming_titled:
+                # Untyped endpoint fallback already receives a normalized name;
+                # don't interpret that lost title as contrary source evidence.
+                return entity_type is None
+            return len(incoming_support) == 1 and supported_gender(forms) == incoming_support
+
         candidates = [e for e in self.entity_repo.list_with_aliases(world_id)
                       if (entity_type is None or e.entity_type == entity_type)
                       and any(w <= s or s <= w for s in stored(e) for w in wanted)
                       and not (genders and (g := title_gender(e.canonical_name)) and g not in genders)]
-        return candidates[0] if len(candidates) == 1 else None   # "Quinn" with three Quinns stored: ambiguous, no match
+        # Evidence can veto a unique match, never select one person out of an
+        # already ambiguous surname pool. Shared gender is not proof of identity.
+        if len(candidates) != 1:
+            return None
+        return candidates[0] if compatible_identity(candidates[0]) else None
 
     def integrate_extraction_result(
         self,
@@ -151,7 +188,8 @@ class WorldStateService:
             # Look up every name (canonical and aliases) against every stored name (canonical and aliases): a
             # chapter may call "Daniel" (alias "Dan") the entity stored as "Dan" (alias "Daniel").
             names = [canonical, *ent_data.get("aliases", [])]
-            existing_ent = self.find_entity(world_id, names, entity_type)
+            existing_ent = self.find_entity(world_id, names, entity_type,
+                                           identity_evidence=extraction_data.get("identity_evidence"))
 
             if existing_ent:
                 entity = existing_ent

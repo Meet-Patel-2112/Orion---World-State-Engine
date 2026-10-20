@@ -166,8 +166,17 @@ def to_legacy(doc: Dict[str, Any], chapter_number: int) -> Dict[str, Any]:
     kept = {e["id"] for e in events}
     temporal = [{"event_1": t["source_event_id"], "relation": t["relation"], "event_2": t["target_event_id"]}
                 for t in doc["temporal_relations"] if {t["source_event_id"], t["target_event_id"]} <= kept]
+    # Ephemeral source evidence for integration, never a fact or a database field.
+    # Several source groups may collapse to one selected name: disagreement or an
+    # unknown group must not silently become affirmative compatibility evidence.
+    support = {}
+    for n, name in names.items():
+        support.setdefault(name.strip().casefold(), set()).add(gender(groups[n]))
+    identity_evidence = {name: next(iter(values)) if len(values) == 1 else None
+                         for name, values in support.items()}
     return {"chapter_number": chapter_number, "pipeline": "extractor", "entities": list(by_name.values()),
-            "relationships": relationships, "events": events, "temporal_relations": temporal}
+            "relationships": relationships, "events": events, "temporal_relations": temporal,
+            "identity_evidence": identity_evidence}
 
 
 def extract_chapter(text: str, chapter_number: int) -> Dict[str, Any]:
