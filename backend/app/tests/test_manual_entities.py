@@ -750,3 +750,95 @@ def test_inline_retype_entity(db_session):
         app.dependency_overrides.clear()
 
 
+def test_get_entity_details_with_relationships_and_appearances(db_session):
+    from app.models.manuscript import Manuscript
+    from app.models.chapter import Chapter
+    from app.models.event import Event, EventParticipant
+    from app.models.relationship import Relationship, RelationshipVersion
+
+    ms = Manuscript(id="ms-test-1", world_id="world-1", title="Book 1")
+    db_session.add(ms)
+
+    chap = Chapter(
+        id="chap-test-1",
+        manuscript_id=ms.id,
+        title="The Awakening",
+        chapter_number=1
+    )
+    db_session.add(chap)
+
+    e1 = Entity(id="ent-detail-1", world_id="world-1", canonical_name="Arthur", entity_type="character")
+    e2 = Entity(id="ent-detail-2", world_id="world-1", canonical_name="Guinevere", entity_type="character")
+    db_session.add_all([e1, e2])
+    db_session.commit()
+
+    # Relationship Arthur -> Guinevere
+    rel = Relationship(
+        id="rel-test-1",
+        world_id="world-1",
+        source_entity_id=e1.id,
+        target_entity_id=e2.id
+    )
+    db_session.add(rel)
+    db_session.flush()
+
+    rel_v = RelationshipVersion(
+        id="relv-test-1",
+        relationship_id=rel.id,
+        chapter_id=chap.id,
+        relationship_type="ALLIED_WITH",
+        status="ACTIVE"
+    )
+    db_session.add(rel_v)
+
+    # Event with Arthur
+    ev = Event(
+        id="ev-test-1",
+        world_id="world-1",
+        chapter_id=chap.id,
+        event_type="BATTLE",
+        description="The Great Battle"
+    )
+    db_session.add(ev)
+    db_session.flush()
+
+    ep = EventParticipant(
+        id="ep-test-1",
+        event_id=ev.id,
+        entity_id=e1.id,
+        role="COMMANDER"
+    )
+    db_session.add(ep)
+    db_session.commit()
+
+    app.dependency_overrides[get_db] = lambda: db_session
+    app.dependency_overrides[get_current_user] = lambda: db_session.query(User).filter(User.id == "user-1").first()
+
+    try:
+        client = TestClient(app)
+        resp = client.get(
+            f"/api/v1/worlds/world-1/entities/{e1.id}",
+            headers={"Authorization": "Bearer dummy"}
+        )
+        assert resp.status_code == 200
+        data = resp.json()
+
+        assert data["canonical_name"] == "Arthur"
+        assert len(data["relationships"]) == 1
+        rel_data = data["relationships"][0]
+        assert rel_data["targetId"] == e2.id
+        assert rel_data["targetName"] == "Guinevere"
+        assert rel_data["relation"] == "ALLIED_WITH"
+        assert rel_data["direction"] == "outgoing"
+        assert rel_data["chapter_number"] == 1
+
+        assert len(data["appearances"]) >= 1
+        app_item = data["appearances"][0]
+        assert app_item["id"] == chap.id
+        assert app_item["chapter_number"] == 1
+        assert "The Awakening" in app_item["title"]
+    finally:
+        app.dependency_overrides.clear()
+
+
+

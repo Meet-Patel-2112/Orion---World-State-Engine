@@ -213,10 +213,6 @@ export const Manuscripts: React.FC = () => {
                             </div>
 
                             <div className="flex items-center gap-4">
-                              <div className="flex items-center gap-1.5 px-2 py-0.5 rounded border text-[10px] uppercase font-label-sm bg-emerald-500/5 text-emerald-400/80 border-emerald-500/20">
-                                <span className="w-1 h-1 rounded-full bg-current"></span>
-                                Extracted
-                              </div>
                               <button 
                                 onClick={(e) => handleDeleteChapter(e, ms.id, ch.id)}
                                 className="text-on-surface-variant/30 hover:text-red-400 transition-colors opacity-0 group-hover:opacity-100 p-1"

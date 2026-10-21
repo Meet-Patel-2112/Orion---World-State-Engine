@@ -38,11 +38,12 @@ export const EntityLedger: React.FC = () => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [deleteError, setDeleteError] = useState<string | null>(null);
 
-  // Forge Entity Form Modal states
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalType, setModalType] = useState<'character' | 'location' | 'object' | 'event'>('character');
+  // Forge Entity Form Drawer states
+  const [isCreateDrawerOpen, setIsCreateDrawerOpen] = useState(false);
+  const [createType, setCreateType] = useState<'character' | 'location' | 'object' | 'event'>('character');
   const [entityName, setEntityName] = useState('');
   const [entitySubtype, setEntitySubtype] = useState('');
+  const [entityAlias, setEntityAlias] = useState('');
   const [entityDesc, setEntityDesc] = useState('');
 
   const filteredEntities = entities.filter((e) => {
@@ -116,12 +117,13 @@ export const EntityLedger: React.FC = () => {
     }
   };
 
-  const handleOpenModal = (type: typeof modalType) => {
-    setModalType(type);
+  const handleOpenCreateDrawer = (type: typeof createType = 'character') => {
+    setCreateType(type);
     setEntityName('');
     setEntitySubtype('');
+    setEntityAlias('');
     setEntityDesc('');
-    setIsModalOpen(true);
+    setIsCreateDrawerOpen(true);
   };
 
   const handleForgeEntity = (e: React.FormEvent) => {
@@ -130,11 +132,12 @@ export const EntityLedger: React.FC = () => {
       addEntity({
         id: `entity-${Date.now()}`,
         name: entityName.trim(),
-        type: modalType,
+        type: createType,
         subtype: entitySubtype.trim() || undefined,
+        alias: entityAlias.trim() || undefined,
         description: entityDesc.trim()
       });
-      setIsModalOpen(false);
+      setIsCreateDrawerOpen(false);
     }
   };
 
@@ -150,11 +153,11 @@ export const EntityLedger: React.FC = () => {
 
   const getTypeColor = (type: Entity['type']) => {
     switch (type) {
-      case 'character': return 'text-copper-glow border-copper-glow/20';
-      case 'location': return 'text-secondary border-secondary/20';
-      case 'object': return 'text-tertiary border-tertiary/20';
-      case 'event': return 'text-error border-error/20';
-      default: return 'text-on-surface-variant border-starlight-white/5';
+      case 'character': return 'text-copper-glow border-copper-glow/30 bg-copper-glow/10';
+      case 'location': return 'text-secondary border-secondary/30 bg-secondary/10';
+      case 'object': return 'text-tertiary border-tertiary/30 bg-tertiary/10';
+      case 'event': return 'text-error border-error/30 bg-error/10';
+      default: return 'text-on-surface-variant border-starlight-white/10 bg-white/5';
     }
   };
 
@@ -169,24 +172,29 @@ export const EntityLedger: React.FC = () => {
           {/* Header */}
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-b border-starlight-white/5 pb-6">
             <div>
-              <span className="font-label-sm text-[10px] text-primary uppercase tracking-[0.2em] mb-1.5 block">World Archive</span>
-              <h2 className="font-headline-lg text-starlight-white mb-2">World Ledger</h2>
-              <p className="font-body-lg text-body-lg text-on-surface-variant/80 max-w-2xl">
-                Browse, search, and edit the characters, landmarks, and key objects of your universe.
+              <div className="flex items-center gap-2 mb-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
+                <span className="font-label-sm text-[10px] text-primary uppercase tracking-[0.25em] font-medium">World Archive</span>
+              </div>
+              <h1 className="font-display-lg text-3xl md:text-4xl text-starlight-white font-light tracking-tight mb-2">
+                World Ledger
+              </h1>
+              <p className="font-body-md text-sm md:text-base text-on-surface-variant/70 leading-relaxed max-w-2xl">
+                Browse, search, and manage the canon characters, landmarks, artifacts, and events of your universe.
               </p>
             </div>
             
-            {/* Quick Forge Menu & Selection Mode Toggle */}
-            <div className="flex flex-wrap items-center gap-2.5 shrink-0">
+            {/* Quick Actions: Selection Mode Toggle & Unified Forge Entity */}
+            <div className="flex flex-wrap items-center gap-3 shrink-0">
               <button 
                 onClick={() => {
                   setIsSelectMode(!isSelectMode);
                   setSelectedIds([]);
                 }}
-                className={`flex items-center gap-1.5 font-label-sm text-[11px] px-3.5 py-2 rounded uppercase tracking-wider font-semibold border transition-all ${
+                className={`flex items-center gap-1.5 font-label-sm text-[11px] px-3.5 py-2.5 rounded-lg uppercase tracking-wider font-semibold border transition-all ${
                   isSelectMode 
                     ? 'bg-primary text-void-black border-primary shadow-[0_0_12px_rgba(230,162,126,0.3)]' 
-                    : 'text-on-surface-variant border-starlight-white/10 hover:border-primary/40 hover:text-white'
+                    : 'text-on-surface-variant border-starlight-white/10 hover:border-primary/40 hover:text-white bg-surface-container-lowest/40'
                 }`}
               >
                 <span className="material-symbols-outlined text-sm font-light">
@@ -194,57 +202,68 @@ export const EntityLedger: React.FC = () => {
                 </span>
                 {isSelectMode ? 'Exit Selection' : 'Select / Merge'}
               </button>
+
               <button 
-                onClick={() => handleOpenModal('character')}
-                className="flex items-center gap-1.5 font-label-sm text-[11px] text-primary border border-primary/20 hover:border-primary px-4 py-2 rounded uppercase tracking-wider font-semibold hover:bg-primary/5 transition-all"
+                onClick={() => handleOpenCreateDrawer('character')}
+                className="flex items-center gap-2 font-label-sm text-xs px-4 py-2.5 rounded-lg uppercase tracking-wider font-semibold bg-primary hover:bg-copper-glow text-void-black shadow-lg shadow-primary/10 hover:shadow-primary/25 transition-all duration-300"
               >
-                <span className="material-symbols-outlined text-sm font-light">group</span> Character
-              </button>
-              <button 
-                onClick={() => handleOpenModal('location')}
-                className="flex items-center gap-1.5 font-label-sm text-[11px] text-secondary border border-secondary/20 hover:border-secondary px-4 py-2 rounded uppercase tracking-wider font-semibold hover:bg-secondary/5 transition-all"
-              >
-                <span className="material-symbols-outlined text-sm font-light">location_on</span> Location
+                <span className="material-symbols-outlined text-base font-medium">add</span>
+                Forge Entity
               </button>
             </div>
           </div>
 
           {/* Search and Filters Bar */}
-          <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+          <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
             
-            {/* Tabs */}
-            <div className="flex bg-surface-container-lowest/80 border border-starlight-white/10 p-1 rounded-lg">
+            {/* Tabs with Counts */}
+            <div className="flex flex-wrap bg-surface-container-lowest/80 border border-starlight-white/10 p-1 rounded-xl gap-1">
               {([
-                { id: 'all', label: 'All Entries', icon: 'list' },
-                { id: 'character', label: 'Characters', icon: 'group' },
-                { id: 'location', label: 'Locations', icon: 'location_on' },
-                { id: 'object', label: 'Objects', icon: 'category' }
+                { id: 'all', label: 'All Entries', icon: 'list', count: entities.length },
+                { id: 'character', label: 'Characters', icon: 'group', count: entities.filter(e => e.type === 'character').length },
+                { id: 'location', label: 'Locations', icon: 'location_on', count: entities.filter(e => e.type === 'location').length },
+                { id: 'object', label: 'Objects', icon: 'category', count: entities.filter(e => e.type === 'object').length },
+                { id: 'event', label: 'Events', icon: 'event_note', count: entities.filter(e => e.type === 'event').length }
               ] as const).map(tab => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center gap-2 px-4 py-1.5 rounded font-label-sm text-xs uppercase tracking-wider transition-all ${
+                  className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg font-label-sm text-xs uppercase tracking-wider transition-all ${
                     activeTab === tab.id 
-                      ? 'bg-primary text-void-black font-semibold' 
-                      : 'text-on-surface-variant hover:text-white'
+                      ? 'bg-primary text-void-black font-semibold shadow-sm' 
+                      : 'text-on-surface-variant hover:text-white hover:bg-white/5'
                   }`}
                 >
                   <span className="material-symbols-outlined text-[15px] font-light">{tab.icon}</span>
-                  {tab.label}
+                  <span>{tab.label}</span>
+                  <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${
+                    activeTab === tab.id ? 'bg-void-black/20 text-void-black font-bold' : 'bg-white/5 text-on-surface-variant/60'
+                  }`}>
+                    {tab.count}
+                  </span>
                 </button>
               ))}
             </div>
 
             {/* Search Input */}
-            <div className="relative group min-w-[260px]">
+            <div className="relative group min-w-[280px]">
               <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant/40 text-lg group-focus-within:text-primary transition-colors font-light">search</span>
               <input 
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search ledger entries..."
-                className="w-full bg-surface-container-lowest border border-starlight-white/10 rounded px-10 py-2.5 font-body-md text-xs text-on-surface placeholder:text-on-surface-variant/30 focus:border-primary focus:ring-0 focus:outline-none"
+                placeholder="Search ledger entries by name or lore..."
+                className="w-full bg-surface-container-lowest border border-starlight-white/10 rounded-xl px-10 py-2.5 font-body-md text-xs text-on-surface placeholder:text-on-surface-variant/30 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all"
               />
+              {searchQuery && (
+                <button 
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant/40 hover:text-white"
+                  title="Clear search"
+                >
+                  <span className="material-symbols-outlined text-sm">close</span>
+                </button>
+              )}
             </div>
 
           </div>
@@ -310,8 +329,17 @@ export const EntityLedger: React.FC = () => {
 
           {/* Grid List */}
           {filteredEntities.length === 0 ? (
-            <div className="py-20 text-center text-sm text-on-surface-variant/40 italic bg-surface-container-low/20 rounded-xl border border-dashed border-starlight-white/5">
-              No chronicle ledger entries match your filter.
+            <div className="py-24 text-center text-sm text-on-surface-variant/40 italic bg-surface-container-low/20 rounded-2xl border border-dashed border-starlight-white/10 flex flex-col items-center justify-center gap-3">
+              <span className="material-symbols-outlined text-3xl text-on-surface-variant/30">search_off</span>
+              <p>No chronicle ledger entries match your filter or search query.</p>
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="text-xs text-primary hover:underline uppercase tracking-wider font-label-sm"
+                >
+                  Clear search query
+                </button>
+              )}
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pb-24">
@@ -328,10 +356,10 @@ export const EntityLedger: React.FC = () => {
                         setActiveEntity(e.id);
                       }
                     }}
-                    className={`bg-surface-container-low/40 border rounded-xl p-5 hover-glow transition-all duration-300 flex flex-col gap-4 cursor-pointer relative overflow-hidden group ${
+                    className={`group relative flex flex-col justify-between rounded-2xl p-5 sm:p-6 transition-all duration-300 cursor-pointer overflow-hidden backdrop-blur-md ${
                       isSelected 
-                        ? 'border-primary ring-1 ring-primary bg-primary/5' 
-                        : 'border-starlight-white/5 hover:border-primary/30'
+                        ? 'bg-primary/10 border-2 border-primary ring-1 ring-primary/40 shadow-[0_0_25px_rgba(254,182,141,0.2)]' 
+                        : 'bg-surface-container-low/40 hover:bg-surface-container-low/75 border border-starlight-white/10 hover:border-primary/40 hover:-translate-y-1 hover:shadow-[0_12px_32px_rgba(0,0,0,0.6),0_0_20px_rgba(254,182,141,0.06)]'
                     }`}
                   >
                     {/* Checkbox badge when in selection mode */}
@@ -348,33 +376,86 @@ export const EntityLedger: React.FC = () => {
                     )}
 
                     {/* Subtle hover glow accent */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-                    <header className="flex justify-between items-start border-b border-starlight-white/5 pb-3 pr-6">
-                      <div>
-                        <span className={`font-label-sm text-[9px] uppercase tracking-widest border px-2 py-0.5 rounded-full flex items-center gap-1.5 ${getTypeColor(e.type)}`}>
-                          <span className="material-symbols-outlined text-[12px] font-light">{getTypeIcon(e.type)}</span>
+                    <div>
+                      {/* Card Header: Type Badge & Action */}
+                      <div className="flex items-center justify-between gap-2 mb-3">
+                        <span className={`inline-flex items-center gap-1.5 font-label-sm text-[10px] uppercase tracking-widest px-2.5 py-1 rounded-full border font-semibold ${getTypeColor(e.type)}`}>
+                          <span className="material-symbols-outlined text-[13px] font-light">{getTypeIcon(e.type)}</span>
                           {e.type}
                         </span>
-                        <h3 className="font-headline-md text-starlight-white mt-2 group-hover:text-primary transition-colors text-base font-semibold">
-                          {e.name}
-                        </h3>
+                        
+                        {!isSelectMode && (
+                          <span className="text-[10px] font-label-sm uppercase tracking-wider text-on-surface-variant/30 group-hover:text-primary transition-colors flex items-center gap-0.5">
+                            <span className="opacity-0 group-hover:opacity-100 transition-opacity text-[10px]">Inspect</span>
+                            <span className="material-symbols-outlined text-sm font-light group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
+                          </span>
+                        )}
                       </div>
-                      {e.alias && !isSelectMode && (
-                        <span className="font-body-md text-xs text-on-surface-variant/50 italic">
-                          "{e.alias}"
-                        </span>
+
+                      {/* Entity Name */}
+                      <h3 className="font-headline-md text-xl text-starlight-white group-hover:text-primary transition-colors tracking-tight font-medium line-clamp-1 mb-1">
+                        {e.name}
+                      </h3>
+
+                      {/* Subtype & Alias */}
+                      <div className="flex flex-wrap items-center gap-1.5 mb-3 min-h-[22px]">
+                        {e.subtype && (
+                          <span className="text-[10px] font-label-sm uppercase tracking-wider text-on-surface-variant/70 bg-white/5 border border-white/5 px-2 py-0.5 rounded">
+                            {e.subtype}
+                          </span>
+                        )}
+                        {e.alias && (
+                          <span className="text-[11px] font-body-md text-on-surface-variant/50 italic">
+                            aka "{e.alias}"
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Synopsis */}
+                      <p className="font-body-md text-xs text-on-surface-variant/80 leading-relaxed line-clamp-3 mb-4">
+                        {e.description || 'No synopsis recorded.'}
+                      </p>
+
+                      {/* Facts preview if any */}
+                      {e.facts && e.facts.length > 0 && (
+                        <div className="flex flex-wrap gap-1.5 mb-4">
+                          {e.facts.slice(0, 2).map((f) => (
+                            <span key={f.id} className="text-[10px] font-label-sm bg-surface-container-high/60 border border-starlight-white/5 text-on-surface-variant/70 px-2 py-0.5 rounded-full truncate max-w-[180px]">
+                              {f.property_name ? `${f.property_name}: ` : ''}{String(f.value ?? f.text)}
+                            </span>
+                          ))}
+                          {e.facts.length > 2 && (
+                            <span className="text-[10px] font-label-sm text-on-surface-variant/40 self-center">
+                              +{e.facts.length - 2} more
+                            </span>
+                          )}
+                        </div>
                       )}
-                    </header>
+                    </div>
 
-                    <p className="font-body-md text-xs text-on-surface-variant/80 leading-relaxed flex-1 line-clamp-3">
-                      {e.description}
-                    </p>
-
-                    {/* Footer details */}
-                    <footer className="mt-4 pt-3 border-t border-starlight-white/5 flex items-center justify-between text-[10px] font-label-sm text-on-surface-variant/40 uppercase tracking-widest">
-                      <span>{e.subtype || 'Ledger entry'}</span>
-                      <span>{e.facts.length} {e.facts.length === 1 ? 'Fact' : 'Facts'}</span>
+                    {/* Card Footer: Rich stats */}
+                    <footer className="pt-3 border-t border-starlight-white/5 flex items-center justify-between text-[11px] font-label-sm text-on-surface-variant/50">
+                      <div className="flex items-center gap-3">
+                        <span className="flex items-center gap-1 hover:text-on-surface-variant transition-colors" title={`${e.facts.length} Facts recorded`}>
+                          <span className="material-symbols-outlined text-[13px] text-primary/70">format_list_bulleted</span>
+                          {e.facts.length}
+                        </span>
+                        <span className="flex items-center gap-1 hover:text-on-surface-variant transition-colors" title={`${e.relationships.length} Relationships mapped`}>
+                          <span className="material-symbols-outlined text-[13px] text-secondary/70">hub</span>
+                          {e.relationships.length}
+                        </span>
+                        {e.appearances.length > 0 && (
+                          <span className="flex items-center gap-1 hover:text-on-surface-variant transition-colors" title={`${e.appearances.length} Chapter appearances`}>
+                            <span className="material-symbols-outlined text-[13px] text-tertiary/70">auto_stories</span>
+                            {e.appearances.length}
+                          </span>
+                        )}
+                      </div>
+                      <span className="text-[10px] text-on-surface-variant/40 font-mono">
+                        {e.appearances.length > 0 ? `${e.appearances.length} ch.` : 'canon'}
+                      </span>
                     </footer>
                   </article>
                 );
@@ -586,77 +667,178 @@ export const EntityLedger: React.FC = () => {
         </div>
       )}
 
-      {/* Creation Modal */}
-      {isModalOpen && (
-        <div className="fixed inset-0 bg-void-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-gutter">
-          <div className="bg-surface-container-low border border-starlight-white/10 rounded-xl max-w-lg w-full p-6 shadow-2xl relative animate-fade-in-up">
-            <button 
-              onClick={() => setIsModalOpen(false)}
-              className="absolute top-4 right-4 text-on-surface-variant hover:text-white p-1 rounded-full hover:bg-white/5"
-            >
-              <span className="material-symbols-outlined font-light">close</span>
-            </button>
-            
-            <h2 className="font-headline-md text-headline-md text-primary mb-2 capitalize">
-              Forge New {modalType}
-            </h2>
-            <p className="text-xs text-on-surface-variant/60 mb-6">
-              Create a new entity in the ledger. It will instantly link with manuscripts, timelines, and graphs.
-            </p>
+      {/* Creation Slide-Over Drawer */}
+      {isCreateDrawerOpen && (
+        <div className="fixed inset-0 z-50 flex justify-end">
+          {/* Backdrop blur */}
+          <div 
+            onClick={() => setIsCreateDrawerOpen(false)}
+            className="fixed inset-0 bg-void-black/60 backdrop-blur-sm transition-opacity cursor-pointer animate-fade-in"
+          />
 
-            <form onSubmit={handleForgeEntity} className="space-y-4">
+          {/* Drawer Content */}
+          <aside className="relative w-[440px] sm:w-[480px] max-w-[100vw] h-full bg-surface-container-low/95 backdrop-blur-2xl border-l border-starlight-white/10 shadow-2xl flex flex-col justify-between z-10 animate-fade-in-up">
+            
+            {/* Header */}
+            <div className="p-6 border-b border-starlight-white/5 bg-gradient-to-b from-surface-container-highest/30 to-transparent pt-8">
+              <div className="flex items-start justify-between">
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
+                    <span className="text-[10px] font-label-sm text-primary uppercase tracking-[0.2em] font-medium">
+                      World Archive • Creation
+                    </span>
+                  </div>
+                  <h2 className="font-headline-md text-2xl text-starlight-white leading-tight font-medium mt-1">
+                    Forge New Entity
+                  </h2>
+                  <p className="text-xs text-on-surface-variant/70 mt-1">
+                    Register a new canon entity into the world ledger and knowledge graph.
+                  </p>
+                </div>
+                <button 
+                  onClick={() => setIsCreateDrawerOpen(false)}
+                  className="text-on-surface-variant hover:text-white p-1 rounded-full hover:bg-white/5 transition-colors"
+                  title="Close Drawer"
+                >
+                  <span className="material-symbols-outlined font-light text-xl">close</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Scrollable Form Body */}
+            <form id="forge-entity-form" onSubmit={handleForgeEntity} className="flex-1 overflow-y-auto p-6 space-y-6">
+              
+              {/* Entity Type Selector (4 Types) */}
               <div>
-                <label className="block text-xs font-label-sm text-on-surface-variant/80 uppercase mb-2">Name</label>
+                <label className="block text-[10px] font-label-sm text-on-surface-variant/80 uppercase tracking-widest mb-2.5">
+                  Select Entity Type
+                </label>
+                <div className="grid grid-cols-2 gap-2.5">
+                  {([
+                    { type: 'character', label: 'Character', icon: 'group', color: 'text-copper-glow', border: 'border-copper-glow/40 bg-copper-glow/5 ring-copper-glow/30' },
+                    { type: 'location', label: 'Location', icon: 'location_on', color: 'text-secondary', border: 'border-secondary/40 bg-secondary/5 ring-secondary/30' },
+                    { type: 'object', label: 'Object', icon: 'category', color: 'text-tertiary', border: 'border-tertiary/40 bg-tertiary/5 ring-tertiary/30' },
+                    { type: 'event', label: 'Event', icon: 'event_note', color: 'text-error', border: 'border-error/40 bg-error/5 ring-error/30' }
+                  ] as const).map(item => {
+                    const isSelected = createType === item.type;
+                    return (
+                      <button
+                        type="button"
+                        key={item.type}
+                        onClick={() => setCreateType(item.type)}
+                        className={`p-3 rounded-xl border flex items-center gap-2.5 transition-all text-left ${
+                          isSelected 
+                            ? `${item.border} ring-1 shadow-md bg-white/5` 
+                            : 'border-starlight-white/5 bg-surface-container-lowest/40 hover:border-starlight-white/20 text-on-surface-variant'
+                        }`}
+                      >
+                        <span className={`material-symbols-outlined text-lg ${isSelected ? item.color : 'text-on-surface-variant/60'}`}>
+                          {item.icon}
+                        </span>
+                        <div>
+                          <p className={`text-xs font-semibold ${isSelected ? 'text-starlight-white' : 'text-on-surface-variant'}`}>
+                            {item.label}
+                          </p>
+                          <p className="text-[10px] text-on-surface-variant/50 capitalize font-label-sm">
+                            {item.type}
+                          </p>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Name Field */}
+              <div>
+                <label className="block text-[10px] font-label-sm text-on-surface-variant/80 uppercase tracking-widest mb-1.5">
+                  Entity Name <span className="text-primary">*</span>
+                </label>
                 <input 
                   type="text"
                   required
                   value={entityName}
                   onChange={(e) => setEntityName(e.target.value)}
-                  placeholder={`e.g. ${modalType === 'character' ? 'Valerius Thorne' : modalType === 'location' ? 'The Iron Valley' : 'Aetheric compass'}`}
-                  className="w-full bg-void-black text-sm text-starlight-white border border-starlight-white/10 rounded p-2.5 focus:border-primary focus:ring-0 focus:outline-none"
+                  placeholder={
+                    createType === 'character' ? 'e.g. Valerius Thorne' :
+                    createType === 'location' ? 'e.g. The Iron Valley' :
+                    createType === 'object' ? 'e.g. Aetheric Compass' :
+                    'e.g. The Siege of Oakhaven'
+                  }
+                  className="w-full bg-void-black text-sm text-starlight-white placeholder:text-on-surface-variant/30 border border-starlight-white/10 rounded-lg p-3 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all"
                 />
               </div>
 
+              {/* Subtype / Role / Classification */}
               <div>
-                <label className="block text-xs font-label-sm text-on-surface-variant/80 uppercase mb-2">Subtype / Role</label>
+                <label className="block text-[10px] font-label-sm text-on-surface-variant/80 uppercase tracking-widest mb-1.5">
+                  Subtype / Role <span className="text-on-surface-variant/40">(Optional)</span>
+                </label>
                 <input 
                   type="text"
                   value={entitySubtype}
                   onChange={(e) => setEntitySubtype(e.target.value)}
-                  placeholder={`e.g. ${modalType === 'character' ? 'Antagonist / Trader' : modalType === 'location' ? 'Syndicate Outpost' : 'Key Lore Item'}`}
-                  className="w-full bg-void-black text-sm text-starlight-white border border-starlight-white/10 rounded p-2.5 focus:border-primary focus:ring-0 focus:outline-none"
+                  placeholder={
+                    createType === 'character' ? 'e.g. High Commander / Inquisitor' :
+                    createType === 'location' ? 'e.g. Ancient Ruins / Fortified Citadel' :
+                    createType === 'object' ? 'e.g. Legendary Relic / Arcane Tome' :
+                    'e.g. Historical Battle / Treaty'
+                  }
+                  className="w-full bg-void-black text-sm text-starlight-white placeholder:text-on-surface-variant/30 border border-starlight-white/10 rounded-lg p-3 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all"
                 />
               </div>
 
+              {/* Primary Alias */}
               <div>
-                <label className="block text-xs font-label-sm text-on-surface-variant/80 uppercase mb-2">Description / Synopsis</label>
+                <label className="block text-[10px] font-label-sm text-on-surface-variant/80 uppercase tracking-widest mb-1.5">
+                  Primary Alias <span className="text-on-surface-variant/40">(Optional)</span>
+                </label>
+                <input 
+                  type="text"
+                  value={entityAlias}
+                  onChange={(e) => setEntityAlias(e.target.value)}
+                  placeholder="e.g. The Silver Blade, The Sunken Spire"
+                  className="w-full bg-void-black text-sm text-starlight-white placeholder:text-on-surface-variant/30 border border-starlight-white/10 rounded-lg p-3 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all"
+                />
+              </div>
+
+              {/* Description / Synopsis */}
+              <div>
+                <label className="block text-[10px] font-label-sm text-on-surface-variant/80 uppercase tracking-widest mb-1.5">
+                  Lore Synopsis / Description <span className="text-primary">*</span>
+                </label>
                 <textarea 
                   required
                   value={entityDesc}
                   onChange={(e) => setEntityDesc(e.target.value)}
-                  placeholder="Enter a brief history or description..."
-                  rows={3}
-                  className="w-full bg-void-black text-sm text-starlight-white border border-starlight-white/10 rounded p-2.5 focus:border-primary focus:ring-0 focus:outline-none"
+                  placeholder="Provide background lore, significance, attributes, or historical context..."
+                  rows={4}
+                  className="w-full bg-void-black text-sm text-starlight-white placeholder:text-on-surface-variant/30 border border-starlight-white/10 rounded-lg p-3 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all resize-none leading-relaxed"
                 />
               </div>
 
-              <div className="flex justify-end gap-3 pt-4 border-t border-starlight-white/5">
-                <button 
-                  type="button"
-                  onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 text-xs font-label-sm uppercase tracking-widest text-on-surface-variant hover:text-white"
-                >
-                  Cancel
-                </button>
-                <button 
-                  type="submit"
-                  className="px-6 py-2 bg-primary hover:bg-copper-glow text-void-black font-label-sm text-xs uppercase tracking-widest font-semibold rounded shadow-lg hover:shadow-primary/10 transition-all"
-                >
-                  Forge Entity
-                </button>
-              </div>
             </form>
-          </div>
+
+            {/* Footer Actions */}
+            <div className="p-6 border-t border-starlight-white/5 bg-surface-container-lowest/60 flex items-center justify-end gap-3">
+              <button 
+                type="button"
+                onClick={() => setIsCreateDrawerOpen(false)}
+                className="px-4 py-2.5 text-xs font-label-sm uppercase tracking-widest text-on-surface-variant hover:text-white transition-colors"
+              >
+                Cancel
+              </button>
+              <button 
+                type="submit"
+                form="forge-entity-form"
+                className="px-6 py-2.5 bg-primary hover:bg-copper-glow text-void-black font-label-sm text-xs uppercase tracking-widest font-semibold rounded-lg shadow-lg hover:shadow-primary/20 transition-all duration-300"
+              >
+                Forge Entity
+              </button>
+            </div>
+
+          </aside>
         </div>
       )}
     </AppShell>

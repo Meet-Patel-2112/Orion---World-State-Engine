@@ -40,17 +40,11 @@ class Settings(BaseSettings):
     CELERY_RESULT_BACKEND: str = "redis://localhost:6379/0"
 
     # LLM Settings (chat only; extraction runs ../extractor, app/pipeline/extractor.py)
-<<<<<<< HEAD
     LLM_PROVIDER: str = "ollama"  # ollama | openai | mock
     OLLAMA_URL: str = "http://127.0.0.1:11434/api/chat"   # not localhost: Windows tries IPv6 first, ~2 s a request
     OLLAMA_MODEL: str = "qwen3.5:9b"
     OLLAMA_THINK: Optional[bool] = False                 # sent as Ollama's "think"; None leaves the model's default
     OLLAMA_NUM_CTX: int = 8192                           # character context + history; Ollama's default is 4096
-=======
-    LLM_PROVIDER: str = "ollama"  # ollama | openai
-    OLLAMA_URL: str = "http://localhost:11434/api/chat"
-    OLLAMA_MODEL: str = "qwen2.5:7b"
->>>>>>> feature/graph-timeline
     OPENAI_API_KEY: str = ""
     OPENAI_MODEL: str = "gpt-4o-mini"
 
