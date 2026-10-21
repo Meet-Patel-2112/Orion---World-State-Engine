@@ -12,7 +12,7 @@ import subprocess
 import tempfile
 from collections import Counter
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 from app.config.logging import get_logger
 from app.preprocessing import preprocess_chapter
@@ -21,7 +21,7 @@ logger = get_logger(__name__)
 
 EXTRACTOR_DIR = Path(__file__).resolve().parents[3] / "extractor"
 EXTRACTOR_PYTHON = EXTRACTOR_DIR / ".venv" / ("Scripts/python.exe" if os.name == "nt" else "bin/python")
-TIMEOUT_S = 900                                   # about 40 s per chapter on the RTX 4050, most of it model loading
+TIMEOUT_S = 900                                   # 2-6 min per chapter on the RTX 4050 (4 models load in turn)
 ENTITY_TYPES = ("character", "location", "organization")
 # ponytail: OTHER events (85% of the extractor's triggers, mostly noise) are left out of the world state; keep them if the
 # timeline needs every verb
@@ -59,6 +59,41 @@ def _plural(name: str) -> bool:
     return last in IRREGULAR_PLURALS or (last.endswith("s") and not last.endswith(("ss", "us", "is")))
 
 
+MALE = {"father", "dad", "papa", "pa", "mr", "sir", "lord", "he", "him", "his", "himself", "husband", "son", "brother"}
+FEMALE = {"mother", "mum", "mom", "mama", "ma", "step-mother", "stepmother", "mrs", "miss", "ms", "lady", "dame", "she",
+          "her", "hers", "herself", "wife", "daughter", "sister"}
+PRONOUNS = {"he", "him", "his", "himself", "she", "her", "hers", "herself"}
+
+
+def gender(group: List[Dict[str, Any]]) -> Optional[str]:
+    """'m' or 'f' for a coreference group, None when unclear. A role noun or title in a name decides ("his mother",
+    "Mr. Bennet", "Lord Abbotsbury"); else the cluster's pronouns, when one gender has at least twice the other's."""
+    named, pronoun = Counter(), Counter()
+    for m in group:
+        words = [w.strip(".,'’").casefold() for w in m["text"].split()]
+        if len(words) == 1 and words[0] in PRONOUNS:
+            pronoun["m" if words[0] in MALE else "f"] += 1
+        elif words:
+            for w in (words[0], words[-1]):                        # a title, or the role noun ("John's father")
+                if w in MALE - PRONOUNS:
+                    named["m"] += 1
+                elif w in FEMALE - PRONOUNS:
+                    named["f"] += 1
+    for counts, least in ((named, 1), (pronoun, 2)):
+        (top, n), *rest = counts.most_common(2) or [(None, 0)]
+        if top and n >= least and n >= 2 * (rest[0][1] if rest else 0):
+            return top
+    return None
+
+
+def parent_predicate(predicate: str, parent: List[Dict[str, Any]]) -> str:
+    """PARENT_OF split by the parent's gender into the FATHER_OF / MOTHER_OF the world state and its one-father rule
+    use (consistency/vocabulary.py); PARENT_OF when the gender is unclear. Other predicates unchanged."""
+    if predicate != "PARENT_OF":
+        return predicate
+    return {"m": "FATHER_OF", "f": "MOTHER_OF"}.get(gender(parent), predicate)
+
+
 def to_legacy(doc: Dict[str, Any], chapter_number: int) -> Dict[str, Any]:
     """The extractor's gold document -> the integration's dict. One entity per coreference cluster (or unclustered mention)
     of a character / location / organization type that has a proper name, or that a fact or relationship is about
@@ -91,7 +126,7 @@ def to_legacy(doc: Dict[str, Any], chapter_number: int) -> Dict[str, Any]:
         s, o = group_of[r["subject_mention_id"]], group_of[r["object_mention_id"]]
         for role, owner in ((s, o), (o, s)):
             if role in names and owner in names and role not in renamed and not _proper(groups[role]) \
-                    and _proper(groups[owner]):
+                    and _proper(groups[owner]) and "'s " not in names[role]:     # "John's father" has its owner
                 names[role] = f"{names[owner]}'s {_bare(names[role])}"
                 renamed.add(role)
     ends = [(group_of[r["subject_mention_id"]], group_of[r["object_mention_id"]]) for r in doc["relationships"]]
@@ -111,12 +146,15 @@ def to_legacy(doc: Dict[str, Any], chapter_number: int) -> Dict[str, Any]:
         if name:                                                  # one value per property and chapter: the first
             by_name[name]["attributes"].setdefault(f["property"], f["value"])
 
-    relationships = [{"subject": names[s], "predicate": r["predicate"], "object": names[o]}
+    relationships = [{"subject": names[s], "predicate": parent_predicate(r["predicate"], groups[s]), "object": names[o]}
                      for r in doc["relationships"]
                      if (s := group_of[r["subject_mention_id"]]) in names and (o := group_of[r["object_mention_id"]]) in names]
+    # two groups with one name are one entity: their relationships repeat ("John's mother MOTHER_OF John" twice)
+    relationships = [dict(t) for t in dict.fromkeys(tuple(r.items()) for r in relationships)]
 
     sentences = list(preprocess_chapter(doc["text"]).iter_sentences())
-    sentence_at = lambda i: next((s.text for s in sentences if s.start <= i < s.end), "")
+    # one line: the book's hard line breaks ("heard that / Netherfield") would show in the timeline
+    sentence_at = lambda i: " ".join(next((s.text for s in sentences if s.start <= i < s.end), "").split())
     events = []
     for e in doc["events"]:
         if e["type"] in SKIP_EVENT_TYPES:
@@ -128,8 +166,17 @@ def to_legacy(doc: Dict[str, Any], chapter_number: int) -> Dict[str, Any]:
     kept = {e["id"] for e in events}
     temporal = [{"event_1": t["source_event_id"], "relation": t["relation"], "event_2": t["target_event_id"]}
                 for t in doc["temporal_relations"] if {t["source_event_id"], t["target_event_id"]} <= kept]
+    # Ephemeral source evidence for integration, never a fact or a database field.
+    # Several source groups may collapse to one selected name: disagreement or an
+    # unknown group must not silently become affirmative compatibility evidence.
+    support = {}
+    for n, name in names.items():
+        support.setdefault(name.strip().casefold(), set()).add(gender(groups[n]))
+    identity_evidence = {name: next(iter(values)) if len(values) == 1 else None
+                         for name, values in support.items()}
     return {"chapter_number": chapter_number, "pipeline": "extractor", "entities": list(by_name.values()),
-            "relationships": relationships, "events": events, "temporal_relations": temporal}
+            "relationships": relationships, "events": events, "temporal_relations": temporal,
+            "identity_evidence": identity_evidence}
 
 
 def extract_chapter(text: str, chapter_number: int) -> Dict[str, Any]:

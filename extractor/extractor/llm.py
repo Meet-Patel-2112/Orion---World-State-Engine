@@ -4,7 +4,7 @@ instead of returning partial data."""
 import json
 import os
 import urllib.request
-from typing import Any, Dict, Union
+from typing import Any, Dict, Optional, Union
 
 URL = "http://localhost:11434/api"
 # NuExtract 2.0 4B, registered from its GGUF (requirements.txt); chosen in Phases 5 and 7. ORION_LLM_MODEL picks another
@@ -20,10 +20,11 @@ def _post(path: str, body: Dict[str, Any], timeout: int) -> Dict[str, Any]:
 
 
 def generate(system: str, user: str, schema: Union[Dict[str, Any], str], num_predict: int = 1024,
-             model: str = MODEL) -> Dict[str, Any]:
+             model: str = MODEL, extra: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+    """`extra` adds request fields, e.g. {"think": False} for a thinking model (Qwen3.5)."""
     body = {"model": model, "stream": False, "format": schema,
             "options": {"temperature": 0, "num_ctx": NUM_CTX, "num_predict": num_predict},
-            "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}]}
+            "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}], **(extra or {})}
     reply = _post("chat", body, 600)
     if reply.get("done_reason") == "length":
         raise RuntimeError(f"LLM reply cut off at num_predict={num_predict}")

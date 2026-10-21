@@ -126,8 +126,10 @@ class ProposalService:
                 if ref and str(ref) not in taken:
                     taken.add(str(ref))
                     participants.append({"entity": ref, "role": role})
-            known = self.db.query(Event).filter(Event.world_id == world_id, Event.chapter_id == chapter_id,
-                                                Event.description == desc).first()
+            flat = " ".join(desc.split())                  # stored before line breaks were collapsed, or after
+            known = next((e for e in self.db.query(Event).filter(Event.world_id == world_id,
+                                                                 Event.chapter_id == chapter_id)
+                          if " ".join(e.description.split()) == flat), None)
             proposals.append({"id": next_id(), "kind": "event", "change": "known" if known else "new",
                               "summary": f"{ev.get('type', 'EVENT').title()}: {desc[:120]}",
                               "confidence": CONFIDENCE, "participants": participants,

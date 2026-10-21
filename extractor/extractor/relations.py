@@ -5,16 +5,14 @@ facts (docs/wse_extraction_plan.md, Phase 5).
 
 First, without the LLM, possessive role nouns ("my boss", "Dan’s mother") give relationships (`role_pairs`), and
 titles before a name ("Doctor Hanna Weiss") give facts (`title_facts`).
-Then per chunk, two NuExtract calls in its own prompt layout (template, one made-up worked example, context), since
-one combined template made it return nothing:
-    people         name + every fact property, all `verbatim-string` (copied from the text)
-    relationships  subject and object verbatim, relation from the gold predicates, and an evidence quote
-Code grounds every answer and drops what fails:
+Then per chunk, one NuExtract call in its own prompt layout (template, one made-up worked example, context): subject
+and object verbatim, relation from the gold predicates, and an evidence quote. The other facts come from the next
+stage (`extractor.facts`, Qwen3.5 9B), which replaced NuExtract's people template. Code grounds every answer and drops
+what fails:
     - a relationship's evidence must be in the chunk, name both ends and contain a cue word for the relation (`CUES`)
     - a name must be the text of a character or organization mention in the chunk (any case, without "the" or a title)
-    - a value must occur in the chunk (the source's exact characters are kept) and be at most MAX_VALUE_CHARS long
-    - no self-relationships; duplicates (same entities, predicate / property, value) are kept once, a relationship in
-      its canonical form (`canonical`: "B FRIEND_OF A" repeats "A FRIEND_OF B")
+    - no self-relationships; duplicates (same entities, predicate) are kept once, in canonical form (`canonical`:
+      "B FRIEND_OF A" repeats "A FRIEND_OF B")
 The mention recorded for an entity is a named mention in its sentence, else the entity's first proper, then nominal
 mention: facts and relationships are about the entity, and the gold names it ("Evelyn", not "I").
 """
@@ -33,6 +31,8 @@ CHUNK_CHARS = 2000
 MAX_VALUE_CHARS = 40
 TYPES = ("character", "organization")       # the entities facts and relationships are about
 SYSTEM = "You are NuExtract, an information extraction tool created by NuMind."
+# NuExtract's people template: no longer asked (facts come from extractor.facts), kept so the experiments replay their
+# cached prompts (experiments/closed.py, llm_raw.py)
 PEOPLE = {"people": [{"name": "verbatim-string", **{p: "verbatim-string" for p in FACT_PROPERTIES}}]}
 SYMMETRIC = {"FRIEND_OF", "ENEMY_OF", "SIBLING_OF", "MARRIED_TO", "ALLY_OF", "KNOWS", "RELATED_TO"}
 INVERSE = {"CHILD_OF": "PARENT_OF"}          # "A CHILD_OF B" is "B PARENT_OF A"
@@ -51,14 +51,15 @@ ROLES = {**_roles("WORKS_FOR", True, "boss", "employer", "manager", "supervisor"
          **_roles("ENEMY_OF", True, "enemy", "nemesis", "rival"),
          **_roles("RELATED_TO", True, "cousin", "aunt", "uncle", "niece", "nephew")}
 IMPERSONAL = {"it", "this", "that", "there", "who", "which"}      # "It was my boss": the subject isn't the boss
-# A title written before a name states a fact ("Doctor Hanna Weiss", "Captain Elias Brandt"), and NuExtract misses it.
-# Honorifics (Mr, Mrs, Sir) say nothing: left out. ponytail: English titles only, extend the map for other stories
+# A title written before a name states a fact ("Doctor Hanna Weiss", "Captain Elias Brandt", "Sir William Lucas"), and
+# NuExtract misses it. Mr, Mrs and Miss say nothing (gold guidelines: rank titles only): left out.
+# ponytail: English titles only, extend the map for other stories
 TITLE_FACTS = {"doctor": ("occupation", "doctor"), "dr": ("occupation", "doctor"),
                "professor": ("occupation", "professor"), "prof": ("occupation", "professor"),
                "detective": ("occupation", "detective"), "inspector": ("occupation", "inspector"),
                "capt": ("title", "Captain"),
                **{w: ("title", w.capitalize()) for w in ("captain", "general", "sergeant", "lieutenant", "colonel",
-                                                          "admiral")}}
+                                                          "admiral", "sir", "lady", "lord", "dame")}}
 # Fact value checks (`fact_value`), from NuExtract's wrong answers on the gold stories (Phase 9 in the plan).
 COLORS = {"black", "brown", "dark", "blond", "blonde", "red", "auburn", "ginger", "grey", "gray", "white", "silver",
           "golden", "gold", "fair", "light", "pale", "chestnut", "copper", "green", "blue", "hazel", "amber", "violet",
@@ -287,20 +288,6 @@ def relations(doc: Dict[str, Any]) -> None:
         if not names:
             continue
         find = lambda name: names.get(name_key(name)) if isinstance(name, str) else None
-
-        for person in ask(PEOPLE, chunk.text).get("people") or []:
-            m = find(person.get("name"))
-            for prop in FACT_PROPERTIES if m else ():
-                if prop in SCENE_STATE:
-                    continue
-                value = person.get(prop).strip() if isinstance(person.get(prop), str) else ""
-                at = chunk.text.casefold().find(value.casefold()) if value else -1
-                if at < 0 or len(value) > MAX_VALUE_CHARS:
-                    continue
-                span = parsed.char_span(chunk.start + at, chunk.start + at + len(value), alignment_mode="expand")
-                value = fact_value(prop, span)
-                if value:
-                    fact(m, prop, value)
 
         for r in ask(RELATIONSHIPS, chunk.text).get("relationships") or []:
             a, b = find(r.get("subject")), find(r.get("object"))
