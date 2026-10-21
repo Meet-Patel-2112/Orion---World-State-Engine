@@ -87,6 +87,7 @@ class EntityResponse(EntityBase):
 class EntityDetailResponse(EntityResponse):
     relationships: List[Dict[str, Any]] = []
     events: List[Dict[str, Any]] = []
+    appearances: List[Dict[str, Any]] = []
 
 class MergeEntitiesRequest(BaseModel):
     source_id: str

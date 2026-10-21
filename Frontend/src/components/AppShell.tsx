@@ -3,6 +3,7 @@ import { Link, useLocation, useParams, useNavigate } from 'react-router-dom';
 import { useWorldStore } from '../store/useWorldStore';
 import { AnimatePresence, motion } from 'framer-motion';
 import { EntityPanel } from './EntityPanel';
+import { ErrorBoundary } from './ErrorBoundary';
 import { CreatorProfileModal } from './CreatorProfileModal';
 import { SettingsModal } from './SettingsModal';
 
@@ -30,7 +31,8 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
   }, [worldId, activeWorldId, setActiveWorld]);
 
   const currentPath = location.pathname;
-  const currentWorldId = worldId || 'terra-incognita';
+  if (!worldId) return null;
+  const currentWorldId = worldId;
 
   // Count open contradictions to show a badge on the navigation rail (rejected ones don't count)
   const unresolvedContradictionsCount = contradictions.filter(c => !c.resolved && c.status !== 'DISMISSED').length;
@@ -68,11 +70,6 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
       label: 'Contradictions',
       badge: unresolvedContradictionsCount > 0 ? unresolvedContradictionsCount : undefined
     },
-    {
-      path: `/worlds/${currentWorldId}/assistant`,
-      icon: 'chat_bubble_outline',
-      label: 'AI Assistant'
-    }
   ];
 
   const handleReturnToArchive = () => {
@@ -137,6 +134,7 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
 
         {/* Secondary Actions / Footer */}
         <div className="w-full flex flex-col gap-1 border-t border-starlight-white/10 pt-4 mt-auto">
+
           <button
             onClick={() => setOpenPanel('profile')}
             className="flex flex-col items-center justify-center py-4 text-on-surface-variant/60 hover:text-primary hover:bg-white/5 transition-colors duration-300 w-full group relative"
@@ -186,12 +184,18 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 220 }}
-              className="fixed right-0 top-0 bottom-0 w-side-panel-width z-40 h-full shrink-0"
+              className="fixed right-0 top-0 bottom-0 w-[440px] sm:w-[480px] max-w-[100vw] z-40 h-full shrink-0"
             >
-              <EntityPanel 
-                entityId={activeEntityId} 
-                onClose={() => setEntityPanelOpen(false)} 
-              />
+              <ErrorBoundary 
+                fallbackTitle="Could not display entity"
+                onReset={() => setEntityPanelOpen(false)}
+              >
+                <EntityPanel 
+                  key={activeEntityId}
+                  entityId={activeEntityId} 
+                  onClose={() => setEntityPanelOpen(false)} 
+                />
+              </ErrorBoundary>
             </motion.aside>
           </>
         )}

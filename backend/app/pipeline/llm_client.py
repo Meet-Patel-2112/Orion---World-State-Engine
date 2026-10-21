@@ -31,12 +31,14 @@ class LLMClient:
                 return self._chat_openai(all_messages, temperature)
             except Exception as e:
                 logger.warning(f"OpenAI chat failed: {e}")
+                raise RuntimeError("Configured OpenAI provider is unavailable") from e
 
-        if self.provider == "ollama" or (self.provider != "mock" and not self.openai_key):
+        if self.provider == "ollama":
             try:
                 return self._chat_ollama(all_messages, temperature)
             except Exception as e:
-                logger.warning(f"Ollama chat failed ({e}), using mock answer.")
+                logger.warning(f"Ollama chat failed: {e}")
+                raise RuntimeError("Configured Ollama provider is unavailable") from e
 
         # No model answered: say so rather than inventing a reply
         return (

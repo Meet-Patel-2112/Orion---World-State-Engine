@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { AppShell } from '../components/AppShell';
 import { useWorldStore } from '../store/useWorldStore';
@@ -23,11 +23,11 @@ export const WritingRoom: React.FC = () => {
     deleteChapter
   } = useWorldStore();
 
-  const currentWorldId = worldId || 'terra-incognita';
-  const currentManuscriptId = manuscriptId || activeManuscriptId || 'ms-1';
+  const currentWorldId = worldId;
+  const currentManuscriptId = manuscriptId || activeManuscriptId;
 
   useEffect(() => {
-    if (currentWorldId && !currentWorldId.startsWith('terra-')) {
+    if (currentWorldId && currentManuscriptId) {
       const exists = manuscripts.some((m) => m.id === currentManuscriptId);
       if (!exists || manuscripts.length === 0) {
         fetchManuscriptsForWorld(currentWorldId);
@@ -60,8 +60,7 @@ export const WritingRoom: React.FC = () => {
     if (activeChapter) {
       setEditorContent(activeChapter.content);
 
-      // Try fetching real chapter content from API if not mock
-      if (currentWorldId && !currentWorldId.startsWith('terra-')) {
+      if (currentWorldId) {
         apiFetch<any>(`/worlds/${currentWorldId}/chapters/${activeChapter.id}`)
           .then(data => {
             if (data.content) {
@@ -80,10 +79,33 @@ export const WritingRoom: React.FC = () => {
     }
   }, [linkedChapterId, activeChapter?.id, activeChapter?.content]);
 
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const adjustTextareaHeight = () => {
+    const el = textareaRef.current;
+    if (el) {
+      el.style.height = 'auto';
+      el.style.height = `${Math.max(400, el.scrollHeight)}px`;
+    }
+  };
+
+  useEffect(() => {
+    if (isEditing) {
+      adjustTextareaHeight();
+    }
+  }, [isEditing, editorContent]);
+
   const handleStartEdit = () => {
     if (activeChapter) {
       setEditorContent(activeChapter.content);
       setIsEditing(true);
+    }
+  };
+
+  const handleCancelEdit = () => {
+    setIsEditing(false);
+    if (activeChapter) {
+      setEditorContent(activeChapter.content);
     }
   };
 
@@ -95,7 +117,7 @@ export const WritingRoom: React.FC = () => {
     setIsEditing(false);
 
     // Call API to trigger re-extraction if real world
-    if (currentWorldId && !currentWorldId.startsWith('terra-')) {
+    if (currentWorldId) {
       setIsExtracting(true);
       setExtractionStatus('Re-extracting entities & facts...');
       try {
@@ -155,21 +177,21 @@ export const WritingRoom: React.FC = () => {
     if (title && title.trim()) {
       const nextNum = (manuscript?.chapters.length || 0) + 1;
       let newChapter = {
-        id: `ch-${Date.now()}`,
+        id: '',
         number: nextNum,
         title: title.trim(),
-        content: 'Start writing your new chapter here...',
-        wordCount: 7
+        content: '',
+        wordCount: 0
       };
 
-      if (currentWorldId && !currentWorldId.startsWith('terra-')) {
+      if (currentWorldId && currentManuscriptId) {
         try {
           const res = await apiFetch<any>(`/worlds/${currentWorldId}/manuscripts/${currentManuscriptId}/chapters`, {
             method: 'POST',
             body: JSON.stringify({
               chapter_number: nextNum,
               title: title.trim(),
-              content: 'Start writing your new chapter here...'
+              content: ''
             })
           });
           newChapter.id = res.id;
@@ -201,7 +223,7 @@ export const WritingRoom: React.FC = () => {
     if (!deleteConfirmId) return;
     const chapterId = deleteConfirmId;
     
-    if (currentWorldId && !currentWorldId.startsWith('terra-')) {
+    if (currentWorldId) {
       try {
         await apiFetch(`/worlds/${currentWorldId}/chapters/${chapterId}`, {
           method: 'DELETE'
@@ -226,7 +248,7 @@ export const WritingRoom: React.FC = () => {
   };
 
   const handleViewHistory = async () => {
-    if (!activeChapter || !currentWorldId || currentWorldId.startsWith('terra-')) return;
+    if (!activeChapter || !currentWorldId) return;
     try {
       const versions = await apiFetch<any[]>(`/worlds/${currentWorldId}/chapters/${activeChapter.id}/versions`);
       setHistoryVersions(versions);
@@ -352,12 +374,20 @@ export const WritingRoom: React.FC = () => {
           <div className="h-16 flex items-center justify-between px-8 border-b border-starlight-white/5 bg-surface-container-lowest/60 backdrop-blur-sm z-20 select-none">
             <div className="flex items-center gap-3">
               {isEditing ? (
-                <button 
-                  onClick={handleSaveEdit}
-                  className="px-5 py-1.5 rounded-full bg-primary hover:bg-copper-glow text-void-black font-label-sm text-xs font-semibold uppercase tracking-widest transition-all duration-300 shadow-md"
-                >
-                  Save Changes
-                </button>
+                <>
+                  <button 
+                    onClick={handleSaveEdit}
+                    className="px-5 py-1.5 rounded-full bg-primary hover:bg-copper-glow text-void-black font-label-sm text-xs font-semibold uppercase tracking-widest transition-all duration-300 shadow-md"
+                  >
+                    Save Changes
+                  </button>
+                  <button 
+                    onClick={handleCancelEdit}
+                    className="px-4 py-1.5 rounded-full border border-starlight-white/10 text-on-surface-variant/80 hover:text-starlight-white hover:border-starlight-white/30 font-label-sm text-xs font-semibold uppercase tracking-widest transition-all duration-300"
+                  >
+                    Cancel
+                  </button>
+                </>
               ) : (
                 <button 
                   onClick={handleStartEdit}
@@ -414,10 +444,14 @@ export const WritingRoom: React.FC = () => {
               {/* Editable Textbox or Formatted View */}
               {isEditing ? (
                 <textarea 
+                  ref={textareaRef}
                   value={editorContent}
-                  onChange={(e) => setEditorContent(e.target.value)}
-                  className="w-full bg-transparent border-0 text-body-lg text-on-surface-variant leading-relaxed focus:ring-0 focus:outline-none h-[400px] resize-none"
-                  style={{ fontFamily: 'Source Serif 4, serif' }}
+                  onChange={(e) => {
+                    setEditorContent(e.target.value);
+                    adjustTextareaHeight();
+                  }}
+                  className="w-full bg-transparent border-0 text-body-lg text-on-surface-variant leading-relaxed focus:ring-0 focus:outline-none resize-none overflow-hidden"
+                  style={{ fontFamily: 'Source Serif 4, serif', fontSize: '18px', lineHeight: '28px' }}
                 />
               ) : (
                 <div 

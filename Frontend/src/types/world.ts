@@ -23,7 +23,7 @@ export interface Entity {
     relation: string;
     isNegative?: boolean;
   }[];
-  appearances: string[]; // chapterIds
+  appearances: string[];
 }
 
 export interface TimelineEvent {
@@ -88,9 +88,6 @@ export interface World {
   id: string;
   name: string;
   description: string;
-  coverImage?: string;
-  status: 'active' | 'archived' | 'drafting';
-  entryCount: number;
   entityCount: number;
   manuscriptCount: number;
   characterCount: number;

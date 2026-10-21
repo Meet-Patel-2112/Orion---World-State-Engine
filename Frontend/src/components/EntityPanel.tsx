@@ -1,7 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useWorldStore } from '../store/useWorldStore';
-import type { Entity } from '../data/mockData';
-import { useNavigate } from 'react-router-dom';
+import type { Entity } from '../types/world';
+import { useNavigate, useParams } from 'react-router-dom';
+import { apiFetch } from '../api/client';
+
+interface EntityRelationshipDetail {
+  id?: string;
+  targetId: string;
+  targetName: string;
+  targetType: Entity['type'];
+  relation: string;
+  direction?: 'outgoing' | 'incoming';
+  isNegative?: boolean;
+  chapter_id?: string | null;
+  chapter_number?: number | null;
+}
+
+interface EntityAppearanceDetail {
+  id: string;
+  chapter_number?: number | null;
+  title: string;
+  reason?: string;
+}
 
 interface EntityPanelProps {
   entityId: string;
@@ -10,6 +30,7 @@ interface EntityPanelProps {
 
 export const EntityPanel: React.FC<EntityPanelProps> = ({ entityId, onClose }) => {
   const navigate = useNavigate();
+  const { worldId } = useParams<{ worldId: string }>();
   const { 
     entities, 
     addFact, 
@@ -19,11 +40,24 @@ export const EntityPanel: React.FC<EntityPanelProps> = ({ entityId, onClose }) =
     removeAlias, 
     activeWorldId, 
     setActiveChapter, 
-    setActiveManuscript 
+    setActiveManuscript,
+    manuscripts,
+    fetchManuscriptsForWorld
   } = useWorldStore();
+
+  const currentWorldId = worldId || activeWorldId;
   const entity = entities.find((e) => e.id === entityId);
 
   const [activeTab, setActiveTab] = useState<'details' | 'relations' | 'history'>('details');
+  const [detailData, setDetailData] = useState<{
+    relationships: any[];
+    appearances: any[];
+    canonical_name?: string;
+    entity_type?: Entity['type'];
+    aliases?: string[];
+  } | null>(null);
+  const [loadingDetails, setLoadingDetails] = useState(false);
+
   const [factProperty, setFactProperty] = useState('');
   const [factValue, setFactValue] = useState('');
   const [factError, setFactError] = useState<string | null>(null);
@@ -37,7 +71,68 @@ export const EntityPanel: React.FC<EntityPanelProps> = ({ entityId, onClose }) =
   const [newTrait, setNewTrait] = useState('');
   const [isAddingTrait, setIsAddingTrait] = useState(false);
 
-  if (!entity) {
+  // Fetch full entity details (relationships & appearances) whenever entityId or currentWorldId changes
+  useEffect(() => {
+    if (!currentWorldId || !entityId) return;
+    let isMounted = true;
+    setLoadingDetails(true);
+
+    apiFetch<any>(`/worlds/${currentWorldId}/entities/${entityId}`)
+      .then((res) => {
+        if (!isMounted) return;
+        setDetailData({
+          relationships: Array.isArray(res.relationships) ? res.relationships : [],
+          appearances: Array.isArray(res.appearances) ? res.appearances : [],
+          canonical_name: res.canonical_name,
+          entity_type: res.entity_type,
+          aliases: res.aliases,
+        });
+      })
+      .catch((err) => {
+        console.error('Failed to load entity detail data:', err);
+        if (!isMounted) return;
+        setDetailData(null);
+      })
+      .finally(() => {
+        if (isMounted) setLoadingDetails(false);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [currentWorldId, entityId]);
+
+  // Ensure manuscripts are loaded so navigation to chapters works smoothly
+  useEffect(() => {
+    if (currentWorldId && (!manuscripts || manuscripts.length === 0)) {
+      fetchManuscriptsForWorld(currentWorldId).catch(() => {});
+    }
+  }, [currentWorldId, manuscripts, fetchManuscriptsForWorld]);
+
+  const displayEntity: Entity | null = entity || (detailData ? {
+    id: entityId,
+    name: detailData.canonical_name || 'Unnamed Entity',
+    type: (detailData.entity_type as Entity['type']) || 'character',
+    subtype: 'Ledger Entry',
+    alias: (detailData.aliases || [])[0] || '',
+    aliases: detailData.aliases || [],
+    description: '',
+    traits: [],
+    facts: [],
+    relationships: detailData.relationships || [],
+    appearances: []
+  } : null);
+
+  if (!displayEntity && loadingDetails) {
+    return (
+      <div className="flex flex-col h-full bg-surface-container-low/95 backdrop-blur-xl border-l border-starlight-white/10 p-6 items-center justify-center">
+        <span className="material-symbols-outlined text-3xl text-primary animate-spin">progress_activity</span>
+        <p className="font-label-sm text-xs uppercase tracking-wider text-on-surface-variant/60 mt-3">Loading Entity...</p>
+      </div>
+    );
+  }
+
+  if (!displayEntity) {
     return (
       <div className="p-6 text-center text-on-surface-variant/50">
         Entity not found.
@@ -45,9 +140,59 @@ export const EntityPanel: React.FC<EntityPanelProps> = ({ entityId, onClose }) =
     );
   }
 
-  const aliasList = (entity.aliases && entity.aliases.length > 0)
-    ? entity.aliases
-    : (entity.alias ? [entity.alias] : []);
+  const aliasList = (displayEntity.aliases && displayEntity.aliases.length > 0)
+    ? displayEntity.aliases
+    : (displayEntity.alias ? [displayEntity.alias] : []);
+
+  // Normalize relationships into a consistent, safe schema
+  const rawRelationships: any[] = (detailData && Array.isArray(detailData.relationships))
+    ? detailData.relationships
+    : (Array.isArray(displayEntity.relationships) ? displayEntity.relationships : []);
+
+  const relList: EntityRelationshipDetail[] = rawRelationships.map((r: any, idx: number) => {
+    const relType = String(r.relation || r.relationship_type || r.type || 'RELATED_TO');
+    const targetName = String(r.targetName || r.target_name || 'Unknown Entity');
+    const targetId = String(r.targetId || r.target_id || '');
+    const targetType = (r.targetType || r.target_type || 'character') as Entity['type'];
+    const direction = r.direction === 'incoming' ? 'incoming' : 'outgoing';
+    const isNegative = r.isNegative ?? ['ENEMY_OF', 'RIVAL_OF', 'OPPOSES', 'HATES', 'DEAD_AT_HANDS_OF'].includes(relType);
+    const chapterNumber = r.chapter_number ?? (r.chapter?.chapter_number ?? null);
+    const chapterId = r.chapter_id ?? null;
+
+    return {
+      id: r.id || `rel-${idx}`,
+      targetId,
+      targetName,
+      targetType,
+      relation: relType,
+      direction,
+      isNegative,
+      chapter_id: chapterId,
+      chapter_number: chapterNumber,
+    };
+  });
+
+  // Normalize appearances into a consistent, safe schema
+  const rawAppearances: any[] = (detailData && Array.isArray(detailData.appearances))
+    ? detailData.appearances
+    : (Array.isArray((displayEntity as any).appearances) ? (displayEntity as any).appearances : []);
+
+  const appearanceList: EntityAppearanceDetail[] = rawAppearances.map((app: any, idx: number) => {
+    if (typeof app === 'string') {
+      return {
+        id: app,
+        chapter_number: null,
+        title: app,
+        reason: 'Chapter Appearance',
+      };
+    }
+    return {
+      id: String(app.id || `app-${idx}`),
+      chapter_number: app.chapter_number ?? null,
+      title: String(app.title || (app.chapter_number ? `Chapter ${app.chapter_number}` : 'Chapter')),
+      reason: app.reason ? String(app.reason) : undefined,
+    };
+  });
 
   const handleAddFact = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -55,7 +200,7 @@ export const EntityPanel: React.FC<EntityPanelProps> = ({ entityId, onClose }) =
     setFactError(null);
     setIsSubmittingFact(true);
     try {
-      await addFact(entity.id, factProperty.trim(), factValue.trim(), 'Manual Entry');
+      await addFact(displayEntity.id, factProperty.trim(), factValue.trim(), 'Manual Entry');
       setFactProperty('');
       setFactValue('');
       setIsAddingFact(false);
@@ -71,7 +216,7 @@ export const EntityPanel: React.FC<EntityPanelProps> = ({ entityId, onClose }) =
     if (!newAlias.trim()) return;
     setAliasError(null);
     try {
-      await addAlias(entity.id, newAlias.trim());
+      await addAlias(displayEntity.id, newAlias.trim());
       setNewAlias('');
       setIsAddingAlias(false);
     } catch (err: any) {
@@ -81,7 +226,7 @@ export const EntityPanel: React.FC<EntityPanelProps> = ({ entityId, onClose }) =
 
   const handleRemoveAlias = async (aliasToRemove: string) => {
     try {
-      await removeAlias(entity.id, aliasToRemove);
+      await removeAlias(displayEntity.id, aliasToRemove);
     } catch (err: any) {
       console.error('Failed to remove alias:', err);
     }
@@ -89,25 +234,35 @@ export const EntityPanel: React.FC<EntityPanelProps> = ({ entityId, onClose }) =
 
   const handleAddTrait = () => {
     if (newTrait.trim()) {
-      const updatedTraits = [...(entity.traits || []), newTrait.trim()];
-      updateEntity(entity.id, { traits: updatedTraits });
+      const updatedTraits = [...(displayEntity.traits || []), newTrait.trim()];
+      updateEntity(displayEntity.id, { traits: updatedTraits });
       setNewTrait('');
       setIsAddingTrait(false);
     }
   };
 
   const handleRemoveTrait = (traitIndex: number) => {
-    if (entity.traits) {
-      const updatedTraits = entity.traits.filter((_, idx) => idx !== traitIndex);
-      updateEntity(entity.id, { traits: updatedTraits });
+    if (displayEntity.traits) {
+      const updatedTraits = displayEntity.traits.filter((_, idx) => idx !== traitIndex);
+      updateEntity(displayEntity.id, { traits: updatedTraits });
     }
   };
 
   const navigateToChapter = (chapterId: string) => {
-    // We assume manuscript 1 since it's the primary demo, but can locate it
-    setActiveManuscript('ms-1');
-    setActiveChapter(chapterId);
-    navigate(`/worlds/${activeWorldId}/manuscripts/ms-1`);
+    const manuscript = manuscripts.find((candidate) =>
+      candidate.chapters?.some((chapter) => chapter.id === chapterId)
+    );
+    if (manuscript) {
+      setActiveManuscript(manuscript.id);
+      setActiveChapter(chapterId);
+      navigate(`/worlds/${activeWorldId}/manuscripts/${manuscript.id}`);
+    } else if (manuscripts.length > 0) {
+      setActiveManuscript(manuscripts[0].id);
+      setActiveChapter(chapterId);
+      navigate(`/worlds/${activeWorldId}/manuscripts/${manuscripts[0].id}`);
+    } else {
+      navigate(`/worlds/${activeWorldId}/manuscripts`);
+    }
   };
 
   // Color mapping based on entity type
@@ -141,14 +296,14 @@ export const EntityPanel: React.FC<EntityPanelProps> = ({ entityId, onClose }) =
         <div className="flex justify-between items-start mb-4 relative z-10">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <span className={`material-symbols-outlined text-sm font-light ${getTypeColor(entity.type).split(' ')[0]}`}>
-                {getTypeIcon(entity.type)}
+              <span className={`material-symbols-outlined text-sm font-light ${getTypeColor(displayEntity.type).split(' ')[0]}`}>
+                {getTypeIcon(displayEntity.type)}
               </span>
               <label className="text-[10px] font-label-sm text-on-surface-variant/60 uppercase tracking-widest">Type:</label>
               <select
-                value={entity.type}
-                onChange={(e) => updateEntity(entity.id, { type: e.target.value as Entity['type'] })}
-                className={`font-label-sm text-[11px] uppercase tracking-wider py-0.5 px-2.5 rounded-full border bg-surface-container cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary ${getTypeColor(entity.type)}`}
+                value={displayEntity.type}
+                onChange={(e) => updateEntity(displayEntity.id, { type: e.target.value as Entity['type'] })}
+                className={`font-label-sm text-[11px] uppercase tracking-wider py-0.5 px-2.5 rounded-full border bg-surface-container cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary ${getTypeColor(displayEntity.type)}`}
               >
                 <option value="character" className="bg-void-black text-starlight-white">Character</option>
                 <option value="location" className="bg-void-black text-starlight-white">Location</option>
@@ -156,7 +311,7 @@ export const EntityPanel: React.FC<EntityPanelProps> = ({ entityId, onClose }) =
                 <option value="event" className="bg-void-black text-starlight-white">Event</option>
               </select>
             </div>
-            <h2 className="font-headline-md text-headline-md text-starlight-white leading-tight mt-1">{entity.name}</h2>
+            <h2 className="font-headline-md text-headline-md text-starlight-white leading-tight mt-1">{displayEntity.name}</h2>
           </div>
           <button onClick={onClose} className="text-on-surface-variant hover:text-white transition-colors p-1 hover:bg-white/5 rounded-full">
             <span className="material-symbols-outlined font-light">close</span>
@@ -176,12 +331,22 @@ export const EntityPanel: React.FC<EntityPanelProps> = ({ entityId, onClose }) =
             className={`font-label-sm text-label-sm pb-2 px-1 flex items-center gap-1.5 transition-all border-b-2 ${activeTab === 'relations' ? 'border-primary text-primary' : 'border-transparent text-on-surface-variant hover:text-primary-fixed-dim'}`}
           >
             <span className="material-symbols-outlined text-sm font-light">share</span> Relations
+            {relList.length > 0 && (
+              <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-primary/15 text-primary border border-primary/25 font-mono ml-0.5">
+                {relList.length}
+              </span>
+            )}
           </button>
           <button 
             onClick={() => setActiveTab('history')}
             className={`font-label-sm text-label-sm pb-2 px-1 flex items-center gap-1.5 transition-all border-b-2 ${activeTab === 'history' ? 'border-primary text-primary' : 'border-transparent text-on-surface-variant hover:text-primary-fixed-dim'}`}
           >
             <span className="material-symbols-outlined text-sm font-light">history</span> Appearances
+            {appearanceList.length > 0 && (
+              <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-primary/15 text-primary border border-primary/25 font-mono ml-0.5">
+                {appearanceList.length}
+              </span>
+            )}
           </button>
         </div>
       </div>
@@ -192,10 +357,10 @@ export const EntityPanel: React.FC<EntityPanelProps> = ({ entityId, onClose }) =
         {activeTab === 'details' && (
           <>
             {/* Portrait Card */}
-            {entity.image && (
+            {displayEntity.image && (
               <div className="bg-surface-container-high/50 border border-starlight-white/5 rounded-lg overflow-hidden p-1">
                 <div className="w-full h-44 bg-surface-container-lowest rounded relative overflow-hidden group">
-                  <img src={entity.image} alt={entity.name} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
+                  <img src={displayEntity.image} alt={displayEntity.name} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
                   <div className="absolute inset-0 bg-gradient-to-t from-void-black/85 via-void-black/20 to-transparent flex items-end p-3">
                     <span className="font-label-sm text-label-sm text-starlight-white/60 text-[10px] uppercase tracking-wider">Visual Reference</span>
                   </div>
@@ -207,7 +372,7 @@ export const EntityPanel: React.FC<EntityPanelProps> = ({ entityId, onClose }) =
             <div className="space-y-4 bg-surface-container-lowest/40 p-4 rounded-lg border border-starlight-white/5">
               <div>
                 <p className="font-label-sm text-label-sm text-on-surface-variant/60 uppercase text-[10px] mb-1">Subtype / Role</p>
-                <p className="font-body-md text-body-md text-on-surface text-sm">{entity.subtype || 'Supporting entry'}</p>
+                <p className="font-body-md text-body-md text-on-surface text-sm">{displayEntity.subtype || 'Supporting entry'}</p>
               </div>
 
               {/* Aliases Tag Manager */}
@@ -282,19 +447,19 @@ export const EntityPanel: React.FC<EntityPanelProps> = ({ entityId, onClose }) =
             <div>
               <p className="font-label-sm text-label-sm text-on-surface-variant/60 uppercase text-[10px] mb-2">Synopsis</p>
               <p className="font-body-md text-body-md text-on-surface-variant text-sm leading-relaxed bg-surface-container-lowest/30 p-3 rounded border border-starlight-white/5">
-                {entity.description}
+                {displayEntity.description || 'No description provided.'}
               </p>
             </div>
 
             {/* Traits */}
-            {entity.type === 'character' && (
+            {displayEntity.type === 'character' && (
               <div className="space-y-3">
                 <p className="font-label-sm text-label-sm text-copper-glow uppercase tracking-wider flex items-center gap-2">
                   <span className="material-symbols-outlined text-sm font-light">psychology</span>
                   Core Traits
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  {entity.traits?.map((trait, idx) => (
+                  {displayEntity.traits?.map((trait, idx) => (
                     <span 
                       key={idx} 
                       className="px-2.5 py-1 bg-surface-container text-on-surface-variant font-label-sm text-[11px] rounded border border-starlight-white/5 flex items-center gap-1.5 group/trait"
@@ -407,10 +572,10 @@ export const EntityPanel: React.FC<EntityPanelProps> = ({ entityId, onClose }) =
               )}
 
               <div className="space-y-3">
-                {entity.facts.length === 0 ? (
+                {displayEntity.facts.length === 0 ? (
                   <p className="text-xs text-on-surface-variant/40 italic">No facts recorded yet.</p>
                 ) : (
-                  entity.facts.map((fact) => (
+                  displayEntity.facts.map((fact) => (
                     <div 
                       key={fact.id} 
                       className="group relative pl-3.5 py-1.5 border-l border-outline-variant/35 hover:border-primary/50 transition-colors flex justify-between items-start"
@@ -426,7 +591,7 @@ export const EntityPanel: React.FC<EntityPanelProps> = ({ entityId, onClose }) =
                         </div>
                       </div>
                       <button 
-                        onClick={() => deleteFact(entity.id, fact.id)}
+                        onClick={() => deleteFact(displayEntity.id, fact.id)}
                         className="opacity-0 group-hover:opacity-100 text-on-surface-variant/40 hover:text-error transition-all p-1"
                         title="Delete fact"
                       >
@@ -442,41 +607,102 @@ export const EntityPanel: React.FC<EntityPanelProps> = ({ entityId, onClose }) =
 
         {activeTab === 'relations' && (
           <div className="space-y-4">
-            <p className="font-label-sm text-label-sm text-copper-glow uppercase tracking-wider flex items-center gap-2 border-b border-starlight-white/5 pb-2">
-              <span className="material-symbols-outlined text-sm font-light">hub</span>
-              Web of Influence
-            </p>
-            {entity.relationships.length === 0 ? (
-              <p className="text-xs text-on-surface-variant/40 italic">No active relationships mapped in ledger.</p>
-            ) : (
-              <div className="space-y-2">
-                {entity.relationships.map((rel, idx) => (
-                  <div 
-                    key={idx} 
-                    className="flex items-center justify-between p-3 rounded bg-surface-container-lowest/80 border border-starlight-white/5 hover:border-primary/30 transition-colors cursor-pointer group"
-                    onClick={() => {
-                      // Navigate to target if exists
-                      const targetExists = entities.some(e => e.id === rel.targetId);
-                      if (targetExists) {
-                        useWorldStore.getState().setActiveEntity(rel.targetId);
-                      }
-                    }}
-                  >
-                    <div className="flex items-center gap-3 min-w-0">
-                      <div className={`w-8 h-8 rounded-full flex items-center justify-center font-headline-md text-sm shrink-0 border ${
-                        rel.targetType === 'character' ? 'border-primary/20 text-primary' : 
-                        rel.targetType === 'location' ? 'border-secondary/20 text-secondary' : 'border-tertiary/20 text-tertiary'
-                      }`}>
-                        {rel.targetName[0]}
-                      </div>
-                      <div className="min-w-0">
-                        <p className="font-body-md text-xs text-starlight-white group-hover:text-primary transition-colors truncate">{rel.targetName}</p>
-                        <p className={`font-label-sm text-[10px] uppercase tracking-wider truncate ${rel.isNegative ? 'text-error' : 'text-on-surface-variant'}`}>{rel.relation}</p>
-                      </div>
-                    </div>
-                    <span className="material-symbols-outlined text-sm text-on-surface-variant/30 group-hover:text-primary/70 group-hover:translate-x-1 transition-all">chevron_right</span>
-                  </div>
+            <div className="flex items-center justify-between border-b border-starlight-white/5 pb-2">
+              <p className="font-label-sm text-label-sm text-copper-glow uppercase tracking-wider flex items-center gap-2">
+                <span className="material-symbols-outlined text-sm font-light">hub</span>
+                Web of Influence
+              </p>
+              <span className="text-[11px] font-mono text-on-surface-variant/60 bg-surface-container px-2 py-0.5 rounded-full border border-starlight-white/5">
+                {relList.length} {relList.length === 1 ? 'connection' : 'connections'}
+              </span>
+            </div>
+
+            {loadingDetails && relList.length === 0 ? (
+              <div className="space-y-3 py-4">
+                {[1, 2, 3].map((i) => (
+                  <div key={i} className="h-16 rounded-lg bg-surface-container-high/30 animate-pulse border border-starlight-white/5" />
                 ))}
+              </div>
+            ) : relList.length === 0 ? (
+              <div className="text-center py-10 px-4 rounded-xl bg-surface-container-lowest/40 border border-starlight-white/5">
+                <div className="w-12 h-12 mx-auto rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant/40 mb-3">
+                  <span className="material-symbols-outlined text-2xl font-light">hub</span>
+                </div>
+                <p className="font-label-sm text-xs uppercase tracking-wider text-on-surface-variant/70 mb-1">No Active Relationships</p>
+                <p className="font-body-md text-xs text-on-surface-variant/40 max-w-[260px] mx-auto leading-relaxed">
+                  No direct incoming or outgoing relationships have been mapped to this entity yet.
+                </p>
+              </div>
+            ) : (
+              <div className="space-y-2.5">
+                {relList.map((rel, idx) => {
+                  const isOutgoing = rel.direction !== 'incoming';
+                  const initial = rel.targetName ? rel.targetName.trim().charAt(0).toUpperCase() : '?';
+                  const formattedRelation = String(rel.relation || 'RELATED_TO').replace(/_/g, ' ');
+                  return (
+                    <div 
+                      key={rel.id || idx} 
+                      className="group p-3 rounded-lg bg-surface-container-lowest/80 hover:bg-surface-container/70 border border-starlight-white/5 hover:border-primary/40 transition-all cursor-pointer flex items-center justify-between gap-3 shadow-sm hover:shadow-md"
+                      onClick={() => {
+                        if (rel.targetId) {
+                          useWorldStore.getState().setActiveEntity(rel.targetId);
+                        }
+                      }}
+                      title={`Inspect ${rel.targetName || 'Entity'}`}
+                    >
+                      <div className="flex items-center gap-3 min-w-0">
+                        {/* Target Initial / Avatar */}
+                        <div className={`w-9 h-9 rounded-full flex items-center justify-center font-headline-md text-sm shrink-0 border ${
+                          rel.targetType === 'character' ? 'border-primary/30 text-primary bg-primary/5' : 
+                          rel.targetType === 'location' ? 'border-secondary/30 text-secondary bg-secondary/5' : 
+                          rel.targetType === 'event' ? 'border-error/30 text-error bg-error/5' :
+                          'border-tertiary/30 text-tertiary bg-tertiary/5'
+                        }`}>
+                          {initial || '?'}
+                        </div>
+
+                        {/* Connection Details */}
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center gap-2 mb-1 flex-wrap">
+                            <span className="font-body-md text-xs font-semibold text-starlight-white group-hover:text-primary transition-colors truncate">
+                              {rel.targetName || 'Unknown Entity'}
+                            </span>
+                            <span className={`inline-flex items-center gap-1 font-label-sm text-[9px] uppercase tracking-wider px-1.5 py-0.2 rounded-full border ${
+                              isOutgoing
+                                ? 'bg-primary/10 border-primary/20 text-primary'
+                                : 'bg-surface-container-high border-starlight-white/10 text-on-surface-variant'
+                            }`}>
+                              <span className="material-symbols-outlined text-[10px]">
+                                {isOutgoing ? 'arrow_forward' : 'arrow_back'}
+                              </span>
+                              {isOutgoing ? 'Outgoing' : 'Incoming'}
+                            </span>
+                          </div>
+
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className={`font-label-sm text-[10px] font-medium uppercase tracking-wider px-2 py-0.5 rounded border ${
+                              rel.isNegative 
+                                ? 'bg-error/10 border-error/30 text-error' 
+                                : 'bg-surface-container border-starlight-white/10 text-copper-glow'
+                            }`}>
+                              {formattedRelation}
+                            </span>
+                            {rel.chapter_number != null && (
+                              <span className="font-mono text-[10px] text-on-surface-variant/60 flex items-center gap-0.5">
+                                <span className="material-symbols-outlined text-[10px]">bookmark</span>
+                                Ch. {rel.chapter_number}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+
+                      <span className="material-symbols-outlined text-sm text-on-surface-variant/40 group-hover:text-primary group-hover:translate-x-1 transition-all shrink-0">
+                        chevron_right
+                      </span>
+                    </div>
+                  );
+                })}
               </div>
             )}
           </div>
@@ -484,33 +710,66 @@ export const EntityPanel: React.FC<EntityPanelProps> = ({ entityId, onClose }) =
 
         {activeTab === 'history' && (
           <div className="space-y-4">
-            <p className="font-label-sm text-label-sm text-copper-glow uppercase tracking-wider flex items-center gap-2 border-b border-starlight-white/5 pb-2">
-              <span className="material-symbols-outlined text-sm font-light">auto_stories</span>
-              Chapter Appearances
-            </p>
-            {entity.appearances.length === 0 ? (
-              <p className="text-xs text-on-surface-variant/40 italic">This entity has no extracted chapter appearances.</p>
+            <div className="flex items-center justify-between border-b border-starlight-white/5 pb-2">
+              <p className="font-label-sm text-label-sm text-copper-glow uppercase tracking-wider flex items-center gap-2">
+                <span className="material-symbols-outlined text-sm font-light">auto_stories</span>
+                Chapter Appearances
+              </p>
+              <span className="text-[11px] font-mono text-on-surface-variant/60 bg-surface-container px-2 py-0.5 rounded-full border border-starlight-white/5">
+                {appearanceList.length} {appearanceList.length === 1 ? 'chapter' : 'chapters'}
+              </span>
+            </div>
+
+            {loadingDetails && appearanceList.length === 0 ? (
+              <div className="space-y-3 py-4">
+                {[1, 2, 3].map((i) => (
+                  <div key={i} className="h-14 rounded-lg bg-surface-container-high/30 animate-pulse border border-starlight-white/5" />
+                ))}
+              </div>
+            ) : appearanceList.length === 0 ? (
+              <div className="text-center py-10 px-4 rounded-xl bg-surface-container-lowest/40 border border-starlight-white/5">
+                <div className="w-12 h-12 mx-auto rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant/40 mb-3">
+                  <span className="material-symbols-outlined text-2xl font-light">auto_stories</span>
+                </div>
+                <p className="font-label-sm text-xs uppercase tracking-wider text-on-surface-variant/70 mb-1">No Chapter Appearances</p>
+                <p className="font-body-md text-xs text-on-surface-variant/40 max-w-[260px] mx-auto leading-relaxed">
+                  This entity has not been extracted or mentioned in any processed chapters yet.
+                </p>
+              </div>
             ) : (
-              <div className="flex flex-wrap gap-2.5">
-                {entity.appearances.map((chapId) => {
-                  // Find chapter details
-                  const chMap: { [key: string]: string } = {
-                    ch1: 'Ch. 1 - The Awakening',
-                    ch2: 'Ch. 2 - Descent into the Archives',
-                    ch3: 'Ch. 3 - Echoes of the Precursors',
-                    ch4: 'Ch. 4 - The Descent',
-                  };
-                  return (
-                    <button 
-                      key={chapId}
-                      onClick={() => navigateToChapter(chapId)}
-                      className="px-3 py-2 rounded bg-surface-container-lowest hover:bg-surface-container border border-starlight-white/5 hover:border-primary/40 text-xs text-on-surface-variant hover:text-primary transition-all flex items-center gap-2"
-                    >
-                      <span className="material-symbols-outlined text-xs text-primary/70 font-light">bookmark_border</span>
-                      {chMap[chapId] || chapId.toUpperCase()}
-                    </button>
-                  );
-                })}
+              <div className="space-y-2.5">
+                {appearanceList.map((app) => (
+                  <div 
+                    key={app.id}
+                    onClick={() => navigateToChapter(app.id)}
+                    className="p-3 rounded-lg bg-surface-container-lowest/80 hover:bg-surface-container/70 border border-starlight-white/5 hover:border-primary/40 text-xs transition-all flex items-center justify-between gap-3 group cursor-pointer shadow-sm hover:shadow-md"
+                    title={`Open ${app.title || `Chapter ${app.chapter_number}`} in Writing Room`}
+                  >
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-primary group-hover:scale-105 transition-transform shrink-0">
+                        <span className="material-symbols-outlined text-sm font-light">menu_book</span>
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center gap-2 mb-0.5">
+                          <span className="font-mono text-[11px] font-bold text-primary shrink-0">
+                            Ch. {app.chapter_number ?? '?'}
+                          </span>
+                          <span className="font-body-md text-xs font-semibold text-starlight-white group-hover:text-primary transition-colors truncate">
+                            {app.title}
+                          </span>
+                        </div>
+                        {app.reason && (
+                          <p className="font-label-sm text-[10px] text-on-surface-variant/70 uppercase tracking-wider truncate">
+                            {app.reason}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                    <span className="material-symbols-outlined text-sm text-on-surface-variant/40 group-hover:text-primary group-hover:translate-x-1 transition-all shrink-0">
+                      open_in_new
+                    </span>
+                  </div>
+                ))}
               </div>
             )}
           </div>
@@ -519,7 +778,7 @@ export const EntityPanel: React.FC<EntityPanelProps> = ({ entityId, onClose }) =
       
       {/* Bottom info banner */}
       <div className="p-4 border-t border-starlight-white/5 bg-void-black/80 flex items-center justify-between text-[11px] font-label-sm text-on-surface-variant/40 uppercase tracking-widest">
-        <span>ID: {entity.id}</span>
+        <span>ID: {displayEntity.id}</span>
         <span>Engine Ledger</span>
       </div>
     </div>

@@ -29,7 +29,6 @@ npm run lint
   - `no-unused-vars` on unused catch params: `api/client.ts`, `store/useAuthStore.ts`, `store/useWorldStore.ts`, `pages/SignIn.tsx`, `pages/WritingRoom.tsx`
   - `react(set-state-in-effect)`: `pages/Manuscripts.tsx` (x2), `pages/Worlds.tsx`, `pages/WritingRoom.tsx`
   - `react-hooks(exhaustive-deps)`: `pages/Manuscripts.tsx`, `pages/Worlds.tsx`, `pages/WritingRoom.tsx`
-  - `react(purity)` on `Date`/`Date.now`: `pages/WorldAssistant.tsx` (x5)
   - `no-useless-escape`: `pages/WritingRoom.tsx:229`
 
 ## Known noise (not failures)

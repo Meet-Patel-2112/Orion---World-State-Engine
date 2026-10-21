@@ -9,17 +9,15 @@ export const ProcessingWorld: React.FC = () => {
   const location = useLocation();
   const [progress, setProgress] = useState(0);
   const [statusText, setStatusText] = useState('Initializing extraction pipeline...');
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const jobId = params.get('jobId');
 
     if (!jobId) {
-      // Fallback to mock progress if no job ID (e.g. from scratch creation)
-      const progressInterval = setInterval(() => {
-        setProgress((prev) => (prev >= 100 ? 100 : prev + 2));
-      }, 50);
-      return () => clearInterval(progressInterval);
+      setError('No extraction job was created for this import.');
+      return;
     }
 
     // Poll the backend job status endpoint
@@ -39,11 +37,12 @@ export const ProcessingWorld: React.FC = () => {
           clearInterval(pollInterval);
         } else if (data.status === 'failed') {
           clearInterval(pollInterval);
-          console.error("Job failed:", data.error_message);
+          setError(data.error_message || 'Extraction failed.');
           setStatusText(`Extraction failed: ${data.error_message || 'Unknown error'}`);
         }
       } catch (e: any) {
-        console.error("Polling error", e);
+        clearInterval(pollInterval);
+        setError(e.message || 'Could not read extraction status.');
       }
     }, 1500);
 
@@ -87,6 +86,7 @@ export const ProcessingWorld: React.FC = () => {
         
         {/* Left column: progress */}
         <section className="flex flex-col gap-6 w-full animate-fade-in-up">
+          {error && <p className="text-center text-error text-sm">{error}</p>}
           <div className="flex flex-col gap-2 text-center">
             <h1 className="font-display-lg text-display-lg text-on-surface tracking-tight leading-tight">
               Building a first draft of your world.

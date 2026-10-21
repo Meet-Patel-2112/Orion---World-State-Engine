@@ -96,7 +96,7 @@ backend/
 │   │
 │   ├── pipeline/             # Extraction (runs ../extractor) and chat
 │   │   ├── extractor.py      # ../extractor subprocess -> integration dict
-│   │   ├── llm_client.py     # Chat: Ollama / OpenAI / Mock
+│   │   ├── llm_client.py     # Chat: Ollama / OpenAI
 │   │   ├── prompts/
 │   │   │   └── chat_prompt.txt
 │   │   └── resolution/
@@ -151,7 +151,7 @@ Copy or edit `.env`:
 ```env
 DATABASE_URL="postgresql://postgres:postgres@localhost:5432/orion"
 REDIS_URL="redis://localhost:6379/0"
-LLM_PROVIDER="ollama" # chat only, or "openai"/"mock"; extraction always runs ../extractor (its venv + GPU)
+LLM_PROVIDER="ollama" # chat only, or "openai"; extraction always runs ../extractor (its venv + GPU)
 EXTRACTION_EXECUTOR="background" # or "celery" (one ordered task per job; requires Redis + a worker)
 OLLAMA_URL="http://localhost:11434/api/chat"
 OLLAMA_MODEL="llama3.1:8b-instruct-q4_K_M"

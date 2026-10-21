@@ -55,7 +55,12 @@ const COMMON_RELATIONSHIP_TYPES = [
 
 export const WorldGraph: React.FC = () => {
   const { worldId } = useParams<{ worldId: string }>();
-  const { setActiveEntity, manuscripts } = useWorldStore();
+  const { 
+    setActiveEntity, 
+    manuscripts, 
+    fetchManuscriptsForWorld, 
+    fetchEntitiesForWorld 
+  } = useWorldStore();
 
   const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState({
@@ -68,9 +73,44 @@ export const WorldGraph: React.FC = () => {
   // Time-slice state: null means "latest" (§16)
   const [asOfChapter, setAsOfChapter] = useState<number | null>(null);
 
-  // Available chapters for time slider
-  const chapters = manuscripts.flatMap((m) => m.chapters || []).sort((a, b) => a.number - b.number);
-  const maxChapter = chapters.length > 0 ? Math.max(...chapters.map((c) => c.number)) : 2;
+  // Available chapters for time slider (deduplicated by chapter number and sorted)
+  const chapters = manuscripts
+    .flatMap((m) => m.chapters || [])
+    .filter((ch, index, self) => index === self.findIndex((c) => c.number === ch.number))
+    .sort((a, b) => a.number - b.number);
+  const maxChapter = chapters.length > 0 ? Math.max(...chapters.map((c) => c.number)) : 1;
+
+  // Step handlers for scrubbing through chapters sequentially
+  const handleStepPrev = () => {
+    if (asOfChapter === null) {
+      setAsOfChapter(maxChapter);
+    } else if (asOfChapter > 1) {
+      const prevChapters = chapters.filter((c) => c.number < asOfChapter);
+      if (prevChapters.length > 0) {
+        setAsOfChapter(prevChapters[prevChapters.length - 1].number);
+      } else {
+        setAsOfChapter(Math.max(1, asOfChapter - 1));
+      }
+    }
+  };
+
+  const handleStepNext = () => {
+    if (asOfChapter === null) return;
+    const nextChapters = chapters.filter((c) => c.number > asOfChapter);
+    if (nextChapters.length > 0) {
+      setAsOfChapter(nextChapters[0].number);
+    } else {
+      setAsOfChapter(null); // Step to Latest
+    }
+  };
+
+  // Fetch manuscripts and entities when worldId is available
+  useEffect(() => {
+    if (worldId) {
+      fetchManuscriptsForWorld(worldId).catch(() => {});
+      fetchEntitiesForWorld(worldId).catch(() => {});
+    }
+  }, [worldId, fetchManuscriptsForWorld, fetchEntitiesForWorld]);
 
   const [nodes, setNodes] = useState<Node[]>([]);
   const nodePositionsRef = useRef<Map<string, { x: number; y: number }>>(new Map());
@@ -534,75 +574,105 @@ export const WorldGraph: React.FC = () => {
             </div>
 
             {/* Narrative Time-Slice Scrubber (§16) */}
-            <div className="flex flex-col gap-3 p-3.5 rounded-xl bg-surface-container/60 border border-starlight-white/10 shadow-sm">
-              <div className="flex items-center justify-between">
-                <span className="font-label-sm text-[10px] text-primary uppercase tracking-widest font-semibold flex items-center gap-1.5">
-                  <span className="material-symbols-outlined text-sm">history</span>
-                  Time Slice
-                </span>
-                <span className="text-[11px] font-bold text-starlight-white bg-primary/10 border border-primary/20 px-2 py-0.5 rounded">
-                  {asOfChapter !== null ? `End of Ch. ${asOfChapter}` : 'Latest (Now)'}
-                </span>
-              </div>
-
-              <div className="flex flex-col gap-1.5 mt-1">
-                <input
-                  type="range"
-                  min="1"
-                  max={maxChapter + 1}
-                  step="1"
-                  value={asOfChapter === null ? maxChapter + 1 : asOfChapter}
-                  onChange={(e) => {
-                    const val = parseInt(e.target.value, 10);
-                    if (val > maxChapter) {
-                      setAsOfChapter(null); // Latest
-                    } else {
-                      setAsOfChapter(val);
-                    }
-                  }}
-                  className="w-full accent-primary h-1.5 bg-surface-container-highest rounded-lg cursor-pointer"
-                />
-
-                <div className="flex justify-between items-center text-[10px] text-on-surface-variant/60 font-mono px-0.5 mt-1">
-                  <span>Ch 1</span>
-                  <span>Ch {maxChapter}</span>
-                  <span className="text-primary font-bold">Latest</span>
+            {chapters.length > 0 && (
+              <div className="flex flex-col gap-3 p-3.5 rounded-xl bg-surface-container/60 border border-starlight-white/10 shadow-sm">
+                <div className="flex items-center justify-between">
+                  <span className="font-label-sm text-[10px] text-primary uppercase tracking-widest font-semibold flex items-center gap-1.5">
+                    <span className="material-symbols-outlined text-sm">history</span>
+                    Time Slice
+                  </span>
+                  <span className="text-[11px] font-bold text-starlight-white bg-primary/10 border border-primary/20 px-2 py-0.5 rounded flex items-center gap-1.5">
+                    {asOfChapter !== null ? (
+                      `End of Ch. ${asOfChapter}`
+                    ) : (
+                      <>
+                        <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                        <span>Latest (Now)</span>
+                      </>
+                    )}
+                  </span>
                 </div>
 
-                <div className="flex items-center gap-1.5 mt-2">
-                  <button
-                    onClick={() => setAsOfChapter(1)}
-                    className={`flex-1 py-1 px-2 rounded text-[10px] transition-colors border ${
-                      asOfChapter === 1
-                        ? 'bg-primary/20 text-primary border-primary/40 font-semibold'
-                        : 'bg-surface-container-high/60 text-on-surface-variant border-transparent hover:border-white/10'
-                    }`}
-                  >
-                    Ch. 1
-                  </button>
-                  <button
-                    onClick={() => setAsOfChapter(maxChapter)}
-                    className={`flex-1 py-1 px-2 rounded text-[10px] transition-colors border ${
-                      asOfChapter === maxChapter
-                        ? 'bg-primary/20 text-primary border-primary/40 font-semibold'
-                        : 'bg-surface-container-high/60 text-on-surface-variant border-transparent hover:border-white/10'
-                    }`}
-                  >
-                    Ch. {maxChapter}
-                  </button>
-                  <button
-                    onClick={() => setAsOfChapter(null)}
-                    className={`flex-1 py-1 px-2 rounded text-[10px] transition-colors border ${
-                      asOfChapter === null
-                        ? 'bg-primary/20 text-primary border-primary/40 font-semibold'
-                        : 'bg-surface-container-high/60 text-on-surface-variant border-transparent hover:border-white/10'
-                    }`}
-                  >
-                    Latest
-                  </button>
+                {/* Scrubber & Step Controls */}
+                <div className="flex flex-col gap-2 mt-1">
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={handleStepPrev}
+                      disabled={asOfChapter === 1}
+                      title="Step to previous chapter"
+                      className="p-1 rounded bg-surface-container-high/60 hover:bg-surface-container-highest text-on-surface-variant hover:text-white disabled:opacity-30 disabled:pointer-events-none transition-colors border border-starlight-white/5"
+                    >
+                      <span className="material-symbols-outlined text-xs">chevron_left</span>
+                    </button>
+
+                    <input
+                      type="range"
+                      min="1"
+                      max={maxChapter + 1}
+                      step="1"
+                      value={asOfChapter === null ? maxChapter + 1 : asOfChapter}
+                      onChange={(e) => {
+                        const val = parseInt(e.target.value, 10);
+                        if (val > maxChapter) {
+                          setAsOfChapter(null); // Latest
+                        } else {
+                          setAsOfChapter(val);
+                        }
+                      }}
+                      className="flex-1 accent-primary h-1.5 bg-surface-container-highest rounded-lg cursor-pointer"
+                    />
+
+                    <button
+                      onClick={handleStepNext}
+                      disabled={asOfChapter === null}
+                      title="Step to next chapter"
+                      className="p-1 rounded bg-surface-container-high/60 hover:bg-surface-container-highest text-on-surface-variant hover:text-white disabled:opacity-30 disabled:pointer-events-none transition-colors border border-starlight-white/5"
+                    >
+                      <span className="material-symbols-outlined text-xs">chevron_right</span>
+                    </button>
+                  </div>
+
+                  <div className="flex justify-between items-center text-[10px] text-on-surface-variant/60 font-mono px-0.5">
+                    <span>Ch 1</span>
+                    {maxChapter > 1 && <span>Ch {maxChapter}</span>}
+                    <span className="text-primary font-bold">Latest</span>
+                  </div>
+
+                  {/* Every Chapter Pill + Latest Button */}
+                  <div className="flex flex-wrap gap-1.5 mt-1.5 max-h-36 overflow-y-auto p-0.5">
+                    {chapters.map((ch) => {
+                      const isSelected = asOfChapter === ch.number;
+                      return (
+                        <button
+                          key={ch.id || ch.number}
+                          onClick={() => setAsOfChapter(ch.number)}
+                          title={ch.title ? `Ch. ${ch.number}: ${ch.title}` : `Chapter ${ch.number}`}
+                          className={`py-1 px-2.5 rounded-md text-[11px] font-mono transition-all border ${
+                            isSelected
+                              ? 'bg-primary/20 text-primary border-primary/50 font-bold shadow-sm ring-1 ring-primary/30'
+                              : 'bg-surface-container-high/60 text-on-surface-variant/80 border-starlight-white/5 hover:border-starlight-white/20 hover:text-white hover:bg-surface-container-highest/80'
+                          }`}
+                        >
+                          Ch. {ch.number}
+                        </button>
+                      );
+                    })}
+                    <button
+                      onClick={() => setAsOfChapter(null)}
+                      title="Latest World State"
+                      className={`py-1 px-3 rounded-md text-[11px] font-mono transition-all border flex items-center gap-1.5 ${
+                        asOfChapter === null
+                          ? 'bg-primary/20 text-primary border-primary/50 font-bold shadow-sm ring-1 ring-primary/30'
+                          : 'bg-surface-container-high/60 text-on-surface-variant/80 border-starlight-white/5 hover:border-starlight-white/20 hover:text-white hover:bg-surface-container-highest/80'
+                      }`}
+                    >
+                      <span className={`w-1.5 h-1.5 rounded-full ${asOfChapter === null ? 'bg-primary animate-pulse' : 'bg-on-surface-variant/40'}`} />
+                      Latest
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
 
             {/* Add Relationship Action Button */}
             <button
@@ -1123,7 +1193,7 @@ export const WorldGraph: React.FC = () => {
                           disabled={updatingRel}
                           className="w-full py-1.5 px-3 rounded-lg bg-primary text-surface-container font-semibold text-xs hover:bg-primary/90 transition-colors disabled:opacity-50"
                         >
-                          {updatingRel ? 'Updating...' : 'Append New Version (§14.4)'}
+                          {updatingRel ? 'Updating...' : 'Append New Version'}
                         </button>
                       </form>
                     )}
@@ -1187,7 +1257,7 @@ export const WorldGraph: React.FC = () => {
                       className="w-full py-2 px-3 rounded-lg bg-error/10 hover:bg-error/20 text-error border border-error/30 text-xs font-semibold flex items-center justify-center gap-2 transition-colors"
                     >
                       <span className="material-symbols-outlined text-sm">delete</span>
-                      Delete Relationship (§14.5)
+                      Delete Relationship
                     </button>
                   </div>
                 </>
@@ -1311,7 +1381,7 @@ export const WorldGraph: React.FC = () => {
                   disabled={submittingRel || !newRelSource || !newRelTarget}
                   className="px-4 py-2 rounded-lg text-sm bg-primary text-surface-container font-semibold hover:bg-primary/90 transition-colors disabled:opacity-50"
                 >
-                  {submittingRel ? 'Creating...' : 'Create Relationship (§14.3)'}
+                  {submittingRel ? 'Creating...' : 'Create Relationship'}
                 </button>
               </div>
             </form>

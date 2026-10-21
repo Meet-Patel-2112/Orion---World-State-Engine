@@ -5,11 +5,10 @@ import type {
   TimelineEvent, 
   Contradiction, 
   Manuscript 
-} from '../data/mockData';
+} from '../types/world';
 import { apiFetch } from '../api/client';
 
-// Everything shown comes from the API: no sample data, and a failed or empty fetch shows nothing rather than
-// something invented (the demo must show what extraction actually produced).
+// Everything shown comes from the API: failed or empty fetches show nothing rather than invented records.
 const titleCase = (code: string) => code.toLowerCase().replace(/_/g, ' ').replace(/^\w/, (c) => c.toUpperCase());
 
 interface WorldState {

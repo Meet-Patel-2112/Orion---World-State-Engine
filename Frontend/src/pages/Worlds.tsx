@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useWorldStore } from '../store/useWorldStore';
 import { useAuthStore } from '../store/useAuthStore';
 import { apiFetch } from '../api/client';
-import type { World } from '../data/mockData';
+import type { World } from '../types/world';
 
 export const Worlds: React.FC = () => {
   const navigate = useNavigate();
@@ -21,9 +21,6 @@ export const Worlds: React.FC = () => {
         id: w.id,
         name: w.name,
         description: w.description || '',
-        status: 'active',
-        coverImage: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAuBUQknn_uISnwdR-0unHTT5VRn-yce6HhfPUnOIG_Ony7WbXISoUWuWh5wyVeqSOLTYFIiAP74lHr0RUBulB0dCbAuA9H3-tAAOjJyR81Mq8O6R3RvmKn59tBm-9l7GCG4SfTilfGXtrFZCYZB8exnTe1_mAXZFow2X7Xc6mLFUmxt3pgQ06mqEa2md5K7Pjv_DD0xt27x6wjj1JqQ9A-zVBTwdoBwbbKRPLuYWojrHy2j6YDRs9kHg',
-        entryCount: 0,                                  // not reported by the API (no fact count in the stats)
         entityCount: w.stats?.entities_count || 0,      // keys as in backend WorldRepository.get_world_stats
         manuscriptCount: w.stats?.manuscripts_count || 0,
         characterCount: w.stats?.characters_count || 0,
@@ -71,17 +68,6 @@ export const Worlds: React.FC = () => {
     navigate('/signin');
   };
 
-  const getStatusBadge = (status: 'active' | 'archived' | 'drafting') => {
-    switch (status) {
-      case 'active':
-        return <span className="font-label-sm text-label-sm text-copper-glow uppercase tracking-widest">Active Manuscript</span>;
-      case 'archived':
-        return <span className="font-label-sm text-label-sm text-on-surface-variant/50 uppercase tracking-widest">Archived</span>;
-      case 'drafting':
-        return <span className="font-label-sm text-label-sm text-secondary uppercase tracking-widest">Drafting</span>;
-    }
-  };
-
   return (
     <div className="min-h-screen w-full flex flex-col items-center justify-center relative font-body-md text-on-surface bg-void-black selection:bg-primary/20 select-none">
       
@@ -125,19 +111,6 @@ export const Worlds: React.FC = () => {
                 className="book-cover-hover relative group flex flex-col text-left h-[420px] rounded-lg border border-starlight-white/10 bg-surface-container-low overflow-hidden focus:outline-none focus:ring-1 focus:ring-copper-glow cursor-pointer"
               >
                 {/* Cover Art Background */}
-                {world.coverImage && (
-                  <div 
-                    className={`absolute inset-0 w-full h-full transition-all duration-700 ease-out bg-cover bg-center ${
-                      world.status === 'active' 
-                        ? 'opacity-50 group-hover:opacity-75' 
-                        : world.status === 'archived'
-                          ? 'opacity-25 grayscale group-hover:opacity-40 group-hover:grayscale-0'
-                          : 'opacity-45 group-hover:opacity-65'
-                    }`}
-                    style={{ backgroundImage: `url('${world.coverImage}')` }}
-                  />
-                )}
-
                 {/* Cover Art Shadow overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-void-black via-void-black/75 to-transparent z-10" />
                 
@@ -153,7 +126,6 @@ export const Worlds: React.FC = () => {
 
                 {/* Card Contents */}
                 <div className="relative mt-auto p-6 z-20 flex flex-col gap-2 w-full">
-                  {getStatusBadge(world.status)}
                   <h2 className="font-headline-lg text-headline-lg text-starlight-white group-hover:text-primary transition-colors">
                     {world.name}
                   </h2>

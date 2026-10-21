@@ -1,10 +1,16 @@
 from typing import List, Optional
 from fastapi import APIRouter, Depends, HTTPException, status, Query
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 
 from app.api.deps import get_db, get_current_user_world
 from app.core.constants import FactStatus
 from app.models.world import World
+from app.models.entity import Entity, EntityAlias, EntityMention
+from app.models.fact import Fact, FactVersion
+from app.models.relationship import Relationship, RelationshipVersion
+from app.models.event import Event, EventParticipant
+from app.models.extraction_run import ExtractionRun
+from app.models.chapter_version import ChapterVersion
 from app.schemas.entity import (
     EntityCreate, EntityUpdate, EntityResponse, EntityDetailResponse,
     FactCreate, FactResponse, FactVersionResponse, MergeEntitiesRequest,
@@ -168,9 +174,22 @@ def get_entity(
     world: World = Depends(get_current_user_world),
     db: Session = Depends(get_db)
 ):
-    service = EntityService(db)
-    ent = service.get_entity(entity_id)
-    if not ent or ent.world_id != world.id:
+    ent = (
+        db.query(Entity)
+        .options(
+            joinedload(Entity.facts).joinedload(Fact.versions).joinedload(FactVersion.chapter),
+            joinedload(Entity.aliases),
+            joinedload(Entity.outgoing_relationships).joinedload(Relationship.versions).joinedload(RelationshipVersion.chapter),
+            joinedload(Entity.outgoing_relationships).joinedload(Relationship.target_entity),
+            joinedload(Entity.incoming_relationships).joinedload(Relationship.versions).joinedload(RelationshipVersion.chapter),
+            joinedload(Entity.incoming_relationships).joinedload(Relationship.source_entity),
+            joinedload(Entity.event_participants).joinedload(EventParticipant.event).joinedload(Event.chapter),
+            joinedload(Entity.mentions).joinedload(EntityMention.extraction_run).joinedload(ExtractionRun.chapter_version).joinedload(ChapterVersion.chapter)
+        )
+        .filter(Entity.id == entity_id, Entity.world_id == world.id)
+        .first()
+    )
+    if not ent:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Entity not found")
 
     aliases = [a.alias for a in ent.aliases]
@@ -196,19 +215,93 @@ def get_entity(
         ))
 
     rels_out = []
-    for r in ent.outgoing_relationships:
-        latest = r.versions[0] if r.versions else None
+    seen_rel_ids = set()
+    all_rels = list(ent.outgoing_relationships) + list(ent.incoming_relationships)
+    for r in all_rels:
+        if r.id in seen_rel_ids:
+            continue
+        seen_rel_ids.add(r.id)
+        active_v = next((v for v in r.versions if v.status == "ACTIVE"), None)
+        if not active_v and r.versions:
+            active_v = r.versions[0]
+
+        is_outgoing = (r.source_entity_id == ent.id)
+        other_ent = r.target_entity if is_outgoing else r.source_entity
+        if not other_ent:
+            continue
+
+        rel_type = active_v.relationship_type if active_v else "RELATED_TO"
         rels_out.append({
             "id": r.id,
-            "target_id": r.target_entity_id,
-            "target_name": r.target_entity.canonical_name if r.target_entity else "Unknown",
-            "type": latest.relationship_type if latest else "RELATED_TO"
+            "targetId": other_ent.id,
+            "targetName": other_ent.canonical_name,
+            "targetType": other_ent.entity_type,
+            "relation": rel_type,
+            "direction": "outgoing" if is_outgoing else "incoming",
+            "isNegative": rel_type in ("ENEMY_OF", "RIVAL_OF", "OPPOSES", "HATES", "DEAD_AT_HANDS_OF"),
+            "chapter_id": active_v.chapter_id if active_v else None,
+            "chapter_number": active_v.chapter.chapter_number if (active_v and active_v.chapter) else None
         })
 
     events_out = [
-        {"id": ep.event.id, "type": ep.event.event_type, "role": ep.role, "description": ep.event.description}
+        {
+            "id": ep.event.id,
+            "type": ep.event.event_type,
+            "role": ep.role,
+            "description": ep.event.description,
+            "chapter_id": ep.event.chapter_id,
+            "chapter_number": ep.event.chapter.chapter_number if ep.event.chapter else None
+        }
         for ep in ent.event_participants if ep.event
     ]
+
+    appearance_chapters = {}
+    for ep in ent.event_participants:
+        if ep.event and ep.event.chapter:
+            ch = ep.event.chapter
+            appearance_chapters[ch.id] = {
+                "id": ch.id,
+                "chapter_number": ch.chapter_number,
+                "title": ch.title or f"Chapter {ch.chapter_number}",
+                "reason": f"Event: {ep.event.event_type}"
+            }
+    for f in ent.facts:
+        for fv in f.versions:
+            if fv.chapter:
+                ch = fv.chapter
+                if ch.id not in appearance_chapters:
+                    appearance_chapters[ch.id] = {
+                        "id": ch.id,
+                        "chapter_number": ch.chapter_number,
+                        "title": ch.title or f"Chapter {ch.chapter_number}",
+                        "reason": f"Fact: {f.property_name}"
+                    }
+    for r in all_rels:
+        for rv in r.versions:
+            if rv.chapter:
+                ch = rv.chapter
+                if ch.id not in appearance_chapters:
+                    appearance_chapters[ch.id] = {
+                        "id": ch.id,
+                        "chapter_number": ch.chapter_number,
+                        "title": ch.title or f"Chapter {ch.chapter_number}",
+                        "reason": f"Relationship: {rv.relationship_type}"
+                    }
+    for m in ent.mentions:
+        if m.extraction_run and m.extraction_run.chapter_version and m.extraction_run.chapter_version.chapter:
+            ch = m.extraction_run.chapter_version.chapter
+            if ch.id not in appearance_chapters:
+                appearance_chapters[ch.id] = {
+                    "id": ch.id,
+                    "chapter_number": ch.chapter_number,
+                    "title": ch.title or f"Chapter {ch.chapter_number}",
+                    "reason": f"Mentioned in text"
+                }
+
+    appearances_out = sorted(
+        list(appearance_chapters.values()),
+        key=lambda x: x.get("chapter_number") or 0
+    )
 
     return EntityDetailResponse(
         id=ent.id,
@@ -222,7 +315,8 @@ def get_entity(
         created_at=ent.created_at,
         updated_at=ent.updated_at,
         relationships=rels_out,
-        events=events_out
+        events=events_out,
+        appearances=appearances_out
     )
 
 @router.put("/{world_id}/entities/{entity_id}", response_model=EntityResponse)

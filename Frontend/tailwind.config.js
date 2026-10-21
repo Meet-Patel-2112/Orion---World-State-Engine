@@ -72,7 +72,7 @@ export default {
         "nav-rail-width": "64px",
         "stack-sm": "8px",
         "gutter": "24px",
-        "side-panel-width": "320px",
+        "side-panel-width": "440px",
         "margin-safe": "40px",
         "stack-lg": "32px"
       },
