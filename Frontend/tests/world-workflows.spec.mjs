@@ -10,7 +10,7 @@ const test = base.extend({
       { id: 'legacy-event', canonical_name: 'Legacy event entity', entity_type: 'event' },
     ].map(item => ({ ...item, world_id: 'w1', aliases: [], facts: [] }));
     const events = [1, 2].map(number => ({ id: `ev${number}`, world_id: 'w1', chapter_id: 'ch1', chapter_number: 1, event_type: 'MEETING', description: `Real timeline event ${number}`, participants: [], sequence_index: number }));
-    const state = { entities, events, relationships: [], writes: [], graphReads: 0, failNextEntity: false, failNextRelationship: false, failNextEvent: false };
+    const state = { entities, events, relationships: [], writes: [], graphReads: 0, failNextEntity: false, failNextEntityUpdate: false, failNextRelationship: false, failNextEvent: false };
     await page.addInitScript(() => localStorage.setItem('orion_token', 'browser-test-token'));
     await page.route('**/api/v1/**', async route => {
       const request = route.request();
@@ -31,6 +31,18 @@ const test = base.extend({
         const entity = { id: `entity-${state.entities.length}`, world_id: 'w1', ...json, aliases: json.aliases || [], facts: [] };
         state.entities.push(entity);
         return reply(entity, 201);
+      }
+      if (path.startsWith('/worlds/w1/entities/') && method === 'PUT') {
+        if (state.failNextEntityUpdate) { state.failNextEntityUpdate = false; return reply({ detail: 'Description could not be saved' }, 400); }
+        const entity = state.entities.find(item => item.id === path.split('/').at(-1));
+        if (json.canonical_name !== undefined) entity.canonical_name = json.canonical_name;
+        if (json.entity_type !== undefined) entity.entity_type = json.entity_type;
+        for (const [property, value] of Object.entries(json.attributes || {})) {
+          let fact = entity.facts.find(item => item.property_name === property);
+          if (!fact) { fact = { id: `${entity.id}-${property}`, property_name: property }; entity.facts.push(fact); }
+          fact.current_version = { id: `version-${state.writes.length}`, value, status: 'ACTIVE', chapter_id: null };
+        }
+        return reply(entity);
       }
       if (path.startsWith('/worlds/w1/entities/') && method === 'GET') {
         const id = path.split('/').at(-1);
@@ -106,6 +118,51 @@ test('ledger uses timeline counts, removes event forging, and links to Timeline'
   await page.getByRole('button', { name: /Events 2/ }).click();
   await expect(page).toHaveURL(/\/timeline$/);
   expect(world.writes).toHaveLength(0);
+});
+
+test('authors can edit, cancel, save, reload, and clear an entity description', async ({ page, world }) => {
+  world.entities[0].aliases = ['The Prince'];
+  world.entities[0].facts = [{ id: 'description-arin', property_name: 'description', current_version: { value: 'Original synopsis.', status: 'ACTIVE' } }];
+  await page.goto('/worlds/w1/world');
+  await page.getByRole('heading', { name: 'Arin', exact: true }).click();
+  await page.getByRole('button', { name: 'Edit description', exact: true }).click();
+  await expect(page.getByLabel('Entity description', { exact: true })).toHaveValue('Original synopsis.');
+  await page.getByLabel('Entity description', { exact: true }).fill('Discard this draft.');
+  await page.getByRole('button', { name: 'Cancel', exact: true }).click();
+  expect(world.writes).toHaveLength(0);
+  await page.getByRole('button', { name: 'Edit description', exact: true }).click();
+  await expect(page.getByLabel('Entity description', { exact: true })).toHaveValue('Original synopsis.');
+  await page.getByLabel('Entity description', { exact: true }).fill('The author’s new synopsis.\nA second paragraph.');
+  await page.getByRole('button', { name: 'Save description', exact: true }).click();
+  await expect(page.getByLabel('Entity description', { exact: true })).toHaveCount(0);
+  expect(world.writes.at(-1)).toMatchObject({ method: 'PUT', path: '/worlds/w1/entities/arin', json: { attributes: { description: 'The author’s new synopsis.\nA second paragraph.' } } });
+  expect(Object.keys(world.writes.at(-1).json.attributes)).toEqual(['description']);
+  await page.reload();
+  await page.getByRole('heading', { name: 'Arin', exact: true }).click();
+  await page.getByRole('button', { name: 'Edit description', exact: true }).click();
+  await expect(page.getByLabel('Entity description', { exact: true })).toHaveValue('The author’s new synopsis.\nA second paragraph.');
+  await page.getByLabel('Entity description', { exact: true }).fill('');
+  await page.getByRole('button', { name: 'Save description', exact: true }).click();
+  await expect(page.getByLabel('Entity description', { exact: true })).toHaveCount(0);
+  await page.reload();
+  await page.getByRole('heading', { name: 'Arin', exact: true }).click();
+  await page.getByRole('button', { name: 'Edit description', exact: true }).click();
+  await expect(page.getByLabel('Entity description', { exact: true })).toHaveValue('');
+});
+
+test('a failed description save preserves the draft and supports retry', async ({ page, world }) => {
+  await page.goto('/worlds/w1/world');
+  await page.getByRole('heading', { name: 'Arin', exact: true }).click();
+  await page.getByRole('button', { name: 'Edit description', exact: true }).click();
+  await page.getByLabel('Entity description', { exact: true }).fill('Unsaved synopsis.');
+  world.failNextEntityUpdate = true;
+  await page.getByRole('button', { name: 'Save description', exact: true }).click();
+  await expect(page.getByRole('alert')).toHaveText('Description could not be saved');
+  await expect(page.getByLabel('Entity description', { exact: true })).toHaveValue('Unsaved synopsis.');
+  expect(world.entities[0].facts).toHaveLength(0);
+  await page.getByRole('button', { name: 'Save description', exact: true }).click();
+  await expect(page.getByLabel('Entity description', { exact: true })).toHaveCount(0);
+  expect(world.entities[0].facts[0].current_version.value).toBe('Unsaved synopsis.');
 });
 
 test('entity card creates both directions, reports save errors, and deletes relations', async ({ page, world }) => {

@@ -750,6 +750,46 @@ def test_inline_retype_entity(db_session):
         app.dependency_overrides.clear()
 
 
+def test_author_description_edits_preserve_history_and_can_be_cleared(db_session):
+    from app.services.entity_service import EntityService
+
+    entity = EntityService(db_session).create_entity(
+        "world-1", "Arin", attributes={"description": "Original synopsis.", "subtype": "Prince"}
+    )
+    entity_id = entity.id
+    app.dependency_overrides[get_db] = lambda: db_session
+    app.dependency_overrides[get_current_user] = lambda: db_session.get(User, "user-1")
+    try:
+        client = TestClient(app)
+        for description in ("The author's revised synopsis.", ""):
+            response = client.put(
+                f"/api/v1/worlds/world-1/entities/{entity_id}",
+                json={"attributes": {"description": description}},
+                headers={"Authorization": "Bearer dummy"},
+            )
+            assert response.status_code == 200
+            facts = {fact["property_name"]: fact for fact in response.json()["facts"]}
+            assert facts["description"]["current_version"]["value"] == description
+            assert facts["description"]["current_version"]["status"] == "ACTIVE"
+            assert facts["subtype"]["current_version"]["value"] == "Prince"
+
+        versions = db_session.query(FactVersion).join(Fact).filter(
+            Fact.entity_id == entity_id, Fact.property_name == "description"
+        ).all()
+        assert len(versions) == 3
+        assert {version.value: version.status for version in versions} == {
+            "Original synopsis.": "SUPERSEDED",
+            "The author's revised synopsis.": "SUPERSEDED",
+            "": "ACTIVE",
+        }
+        reloaded = client.get(f"/api/v1/worlds/world-1/entities/{entity_id}")
+        assert reloaded.status_code == 200
+        facts = {fact["property_name"]: fact for fact in reloaded.json()["facts"]}
+        assert facts["description"]["current_version"]["value"] == ""
+    finally:
+        app.dependency_overrides.clear()
+
+
 def test_get_entity_details_with_relationships_and_appearances(db_session):
     from app.models.manuscript import Manuscript
     from app.models.chapter import Chapter

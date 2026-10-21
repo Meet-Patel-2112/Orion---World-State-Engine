@@ -7,6 +7,8 @@ import type {
   Manuscript 
 } from '../types/world';
 import { apiFetch } from '../api/client';
+import type { EntityResponse } from '../api/entities';
+import { getEntityDescription } from '../utils/entityDescription';
 
 // Everything shown comes from the API: failed or empty fetches show nothing rather than invented records.
 const titleCase = (code: string) => code.toLowerCase().replace(/_/g, ' ').replace(/^\w/, (c) => c.toUpperCase());
@@ -44,7 +46,7 @@ interface WorldState {
   // Entity Actions
   fetchEntitiesForWorld: (worldId: string) => Promise<void>;
   addEntity: (entity: Omit<Entity, 'facts' | 'relationships' | 'appearances'>) => Promise<void>;
-  updateEntity: (id: string, updated: Partial<Entity>) => Promise<void> | void;
+  updateEntity: (id: string, updated: Partial<Entity>) => Promise<void>;
   deleteEntity: (id: string) => Promise<void> | void;
   mergeEntities: (sourceId: string, targetId: string) => Promise<void>;
   bulkDeleteEntities: (entityIds: string[]) => Promise<void>;
@@ -156,7 +158,7 @@ export const useWorldStore = create<WorldState>((set, get) => ({
         id: ent.id,
         name: ent.canonical_name,
         type: ent.entity_type as any,
-        description: (ent.aliases || []).length ? `Also called: ${ent.aliases.join(', ')}` : '',
+        description: getEntityDescription(ent),
         alias: (ent.aliases || [])[0] || '',
         aliases: ent.aliases || [],
         facts: (ent.facts || []).map((f: any) => ({
@@ -312,27 +314,33 @@ export const useWorldStore = create<WorldState>((set, get) => ({
   
   updateEntity: async (id, updated) => {
     const activeWorldId = get().activeWorldId;
-    if (activeWorldId) {
-      try {
-        const body: Record<string, any> = {};
-        if (updated.name !== undefined) body.canonical_name = updated.name;
-        if (updated.type !== undefined) body.entity_type = updated.type;
-        if (updated.description !== undefined || updated.subtype !== undefined) {
-          body.attributes = {
-            description: updated.description,
-            subtype: updated.subtype
-          };
-        }
-        await apiFetch(`/worlds/${activeWorldId}/entities/${id}`, {
-          method: 'PUT',
-          body: JSON.stringify(body)
-        });
-      } catch (err) {
-        console.error("Failed to update entity on API", err);
-      }
-    }
+    if (!activeWorldId) throw new Error('Select a world before editing an entity.');
+    const body: Record<string, unknown> = {};
+    if (updated.name !== undefined) body.canonical_name = updated.name;
+    if (updated.type !== undefined) body.entity_type = updated.type;
+    const attributes: Record<string, unknown> = {};
+    if (updated.description !== undefined) attributes.description = updated.description;
+    if (updated.subtype !== undefined) attributes.subtype = updated.subtype;
+    if (Object.keys(attributes).length) body.attributes = attributes;
+    const response = await apiFetch<EntityResponse>(`/worlds/${activeWorldId}/entities/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(body)
+    });
+    if (get().activeWorldId !== activeWorldId) return;
     set((state) => ({
-      entities: state.entities.map((e) => e.id === id ? { ...e, ...updated } : e)
+      entities: state.entities.map((e) => e.id === id ? {
+        ...e,
+        ...updated,
+        description: getEntityDescription(response),
+        facts: (response.facts || []).map(fact => ({
+          id: fact.id,
+          text: `${fact.property_name}: ${fact.current_version?.value ?? ''}`,
+          source: fact.current_version?.chapter_id || 'System',
+          type: 'extracted',
+          property_name: fact.property_name,
+          value: fact.current_version?.value
+        }))
+      } : e)
     }));
   },
   
@@ -387,7 +395,7 @@ export const useWorldStore = create<WorldState>((set, get) => ({
           id: survivor.id,
           name: survivor.canonical_name,
           type: survivor.entity_type as any,
-          description: (survivor.aliases || []).length ? `Also called: ${survivor.aliases.join(', ')}` : '',
+          description: getEntityDescription(survivor),
           alias: (survivor.aliases || [])[0] || '',
           aliases: survivor.aliases || [],
           facts: (survivor.facts || []).map((f: any) => ({
@@ -496,8 +504,7 @@ export const useWorldStore = create<WorldState>((set, get) => ({
             return {
               ...e,
               alias: (updated.aliases || [])[0] || '',
-              aliases: updated.aliases || [],
-              description: (updated.aliases || []).length ? `Also called: ${updated.aliases.join(', ')}` : e.description
+              aliases: updated.aliases || []
             };
           }
           return e;
@@ -526,8 +533,7 @@ export const useWorldStore = create<WorldState>((set, get) => ({
             return {
               ...e,
               alias: newAliases[0] || '',
-              aliases: newAliases,
-              description: newAliases.length ? `Also called: ${newAliases.join(', ')}` : ''
+              aliases: newAliases
             };
           }
           return e;

@@ -4,6 +4,7 @@ import type { Entity } from '../types/world';
 import { useNavigate, useParams } from 'react-router-dom';
 import { apiFetch } from '../api/client';
 import { createRelationship, deleteRelationship } from '../api/relationships';
+import { getEntityDescription } from '../utils/entityDescription';
 
 interface EntityRelationshipDetail {
   id?: string;
@@ -59,6 +60,7 @@ export const EntityPanel: React.FC<EntityPanelProps> = ({ entityId, onClose }) =
     canonical_name?: string;
     entity_type?: Entity['type'];
     aliases?: string[];
+    description: string;
   } | null>(null);
   const [loadingDetails, setLoadingDetails] = useState(false);
   const [detailError, setDetailError] = useState<string | null>(null);
@@ -69,6 +71,10 @@ export const EntityPanel: React.FC<EntityPanelProps> = ({ entityId, onClose }) =
   const [relationChapterId, setRelationChapterId] = useState('');
   const [relationBusy, setRelationBusy] = useState(false);
   const [relationError, setRelationError] = useState<string | null>(null);
+  const [isEditingDescription, setIsEditingDescription] = useState(false);
+  const [descriptionDraft, setDescriptionDraft] = useState('');
+  const [isSavingDescription, setIsSavingDescription] = useState(false);
+  const [entityError, setEntityError] = useState<string | null>(null);
 
   const [factProperty, setFactProperty] = useState('');
   const [factValue, setFactValue] = useState('');
@@ -99,6 +105,7 @@ export const EntityPanel: React.FC<EntityPanelProps> = ({ entityId, onClose }) =
           canonical_name: res.canonical_name,
           entity_type: res.entity_type,
           aliases: res.aliases,
+          description: getEntityDescription(res),
         });
       })
       .catch((err) => {
@@ -134,7 +141,7 @@ export const EntityPanel: React.FC<EntityPanelProps> = ({ entityId, onClose }) =
     subtype: 'Ledger Entry',
     alias: (detailData.aliases || [])[0] || '',
     aliases: detailData.aliases || [],
-    description: '',
+    description: detailData.description,
     traits: [],
     facts: [],
     relationships: detailData.relationships || [],
@@ -287,19 +294,42 @@ export const EntityPanel: React.FC<EntityPanelProps> = ({ entityId, onClose }) =
     }
   };
 
-  const handleAddTrait = () => {
+  const reportEntityError = (error: unknown) => {
+    setEntityError(error instanceof Error ? error.message : 'Failed to update entity.');
+  };
+
+  const handleSaveDescription = async (event: React.FormEvent) => {
+    event.preventDefault();
+    if (isSavingDescription) return;
+    setIsSavingDescription(true);
+    setEntityError(null);
+    try {
+      await updateEntity(displayEntity.id, { description: descriptionDraft.trim() });
+      setIsEditingDescription(false);
+    } catch (error) {
+      reportEntityError(error);
+    } finally {
+      setIsSavingDescription(false);
+    }
+  };
+
+  const handleAddTrait = async () => {
     if (newTrait.trim()) {
       const updatedTraits = [...(displayEntity.traits || []), newTrait.trim()];
-      updateEntity(displayEntity.id, { traits: updatedTraits });
-      setNewTrait('');
-      setIsAddingTrait(false);
+      try {
+        await updateEntity(displayEntity.id, { traits: updatedTraits });
+        setNewTrait('');
+        setIsAddingTrait(false);
+      } catch (error) {
+        reportEntityError(error);
+      }
     }
   };
 
   const handleRemoveTrait = (traitIndex: number) => {
     if (displayEntity.traits) {
       const updatedTraits = displayEntity.traits.filter((_, idx) => idx !== traitIndex);
-      updateEntity(displayEntity.id, { traits: updatedTraits });
+      updateEntity(displayEntity.id, { traits: updatedTraits }).catch(reportEntityError);
     }
   };
 
@@ -357,7 +387,7 @@ export const EntityPanel: React.FC<EntityPanelProps> = ({ entityId, onClose }) =
               <label className="text-[10px] font-label-sm text-on-surface-variant/60 uppercase tracking-widest">Type:</label>
               <select
                 value={displayEntity.type}
-                onChange={(e) => updateEntity(displayEntity.id, { type: e.target.value as Entity['type'] })}
+                onChange={(e) => updateEntity(displayEntity.id, { type: e.target.value as Entity['type'] }).catch(reportEntityError)}
                 className={`font-label-sm text-[11px] uppercase tracking-wider py-0.5 px-2.5 rounded-full border bg-surface-container cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary ${getTypeColor(displayEntity.type)}`}
               >
                 <option value="character" className="bg-void-black text-starlight-white">Character</option>
@@ -409,6 +439,7 @@ export const EntityPanel: React.FC<EntityPanelProps> = ({ entityId, onClose }) =
 
       {/* Scrollable Content */}
       <div className="flex-1 overflow-y-auto p-6 space-y-6">
+        {entityError && <p role="alert" className="text-sm text-error">{entityError}</p>}
         
         {activeTab === 'details' && (
           <>
@@ -501,10 +532,25 @@ export const EntityPanel: React.FC<EntityPanelProps> = ({ entityId, onClose }) =
 
             {/* Description */}
             <div>
-              <p className="font-label-sm text-label-sm text-on-surface-variant/60 uppercase text-[10px] mb-2">Synopsis</p>
-              <p className="font-body-md text-body-md text-on-surface-variant text-sm leading-relaxed bg-surface-container-lowest/30 p-3 rounded border border-starlight-white/5">
+              <div className="flex items-center justify-between mb-2">
+                <p className="font-label-sm text-on-surface-variant/60 uppercase text-[10px]">Description / Synopsis</p>
+                {!isEditingDescription && <button
+                  aria-label="Edit description"
+                  onClick={() => { setDescriptionDraft(displayEntity.description); setIsEditingDescription(true); setEntityError(null); }}
+                  className="text-xs text-primary hover:underline"
+                >Edit</button>}
+              </div>
+              {isEditingDescription ? (
+                <form onSubmit={handleSaveDescription} className="space-y-3">
+                  <textarea autoFocus aria-label="Entity description" value={descriptionDraft} onChange={event => setDescriptionDraft(event.target.value)} disabled={isSavingDescription} rows={5} className="w-full p-3 rounded border border-primary/30 bg-surface-container-lowest text-sm text-on-surface-variant leading-relaxed focus:outline-none focus:border-primary disabled:opacity-50" />
+                  <div className="flex justify-end gap-3">
+                    <button type="button" disabled={isSavingDescription} onClick={() => { setIsEditingDescription(false); setEntityError(null); }} className="text-xs text-on-surface-variant hover:text-white">Cancel</button>
+                    <button type="submit" disabled={isSavingDescription} className="px-3 py-2 rounded bg-primary text-void-black text-xs disabled:opacity-50">{isSavingDescription ? 'Saving...' : 'Save description'}</button>
+                  </div>
+                </form>
+              ) : <p className="font-body-md text-on-surface-variant text-sm leading-relaxed whitespace-pre-wrap bg-surface-container-lowest/30 p-3 rounded border border-starlight-white/5">
                 {displayEntity.description || 'No description provided.'}
-              </p>
+              </p>}
             </div>
 
             {/* Traits */}
