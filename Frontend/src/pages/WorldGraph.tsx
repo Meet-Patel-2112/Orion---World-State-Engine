@@ -59,7 +59,9 @@ export const WorldGraph: React.FC = () => {
     setActiveEntity, 
     manuscripts, 
     fetchManuscriptsForWorld, 
-    fetchEntitiesForWorld 
+    fetchEntitiesForWorld,
+    relationshipRevision,
+    notifyRelationshipsChanged
   } = useWorldStore();
 
   const [searchQuery, setSearchQuery] = useState('');
@@ -125,6 +127,7 @@ export const WorldGraph: React.FC = () => {
 
   // Node Dragging state
   const [draggingNodeId, setDraggingNodeId] = useState<string | null>(null);
+  const [connectionDraft, setConnectionDraft] = useState<{ sourceId: string; x: number; y: number } | null>(null);
   const dragStartPos = useRef({ x: 0, y: 0 });
   const nodeStartPos = useRef({ x: 0, y: 0 });
   const dragDistanceRef = useRef(0);
@@ -240,7 +243,7 @@ export const WorldGraph: React.FC = () => {
 
   useEffect(() => {
     fetchGraph();
-  }, [fetchGraph]);
+  }, [fetchGraph, relationshipRevision]);
 
   // Non-passive wheel listener for Ctrl + Scroll zoom & trackpad pinch
   useEffect(() => {
@@ -298,6 +301,7 @@ export const WorldGraph: React.FC = () => {
           setSelectedEdgeId(null);
           setSelectedRelData(null);
           setIsAddRelOpen(false);
+          setConnectionDraft(null);
         }
       } else if (e.key === 'ArrowLeft') {
         e.preventDefault();
@@ -320,6 +324,7 @@ export const WorldGraph: React.FC = () => {
 
   // Node Dragging Handlers
   const handleNodeMouseDown = (nodeId: string, e: React.MouseEvent) => {
+    if (e.button !== 0) return;
     e.stopPropagation(); // Prevent canvas pan
     e.preventDefault();
     const node = nodes.find((n) => n.id === nodeId);
@@ -338,7 +343,10 @@ export const WorldGraph: React.FC = () => {
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (draggingNodeId) {
+    if (connectionDraft && containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+      setConnectionDraft({ ...connectionDraft, x: (e.clientX - rect.left - pan.x) / zoomScale, y: (e.clientY - rect.top - pan.y) / zoomScale });
+    } else if (draggingNodeId) {
       const dx = (e.clientX - dragStartPos.current.x) / zoomScale;
       const dy = (e.clientY - dragStartPos.current.y) / zoomScale;
       dragDistanceRef.current += Math.hypot(e.movementX || 0, e.movementY || 0);
@@ -359,7 +367,20 @@ export const WorldGraph: React.FC = () => {
     }
   };
 
-  const handleMouseUp = () => {
+  const handleMouseUp = (event: React.MouseEvent) => {
+    if (connectionDraft) {
+      const targetId = (event.target as Element).closest<HTMLElement>('[data-node-id]')?.dataset.nodeId;
+      if (event.type !== 'mouseleave' && targetId && targetId !== connectionDraft.sourceId) {
+        setNewRelSource(connectionDraft.sourceId);
+        setNewRelTarget(targetId);
+        setNewRelType('ALLY_OF');
+        setCustomNewRelType('');
+        setNewRelChapterId('');
+        setIsAddRelOpen(true);
+      }
+      dragDistanceRef.current = 10;
+      setConnectionDraft(null);
+    }
     setDraggingNodeId(null);
     setIsPanning(false);
   };
@@ -422,7 +443,7 @@ export const WorldGraph: React.FC = () => {
       });
       setSelectedRelData(updated);
       setIsEditingRelType(false);
-      await fetchGraph();
+      notifyRelationshipsChanged();
     } catch (err: any) {
       console.error('Failed to update relationship:', err);
       setRelActionError(err?.message || 'Failed to update relationship');
@@ -439,7 +460,7 @@ export const WorldGraph: React.FC = () => {
       await deleteRelationship(worldId, selectedEdgeId);
       setSelectedEdgeId(null);
       setSelectedRelData(null);
-      await fetchGraph();
+      notifyRelationshipsChanged();
     } catch (err: any) {
       console.error('Failed to delete relationship:', err);
       setRelActionError(err?.message || 'Failed to delete relationship');
@@ -469,7 +490,7 @@ export const WorldGraph: React.FC = () => {
         chapter_id: newRelChapterId || null,
       });
       setIsAddRelOpen(false);
-      await fetchGraph();
+      notifyRelationshipsChanged();
     } catch (err: any) {
       console.error('Failed to create relationship:', err);
       alert(err?.message || 'Failed to create relationship');
@@ -694,6 +715,7 @@ export const WorldGraph: React.FC = () => {
               <span className="material-symbols-outlined text-sm">add_link</span>
               Add Relationship
             </button>
+            <p className="text-[11px] text-on-surface-variant/60 leading-relaxed">Drag the arrow handle on a node onto another node to create a relationship. Press Esc to cancel.</p>
 
             {/* Filters */}
             <div className="flex flex-col gap-3">
@@ -836,6 +858,9 @@ export const WorldGraph: React.FC = () => {
               style={{ overflow: 'visible' }}
             >
               <defs>
+                <marker id="arrow-draft" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#feb68d" />
+                </marker>
                 <marker
                   id="arrow"
                   viewBox="0 0 10 10"
@@ -860,6 +885,10 @@ export const WorldGraph: React.FC = () => {
                 </marker>
               </defs>
 
+              {connectionDraft && (() => {
+                const source = nodes.find(node => node.id === connectionDraft.sourceId);
+                return source ? <line x1={source.x} y1={source.y} x2={connectionDraft.x} y2={connectionDraft.y} stroke="#feb68d" strokeWidth={2} strokeDasharray="6 4" markerEnd="url(#arrow-draft)" /> : null;
+              })()}
               {/* Edge Lines & Interactive Hit Areas */}
               {visibleEdges.map((edge) => {
                 const fromNode = visibleNodes.find((n) => n.id === edge.from);
@@ -959,6 +988,7 @@ export const WorldGraph: React.FC = () => {
               return (
                 <div
                   key={node.id}
+                  data-node-id={node.id}
                   onMouseDown={(e) => handleNodeMouseDown(node.id, e)}
                   onMouseEnter={() => setHoveredNodeId(node.id)}
                   onMouseLeave={() => setHoveredNodeId(null)}
@@ -967,6 +997,7 @@ export const WorldGraph: React.FC = () => {
                   role="button"
                   aria-label={`${node.name}, ${node.type}, ${node.degree} connections`}
                   onKeyDown={(e) => {
+                    if (e.target !== e.currentTarget) return;
                     if (e.key === 'Enter' || e.key === ' ') {
                       e.preventDefault();
                       handleNodeClick(node.id);
@@ -1001,6 +1032,20 @@ export const WorldGraph: React.FC = () => {
                       )}
                     </div>
 
+                    <button
+                      aria-label={`Drag relationship from ${node.name}`}
+                      title="Drag onto another node to create a relationship"
+                      onMouseDown={event => {
+                        event.stopPropagation();
+                        event.preventDefault();
+                        if (event.button !== 0) return;
+                        dragDistanceRef.current = 10;
+                        setConnectionDraft({ sourceId: node.id, x: node.x + 36, y: node.y });
+                      }}
+                      onClick={event => event.stopPropagation()}
+                      className="absolute -right-5 top-3 z-20 w-5 h-5 rounded-full bg-primary text-void-black border border-primary flex items-center justify-center cursor-crosshair hover:scale-110"
+                    ><span className="material-symbols-outlined text-sm">arrow_forward</span></button>
+
                     {/* Label */}
                     <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 whitespace-nowrap text-center pointer-events-none select-none">
                       <p
@@ -1024,6 +1069,7 @@ export const WorldGraph: React.FC = () => {
           <div className="absolute bottom-gutter right-gutter flex items-center gap-2 z-30 select-none">
             <button
               onClick={handleZoomIn}
+              aria-label="Zoom In (+)"
               className="w-10 h-10 bg-surface-container-high/90 border border-starlight-white/10 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-primary hover:border-primary/50 transition-all shadow-lg hover:bg-surface-container"
               title="Zoom In (+)"
             >
@@ -1031,6 +1077,7 @@ export const WorldGraph: React.FC = () => {
             </button>
             <button
               onClick={handleZoomOut}
+              aria-label="Zoom Out (-)"
               className="w-10 h-10 bg-surface-container-high/90 border border-starlight-white/10 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-primary hover:border-primary/50 transition-all shadow-lg hover:bg-surface-container"
               title="Zoom Out (-)"
             >
@@ -1285,6 +1332,7 @@ export const WorldGraph: React.FC = () => {
                 </label>
                 <select
                   value={newRelSource}
+                  aria-label="Source entity"
                   onChange={(e) => setNewRelSource(e.target.value)}
                   className="w-full rounded-lg bg-surface-container-high border border-starlight-white/10 px-3 py-2 text-sm text-starlight-white focus:outline-none focus:border-primary/50"
                   required
@@ -1304,6 +1352,7 @@ export const WorldGraph: React.FC = () => {
                 </label>
                 <select
                   value={newRelTarget}
+                  aria-label="Target entity"
                   onChange={(e) => setNewRelTarget(e.target.value)}
                   className="w-full rounded-lg bg-surface-container-high border border-starlight-white/10 px-3 py-2 text-sm text-starlight-white focus:outline-none focus:border-primary/50"
                   required

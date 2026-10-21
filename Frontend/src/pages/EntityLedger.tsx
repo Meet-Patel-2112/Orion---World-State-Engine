@@ -2,8 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { AppShell } from '../components/AppShell';
 import { useWorldStore } from '../store/useWorldStore';
 import type { Entity } from '../types/world';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getTimeline } from '../api/events';
 
 export const EntityLedger: React.FC = () => {
+  const navigate = useNavigate();
+  const { worldId } = useParams<{ worldId: string }>();
   const { 
     entities, 
     activeWorldId, 
@@ -15,12 +19,25 @@ export const EntityLedger: React.FC = () => {
   } = useWorldStore();
 
   useEffect(() => {
-    if (activeWorldId) {
-      fetchEntitiesForWorld(activeWorldId);
+    if (worldId && activeWorldId === worldId) {
+      fetchEntitiesForWorld(worldId);
     }
-  }, [activeWorldId, fetchEntitiesForWorld]);
+  }, [worldId, activeWorldId, fetchEntitiesForWorld]);
+
+  const [eventSummary, setEventSummary] = useState<{ worldId: string; count?: number; error?: boolean } | null>(null);
+  const eventCount = eventSummary?.worldId === worldId ? eventSummary.count : null;
+  const eventCountError = eventSummary?.worldId === worldId && eventSummary.error;
+  useEffect(() => {
+    let cancelled = false;
+    if (worldId) getTimeline(worldId).then(data => {
+      if (!cancelled) setEventSummary({ worldId, count: data.total });
+    }).catch(() => {
+      if (!cancelled) setEventSummary({ worldId, error: true });
+    });
+    return () => { cancelled = true; };
+  }, [worldId]);
   
-  const [activeTab, setActiveTab] = useState<'all' | 'character' | 'location' | 'object' | 'event'>('all');
+  const [activeTab, setActiveTab] = useState<'all' | 'character' | 'location' | 'object'>('all');
   const [searchQuery, setSearchQuery] = useState('');
   
   // Selection mode states
@@ -40,7 +57,9 @@ export const EntityLedger: React.FC = () => {
 
   // Forge Entity Form Drawer states
   const [isCreateDrawerOpen, setIsCreateDrawerOpen] = useState(false);
-  const [createType, setCreateType] = useState<'character' | 'location' | 'object' | 'event'>('character');
+  const [createType, setCreateType] = useState<'character' | 'location' | 'object'>('character');
+  const [isCreating, setIsCreating] = useState(false);
+  const [createError, setCreateError] = useState<string | null>(null);
   const [entityName, setEntityName] = useState('');
   const [entitySubtype, setEntitySubtype] = useState('');
   const [entityAlias, setEntityAlias] = useState('');
@@ -123,21 +142,30 @@ export const EntityLedger: React.FC = () => {
     setEntitySubtype('');
     setEntityAlias('');
     setEntityDesc('');
+    setCreateError(null);
     setIsCreateDrawerOpen(true);
   };
 
-  const handleForgeEntity = (e: React.FormEvent) => {
+  const handleForgeEntity = async (e: React.FormEvent) => {
     e.preventDefault();
     if (entityName.trim() && entityDesc.trim()) {
-      addEntity({
-        id: `entity-${Date.now()}`,
-        name: entityName.trim(),
-        type: createType,
-        subtype: entitySubtype.trim() || undefined,
-        alias: entityAlias.trim() || undefined,
-        description: entityDesc.trim()
-      });
-      setIsCreateDrawerOpen(false);
+      setIsCreating(true);
+      setCreateError(null);
+      try {
+        await addEntity({
+          id: `entity-${Date.now()}`,
+          name: entityName.trim(),
+          type: createType,
+          subtype: entitySubtype.trim() || undefined,
+          alias: entityAlias.trim() || undefined,
+          description: entityDesc.trim()
+        });
+        setIsCreateDrawerOpen(false);
+      } catch (err) {
+        setCreateError(err instanceof Error ? err.message : 'Failed to create entity.');
+      } finally {
+        setIsCreating(false);
+      }
     }
   };
 
@@ -205,6 +233,7 @@ export const EntityLedger: React.FC = () => {
 
               <button 
                 onClick={() => handleOpenCreateDrawer('character')}
+                aria-label="Forge Entity"
                 className="flex items-center gap-2 font-label-sm text-xs px-4 py-2.5 rounded-lg uppercase tracking-wider font-semibold bg-primary hover:bg-copper-glow text-void-black shadow-lg shadow-primary/10 hover:shadow-primary/25 transition-all duration-300"
               >
                 <span className="material-symbols-outlined text-base font-medium">add</span>
@@ -222,8 +251,7 @@ export const EntityLedger: React.FC = () => {
                 { id: 'all', label: 'All Entries', icon: 'list', count: entities.length },
                 { id: 'character', label: 'Characters', icon: 'group', count: entities.filter(e => e.type === 'character').length },
                 { id: 'location', label: 'Locations', icon: 'location_on', count: entities.filter(e => e.type === 'location').length },
-                { id: 'object', label: 'Objects', icon: 'category', count: entities.filter(e => e.type === 'object').length },
-                { id: 'event', label: 'Events', icon: 'event_note', count: entities.filter(e => e.type === 'event').length }
+                { id: 'object', label: 'Objects', icon: 'category', count: entities.filter(e => e.type === 'object').length }
               ] as const).map(tab => (
                 <button
                   key={tab.id}
@@ -243,6 +271,15 @@ export const EntityLedger: React.FC = () => {
                   </span>
                 </button>
               ))}
+              <button
+                onClick={() => navigate(`/worlds/${worldId}/timeline`)}
+                title={eventCountError ? 'Could not load event count. Open Timeline to retry.' : 'View and manage events in Timeline'}
+                className="flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs uppercase tracking-wider text-on-surface-variant hover:text-white hover:bg-white/5"
+              >
+                <span className="material-symbols-outlined text-[15px]">event_note</span>
+                Events <span className="text-[10px]">{eventCount ?? '—'}</span>
+                <span className="material-symbols-outlined text-sm">arrow_forward</span>
+              </button>
             </div>
 
             {/* Search Input */}
@@ -700,6 +737,7 @@ export const EntityLedger: React.FC = () => {
                   onClick={() => setIsCreateDrawerOpen(false)}
                   className="text-on-surface-variant hover:text-white p-1 rounded-full hover:bg-white/5 transition-colors"
                   title="Close Drawer"
+                  aria-label="Close Drawer"
                 >
                   <span className="material-symbols-outlined font-light text-xl">close</span>
                 </button>
@@ -709,7 +747,7 @@ export const EntityLedger: React.FC = () => {
             {/* Scrollable Form Body */}
             <form id="forge-entity-form" onSubmit={handleForgeEntity} className="flex-1 overflow-y-auto p-6 space-y-6">
               
-              {/* Entity Type Selector (4 Types) */}
+              {/* Entity Type Selector */}
               <div>
                 <label className="block text-[10px] font-label-sm text-on-surface-variant/80 uppercase tracking-widest mb-2.5">
                   Select Entity Type
@@ -718,8 +756,7 @@ export const EntityLedger: React.FC = () => {
                   {([
                     { type: 'character', label: 'Character', icon: 'group', color: 'text-copper-glow', border: 'border-copper-glow/40 bg-copper-glow/5 ring-copper-glow/30' },
                     { type: 'location', label: 'Location', icon: 'location_on', color: 'text-secondary', border: 'border-secondary/40 bg-secondary/5 ring-secondary/30' },
-                    { type: 'object', label: 'Object', icon: 'category', color: 'text-tertiary', border: 'border-tertiary/40 bg-tertiary/5 ring-tertiary/30' },
-                    { type: 'event', label: 'Event', icon: 'event_note', color: 'text-error', border: 'border-error/40 bg-error/5 ring-error/30' }
+                    { type: 'object', label: 'Object', icon: 'category', color: 'text-tertiary', border: 'border-tertiary/40 bg-tertiary/5 ring-tertiary/30' }
                   ] as const).map(item => {
                     const isSelected = createType === item.type;
                     return (
@@ -748,6 +785,7 @@ export const EntityLedger: React.FC = () => {
                     );
                   })}
                 </div>
+                <p className="text-xs text-on-surface-variant/60 mt-3">Create and manage events in the Timeline section.</p>
               </div>
 
               {/* Name Field */}
@@ -758,13 +796,13 @@ export const EntityLedger: React.FC = () => {
                 <input 
                   type="text"
                   required
+                  maxLength={255}
                   value={entityName}
                   onChange={(e) => setEntityName(e.target.value)}
                   placeholder={
                     createType === 'character' ? 'e.g. Valerius Thorne' :
                     createType === 'location' ? 'e.g. The Iron Valley' :
-                    createType === 'object' ? 'e.g. Aetheric Compass' :
-                    'e.g. The Siege of Oakhaven'
+                    'e.g. Aetheric Compass'
                   }
                   className="w-full bg-void-black text-sm text-starlight-white placeholder:text-on-surface-variant/30 border border-starlight-white/10 rounded-lg p-3 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all"
                 />
@@ -782,8 +820,7 @@ export const EntityLedger: React.FC = () => {
                   placeholder={
                     createType === 'character' ? 'e.g. High Commander / Inquisitor' :
                     createType === 'location' ? 'e.g. Ancient Ruins / Fortified Citadel' :
-                    createType === 'object' ? 'e.g. Legendary Relic / Arcane Tome' :
-                    'e.g. Historical Battle / Treaty'
+                    'e.g. Legendary Relic / Arcane Tome'
                   }
                   className="w-full bg-void-black text-sm text-starlight-white placeholder:text-on-surface-variant/30 border border-starlight-white/10 rounded-lg p-3 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all"
                 />
@@ -818,6 +855,7 @@ export const EntityLedger: React.FC = () => {
                 />
               </div>
 
+              {createError && <p role="alert" className="text-sm text-error">{createError}</p>}
             </form>
 
             {/* Footer Actions */}
@@ -832,9 +870,10 @@ export const EntityLedger: React.FC = () => {
               <button 
                 type="submit"
                 form="forge-entity-form"
+                disabled={isCreating}
                 className="px-6 py-2.5 bg-primary hover:bg-copper-glow text-void-black font-label-sm text-xs uppercase tracking-widest font-semibold rounded-lg shadow-lg hover:shadow-primary/20 transition-all duration-300"
               >
-                Forge Entity
+                {isCreating ? 'Creating...' : 'Forge Entity'}
               </button>
             </div>
 

@@ -26,6 +26,8 @@ interface WorldState {
   
   // Navigation / Panel states
   isEntityPanelOpen: boolean;
+  relationshipRevision: number;
+  notifyRelationshipsChanged: () => void;
   
   // Actions
   setActiveWorld: (id: string | null) => void;
@@ -85,6 +87,8 @@ export const useWorldStore = create<WorldState>((set, get) => ({
   activeTimelineEventId: null,
   
   isEntityPanelOpen: false,
+  relationshipRevision: 0,
+  notifyRelationshipsChanged: () => set(state => ({ relationshipRevision: state.relationshipRevision + 1 })),
   
   setActiveWorld: (id) => set({ 
     activeWorldId: id,
@@ -167,7 +171,7 @@ export const useWorldStore = create<WorldState>((set, get) => ({
         appearances: []
       }));
 
-      set({ entities: mapped });
+      if (get().activeWorldId === worldId) set({ entities: mapped });
     } catch (e) {
       console.error("Could not fetch entities from API", e);
     }
@@ -253,6 +257,7 @@ export const useWorldStore = create<WorldState>((set, get) => ({
   },
   
   addEntity: async (entityData) => {
+    if (entityData.type === 'event') throw new Error('Create events in Timeline.');
     const activeWorldId = get().activeWorldId;
     let newId = `entity-${Date.now()}`;
     let createdEntity: Entity = {
@@ -263,7 +268,7 @@ export const useWorldStore = create<WorldState>((set, get) => ({
       appearances: []
     };
 
-    if (!activeWorldId) return;                      // nowhere to save it
+    if (!activeWorldId) throw new Error('Select a world before creating an entity.');
     try {
       const res = await apiFetch<any>(`/worlds/${activeWorldId}/entities`, {
         method: 'POST',
@@ -277,8 +282,10 @@ export const useWorldStore = create<WorldState>((set, get) => ({
       createdEntity.id = res.id;
     } catch (err) {
       console.error("Failed to create entity on API; not added", err);
-      return;                                        // a local-only entity would look saved but isn't
+      throw err;
     }
+
+    if (get().activeWorldId !== activeWorldId) return;
 
     set((state) => {
       const updatedWorlds = state.worlds.map((w) => {
@@ -288,8 +295,7 @@ export const useWorldStore = create<WorldState>((set, get) => ({
             entityCount: w.entityCount + 1,
             characterCount: entityData.type === 'character' ? w.characterCount + 1 : w.characterCount,
             locationCount: entityData.type === 'location' ? w.locationCount + 1 : w.locationCount,
-            objectCount: entityData.type === 'object' ? w.objectCount + 1 : w.objectCount,
-            eventCount: entityData.type === 'event' ? w.eventCount + 1 : w.eventCount
+            objectCount: entityData.type === 'object' ? w.objectCount + 1 : w.objectCount
           };
         }
         return w;
@@ -350,8 +356,7 @@ export const useWorldStore = create<WorldState>((set, get) => ({
             entityCount: Math.max(0, w.entityCount - 1),
             characterCount: entityToDelete.type === 'character' ? Math.max(0, w.characterCount - 1) : w.characterCount,
             locationCount: entityToDelete.type === 'location' ? Math.max(0, w.locationCount - 1) : w.locationCount,
-            objectCount: entityToDelete.type === 'object' ? Math.max(0, w.objectCount - 1) : w.objectCount,
-            eventCount: entityToDelete.type === 'event' ? Math.max(0, w.eventCount - 1) : w.eventCount
+            objectCount: entityToDelete.type === 'object' ? Math.max(0, w.objectCount - 1) : w.objectCount
           };
         }
         return w;
@@ -404,8 +409,7 @@ export const useWorldStore = create<WorldState>((set, get) => ({
               entityCount: Math.max(0, w.entityCount - 1),
               characterCount: sourceEntity?.type === 'character' ? Math.max(0, w.characterCount - 1) : w.characterCount,
               locationCount: sourceEntity?.type === 'location' ? Math.max(0, w.locationCount - 1) : w.locationCount,
-              objectCount: sourceEntity?.type === 'object' ? Math.max(0, w.objectCount - 1) : w.objectCount,
-              eventCount: sourceEntity?.type === 'event' ? Math.max(0, w.eventCount - 1) : w.eventCount
+              objectCount: sourceEntity?.type === 'object' ? Math.max(0, w.objectCount - 1) : w.objectCount
             };
           }
           return w;
@@ -445,20 +449,17 @@ export const useWorldStore = create<WorldState>((set, get) => ({
             let charCount = w.characterCount;
             let locCount = w.locationCount;
             let objCount = w.objectCount;
-            let evCount = w.eventCount;
             for (const de of deletedEntities) {
               if (de.type === 'character') charCount = Math.max(0, charCount - 1);
               if (de.type === 'location') locCount = Math.max(0, locCount - 1);
               if (de.type === 'object') objCount = Math.max(0, objCount - 1);
-              if (de.type === 'event') evCount = Math.max(0, evCount - 1);
             }
             return {
               ...w,
               entityCount: Math.max(0, w.entityCount - deletedEntities.length),
               characterCount: charCount,
               locationCount: locCount,
-              objectCount: objCount,
-              eventCount: evCount
+              objectCount: objCount
             };
           }
           return w;
