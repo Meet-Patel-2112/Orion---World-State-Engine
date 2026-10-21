@@ -1,11 +1,11 @@
 """
-Where a contradiction comes from, and whether the author already rejected it.
+Where a contradiction comes from, and whether the author already decided it.
 
 - `sources_for`: each side of a contradiction (old/new fact or relationship version, or the two events) located in its
   chapter's current text: chapter, line, the sentence, and the span of the conflicting words, so the UI can link
   straight to it. The versions store their chapter but no offsets (no schema change, SPLIT.md Rule S.1), so the
   sentence is found by text: the one that holds the value and, preferably, the entity's name.
-- `claim_signature`: what a contradiction is about, independent of version ids, so a contradiction the author rejected
+- `claim_signature`: what a contradiction is about, independent of version ids, so a contradiction the author decided
   is not raised again when a later chapter states the same thing.
 """
 import re
@@ -20,7 +20,7 @@ from app.models.contradiction import Contradiction
 from app.models.entity import Entity
 from app.models.event import Event
 from app.models.fact import FactVersion
-from app.models.relationship import RelationshipVersion
+from app.models.relationship import Relationship, RelationshipVersion
 from app.preprocessing import preprocess_chapter
 from app.utils.file_handler import read_file_text
 
@@ -110,28 +110,56 @@ def _norm(value: Any) -> str:
     return re.sub(r"\s+", " ", str(value)).strip().casefold()
 
 
+def fact_claim_signature(fact_id: str, old_value: Any, new_value: Any) -> Tuple:
+    return ("fact", fact_id, frozenset((_norm(old_value), _norm(new_value))))
+
+
+def relationship_claim_signature(*claims: Tuple[str, str, str]) -> Tuple:
+    # Direction and the type's endpoint association are part of the claim's identity.
+    return ("relationship", frozenset((source, target, _norm(kind)) for source, target, kind in claims))
+
+
 def claim_signature(db: Session, *, old_fact_version_id=None, new_fact_version_id=None,
                     old_relationship_version_id=None, new_relationship_version_id=None,
                     event_id_a=None, event_id_b=None, **_) -> Optional[Tuple]:
     """What the contradiction is about: the fact and its two values, the pair and its two types, or the two events."""
     fvs = [db.get(FactVersion, v) for v in (old_fact_version_id, new_fact_version_id) if v]
-    if fvs and all(fvs):
-        return ("fact", fvs[0].fact_id, frozenset(_norm(f.value) for f in fvs))
+    if len(fvs) == 2 and all(fvs) and fvs[0].fact_id == fvs[1].fact_id:
+        return fact_claim_signature(fvs[0].fact_id, fvs[0].value, fvs[1].value)
     rvs = [db.get(RelationshipVersion, v) for v in (old_relationship_version_id, new_relationship_version_id) if v]
-    if rvs and all(rvs):
-        pairs = frozenset(frozenset((r.relationship.source_entity_id, r.relationship.target_entity_id)) for r in rvs)
-        return ("relationship", pairs, frozenset(_norm(r.relationship_type) for r in rvs))
+    if len(rvs) == 2 and all(rvs):
+        return relationship_claim_signature(*(
+            (r.relationship.source_entity_id, r.relationship.target_entity_id, r.relationship_type) for r in rvs))
     evs = [db.get(Event, e) for e in (event_id_a, event_id_b) if e]
     if evs and all(evs):
-        return ("event", frozenset(_norm(e.description) for e in evs))
+        return ("event", frozenset((e.chapter_id, e.event_type, _norm(e.description)) for e in evs))
     return None
 
 
-def rejected_signatures(db: Session, world_id: str) -> set:
+def decided_signatures(db: Session, world_id: str) -> set:
+    """Settled claims, including either canonical-value choice, survive fresh extraction version IDs."""
     rows = db.query(Contradiction).filter(Contradiction.world_id == world_id,
-                                          Contradiction.status == "DISMISSED").all()
+                                          Contradiction.status.in_(("RESOLVED", "DISMISSED"))).all()
     return {sig for c in rows if (sig := claim_signature(
         db, old_fact_version_id=c.old_fact_version_id, new_fact_version_id=c.new_fact_version_id,
         old_relationship_version_id=c.old_relationship_version_id,
         new_relationship_version_id=c.new_relationship_version_id,
         event_id_a=c.event_id_a, event_id_b=c.event_id_b))}
+
+
+def decided_relationship_rejections(db: Session, world_id: str, decisions: set) -> set:
+    """Rejected relationships stay rejected while the decision's other claim is still canonical.
+
+    The other claim may belong to a different pair (e.g. the author chose one of two fathers),
+    so looking only at the proposed relationship's own ACTIVE version is insufficient.
+    """
+    groups = [signature[1] for signature in decisions if signature[0] == "relationship"]
+    if not groups:
+        return set()
+    active = {(source, target, _norm(kind)) for source, target, kind in db.query(
+        Relationship.source_entity_id, Relationship.target_entity_id, RelationshipVersion.relationship_type,
+    ).join(RelationshipVersion, RelationshipVersion.relationship_id == Relationship.id).filter(
+        Relationship.world_id == world_id, RelationshipVersion.status == "ACTIVE",
+    )}
+    return {relationship_claim_signature(claim) for group in groups for claim in group
+            if (group - {claim}) & active}

@@ -41,10 +41,10 @@ class ContradictionRecorder:
             world_id=world_id, rule_prefix=f"[{finding.rule_id}]", **common
         ) is not None:
             return None
-        # The author rejected this claim before (same fact and values, same pair and types): don't raise it again
-        from app.services.contradiction_sources import claim_signature, rejected_signatures
+        # A fresh extraction gets fresh version IDs, but must still respect a settled author decision.
+        from app.services.contradiction_sources import claim_signature, decided_signatures
         signature = claim_signature(self.repo.db, **common)
-        if signature is not None and signature in rejected_signatures(self.repo.db, world_id):
+        if signature is not None and signature in decided_signatures(self.repo.db, world_id):
             return None
         return self.repo.create_contradiction(
             world_id=world_id, confidence=finding.confidence, commit=False, **common
