@@ -72,6 +72,11 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
       label: 'Contradictions',
       badge: unresolvedContradictionsCount > 0 ? unresolvedContradictionsCount : undefined
     },
+    {
+      path: `/worlds/${currentWorldId}/assistant`,
+      icon: 'chat_bubble_outline',
+      label: 'AI Assistant'
+    },
   ];
 
   const activeNavItem = navItems.find(item => currentPath === item.path ||

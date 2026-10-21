@@ -26,6 +26,10 @@ const test = base.extend({
       if (path === '/worlds/w1/manuscripts/ms1/chapters') return reply([chapter]);
       if (path === '/worlds/w1/chapters/ch1') return reply(chapter);
       if (path === '/worlds/w1/entities' && method === 'GET') return reply(state.entities);
+      if (path === '/worlds/w1/chat' && method === 'POST') return reply({
+        response: json.entity_focus ? 'I will protect Nandivan.' : 'Your world contains Arin and Mira.',
+        citations: [], suggested_actions: [],
+      });
       if (path === '/worlds/w1/entities' && method === 'POST') {
         if (state.failNextEntity) { state.failNextEntity = false; return reply({ detail: 'Entity could not be saved' }, 400); }
         const entity = { id: `entity-${state.entities.length}`, world_id: 'w1', ...json, aliases: json.aliases || [], facts: [] };
@@ -107,6 +111,36 @@ const selectText = async (page, text) => {
     document.dispatchEvent(new Event('selectionchange'));
   }, text);
 };
+
+test('assistant navigation opens character chat, sends the selected character, and survives reload', async ({ page, world }) => {
+  await page.goto('/worlds/w1/world');
+  await sidebar(page).getByRole('link', { name: 'AI Assistant', exact: true }).click();
+  await expect(page).toHaveURL(/\/worlds\/w1\/assistant$/);
+  await expect(page.getByRole('navigation', { name: 'Breadcrumb' })).toContainText('AI Assistant');
+  await expect(sidebar(page).getByRole('link', { name: 'AI Assistant', exact: true })).toHaveAttribute('aria-current', 'page');
+  const talkTo = page.getByRole('combobox', { name: /Talk to/ });
+  await talkTo.selectOption('arin');
+  await expect(page.getByRole('heading', { name: 'Talking to Arin', exact: true })).toBeVisible();
+  await expect(talkTo.getByRole('option', { name: 'Legacy event entity' })).toHaveCount(0);
+  const characterInput = page.getByPlaceholder('Ask Arin what they would do...');
+  await characterInput.fill('What would you do next?');
+  await characterInput.press('Enter');
+  await expect(page.getByText('I will protect Nandivan.', { exact: true })).toBeVisible();
+  expect(world.writes.at(-1)).toMatchObject({
+    path: '/worlds/w1/chat', method: 'POST', json: { entity_focus: 'arin', message: 'What would you do next?' },
+  });
+
+  await talkTo.selectOption('');
+  const worldInput = page.getByPlaceholder('Ask Orion about your manuscripts...');
+  await worldInput.fill('Who lives here?');
+  await worldInput.press('Enter');
+  await expect(page.getByText('Your world contains Arin and Mira.', { exact: true })).toBeVisible();
+  expect(world.writes.at(-1).json.entity_focus).toBeNull();
+  await page.reload();
+  await expect(page).toHaveURL(/\/worlds\/w1\/assistant$/);
+  await expect(page.getByRole('heading', { name: 'Orion Assistant', exact: true })).toBeVisible();
+  await expect(talkTo.getByRole('option', { name: 'Arin', exact: true })).toHaveCount(1);
+});
 
 test('ledger uses timeline counts, removes event forging, and links to Timeline', async ({ page, world }) => {
   await page.goto('/worlds/w1/world');

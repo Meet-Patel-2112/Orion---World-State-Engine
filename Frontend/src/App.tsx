@@ -11,6 +11,7 @@ import { EntityLedger } from './pages/EntityLedger';
 import { WorldGraph } from './pages/WorldGraph';
 import { WorldTimeline } from './pages/WorldTimeline';
 import { Contradictions } from './pages/Contradictions';
+import { WorldAssistant } from './pages/WorldAssistant';
 import { useAuthStore } from './store/useAuthStore';
 import { ProtectedRoute, PublicOnlyRoute } from './components/ProtectedRoute';
 
@@ -47,6 +48,7 @@ const App: React.FC = () => {
           <Route path="/worlds/:worldId/graph" element={<WorldGraph />} />
           <Route path="/worlds/:worldId/timeline" element={<WorldTimeline />} />
           <Route path="/worlds/:worldId/contradictions" element={<Contradictions />} />
+          <Route path="/worlds/:worldId/assistant" element={<WorldAssistant />} />
         </Route>
 
         {/* Fallbacks */}
