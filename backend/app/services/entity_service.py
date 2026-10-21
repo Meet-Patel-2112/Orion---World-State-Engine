@@ -67,8 +67,12 @@ class EntityService:
 
         if attributes:
             for prop_name, val in attributes.items():
-                fact = self.fact_repo.get_or_create_fact(entity.id, prop_name)
-                self.fact_repo.add_version(fact.id, value=val)
+                fact = self.fact_repo.get_or_create_fact(entity.id, prop_name, commit=False)
+                previous_active = [version for version in fact.versions if version.status == FactStatus.ACTIVE.value]
+                self.fact_repo.add_version(fact.id, value=val, commit=False)
+                for version in previous_active:
+                    version.status = FactStatus.SUPERSEDED.value
+            self.db.commit()
 
         return self.get_entity(entity_id)
 
