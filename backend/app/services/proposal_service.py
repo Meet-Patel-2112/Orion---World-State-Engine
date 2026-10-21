@@ -19,6 +19,9 @@ from app.models.fact import Fact
 from app.models.relationship import Relationship
 from app.pipeline.resolution.fact_resolution import compare_fact_values
 from app.services.world_state_service import WorldStateService
+from app.services.contradiction_sources import (
+    decided_relationship_rejections, decided_signatures, fact_claim_signature, relationship_claim_signature,
+)
 
 # Read the same in both directions, so an existing B -> A edge is the A -> B the extractor proposes
 SYMMETRIC = {"FRIEND_OF", "ENEMY_OF", "SIBLING_OF", "MARRIED_TO", "ALLY_OF", "KNOWS", "RELATED_TO", "ENGAGED_TO"}
@@ -46,6 +49,8 @@ class ProposalService:
     def build(self, world_id: str, job_id: str, chapter_id: str, chapter_number: int,
               extraction: Dict[str, Any]) -> Dict[str, Any]:
         proposals: List[Dict[str, Any]] = []
+        decisions = decided_signatures(self.db, world_id)
+        rejected_relationships = decided_relationship_rejections(self.db, world_id, decisions)
         ref_of: Dict[str, Dict[str, str]] = {}            # lower-cased name or alias -> {"entity_id"} or {"entity_ref"}
         next_id = lambda: f"p-{len(proposals) + 1:03d}"
 
@@ -83,6 +88,8 @@ class ProposalService:
                     current = {"fact_version_id": active.id, "value": active.value} if active else None
                 change = ("new" if current is None else
                           "known" if compare_fact_values(current["value"], value) else "changed")
+                if change == "changed" and fact_claim_signature(fact.id, current["value"], value) in decisions:
+                    continue
                 summary = (f"{label} {prop}: {current['value']} → {value}" if change == "changed"
                            else f"{label} {prop}: {value}")
                 proposals.append({"id": next_id(), "kind": "fact", "change": change, "summary": summary,
@@ -104,6 +111,10 @@ class ProposalService:
             if not src or not dst or src == dst or (key := (str(src), predicate, str(dst))) in seen:
                 continue
             seen.add(key)
+            if "entity_id" in src and "entity_id" in dst and relationship_claim_signature(
+                (src["entity_id"], dst["entity_id"], predicate),
+            ) in rejected_relationships:
+                continue
             current = self._current_relationship(world_id, src, dst, predicate)
             change = ("new" if current is None else
                       "known" if current["relationship_type"].upper() == predicate else "changed")
