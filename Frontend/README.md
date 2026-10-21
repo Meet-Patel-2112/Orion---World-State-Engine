@@ -1,5 +1,12 @@
 # React + TypeScript + Vite
 
+## Browser regression tests
+
+Run `npm install`, then `npx playwright install chromium` and `npm run test:e2e`.
+The suite starts Vite and supplies isolated API fixtures; it never writes to a real world database.
+It covers ledger event counts, entity-card relationships, graph connections, chapter text selections,
+and page navigation. Set `PLAYWRIGHT_CHANNEL=msedge` to use an installed Microsoft Edge browser.
+
 This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
 
 Currently, two official plugins are available:

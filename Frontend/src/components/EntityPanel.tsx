@@ -3,6 +3,7 @@ import { useWorldStore } from '../store/useWorldStore';
 import type { Entity } from '../types/world';
 import { useNavigate, useParams } from 'react-router-dom';
 import { apiFetch } from '../api/client';
+import { createRelationship, deleteRelationship } from '../api/relationships';
 
 interface EntityRelationshipDetail {
   id?: string;
@@ -42,7 +43,10 @@ export const EntityPanel: React.FC<EntityPanelProps> = ({ entityId, onClose }) =
     setActiveChapter, 
     setActiveManuscript,
     manuscripts,
-    fetchManuscriptsForWorld
+    fetchManuscriptsForWorld,
+    fetchEntitiesForWorld,
+    relationshipRevision,
+    notifyRelationshipsChanged
   } = useWorldStore();
 
   const currentWorldId = worldId || activeWorldId;
@@ -57,6 +61,14 @@ export const EntityPanel: React.FC<EntityPanelProps> = ({ entityId, onClose }) =
     aliases?: string[];
   } | null>(null);
   const [loadingDetails, setLoadingDetails] = useState(false);
+  const [detailError, setDetailError] = useState<string | null>(null);
+  const [isAddingRelation, setIsAddingRelation] = useState(false);
+  const [relationTarget, setRelationTarget] = useState('');
+  const [relationType, setRelationType] = useState('KNOWS');
+  const [relationDirection, setRelationDirection] = useState<'outgoing' | 'incoming'>('outgoing');
+  const [relationChapterId, setRelationChapterId] = useState('');
+  const [relationBusy, setRelationBusy] = useState(false);
+  const [relationError, setRelationError] = useState<string | null>(null);
 
   const [factProperty, setFactProperty] = useState('');
   const [factValue, setFactValue] = useState('');
@@ -76,6 +88,7 @@ export const EntityPanel: React.FC<EntityPanelProps> = ({ entityId, onClose }) =
     if (!currentWorldId || !entityId) return;
     let isMounted = true;
     setLoadingDetails(true);
+    setDetailError(null);
 
     apiFetch<any>(`/worlds/${currentWorldId}/entities/${entityId}`)
       .then((res) => {
@@ -92,6 +105,7 @@ export const EntityPanel: React.FC<EntityPanelProps> = ({ entityId, onClose }) =
         console.error('Failed to load entity detail data:', err);
         if (!isMounted) return;
         setDetailData(null);
+        setDetailError('Could not load entity details. Please reopen the card to retry.');
       })
       .finally(() => {
         if (isMounted) setLoadingDetails(false);
@@ -100,7 +114,11 @@ export const EntityPanel: React.FC<EntityPanelProps> = ({ entityId, onClose }) =
     return () => {
       isMounted = false;
     };
-  }, [currentWorldId, entityId]);
+  }, [currentWorldId, entityId, relationshipRevision]);
+
+  useEffect(() => {
+    if (currentWorldId) fetchEntitiesForWorld(currentWorldId);
+  }, [currentWorldId, fetchEntitiesForWorld]);
 
   // Ensure manuscripts are loaded so navigation to chapters works smoothly
   useEffect(() => {
@@ -122,6 +140,43 @@ export const EntityPanel: React.FC<EntityPanelProps> = ({ entityId, onClose }) =
     relationships: detailData.relationships || [],
     appearances: []
   } : null);
+
+  const handleAddRelation = async (event: React.FormEvent) => {
+    event.preventDefault();
+    if (!currentWorldId || !relationTarget || !relationType.trim() || relationBusy) return;
+    setRelationBusy(true);
+    setRelationError(null);
+    try {
+      await createRelationship(currentWorldId, {
+        source_entity_id: relationDirection === 'outgoing' ? entityId : relationTarget,
+        target_entity_id: relationDirection === 'outgoing' ? relationTarget : entityId,
+        relationship_type: relationType.trim().toUpperCase().replace(/\s+/g, '_'),
+        chapter_id: relationChapterId || null,
+      });
+      notifyRelationshipsChanged();
+      setIsAddingRelation(false);
+      setRelationTarget('');
+    } catch (err) {
+      setRelationError(err instanceof Error ? err.message : 'Failed to create relationship.');
+    } finally {
+      setRelationBusy(false);
+    }
+  };
+
+  const handleRemoveRelation = async (id: string) => {
+    if (!currentWorldId || relationBusy) return;
+    if (!window.confirm('Delete this relationship and its historical versions?')) return;
+    setRelationBusy(true);
+    setRelationError(null);
+    try {
+      await deleteRelationship(currentWorldId, id);
+      notifyRelationshipsChanged();
+    } catch (err) {
+      setRelationError(err instanceof Error ? err.message : 'Failed to delete relationship.');
+    } finally {
+      setRelationBusy(false);
+    }
+  };
 
   if (!displayEntity && loadingDetails) {
     return (
@@ -328,6 +383,7 @@ export const EntityPanel: React.FC<EntityPanelProps> = ({ entityId, onClose }) =
           </button>
           <button 
             onClick={() => setActiveTab('relations')}
+            aria-label="Relations"
             className={`font-label-sm text-label-sm pb-2 px-1 flex items-center gap-1.5 transition-all border-b-2 ${activeTab === 'relations' ? 'border-primary text-primary' : 'border-transparent text-on-surface-variant hover:text-primary-fixed-dim'}`}
           >
             <span className="material-symbols-outlined text-sm font-light">share</span> Relations
@@ -607,6 +663,37 @@ export const EntityPanel: React.FC<EntityPanelProps> = ({ entityId, onClose }) =
 
         {activeTab === 'relations' && (
           <div className="space-y-4">
+            <button onClick={() => { setIsAddingRelation(!isAddingRelation); setRelationError(null); }} className="w-full px-3 py-2 rounded-lg border border-primary/30 text-primary text-xs hover:bg-primary/10">
+              {isAddingRelation ? 'Cancel' : 'Add Relationship'}
+            </button>
+            {isAddingRelation && (
+              <form onSubmit={handleAddRelation} className="space-y-3 p-4 rounded-xl border border-primary/20 bg-surface-container-lowest">
+                <label className="block text-xs text-on-surface-variant">Direction
+                  <select aria-label="Relationship direction" value={relationDirection} onChange={e => setRelationDirection(e.target.value as typeof relationDirection)} className="block w-full mt-1 p-2 rounded bg-surface-container-high text-starlight-white">
+                    <option value="outgoing">This entity → Other entity</option>
+                    <option value="incoming">Other entity → This entity</option>
+                  </select>
+                </label>
+                <label className="block text-xs text-on-surface-variant">Other entity
+                  <select required aria-label="Related entity" value={relationTarget} onChange={e => setRelationTarget(e.target.value)} className="block w-full mt-1 p-2 rounded bg-surface-container-high text-starlight-white">
+                    <option value="">Select entity...</option>
+                    {entities.filter(item => item.id !== entityId).map(item => <option key={item.id} value={item.id}>{item.name} ({item.type})</option>)}
+                  </select>
+                </label>
+                <label className="block text-xs text-on-surface-variant">Relationship type
+                  <input required maxLength={100} aria-label="Relationship type" list="entity-relation-types" value={relationType} onChange={e => setRelationType(e.target.value)} placeholder="e.g. MENTOR_OF" className="block w-full mt-1 p-2 rounded bg-surface-container-high text-starlight-white" />
+                  <datalist id="entity-relation-types">{['KNOWS', 'ALLY_OF', 'ENEMY_OF', 'FRIEND_OF', 'LIVES_AT', 'MEMBER_OF', 'RELATED_TO'].map(type => <option key={type} value={type} />)}</datalist>
+                </label>
+                <label className="block text-xs text-on-surface-variant">Effective chapter
+                  <select aria-label="Relationship chapter" value={relationChapterId} onChange={e => setRelationChapterId(e.target.value)} className="block w-full mt-1 p-2 rounded bg-surface-container-high text-starlight-white">
+                    <option value="">Universal</option>
+                    {manuscripts.flatMap(item => item.chapters.map(ch => <option key={ch.id} value={ch.id}>{item.title} · Chapter {ch.number}: {ch.title}</option>))}
+                  </select>
+                </label>
+                <button disabled={relationBusy || !relationTarget || !relationType.trim()} className="px-4 py-2 rounded bg-primary text-void-black text-xs disabled:opacity-50">{relationBusy ? 'Saving...' : 'Create Relationship'}</button>
+              </form>
+            )}
+            {(relationError || detailError) && <p role="alert" className="text-xs text-error">{relationError || detailError}</p>}
             <div className="flex items-center justify-between border-b border-starlight-white/5 pb-2">
               <p className="font-label-sm text-label-sm text-copper-glow uppercase tracking-wider flex items-center gap-2">
                 <span className="material-symbols-outlined text-sm font-light">hub</span>
@@ -697,9 +784,13 @@ export const EntityPanel: React.FC<EntityPanelProps> = ({ entityId, onClose }) =
                         </div>
                       </div>
 
-                      <span className="material-symbols-outlined text-sm text-on-surface-variant/40 group-hover:text-primary group-hover:translate-x-1 transition-all shrink-0">
-                        chevron_right
-                      </span>
+                      <button
+                        aria-label={`Delete relationship with ${rel.targetName}`}
+                        title="Delete relationship"
+                        disabled={relationBusy || loadingDetails || !rel.id || rel.id.startsWith('rel-')}
+                        onClick={event => { event.stopPropagation(); if (rel.id) handleRemoveRelation(rel.id); }}
+                        className="p-2 text-on-surface-variant/60 hover:text-error disabled:opacity-30"
+                      ><span className="material-symbols-outlined text-base">delete</span></button>
                     </div>
                   );
                 })}

@@ -6,6 +6,7 @@ import { apiFetch } from '../api/client';
 import { getProposals } from '../api/proposals';
 import type { ProposalsResponse } from '../api/proposals';
 import { ProposalReviewModal } from '../components/ProposalReviewModal';
+import { ChapterSelectionActions } from '../components/ChapterSelectionActions';
 
 export const WritingRoom: React.FC = () => {
   const navigate = useNavigate();
@@ -80,6 +81,7 @@ export const WritingRoom: React.FC = () => {
   }, [linkedChapterId, activeChapter?.id, activeChapter?.content]);
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const readingRef = useRef<HTMLDivElement>(null);
 
   const adjustTextareaHeight = () => {
     const el = textareaRef.current;
@@ -296,6 +298,7 @@ export const WritingRoom: React.FC = () => {
                 title={`${matchedEntity.type.toUpperCase()}: Click to view profile`}
                 onClick={(e) => {
                   e.stopPropagation();
+                  if (window.getSelection()?.toString().trim()) return;
                   setActiveEntity(matchedEntity.id);
                 }}
               >
@@ -427,6 +430,7 @@ export const WritingRoom: React.FC = () => {
           </div>
 
           {/* Reading/Editing Area */}
+          {currentWorldId && activeChapter && <ChapterSelectionActions key={`${currentWorldId}:${activeChapter.id}`} worldId={currentWorldId} chapterId={activeChapter.id} readingRef={readingRef} textareaRef={textareaRef} isEditing={isEditing} />}
           <div className="flex-1 overflow-y-auto px-8 md:px-24 py-16">
             <article className="max-w-3xl mx-auto pb-48">
               
@@ -455,6 +459,7 @@ export const WritingRoom: React.FC = () => {
                 />
               ) : (
                 <div 
+                  ref={readingRef}
                   className="prose prose-invert prose-lg font-body-lg text-body-lg text-on-surface-variant leading-relaxed space-y-8 select-text"
                   style={{ fontFamily: 'Source Serif 4, serif', fontSize: '18px', lineHeight: '28px' }}
                 >

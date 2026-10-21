@@ -26,10 +26,12 @@ export const WorldHome: React.FC = () => {
   }, [worldId, fetchEntitiesForWorld, fetchContradictionsForWorld]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalType, setModalType] = useState<'character' | 'location' | 'object' | 'event'>('character');
+  const [modalType, setModalType] = useState<'character' | 'location' | 'object'>('character');
   const [entityName, setEntityName] = useState('');
   const [entitySubtype, setEntitySubtype] = useState('');
   const [entityDesc, setEntityDesc] = useState('');
+  const [isCreating, setIsCreating] = useState(false);
+  const [createError, setCreateError] = useState<string | null>(null);
 
   // Activity logs: this session's actions only (the backend keeps no activity log)
   const [activityLogs, setActivityLogs] = useState<LogItem[]>([]);
@@ -39,31 +41,40 @@ export const WorldHome: React.FC = () => {
     setEntityName('');
     setEntitySubtype('');
     setEntityDesc('');
+    setCreateError(null);
     setIsModalOpen(true);
   };
 
-  const handleForgeEntity = (e: React.FormEvent) => {
+  const handleForgeEntity = async (e: React.FormEvent) => {
     e.preventDefault();
     if (entityName.trim() && entityDesc.trim()) {
-      addEntity({
-        id: `entity-${Date.now()}`,
-        name: entityName.trim(),
-        type: modalType,
-        subtype: entitySubtype.trim() || undefined,
-        description: entityDesc.trim()
-      });
+      setIsCreating(true);
+      setCreateError(null);
+      try {
+        await addEntity({
+          id: `entity-${Date.now()}`,
+          name: entityName.trim(),
+          type: modalType,
+          subtype: entitySubtype.trim() || undefined,
+          description: entityDesc.trim()
+        });
 
-      // Add to activity log
-      const newLog: LogItem = {
-        id: `act-${Date.now()}`,
-        type: 'create',
-        title: `${modalType.charAt(0).toUpperCase() + modalType.slice(1)} Forged`,
-        detail: entityName.trim(),
-        time: 'Just now'
-      };
-      setActivityLogs((prev) => [newLog, ...prev]);
+        // Add to activity log after the API confirms the write.
+        const newLog: LogItem = {
+          id: `act-${Date.now()}`,
+          type: 'create',
+          title: `${modalType.charAt(0).toUpperCase() + modalType.slice(1)} Forged`,
+          detail: entityName.trim(),
+          time: 'Just now'
+        };
+        setActivityLogs((prev) => [newLog, ...prev]);
 
-      setIsModalOpen(false);
+        setIsModalOpen(false);
+      } catch (err) {
+        setCreateError(err instanceof Error ? err.message : 'Failed to create entity.');
+      } finally {
+        setIsCreating(false);
+      }
     }
   };
 
@@ -190,11 +201,11 @@ export const WorldHome: React.FC = () => {
                     <span className="font-label-sm text-xs font-semibold uppercase tracking-wider">Object</span>
                   </button>
                   <button 
-                    onClick={() => handleOpenModal('event')}
+                    onClick={() => navigate(`/worlds/${worldId}/timeline`)}
                     className="flex flex-col items-center justify-center p-4 rounded-lg border border-primary/20 bg-surface-container-lowest hover:bg-primary hover:text-void-black text-primary transition-all duration-300 group focus:outline-none focus:ring-1 focus:ring-primary"
                   >
                     <span className="material-symbols-outlined mb-2 group-hover:text-void-black text-2xl font-light">event_note</span>
-                    <span className="font-label-sm text-xs font-semibold uppercase tracking-wider">Event</span>
+                    <span className="font-label-sm text-xs font-semibold uppercase tracking-wider">Timeline</span>
                   </button>
                 </div>
               </div>
@@ -259,6 +270,7 @@ export const WorldHome: React.FC = () => {
                 <input 
                   type="text"
                   required
+                  maxLength={255}
                   value={entityName}
                   onChange={(e) => setEntityName(e.target.value)}
                   placeholder={`e.g. ${modalType === 'character' ? 'Valerius Thorne' : modalType === 'location' ? 'The Iron Valley' : 'Aetheric compass'}`}
@@ -289,6 +301,7 @@ export const WorldHome: React.FC = () => {
                 />
               </div>
 
+              {createError && <p role="alert" className="text-sm text-error">{createError}</p>}
               <div className="flex justify-end gap-3 pt-4 border-t border-starlight-white/5">
                 <button 
                   type="button"
@@ -299,9 +312,10 @@ export const WorldHome: React.FC = () => {
                 </button>
                 <button 
                   type="submit"
+                  disabled={isCreating}
                   className="px-6 py-2 bg-primary hover:bg-copper-glow text-void-black font-label-sm text-xs uppercase tracking-widest font-semibold rounded shadow-lg hover:shadow-primary/10 transition-all"
                 >
-                  Forge Entity
+                  {isCreating ? 'Creating...' : 'Forge Entity'}
                 </button>
               </div>
             </form>
